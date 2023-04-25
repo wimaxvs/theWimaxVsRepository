@@ -1,0 +1,74 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "mongodb"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id           String   @id @default(auto()) @map("_id") @db.ObjectId 
+  firstname    String?
+  lastname     String?
+  username     String?   @unique
+  email        String?   @unique
+  telephone    String?   @unique
+  password     String
+  picture      String?
+  dob          DateTime? @default(now())
+  location     String?
+  bio          String   @default("Hi, I'm looking to find employment in your firm!")
+  isPaid       Boolean  @default(false)
+  verified     Boolean  @default(false)
+  refreshToken String?
+  createdAt    DateTime @default(now()) @map("createdAt") 
+  updatedAt    DateTime @default(now()) @map("updatedAt")
+
+  userCVs     CV[]
+}
+
+model CV {
+  id        String   @id @default(auto()) @map("_id") @db.ObjectId
+  cvName    String?
+  isDeleted Boolean  @default(false)
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  userId String @db.ObjectId
+  user   User   @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  sections Section[]
+}
+
+model Section {
+  id        String   @id @default(auto()) @map("_id") @db.ObjectId
+  title     String   @db.String
+  order     Int      @db.Int
+  isDeleted Boolean  @default(false)
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  cvId String @db.ObjectId
+  cv   CV     @relation(fields: [cvId], references: [id], onDelete: Cascade)
+
+  subSections SubSection[]
+}
+
+model SubSection {
+  id        String   @id @default(auto()) @map("_id") @db.ObjectId
+  title     String   @db.String
+  order     Int      @db.Int
+  content   String[] @db.String
+  dateFrom  DateTime
+  dateTo    DateTime
+  isDeleted Boolean  @default(false)
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  sectionId String  @db.ObjectId
+  section   Section @relation(fields: [sectionId], references: [id], onDelete: Cascade)
+}
