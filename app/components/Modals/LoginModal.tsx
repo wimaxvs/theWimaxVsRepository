@@ -2,7 +2,7 @@
 
 import { useCallback, useState } from "react";
 import { toast } from "react-hot-toast";
-// import { signIn } from "next-auth/react";
+import { SignInResponse, signIn } from "next-auth/react";
 import { FieldValues, SubmitHandler, useForm } from "react-hook-form";
 import { FcGoogle } from "react-icons/fc";
 import { useRouter } from "next/navigation";
@@ -35,22 +35,22 @@ const LoginModal = () => {
   const onSubmit: SubmitHandler<FieldValues> = (data) => {
     setIsLoading(true);
 
-    // signIn("credentials", {
-    //   ...data,
-    //   redirect: false,
-    // }).then((callback: {ok?: string, error?: string}) => {
-    //   setIsLoading(false);
+    signIn("credentials", {
+      ...data,
+      redirect: false,
+    }).then((callback: SignInResponse | undefined) => {
+      setIsLoading(false);
 
-    //   if (callback?.ok) {
-    //     toast.success("Logged in");
-    //     router.refresh();
-    //     loginModal.onClose();
-    //   }
+      if (callback?.ok) {
+        toast.success("Logged in");
+        router.refresh();
+        loginModal.onClose();
+      }
 
-    //   if (callback?.error) {
-    //     toast.error(callback.error);
-    //   }
-    // });
+      if (callback?.error) {
+        toast.error(callback.error);
+      }
+    });
   };
 
   const onToggle = useCallback(() => {
