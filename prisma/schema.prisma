@@ -12,23 +12,44 @@ datasource db {
 
 model User {
   id           String   @id @default(auto()) @map("_id") @db.ObjectId 
+  name    String?
   firstname    String?
   lastname     String?
-  username     String?   @unique
   email        String?   @unique
-  telephone    String?   @unique
-  password     String
-  picture      String?
+  telephone    String?
+  password     String?
+  image      String?
   dob          DateTime? @default(now())
   location     String?
   bio          String   @default("Hi, I'm looking to find employment in your firm!")
   isPaid       Boolean  @default(false)
-  verified     Boolean  @default(false)
+  emailVerified     DateTime?
   refreshToken String?
   createdAt    DateTime @default(now()) @map("createdAt") 
   updatedAt    DateTime @default(now()) @map("updatedAt")
 
   userCVs     CV[]
+  accounts    Account[]
+
+}
+
+model Account {
+  id String @id @default(auto()) @map("_id") @db.ObjectId
+  userId             String   @db.ObjectId
+  type               String
+  provider           String
+  providerAccountId  String
+  refresh_token      String?  @db.String
+  access_token       String?  @db.String
+  expires_at         Int?
+  token_type         String?
+  scope              String?
+  id_token           String?  @db.String
+  session_state      String?
+
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@unique([provider, providerAccountId])
 }
 
 model CV {

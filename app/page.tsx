@@ -1,3 +1,8 @@
+
 export default function Home() {
-  return <div className="text-rose-500 text-2xl "> Hello Me-CV. </div>;
+  return (
+    <>
+      <div className="mt-20 fixed bg-blue-purple text-white w-screen">Hello from Me-cv</div>
+    </>
+  );
 }

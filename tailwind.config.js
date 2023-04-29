@@ -16,6 +16,10 @@ module.exports = {
         'light-purple': '#c592bb',
         'blue-purple': '#492a68'
       },
+      dropShadow: {
+        'mdsb':'0 5px 5px rgba(255, 255, 255, 0.25)',
+        'mdtm':'0 5px 5px rgba(0, 0, 0, 0.25)',
+      }
     },
   },
   plugins: [],

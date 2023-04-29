@@ -43,7 +43,8 @@ const LoginModal = () => {
 
       if (callback?.ok) {
         toast.success("Logged in");
-        router.refresh();
+        router.refresh()
+        router.push('/dash');
         loginModal.onClose();
       }
 
@@ -88,7 +89,7 @@ const LoginModal = () => {
         outline
         label="Continue with Google"
         icon={FcGoogle}
-        onClick={() => {}}
+        onClick={() => signIn('google', {callbackUrl: '/dash'})}
       />
       <div
         className="
