@@ -8,6 +8,7 @@ interface ButtonProps {
   outline?: boolean;
   small?: boolean;
   icon?: IconType;
+  sx?: string
 }
 
 const Button: React.FC<ButtonProps> = ({
@@ -17,12 +18,21 @@ const Button: React.FC<ButtonProps> = ({
   outline,
   small,
   icon: Icon,
+  sx
 }) => {
   return (
     <button
       onClick={onClick}
       disabled={disabled}
-      className={`relative disabled:opacity-70 disabled:cursor-not-allowed rounded-lg hover:opacity-80 transition w-full 
+      //make sure index of "w-" attribute is str.length-1
+      className={`relative disabled:opacity-70 disabled:cursor-not-allowed rounded-lg hover:opacity-80 transition 
+      ${
+        !sx
+          ? `w-full`
+          : sx?.indexOf("w-") !== -1
+          ? `${sx}`
+          : `${sx.slice(0, sx.indexOf("w-"))} w-full`
+      } 
       ${outline ? "bg-white" : "bg-velvet-blue"} 
       ${outline ? "border-black" : "border-velvet-blue"} 
       ${outline ? "text-black" : "text-white"}

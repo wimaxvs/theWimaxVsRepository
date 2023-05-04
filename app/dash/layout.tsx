@@ -3,6 +3,10 @@ import getCurrentUser from "../actions/getCurrentUser";
 import Link from "next/link";
 import { Inter } from "next/font/google";
 
+interface DashlayoutProps{
+  children: React.ReactNode
+}
+
 export const metadata = {
   title: "Me-CV: Dashboard",
   description: "Create a new CV, view your previous CVs or See CV templates",
@@ -12,13 +16,16 @@ const font = Inter({
   subsets: ["latin"],
 });
 
-export default async function Dash() {
+export default async function Dash({children}:DashlayoutProps){
   const currentUser = await getCurrentUser();
 
   if (currentUser) {
     return (
       <>
-        <Sidebar />
+        <div className="dashLayoutContainer h-full w-full bg-off-white/30 mt-20 flex flex-row absolute ">
+          <Sidebar />
+          {children}
+        </div>
       </>
     );
   } else {
@@ -43,3 +50,5 @@ export default async function Dash() {
     );
   }
 }
+
+

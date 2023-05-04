@@ -7,7 +7,6 @@ import RegisterModal from "./components/Modals/RegisterModal";
 import LoginModal from "./components/Modals/LoginModal";
 import ToasterProvider from "./providers/ToasterProvider";
 import getCurrentUser from "./actions/getCurrentUser";
-import { ReduxProvider } from "./GlobalRedux/Provider";
 
 export const metadata = {
   title: "Me-CV: Digitized resumes",
@@ -27,16 +26,14 @@ export default async function RootLayout({
   const currentUser = await getCurrentUser();
   return (
     <html lang="en">
-      <body className={font.className}>
+      <body className={`${font.className} overflow-y-hidden`}>
         <ClientOnly>
           <ToasterProvider />
           <LoginModal />
           <RegisterModal />
           <Navbar currentUser={currentUser} />
         </ClientOnly>
-        <ReduxProvider>
-          {children}
-        </ReduxProvider>
+        {children}
       </body>
     </html>
   );

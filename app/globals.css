@@ -1,4 +1,29 @@
 @tailwind base;
+* {
+  scrollbar-width: thin;
+  scrollbar-color: rgba(73, 42, 104, 0.1) var(--primary);
+}
+
+/* Chrome, Edge, and Safari */
+*::-webkit-scrollbar {
+  width: 5px;
+}
+
+*::-webkit-scrollbar-track {
+  background: var(--primary);
+  border-radius: 5px;
+}
+
+*::-webkit-scrollbar-thumb {
+  background-color: rgba(73, 42, 104, 0.1);
+  border-radius: 14px;
+  transition: all 500ms ease;
+}
+
+*::-webkit-scrollbar-thumb:hover {
+  background-color: rgba(73, 42, 104, 0.2);
+}
+
 @tailwind components;
 @tailwind utilities;
 
@@ -6,4 +31,11 @@ html,
 body,
 :root {
   height: 100%;
+  --actual-white: #eff8ff;
+  --navy-blue: #161f64;
+  --deep-blue: #343e83;
+  --velvet-blue: #4283ad;
+  --off-white: #efe0e3;
+  --light-purple: #c592bb;
+  --blue-purple: rgb(73, 42, 104);
 }

@@ -12,11 +12,14 @@ const MenuItem: React.FC<MenuItemProps> = ({ onClick, label, icon }) => {
   return (
     <button
       className={
-        "flex flex-col items-center justify-center hover:scale-110 hover:drop-shadow-mdsb transition"
+        "ease-in flex flex-col items-center justify-center hover:scale-110 hover:bg-white/20 hover:p-1.5 hover:rounded-md hover:drop-shadow-mdsb transition"
       }
+      onClick={onClick}
     >
       {icon}
-      <div onClick={onClick} className="pt-1 text-xs text-white font-semibold">
+      <div
+        className="pt-1 text-xs text-white font-semibold"
+      >
         {label}
       </div>
     </button>
