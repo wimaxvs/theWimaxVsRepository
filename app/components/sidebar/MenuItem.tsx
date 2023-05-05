@@ -1,27 +1,49 @@
 "use client";
 
-import { ReactElement } from "react";
+import { usePathname, useRouter } from "next/navigation";
+import { ReactElement, useCallback } from "react";
 import { IconType } from "react-icons";
 
 interface MenuItemProps {
-  onClick: () => void | undefined;
   label: string;
   icon: ReactElement<IconType>;
+  yerl?: string;
+  selected?: boolean
 }
-const MenuItem: React.FC<MenuItemProps> = ({ onClick, label, icon }) => {
+const MenuItem: React.FC<MenuItemProps> = ({ label, icon, yerl, selected }) => {
+  const pathname = usePathname();
+  const router = useRouter();
+
+
+  const toggleYerl = useCallback(() => {
+    const rootYerl = "/dash";
+    const yerlPresent = pathname?.indexOf(`${yerl}`) !== -1;
+    const isAtDash = pathname === rootYerl;
+    if (!yerlPresent && isAtDash) {
+      router.push(`${pathname}/${yerl}`);
+    } else if (
+      pathname &&
+      yerl &&
+      pathname.indexOf(`${yerl}`) === pathname.length - yerl.length
+    ) {
+      router.push(`${pathname?.slice(0, -yerl!.length)}`);
+    } else {
+      router.push(`${rootYerl}/${yerl}`);
+    }
+    return;
+  }, [pathname, yerl]);
+
   return (
     <button
-      className={
-        "ease-in flex flex-col items-center justify-center hover:scale-110 hover:bg-white/20 hover:p-1.5 hover:rounded-md hover:drop-shadow-mdsb transition"
-      }
-      onClick={onClick}
+      onClick={toggleYerl}
+      className={`ease-in flex flex-col items-center justify-center hover:scale-110 hover:bg-white/20 hover:p-1.5 hover:rounded-md hover:drop-shadow-mdsb transition ${
+        selected
+          ? "border-b-2 border-b-white-800  p-1.5 transition ease-in duration-300 scale-110"
+          : ""
+      }`}
     >
       {icon}
-      <div
-        className="pt-1 text-xs text-white font-semibold"
-      >
-        {label}
-      </div>
+      <div className="pt-1 text-xs text-white font-semibold">{label}</div>
     </button>
   );
 };

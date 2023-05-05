@@ -1,4 +1,5 @@
 import ClientOnly from "@/app/components/ClientOnly";
+import AddSubSectionModal from "@/app/components/sideshelves/sectionSideshelf/modal/AddSubSectionModal";
 import SectionContainer from "@/app/components/sideshelves/sectionSideshelf/SectionContainer";
 import { Inter } from "next/font/google";
 
@@ -27,6 +28,7 @@ export default async function Sections({ children }: SectionsLayoutProps) {
         <p className="font-bold text-md text-deep-blue/70">Add a section:</p>
         <div>
           <ClientOnly>
+            <AddSubSectionModal />
             <SectionContainer />
           </ClientOnly>
         </div>

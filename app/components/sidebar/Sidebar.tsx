@@ -1,46 +1,36 @@
 "use client";
-import React, { ReactElement, useEffect, useState } from "react";
+import React, { ReactElement, useState } from "react";
 import MenuItem from "./MenuItem";
 import { IconType } from "react-icons";
-import {
-  HiOutlineDocumentDuplicate,
-  HiOutlineTemplate,
-} from "react-icons/hi";
+import { HiOutlineDocumentDuplicate, HiOutlineTemplate } from "react-icons/hi";
 import { AiOutlinePlus } from "react-icons/ai";
-import { usePathname, useRouter } from "next/navigation";
+import { usePathname } from "next/navigation";
 
 const Sidebar = () => {
-  const router = useRouter()
-  const pathname = usePathname();
-  
-  useEffect(() => { console.log(pathname) }, [])
 
+  const pathname = usePathname()
 
   const [menuIcons, setMenuIcons] = useState<
     {
-      onClick: () => void;
       label: string;
       icon: ReactElement<IconType>;
+      yerl: string;
     }[]
   >([
     {
-      onClick: () => router.push(`${pathname}/create`),
       label: "Create",
       icon: <AiOutlinePlus size={26} color={"white"} />,
+      yerl: `/create`,
     },
     {
-      onClick: () => {
-        return;
-      },
       label: "My CVs",
       icon: <HiOutlineDocumentDuplicate size={26} color={"white"} />,
+      yerl: `/mycvs`,
     },
     {
-      onClick: () => {
-        return;
-      },
       label: "Templates",
       icon: <HiOutlineTemplate size={26} color={"white"} />,
+      yerl: `/templates`,
     },
   ]);
   return (
@@ -51,12 +41,7 @@ const Sidebar = () => {
     >
       {menuIcons.map((item, index) => {
         return (
-          <MenuItem
-            key={index}
-            onClick={item.onClick}
-            label={item.label}
-            icon={item.icon}
-          />
+          <MenuItem key={index} label={item.label} icon={item.icon} yerl={item.yerl} selected={pathname?.includes(item.yerl)} />
         );
       })}
     </aside>

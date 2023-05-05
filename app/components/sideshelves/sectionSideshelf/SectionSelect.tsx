@@ -1,3 +1,4 @@
+import { ReactElement } from "react";
 import { IconType } from "react-icons/lib";
 import SectionChip from "./SectionChip";
 import { FaGraduationCap } from "react-icons/fa";
@@ -5,52 +6,43 @@ import { BiPaint, BiCertification } from "react-icons/bi";
 import { MdOutlineSummarize, MdOutlineWork, MdLanguage } from "react-icons/md";
 import { BsBuildingGear, BsAward } from "react-icons/bs";
 
-
 const SectionSelect = () => {
   const buttonProps: {
-    color: string;
+    color?: string;
     label: string;
-    icon: IconType;
+    icon: ReactElement<IconType>;
   }[] = [
     {
       label: "Education",
-      color: "",
-      icon: FaGraduationCap,
+      icon: <FaGraduationCap size={18} color={"#343e83"}/>,
     },
     {
       label: "Work Experience",
-      color: "",
-      icon: MdOutlineWork,
+      icon: <MdOutlineWork size={18} color={"#343e83"}/>,
     },
     {
       label: "Skills",
-      color: "",
-      icon: BsBuildingGear,
+      icon: <BsBuildingGear size={18} color={"#343e83"}/>,
     },
     {
       label: "Summary",
-      color: "",
-      icon: MdOutlineSummarize,
+      icon: <MdOutlineSummarize size={18} color={"#343e83"}/>,
     },
     {
       label: "Hobbies",
-      color: "",
-      icon: BiPaint,
+      icon: <BiPaint size={18} color={"#343e83"}/>,
     },
     {
       label: "Certifications",
-      color: "",
-      icon: BiCertification,
+      icon: <BiCertification size={18} color={"#343e83"}/>,
     },
     {
       label: "Languages",
-      color: "",
-      icon: MdLanguage,
+      icon: <MdLanguage size={18} color={"#343e83"}/>,
     },
     {
       label: "Awards",
-      color: "",
-      icon: BsAward,
+      icon: <BsAward size={18} color={"#343e83"}/>,
     },
   ];
 
@@ -67,7 +59,6 @@ const SectionSelect = () => {
             <div className="" key={index}>
               <SectionChip
                 label={prop.label}
-                color={prop.color}
                 icon={prop.icon}
               />
             </div>
