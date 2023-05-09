@@ -36,9 +36,9 @@ const MenuItem: React.FC<MenuItemProps> = ({ label, icon, yerl, selected }) => {
   return (
     <button
       onClick={toggleYerl}
-      className={`ease-in flex flex-col items-center justify-center h-h/6 md:w-5/6 hover:scale-110 hover:bg-white/20 hover:p-1.5 hover:rounded-md hover:drop-shadow-mdsb transition ${
+      className={`ease-in flex flex-col items-center justify-center md:w-5/6 hover:scale-110 hover:bg-white/20 hover:p-1.5 hover:rounded-md hover:drop-shadow-mdsb transition ${
         selected
-          ? "border-l-4 border-l-white-800  p-1.5 transition ease-in duration-300 scale-110"
+          ? "border-b-4 border-b-white-800 md:border-b-0 md:border-l-4 md:border-l-white-800  p-1.5 transition ease-in duration-300 scale-110"
           : ""
       }`}
     >
