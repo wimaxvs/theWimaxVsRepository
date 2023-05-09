@@ -3,80 +3,55 @@
 import { useCallback, useState } from "react";
 import { toast } from "react-hot-toast";
 import { FieldValues, SubmitHandler, useForm } from "react-hook-form";
-import { FcGoogle } from "react-icons/fc";
 import useSubSectionModal from "@/app/hooks/useSubSectionModal";
 
 import Modal from "@/app/components/Modals/Modal";
-import Input from "../../../Inputs/Input";
+import SubSectionContainer from "../sideshelves/sectionSideshelf/SubSectionInputContainer";
 import Heading from "@/app/components/Heading";
-import Button from "../../../Button";
+import useCurrentSection from "@/app/hooks/useCurrentSection";
 
 const AddSubSectionModal = () => {
   const subSectionModal = useSubSectionModal();
+  const [currentSection] = useCurrentSection((state) => [state.currentSection]);
   const [isLoading, setIsLoading] = useState(false);
 
-  const {
-    register,
-    handleSubmit,
-    formState: { errors },
-  } = useForm<FieldValues>({
-    defaultValues: {
-      email: "",
-      password: "",
-    },
-  });
 
-  const onSubmit: SubmitHandler<FieldValues> = (data) => {
-    setIsLoading(true);
 
-    
-    
+  const onSubmit= () => {
+    console.log("submit button hit")
+    setIsLoading(false);
   };
 
-  const onToggle = useCallback(() => {
-    subSectionModal.onClose();
-  }, [subSectionModal]);
+  const onDiscard= useCallback(() => {
+    console.log("Discard button hit")
+    subSectionModal.onClose()
+    setIsLoading(false);
+  },[])
+
+
+  
 
   const bodyContent = (
     <div className="flex flex-col gap-4">
-      <Heading title="Fill In Your Section" subtitle="Login to your account!" />
-      <Input
-        id="email"
-        label="Email"
-        disabled={isLoading}
-        register={register}
-        errors={errors}
-        required
+      <Heading
+        title="Fill Out Your Section"
+        subtitle={`Add subsegments to the ${currentSection} section`}
       />
-      <Input
-        id="password"
-        label="Password"
-        type="password"
-        disabled={isLoading}
-        register={register}
-        errors={errors}
-        required
-      />
+      <SubSectionContainer />
     </div>
   );
 
   const footerContent = (
     <div className="flex flex-col gap-4 mt-3">
       <hr />
-      <Button
-        outline
-        label="Continue with Google"
-        icon={FcGoogle}
-        onClick={() => {}}
-      />
       <div
         className="
       text-neutral-500 text-center mt-4 font-light"
       >
         <p>
-          First time using Me-CV?
+          In essence:
           <span
-            onClick={onToggle}
+            onClick={() => { }}
             className="
               text-neutral-800
               cursor-pointer 
@@ -84,7 +59,7 @@ const AddSubSectionModal = () => {
             "
           >
             {" "}
-            Create an account
+            The subsegments are pieces of your {currentSection} section pie. 🍰
           </span>
         </p>
       </div>
@@ -95,10 +70,12 @@ const AddSubSectionModal = () => {
     <Modal
       disabled={isLoading}
       isOpen={subSectionModal.isOpen}
-      title="Login"
+      title={currentSection}
       actionLabel="Continue"
+      secondaryAction={onDiscard}
+      secondaryActionLabel="Discard"
       onClose={subSectionModal.onClose}
-      onSubmit={handleSubmit(onSubmit)}
+      onSubmit={onSubmit}
       body={bodyContent}
       footer={footerContent}
     />

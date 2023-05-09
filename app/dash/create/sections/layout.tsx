@@ -1,5 +1,5 @@
 import ClientOnly from "@/app/components/ClientOnly";
-import AddSubSectionModal from "@/app/components/sideshelves/sectionSideshelf/modal/AddSubSectionModal";
+import AddSubSectionModal from "@/app/components/Modals/AddSubSectionModal";
 import SectionContainer from "@/app/components/sideshelves/sectionSideshelf/SectionContainer";
 import { Inter } from "next/font/google";
 
@@ -21,7 +21,7 @@ export default async function Sections({ children }: SectionsLayoutProps) {
   return (
     <>
       <section
-        className={`sectionsLayout ${font.className} z-10 md:mt-4 pb-4 w-5/6 md:w-[300px] overflow-y-auto h-5/6 flex flex-col items-center rounded-xl`}
+        className={`sectionsLayout ${font.className} bg-light-purple/20 z-10 md:mt-4 pb-4 w-5/6 md:w-[300px] overflow-y-auto h-5/6 flex flex-col items-center rounded-xl`}
       >
         <p className="font-bold text-lg text-deep-blue mt-2">CV Sections</p>
 
@@ -33,7 +33,7 @@ export default async function Sections({ children }: SectionsLayoutProps) {
           </ClientOnly>
         </div>
       </section>
-      {children}    
+      {children}
     </>
   );
 }

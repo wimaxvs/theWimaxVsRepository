@@ -1,5 +1,5 @@
 "use client";
-import Input from "./Input";
+import Input from "@/app/components/Inputs/Input";
 import ImageAddition from "@/app/components/sideshelves/cvsideshelfinputs/ImageAddition";
 import useCvEssentials from "@/app/hooks/useCvEssentials";
 
@@ -7,9 +7,40 @@ import React, { useState } from "react";
 import { FieldValues, useForm, SubmitHandler } from "react-hook-form";
 import Button from "../../Button";
 
+interface IIALprops {
+  id: string;
+  label: string;
+}
+
 const EssentialInputsContainer = () => {
-  const [isLoading, setIsLoading] = useState(false);
+  const [isLoading, setIsLoading] = useState<boolean>(false);
   const essentials = useCvEssentials();
+  const [inputIdsAndLabels, setInputIdsAndLabels] = useState<IIALprops[]>([
+    {
+      id: "firstName",
+      label: "First Name"
+    },
+    {
+      id: "lastName",
+      label: "Last Name"
+    },
+    {
+      id: "email",
+      label: "eMail"
+    },
+    {
+      id: "telephone",
+      label: "Telephone"
+    },
+    {
+      id: "dob",
+      label: "Date Of Birth"
+    },
+    {
+      id: "location",
+      label: "Location"
+    },
+  ]);
 
   const {
     register,
@@ -55,44 +86,19 @@ const EssentialInputsContainer = () => {
             Who are you?
           </p>
           <div className="SpaceForInputs gap-2 mt-2 mb-8 relative flex flex-col items-center">
-            <Input
-              id="firstName"
-              label="First Name"
-              register={register}
-              errors={errors}
-            />
-            <Input
-              id="lastName"
-              label="Last Name"
-              register={register}
-              errors={errors}
-            />
-            <Input
-              id="email"
-              label="eMail"
-              register={register}
-              errors={errors}
-            />
-            <Input
-              id="telephone"
-              label="Telephone"
-              register={register}
-              errors={errors}
-              type={"phone"}
-            />
-            <Input
-              id="dob"
-              label="Date Of Birth"
-              register={register}
-              errors={errors}
-              type={"date"}
-            />
-            <Input
-              id="location"
-              label="Location"
-              register={register}
-              errors={errors}
-            />
+            {inputIdsAndLabels.map((space, index) => {
+              return (
+                <Input
+                  key={index}
+                  isBioData
+                  id={space.id}
+                  label={space.label}
+                  register={register}
+                  errors={errors}
+                  type={space.id === "dob"? "date": ""}
+                />
+              );
+            })}
             <Button
               label={"Save and Continue"}
               disabled={false}

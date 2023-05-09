@@ -8,6 +8,7 @@ interface ButtonProps {
   outline?: boolean;
   small?: boolean;
   icon?: IconType;
+  iconColor?: string
   sx?: string
 }
 
@@ -18,6 +19,7 @@ const Button: React.FC<ButtonProps> = ({
   outline,
   small,
   icon: Icon,
+  iconColor,
   sx
 }) => {
   return (
@@ -33,6 +35,7 @@ const Button: React.FC<ButtonProps> = ({
           ? `${sx}`
           : `${sx.slice(0, sx.indexOf("w-"))} w-full`
       } 
+      ${Icon ? "flex flex-row gap justify-around" : ""} 
       ${outline ? "bg-white" : "bg-velvet-blue"} 
       ${outline ? "border-black" : "border-velvet-blue"} 
       ${outline ? "text-black" : "text-white"}
@@ -41,7 +44,8 @@ const Button: React.FC<ButtonProps> = ({
       ${small ? "font-light" : "font-semibold"}
       ${small ? "border-[1px]" : "border-2"}`}
     >
-      {Icon && <Icon size={24} className="absolute left-4 top-3" />}
+      {Icon && <Icon size={24} color={iconColor} />}
+      {/**className="absolute left-4 top-3" */}
       {label}
     </button>
   );

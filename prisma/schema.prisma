@@ -82,6 +82,7 @@ model Section {
 model SubSection {
   id        String   @id @default(auto()) @map("_id") @db.ObjectId
   title     String   @db.String
+  subTitle  String   @db.String
   order     Int      @db.Int
   content   String[] @db.String
   dateFrom  DateTime

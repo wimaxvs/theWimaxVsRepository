@@ -3,25 +3,26 @@ import { ReactElement } from "react";
 import { IconType } from "react-icons";
 import { AiOutlinePlus } from "react-icons/ai";
 import useSubSectionModal from "@/app/hooks/useSubSectionModal";
+import useCurrentSection from "@/app/hooks/useCurrentSection";
 
 interface SectionChipProps {
   label: string;
-  color?: string;
   icon?: ReactElement<IconType>;
   addOrNum?: number;
 }
 const SectionChip: React.FC<SectionChipProps> = ({
   label,
-  color,
   icon: Icon,
   addOrNum,
 }) => {
   const subSectionModal = useSubSectionModal();
+  const [ setCurrentSection ] = useCurrentSection((state)=> [state.setCurrentSection])
 
   const menuActions = (los: string) => {
     switch (los) {
       case "addSub":
         subSectionModal.onOpen();
+        setCurrentSection(label)
         console.log(subSectionModal)
         break;
       // case "signup":
@@ -36,7 +37,7 @@ const SectionChip: React.FC<SectionChipProps> = ({
   return (
     <button
       onClick={() => menuActions("addSub")}
-      className="sectionChip py-2 px-3 rounded-md hover:border-2 hover:border-deep-blue-30 hover:bg-deep-blue/10 transition hover:ease-in ease-in duration-300 text-deep-blue w-full flex flex-row items-center justify-around "
+      className="sectionChip py-2 px-3 rounded-md hover:bg-deep-blue/10 transition hover:ease-in ease-in duration-300 text-deep-blue w-full flex flex-row items-center justify-around "
     >
       <div className="flex flex-row gap-2 items-center w-2/3">
         {Icon && Icon} {label}
