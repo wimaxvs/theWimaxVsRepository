@@ -6,6 +6,10 @@ interface ButtonProps {
   onClick: (e: React.MouseEvent<HTMLButtonElement>) => void;
   disabled?: boolean;
   outline?: boolean;
+  third?: boolean
+  lightColored?: boolean
+  specifiedColor?: string
+  danger?: boolean
   small?: boolean;
   icon?: IconType;
   iconColor?: string
@@ -13,10 +17,14 @@ interface ButtonProps {
 }
 
 const Button: React.FC<ButtonProps> = ({
+  lightColored,
+  specifiedColor,
   label,
   onClick,
   disabled,
   outline,
+  third,
+  danger,
   small,
   icon: Icon,
   iconColor,
@@ -36,9 +44,29 @@ const Button: React.FC<ButtonProps> = ({
           : `${sx.slice(0, sx.indexOf("w-"))} w-full`
       } 
       ${Icon ? "flex flex-row gap justify-around" : ""} 
-      ${outline ? "bg-white" : "bg-velvet-blue"} 
-      ${outline ? "border-black" : "border-velvet-blue"} 
-      ${outline ? "text-black" : "text-white"}
+      ${
+        outline
+          ? "bg-white"
+          : third
+          ? "bg-deep-blue/40"
+          : danger
+          ? "bg-rose-200"
+          : lightColored
+          ? `${specifiedColor}`
+          : "bg-velvet-blue"
+      } 
+      ${
+        outline
+          ? "border-black"
+          : third
+          ? "border-none"
+          : danger
+          ? "border-none"
+          : lightColored
+          ? "border-none"
+          : "border-velvet-blue"
+      } 
+      ${outline ? "text-black" : danger ? "text-red-600" : "text-white"}
       ${small ? "py-1" : "py-3"} 
       ${small ? "text-sm" : "text-md"}
       ${small ? "font-light" : "font-semibold"}

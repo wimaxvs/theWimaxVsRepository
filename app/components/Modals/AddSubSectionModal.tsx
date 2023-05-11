@@ -2,42 +2,39 @@
 
 import { useCallback, useState } from "react";
 import { toast } from "react-hot-toast";
-import { FieldValues, SubmitHandler, useForm } from "react-hook-form";
 import useSubSectionModal from "@/app/hooks/useSubSectionModal";
 
 import Modal from "@/app/components/Modals/Modal";
-import SubSectionContainer from "../sideshelves/sectionSideshelf/SubSectionInputContainer";
+import SubSectionContainer from "../sideshelves/sectionSideshelf/SubSectionContainer";
 import Heading from "@/app/components/Heading";
 import useCurrentSection from "@/app/hooks/useCurrentSection";
+
+
 
 const AddSubSectionModal = () => {
   const subSectionModal = useSubSectionModal();
   const [currentSection] = useCurrentSection((state) => [state.currentSection]);
   const [isLoading, setIsLoading] = useState(false);
 
-
-
-  const onSubmit= () => {
-    console.log("submit button hit")
+  const onDiscard = useCallback(() => {
+    console.log("Discard button hit");
+    subSectionModal.onClose();
     setIsLoading(false);
-  };
+  }, []);
 
-  const onDiscard= useCallback(() => {
-    console.log("Discard button hit")
-    subSectionModal.onClose()
+  const onSubmit = useCallback(() => {
+    console.log("Discard button hit");
+    subSectionModal.onClose();
     setIsLoading(false);
-  },[])
-
-
-  
+  }, []);
 
   const bodyContent = (
-    <div className="flex flex-col gap-4">
+    <div className="flex flex-col gap-2">
       <Heading
         title="Fill Out Your Section"
         subtitle={`Add subsegments to the ${currentSection} section`}
       />
-      <SubSectionContainer />
+      <SubSectionContainer/>
     </div>
   );
 
@@ -51,7 +48,7 @@ const AddSubSectionModal = () => {
         <p>
           In essence:
           <span
-            onClick={() => { }}
+            onClick={() => {}}
             className="
               text-neutral-800
               cursor-pointer 
@@ -68,6 +65,7 @@ const AddSubSectionModal = () => {
 
   return (
     <Modal
+      isInputModal
       disabled={isLoading}
       isOpen={subSectionModal.isOpen}
       title={currentSection}

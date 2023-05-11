@@ -23,7 +23,6 @@ const SectionChip: React.FC<SectionChipProps> = ({
       case "addSub":
         subSectionModal.onOpen();
         setCurrentSection(label)
-        console.log(subSectionModal)
         break;
       // case "signup":
       //   registerModal.onOpen();

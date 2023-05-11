@@ -1,21 +1,43 @@
-import React from 'react'
+import React from "react";
 import Button from "../../Button";
 import Input from "../../Inputs/Input";
-import { FieldArrayMethodProps, FieldErrors, FieldValues, UseFormRegister } from 'react-hook-form';
+import {
+  Control,
+  FieldArrayMethodProps,
+  FieldErrors,
+  FieldValues,
+  UseFormRegister,
+  useFieldArray,
+} from "react-hook-form";
 import { BsTrash } from "react-icons/bs";
 
-
-interface InputArrayProps{
-    fields: Record<"id", string>[];
-    register: UseFormRegister<FieldValues>;
-    remove: (index?: number | number[] | undefined) => void;
-    errors: FieldErrors<FieldValues>;
-    append: (value: unknown, options?: FieldArrayMethodProps | undefined) => void
+interface InputArrayProps {
+  register: UseFormRegister<FieldValues>;
+  errors: FieldErrors<FieldValues>;
+  control: Control<FieldValues, any>;
+  order: number
+  setInnerOrder: React.Dispatch<React.SetStateAction<number>>
 }
 
-const SubSectionContentInput: React.FC<InputArrayProps> = ({fields, register, remove, errors, append}) => {
+const SubSectionContentInput: React.FC<InputArrayProps> = ({
+  setInnerOrder,
+  register,
+  errors,
+  control,
+  order
+}) => {
 
-    const inputSectionContentInputs: React.ReactNode = (
+  const { fields, append, remove } = useFieldArray({
+    control,
+    name: `subsegments[${order}].content`, // unique name for your Field Array
+  });
+
+  const addContent = () => {
+    setInnerOrder(prev => prev + 1)
+    append({});
+  }
+
+  const inputSectionContentInputs: React.ReactNode = (
     <>
       {/* Dynamic array inputs */}
       {fields.map((field, index) => (
@@ -24,39 +46,40 @@ const SubSectionContentInput: React.FC<InputArrayProps> = ({fields, register, re
           key={field.id}
         >
           <Input
-            id={`inputs[${index}].fieldName`}
+            id={`subsegments[${order}].content[${index}].description`}
             label={`Field ${index + 1}`}
             isBioData
+            disabled={false}
             register={register}
             errors={errors}
             required
           />
-          <div className="w-1/6">
+          <div className="w-1/6 h-full">
             <Button
-              label={"Bin"}
+              danger
+              label={""}
               iconColor={"red"}
               onClick={() => remove(index)}
-              outline
               icon={BsTrash}
             />
           </div>
         </div>
       ))}
 
-      <Button label={"Add Input"} onClick={() => append({ value: "" })} />
+      <Button third label={"Add Content"} onClick={addContent} />
     </>
   );
-    
+
   return (
     <>
       <p className="subSegmentContentArray text-deep-blue/40 font-bold text-md w-full">
         Care to specify further...?
       </p>
-      <div className="contentInputArrays flex flex-col gap-2 w-full drop-shadow-md rounded-md my-2 py-2 items-center">
+      <div className="contentInputArrays flex flex-col gap-2 w-full drop-shadow-md rounded-md items-center">
         {inputSectionContentInputs}
       </div>
     </>
   );
-}
+};
 
-export default SubSectionContentInput
+export default SubSectionContentInput;

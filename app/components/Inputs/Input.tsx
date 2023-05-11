@@ -15,6 +15,7 @@ interface InputProps {
   isBioData?: boolean;
   placeholder?: string
   isSubSegment?:boolean
+  defaultValue?: any
 }
 
 const Input: React.FC<InputProps> = ({
@@ -28,10 +29,15 @@ const Input: React.FC<InputProps> = ({
   errors,
   isBioData,
   placeholder,
+  defaultValue,
   isSubSegment
 }) => {
   return (
-    <div className={`${isSubSegment? "w-full" : isBioData ? "w-5/6" : "w-full"} relative`}>
+    <div
+      className={`${
+        isSubSegment ? "w-full" : isBioData ? "w-5/6" : "w-full"
+      } relative`}
+    >
       {formatPrice && (
         <BiDollar
           size={24}
@@ -43,6 +49,7 @@ const Input: React.FC<InputProps> = ({
         disabled={disabled}
         {...register(id, { required })}
         placeholder={placeholder ? placeholder : " "}
+        defaultValue={defaultValue ? defaultValue : undefined}
         type={type}
         className={`peer w-full p-4 pt-6 font-light 
         ${

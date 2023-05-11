@@ -1,37 +1,29 @@
 "use client";
 
 import React, { useState } from "react";
-import Button from "../../Button";
+import {
+  FieldValues,
+  UseFormRegister,
+  FieldErrors,
+  Control,
+} from "react-hook-form";
 import Input from "../../Inputs/Input";
-import SubSectionInputContainer from './SubSectionInputContainer'
-import { useFieldArray, FieldValues, SubmitHandler, useForm } from "react-hook-form";
 import SubSectionContentInput from "./SubSectionContentInput";
 
 interface SubSectionInputProps {
   order: number;
+  register: UseFormRegister<FieldValues>;
+  errors: FieldErrors<FieldValues>;
+  control: Control<FieldValues, any>;
 }
 
-const SubSectionInput: React.FC<SubSectionInputProps> = ({ order }) => {
-  const {
-    control,
-    register,
-    handleSubmit,
-    formState: { errors },
-  } = useForm<FieldValues>({
-    defaultValues: {
-      order: 0,
-      title: "",
-      subTitle: "",
-      dateFrom: "",
-      dateTo: "",
-    },
-  });
-
-  const { fields, append, remove } = useFieldArray({
-    control,
-    name: "content", // unique name for your Field Array
-    rules: { minLength: 4 },
-  });
+const SubSectionInput: React.FC<SubSectionInputProps> = ({
+  order,
+  register,
+  errors,
+  control,
+}) => {
+  const [innerOrder, setInnerOrder] = useState<number>(order + 1);
 
   const inputSectionDivContent: {
     inputId: string;
@@ -44,7 +36,7 @@ const SubSectionInput: React.FC<SubSectionInputProps> = ({ order }) => {
         inputId: "order",
         inputLabel: "Order",
         type: "number",
-        defaultValue: order,
+        defaultValue: innerOrder,
       },
       { inputId: "title", inputLabel: "Title" },
     ],
@@ -59,19 +51,17 @@ const SubSectionInput: React.FC<SubSectionInputProps> = ({ order }) => {
     <>
       {inputSectionDivContent.map((theDiv, index) => {
         return (
-          <>
+          <React.Fragment key={index}>
             <div
-              key={index}
               className={`${theDiv
-                .map((obj) => obj.inputId)
+                .map((obj, i) => `${obj.inputId} ${i}`)
                 .join(
                   "-"
                 )} flex flex-row gap-4 items-center justify-start drop-shadow-none w-full`}
             >
-              {theDiv.map((obj, index) => {
-                console.log(obj)
+              {theDiv.map((obj, i) => {
                 return (
-                  <>
+                  <React.Fragment key={i}>
                     <div
                       className={`${
                         obj.inputId === "title"
@@ -83,8 +73,7 @@ const SubSectionInput: React.FC<SubSectionInputProps> = ({ order }) => {
                     >
                       <Input
                         isBioData
-                        key={index}
-                        id={obj.inputId}
+                        id={`subsegments[${order}][${obj.inputId}]`}
                         label={obj.inputLabel}
                         type={obj.type ? obj.type : ""}
                         disabled={false}
@@ -92,13 +81,16 @@ const SubSectionInput: React.FC<SubSectionInputProps> = ({ order }) => {
                         errors={errors}
                         required
                         isSubSegment
+                        defaultValue={
+                          obj.defaultValue ? obj.defaultValue : undefined
+                        }
                       />
                     </div>
-                  </>
+                  </React.Fragment>
                 );
               })}
             </div>
-          </>
+          </React.Fragment>
         );
       })}
     </>
@@ -106,11 +98,16 @@ const SubSectionInput: React.FC<SubSectionInputProps> = ({ order }) => {
 
   return (
     <section
-      className={`subSectionInput bg-off-white/40 drop-shadow-md rounded-md px-2 py-4 flex flex-col gap-2 items-center`}
+      className={`subSectionInput mt-6  drop-shadow-md rounded-md px-2 pt-4 flex flex-col w-11/12 gap-2 items-center`}
     >
       {inputSectionDivs}
-      <SubSectionContentInput fields={fields} register={register} remove={remove} errors={errors} append={append}/>
-      
+      <SubSectionContentInput
+        setInnerOrder={setInnerOrder}
+        register={register}
+        errors={errors}
+        control={control}
+        order={order}
+      />
     </section>
   );
 };
