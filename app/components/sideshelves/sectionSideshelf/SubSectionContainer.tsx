@@ -57,23 +57,32 @@ const SubSectionContainer = () => {
     name: "subsegments", // unique name for your Field Array
   });
 
-  const onSubmit: SubmitHandler<FieldValues> = (data: SubSeg) => {
+  const onSubmit: SubmitHandler<FieldValues> = (data: FieldValues) => {
+    setIsLoading(true);
     console.log(data);
 
-    // setIsLoading(true);
-    // const extractedContent: string[] = (
-    //   data["content"] as { description: string }[]
-    // ).map((el: { description: string }) => el.description);
-    // const subsegmentId = uuidv4().toString();
+    const newData = data.subsegments.map((subseg: SubSeg) => {
+      const subsegmentId = uuidv4().toString();
+      const extractedSubseg: SubSeg = {
+        ...subseg,
+        order: +subseg["order"]!,
+        parentSection: currentSection,
+        subsegmentId: subsegmentId,
+      };
+      const extractedContent: string[] = (
+        subseg["content"] as { description: string }[]
+      ).map((el: { description: string }) => {
+        return el.description;
+      });
+      extractedSubseg.content = extractedContent;
+      return extractedSubseg
+    });
 
-    // cvSubSegmentStore.setSubsegments({
-    //   ...data,
-    //   parentSection: currentSection,
-    //   content: extractedContent,
-    //   subsegmentId: subsegmentId,
-    // });
+    cvSubSegmentStore.setSubsegments(newData)
+
+    console.log(newData)
     setIsLoading(false);
-    // console.log(cvSubSegmentStore.subsegments);
+    console.log(cvSubSegmentStore.subsegments);
   };
 
   return (
