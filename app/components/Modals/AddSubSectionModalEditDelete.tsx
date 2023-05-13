@@ -1,0 +1,83 @@
+"use client";
+
+import { useCallback, useState } from "react";
+import { toast } from "react-hot-toast";
+import useSubSectionModalEditDelete from "@/app/hooks/useSubSectionModalEditDelete";
+import useCvSubSegments from "@/app/hooks/useCvSubSegments";
+import Modal from "@/app/components/Modals/Modal";
+import SubSectionContainer from "../sideshelves/sectionSideshelf/SubSectionContainer";
+import Heading from "@/app/components/Heading";
+import useCurrentSection from "@/app/hooks/useCurrentSection";
+
+const AddSubSectionModal = () => {
+  const subSectionModalEdilete = useSubSectionModalEditDelete();
+  const cvSubSegments = useCvSubSegments()
+
+  const [currentSection] = useCurrentSection((state) => [state.currentSection]);
+  const [isLoading, setIsLoading] = useState(false);
+
+  const onDiscard = useCallback(() => {
+    console.log("Discard button hit");
+    subSectionModalEdilete.onClose();
+    setIsLoading(false);
+  }, []);
+
+  const onSubmit = useCallback(() => {
+    console.log("Discard button hit");
+    subSectionModalEdilete.onClose();
+    setIsLoading(false);
+  }, []);
+
+  const bodyContent = (
+    <div className="flex flex-col gap-2">
+      <Heading
+        title="Edit or delete Subsegments"
+        subtitle={`these are the subsegments in the ${currentSection} section`}
+      />
+      <SubSectionContainer editable/>
+    </div>
+  );
+
+  const footerContent = (
+    <div className="flex flex-col gap-4 mt-3">
+      <hr />
+      <div
+        className="
+      text-neutral-500 text-center mt-4 font-light"
+      >
+        <p>
+          Pro tip:
+          <span
+            onClick={() => {}}
+            className="
+              text-neutral-800
+              cursor-pointer 
+              hover:underline
+            "
+          >
+            {" "}
+            Remember to mark the order of your Sub-segments in the {currentSection} section. ☝️
+          </span>
+        </p>
+      </div>
+    </div>
+  );
+
+  return (
+    <Modal
+      isInputModal
+      disabled={isLoading}
+      isOpen={subSectionModalEdilete.isOpen}
+      title={currentSection}
+      actionLabel="Continue"
+      secondaryAction={onDiscard}
+      secondaryActionLabel="Discard"
+      onClose={subSectionModalEdilete.onClose}
+      onSubmit={onSubmit}
+      body={bodyContent}
+      footer={footerContent}
+    />
+  );
+};
+
+export default AddSubSectionModal;

@@ -1,5 +1,6 @@
 import ClientOnly from "@/app/components/ClientOnly";
 import AddSubSectionModal from "@/app/components/Modals/AddSubSectionModal";
+import AddSubSectionModalEditDelete from "@/app/components/Modals/AddSubSectionModalEditDelete";
 import SectionContainer from "@/app/components/sideshelves/sectionSideshelf/SectionContainer";
 import { Inter } from "next/font/google";
 
@@ -29,6 +30,7 @@ export default async function Sections({ children }: SectionsLayoutProps) {
         <div>
           <ClientOnly>
             <AddSubSectionModal />
+            <AddSubSectionModalEditDelete />
             <SectionContainer />
           </ClientOnly>
         </div>

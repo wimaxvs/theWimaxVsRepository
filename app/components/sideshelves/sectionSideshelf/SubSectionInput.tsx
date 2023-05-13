@@ -102,7 +102,6 @@ const SubSectionInput: React.FC<SubSectionInputProps> = ({
     >
       {inputSectionDivs}
       <SubSectionContentInput
-        setInnerOrder={setInnerOrder}
         register={register}
         errors={errors}
         control={control}

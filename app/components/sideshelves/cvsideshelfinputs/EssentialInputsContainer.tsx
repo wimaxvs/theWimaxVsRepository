@@ -2,8 +2,8 @@
 import Input from "@/app/components/Inputs/Input";
 import ImageAddition from "@/app/components/sideshelves/cvsideshelfinputs/ImageAddition";
 import useCvEssentials from "@/app/hooks/useCvEssentials";
-
 import React, { useState } from "react";
+import { useRouter, usePathname } from "next/navigation";
 import { FieldValues, useForm, SubmitHandler } from "react-hook-form";
 import Button from "../../Button";
 
@@ -13,15 +13,17 @@ interface IIALprops {
 }
 
 const EssentialInputsContainer = () => {
-  const [isLoading, setIsLoading] = useState<boolean>(false);
   const essentials = useCvEssentials();
+  const router = useRouter();
+  const pathname = usePathname();
+  const [isLoading, setIsLoading] = useState<boolean>(false);
   const [inputIdsAndLabels, setInputIdsAndLabels] = useState<IIALprops[]>([
     {
-      id: "firstName",
+      id: "firstname",
       label: "First Name"
     },
     {
-      id: "lastName",
+      id: "lastname",
       label: "Last Name"
     },
     {
@@ -66,8 +68,13 @@ const EssentialInputsContainer = () => {
       ...data,
       dob: new Date(data.dob),
     };
-
+    console.log(essentials.hm)
     essentials.setEssentials({ ...data });
+    if (pathname && pathname?.lastIndexOf('/sections') !== (pathname?.length - '/sections'.length)) {
+      router.push(`${pathname}/sections`);
+    } else {
+      return null
+    }
   };
 
   return (
@@ -95,7 +102,8 @@ const EssentialInputsContainer = () => {
                   label={space.label}
                   register={register}
                   errors={errors}
-                  type={space.id === "dob"? "date": ""}
+                  type={space.id === "dob" ? "date" : ""}
+                  required
                 />
               );
             })}

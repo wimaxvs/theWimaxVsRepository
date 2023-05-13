@@ -6,17 +6,19 @@ interface ButtonProps {
   onClick: (e: React.MouseEvent<HTMLButtonElement>) => void;
   disabled?: boolean;
   outline?: boolean;
-  third?: boolean
-  lightColored?: boolean
-  specifiedColor?: string
-  danger?: boolean
+  third?: boolean;
+  lightColored?: boolean;
+  isBinToRight?: boolean;
+  specifiedColor?: string;
+  danger?: boolean;
   small?: boolean;
   icon?: IconType;
-  iconColor?: string
-  sx?: string
+  iconColor?: string;
+  sx?: string;
 }
 
 const Button: React.FC<ButtonProps> = ({
+  isBinToRight,
   lightColored,
   specifiedColor,
   label,
@@ -67,6 +69,7 @@ const Button: React.FC<ButtonProps> = ({
           : "border-velvet-blue"
       } 
       ${outline ? "text-black" : danger ? "text-red-600" : "text-white"}
+      ${isBinToRight ? "h-full py-4" : ""} 
       ${small ? "py-1" : "py-3"} 
       ${small ? "text-sm" : "text-md"}
       ${small ? "font-light" : "font-semibold"}

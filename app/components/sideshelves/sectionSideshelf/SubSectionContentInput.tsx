@@ -16,11 +16,9 @@ interface InputArrayProps {
   errors: FieldErrors<FieldValues>;
   control: Control<FieldValues, any>;
   order: number
-  setInnerOrder: React.Dispatch<React.SetStateAction<number>>
 }
 
 const SubSectionContentInput: React.FC<InputArrayProps> = ({
-  setInnerOrder,
   register,
   errors,
   control,
@@ -33,7 +31,6 @@ const SubSectionContentInput: React.FC<InputArrayProps> = ({
   });
 
   const addContent = () => {
-    setInnerOrder(prev => prev + 1)
     append({});
   }
 
@@ -56,6 +53,7 @@ const SubSectionContentInput: React.FC<InputArrayProps> = ({
           />
           <div className="w-1/6 h-full">
             <Button
+              isBinToRight
               danger
               label={""}
               iconColor={"red"}

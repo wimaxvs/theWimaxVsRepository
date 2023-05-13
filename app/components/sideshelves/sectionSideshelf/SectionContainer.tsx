@@ -1,10 +1,11 @@
-import React from "react";
 import SectionSelect from "./SectionSelect";
+import AddedSections from "./AddedSections";
 
 const SectionContainer = () => {
   return (
     <div>
       <SectionSelect />
+      <AddedSections />
     </div>
   );
 };

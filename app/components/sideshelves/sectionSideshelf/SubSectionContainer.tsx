@@ -24,9 +24,13 @@ type SubSeg = {
   content?: { description: string }[] | string[];
 };
 
-interface SubSectionContainerProps {}
+interface SubSectionContainerProps {
+  editable?: boolean;
+}
 
-const SubSectionContainer = () => {
+const SubSectionContainer: React.FC<SubSectionContainerProps> = ({
+  editable,
+}) => {
   const cvSubSegmentStore = useCvSubSegments();
   const [currentSection] = useCurrentSection((state) => [state.currentSection]);
   const [isLoading, setIsLoading] = useState(false);
@@ -36,25 +40,32 @@ const SubSectionContainer = () => {
     control,
     register,
     handleSubmit,
+    reset,
     formState: { errors },
   } = useForm<FieldValues>({
     defaultValues: {
-      subsegments: [
-        {
-          order: 1,
-          title: "",
-          subTitle: "",
-          dateFrom: "",
-          dateTo: "",
-          content: [{ description: "" }],
-        },
-      ],
+      subsegments: editable
+        ? [
+            ...cvSubSegmentStore.subsegments.filter(
+              (subseg) => subseg.parentSection === currentSection
+            ).map(subsegB => ({...subsegB, }))
+          ]
+        : [
+            {
+              order: 1,
+              title: "",
+              subTitle: "",
+              dateFrom: "",
+              dateTo: "",
+              content: [{ description: "" }],
+            },
+          ],
     },
   });
 
   const { fields, append, remove } = useFieldArray({
     control,
-    name: "subsegments", // unique name for your Field Array
+    name: "subsegments",
   });
 
   const onSubmit: SubmitHandler<FieldValues> = (data: FieldValues) => {
@@ -62,26 +73,31 @@ const SubSectionContainer = () => {
     console.log(data);
 
     const newData = data.subsegments.map((subseg: SubSeg) => {
-      const subsegmentId = uuidv4().toString();
       const extractedSubseg: SubSeg = {
         ...subseg,
         order: +subseg["order"]!,
         parentSection: currentSection,
-        subsegmentId: subsegmentId,
       };
+      if (!subseg.subsegmentId) {
+        const subsegmentId = uuidv4().toString();
+        extractedSubseg.subsegmentId= subsegmentId
+      }
+
       const extractedContent: string[] = (
         subseg["content"] as { description: string }[]
       ).map((el: { description: string }) => {
         return el.description;
       });
       extractedSubseg.content = extractedContent;
-      return extractedSubseg
+      return extractedSubseg;
     });
 
-    cvSubSegmentStore.setSubsegments(newData)
+    cvSubSegmentStore.setSubsegments(newData);
 
-    console.log(newData)
+    console.log(newData);
     setIsLoading(false);
+    reset();
+
     console.log(cvSubSegmentStore.subsegments);
   };
 
