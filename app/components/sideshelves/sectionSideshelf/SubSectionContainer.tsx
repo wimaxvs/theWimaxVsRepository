@@ -1,5 +1,5 @@
 "use client";
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { v4 as uuidv4 } from "uuid";
 import {
   FieldValues,
@@ -46,9 +46,14 @@ const SubSectionContainer: React.FC<SubSectionContainerProps> = ({
     defaultValues: {
       subsegments: editable
         ? [
-            ...cvSubSegmentStore.subsegments.filter(
-              (subseg) => subseg.parentSection === currentSection
-            ).map(subsegB => ({...subsegB, }))
+            ...cvSubSegmentStore.subsegments
+              .filter((subseg) => subseg.parentSection === currentSection)
+              .map((subsegB) => ({
+                ...subsegB,
+                content: subsegB["content"]?.map((element: string) => ({
+                  description: element,
+                })),
+              })),
           ]
         : [
             {
@@ -68,6 +73,12 @@ const SubSectionContainer: React.FC<SubSectionContainerProps> = ({
     name: "subsegments",
   });
 
+  if (editable) {
+    useEffect(() => {
+      console.log(cvSubSegmentStore.subsegments)
+    }, [cvSubSegmentStore?.subsegments]);
+  }
+
   const onSubmit: SubmitHandler<FieldValues> = (data: FieldValues) => {
     setIsLoading(true);
     console.log(data);
@@ -80,7 +91,7 @@ const SubSectionContainer: React.FC<SubSectionContainerProps> = ({
       };
       if (!subseg.subsegmentId) {
         const subsegmentId = uuidv4().toString();
-        extractedSubseg.subsegmentId= subsegmentId
+        extractedSubseg.subsegmentId = subsegmentId;
       }
 
       const extractedContent: string[] = (
@@ -101,6 +112,11 @@ const SubSectionContainer: React.FC<SubSectionContainerProps> = ({
     console.log(cvSubSegmentStore.subsegments);
   };
 
+  const onDelete: (id: string, index: number) => void = (subsegId, index) => {
+    cvSubSegmentStore.removeSubseg(subsegId);
+    remove(index);
+  };
+
   return (
     <div
       className={`subSectionInputContainer bg-light-purple/20 py-4 rounded-md flex flex-col items-center`}
@@ -108,33 +124,38 @@ const SubSectionContainer: React.FC<SubSectionContainerProps> = ({
       <div className="description flex pl-2 w-full ml-12 flex flex-col items-start">
         <p className={`text-deep-blue/70 font-bold text-xl`}>Subsegments:</p>
       </div>
-      {fields.map((field, index) => (
-        <React.Fragment key={index}>
-          <div
-            className={`listOfSubsegmentInputs w-full flex flex-col items-center`}
-          >
-            <SubSectionInput
-              register={register}
-              errors={errors}
-              order={index}
-              control={control}
-            />
-          </div>
-          <div
-            className={`listOfSubsegmentInputsButtons flex gap-4 mt-6 flex-row w-11/12 items-center`}
-          >
-            <div className="w-full px-2">
-              <Button
-                danger
-                label={"Delete This Subsegment"}
-                iconColor={"red"}
-                onClick={() => remove(index)}
-                icon={BsTrash}
+      {fields.map((field, index) => {
+        const theField: SubSeg = field as SubSeg;
+        return (
+          <React.Fragment key={index}>
+            <div
+              className={`listOfSubsegmentInputs w-full flex flex-col items-center`}
+            >
+              <SubSectionInput
+                register={register}
+                errors={errors}
+                order={index}
+                control={control}
               />
             </div>
-          </div>
-        </React.Fragment>
-      ))}
+            <div
+              className={`listOfSubsegmentInputsButtons flex gap-4 mt-6 flex-row w-11/12 items-center`}
+            >
+              <div className="w-full px-2">
+                <Button
+                  danger
+                  label={"Delete This Subsegment"}
+                  iconColor={"red"}
+                  onClick={() =>
+                    onDelete(theField.subsegmentId as string, index)
+                  }
+                  icon={BsTrash}
+                />
+              </div>
+            </div>
+          </React.Fragment>
+        );
+      })}
       <div className="flex flex-row gap-4 px-2 mt-2 w-11/12">
         <Button
           lightColored

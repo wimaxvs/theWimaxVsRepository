@@ -15,6 +15,7 @@ type SubSeg = {
 interface SubSegmentStore {
   subsegments: SubSeg[];
   setSubsegments: (subSegs: SubSeg[]) => void;
+  removeSubseg: (id: SubSeg["subsegmentId"]) => void;
 }
 
 const useCvSubSegments = create<SubSegmentStore>()(
@@ -24,12 +25,10 @@ const useCvSubSegments = create<SubSegmentStore>()(
 
       setSubsegments: (subSegs) =>
         set((state) => {
-
-
           const updatedSubsegment = Array.isArray(state.subsegments)
             ? [...state.subsegments]
             : [];
-          
+
           subSegs.map((segment) => {
             const index = updatedSubsegment.findIndex(
               (item) => item.subsegmentId === segment.subsegmentId
@@ -39,10 +38,14 @@ const useCvSubSegments = create<SubSegmentStore>()(
             } else {
               updatedSubsegment.push(segment);
             }
-          })
-          
+          });
+
           return { subsegments: updatedSubsegment };
         }),
+      removeSubseg: (id) =>
+        set((state) => ({
+          subsegments: state.subsegments.filter((subseg) => subseg.subsegmentId !== id),
+        })),
     }),
     {
       name: "subsegment-storage", // name of the item in the storage (must be unique)
