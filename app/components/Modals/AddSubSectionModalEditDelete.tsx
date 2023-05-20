@@ -9,18 +9,13 @@ import SubSectionContainer from "../sideshelves/sectionSideshelf/SubSectionConta
 import Heading from "@/app/components/Heading";
 import useCurrentSection from "@/app/hooks/useCurrentSection";
 
-const AddSubSectionModal = () => {
+const AddSubSectionModalEditDelete = () => {
   const subSectionModalEdilete = useSubSectionModalEditDelete();
   const cvSubSegments = useCvSubSegments()
 
   const [currentSection] = useCurrentSection((state) => [state.currentSection]);
   const [isLoading, setIsLoading] = useState(false);
 
-  const onDiscard = useCallback(() => {
-    console.log("Discard button hit");
-    subSectionModalEdilete.onClose();
-    setIsLoading(false);
-  }, []);
 
   const onSubmit = useCallback(() => {
     console.log("Discard button hit");
@@ -56,7 +51,7 @@ const AddSubSectionModal = () => {
             "
           >
             {" "}
-            Remember to mark the order of your Sub-segments in the {currentSection} section. ☝️
+            Remember to mark the order of each Sub-segments in the {currentSection} section. ☝️
           </span>
         </p>
       </div>
@@ -69,9 +64,6 @@ const AddSubSectionModal = () => {
       disabled={isLoading}
       isOpen={subSectionModalEdilete.isOpen}
       title={currentSection}
-      actionLabel="Continue"
-      secondaryAction={onDiscard}
-      secondaryActionLabel="Discard"
       onClose={subSectionModalEdilete.onClose}
       onSubmit={onSubmit}
       body={bodyContent}
@@ -80,4 +72,4 @@ const AddSubSectionModal = () => {
   );
 };
 
-export default AddSubSectionModal;
+export default AddSubSectionModalEditDelete;

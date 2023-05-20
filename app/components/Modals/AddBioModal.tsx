@@ -2,34 +2,36 @@
 
 import { useCallback, useState } from "react";
 import { toast } from "react-hot-toast";
-import useSubSectionModal from "@/app/hooks/useSubSectionModal";
-
+import useBioModal from "@/app/hooks/useBioModal";
 import Modal from "@/app/components/Modals/Modal";
-import SubSectionContainer from "../sideshelves/sectionSideshelf/SubSectionContainer";
+import EssentialInputsContainer from "../sideshelves/cvsideshelfinputs/EssentialInputsContainer";
 import Heading from "@/app/components/Heading";
 import useCurrentSection from "@/app/hooks/useCurrentSection";
 
-
-
 const AddSubSectionModal = () => {
-  const subSectionModal = useSubSectionModal();
+  const bioModal = useBioModal();
+
   const [currentSection] = useCurrentSection((state) => [state.currentSection]);
   const [isLoading, setIsLoading] = useState(false);
 
 
   const onSubmit = useCallback(() => {
     console.log("Discard button hit");
-    subSectionModal.onClose();
+    bioModal.onClose();
     setIsLoading(false);
   }, []);
 
   const bodyContent = (
     <div className="flex flex-col gap-2">
       <Heading
-        title="Fill Out Your Section"
-        subtitle={`Add subsegments to the ${currentSection} section`}
+        title={`${bioModal.editing ? "Edit" : "Fill in"} your bio-data`}
+        subtitle={`${
+          bioModal.editing
+            ? `Let's see what part of the ${currentSection} section needs a change. 🤔`
+            : `The ${currentSection} section is where you let the world know who you are. 😎🗺️`
+        }`}
       />
-      <SubSectionContainer/>
+      <EssentialInputsContainer />
     </div>
   );
 
@@ -41,7 +43,7 @@ const AddSubSectionModal = () => {
       text-neutral-500 text-center mt-4 font-light"
       >
         <p>
-          In essence:
+          Pro tip:
           <span
             onClick={() => {}}
             className="
@@ -51,7 +53,7 @@ const AddSubSectionModal = () => {
             "
           >
             {" "}
-            The subsegments here are pieces of the {currentSection} section pie. 🍰
+            Click on the "camera" icon to add a picture 🤳
           </span>
         </p>
       </div>
@@ -62,9 +64,9 @@ const AddSubSectionModal = () => {
     <Modal
       isInputModal
       disabled={isLoading}
-      isOpen={subSectionModal.isOpen}
+      isOpen={bioModal.isOpen}
       title={currentSection}
-      onClose={subSectionModal.onClose}
+      onClose={bioModal.onClose}
       onSubmit={onSubmit}
       body={bodyContent}
       footer={footerContent}

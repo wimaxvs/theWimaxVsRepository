@@ -1,12 +1,12 @@
 import { create } from "zustand";
 
-interface useSubSectionModalEditDeleteStore {
+interface useBioModalStore {
   isOpen: boolean;
   onOpen: () => void;
   onClose: () => void;
 }
 
-const useSubSectionModalEditDelete = create<useSubSectionModalEditDeleteStore>(
+const useBioModal = create<useBioModalStore>(
   (set) => ({
     isOpen: false,
     onOpen: () => set({ isOpen: true }),
@@ -14,4 +14,4 @@ const useSubSectionModalEditDelete = create<useSubSectionModalEditDeleteStore>(
   })
 );
 
-export default useSubSectionModalEditDelete;
+export default useBioModal;

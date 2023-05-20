@@ -31,7 +31,7 @@ const SubSectionContentInput: React.FC<InputArrayProps> = ({
   });
 
   const addContent = () => {
-    append({});
+    append({description: ""});
   }
 
   const inputSectionContentInputs: React.ReactNode = (

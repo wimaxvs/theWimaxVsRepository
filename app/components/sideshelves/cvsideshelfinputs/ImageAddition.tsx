@@ -1,52 +1,54 @@
 "use client";
-import { FieldValues, UseFormRegister, UseFormSetValue } from "react-hook-form";
+import { FieldValues, UseFormRegister } from "react-hook-form";
+import useCvSubSegments from "@/app/hooks/useCvSubSegments";
 import React from "react";
 import { BsCameraFill } from "react-icons/bs";
 
 interface ImageAdditionProps {
-  identity: string;
+  id: string;
   register: UseFormRegister<FieldValues>;
-  setValue: UseFormSetValue<FieldValues>;
+  filePreview?:
+    | string
+    | React.Dispatch<React.SetStateAction<string | null>>
+    | null;
 }
 
 const ImageAddition: React.FC<ImageAdditionProps> = ({
   register,
-  identity,
-  setValue,
-}) => {
-  const [avatar, setAvatar] = React.useState<string | Blob>();
+  id,
+  }) => {
+  let img = useCvSubSegments().theCurrentUser?.image
+  // img = URL.createObjectURL(img as Blob)
+  
   const [imagePreview, setImagePreview] = React.useState("");
   const placeholderPic =
     "https://via.placeholder.com/150/FFFFFF/000000/?text=add+picture";
 
   function validateImg(event: React.ChangeEvent<HTMLInputElement>) {
-    if (!event!.target.files) {
+    if (!event?.target.files) {
       return;
     } else {
-      const file = event!.target.files[0];
-      if (file.size >= 3048576) {
-        return alert("Max file size is 2.5mb");
+      const imgDoc = event?.target.files[0];
+      console.log(typeof(imgDoc))
+      if (imgDoc.size >= 3048576) {
+        return alert("Max file size is 3mb");
       } else {
-        setValue(identity, file);
-        setAvatar(file);
-        setImagePreview(URL.createObjectURL(file));
+        setImagePreview(URL.createObjectURL(imgDoc));
       }
     }
   }
 
   return (
     <div
-      className={`ImageAddition z-7 md:w-[270px] bg-white mt-2 flex flex-row md:flex-col items-center justify-around md:justify-normal rounded-xl drop-shadow-md`}
+      className={`ImageAddition z-7 bg-light-purple/20 mt-2 flex flex-row md:flex-col items-center justify-around md:justify-normal rounded-xl drop-shadow-md`}
     >
       <div className="flex flex-col px-20">
-        <p className=" avatarAdditionPrompt mt-2 text-blue-purple/50 font-bold text-base">
+        <p className=" avatarAdditionPrompt mt-2 text-deep-blue/70 font-bold text-base">
           Add a picture:
         </p>
         <div className="avatarAdditionSpace mt-2 mb-8 relative rounded-full bg-neutral-300 h-[110px] w-[110px] flex flex-col items-center content-center border-2 border-blue-purple/20">
           <img
             src={imagePreview || placeholderPic}
-            // width={110}
-            // height={110}
             alt="avatar placeholder"
             className="signup-profile-pic object-cover rounded-full h-[109px] w-[109px]"
           />
@@ -57,11 +59,13 @@ const ImageAddition: React.FC<ImageAdditionProps> = ({
           </label>
           <input
             type="file"
-            id={identity}
+            id={id}
+            multiple
             hidden
-            accept="image/png, image/jpeg"
-            // {...register(identity)}
-            onChange={validateImg}
+            accept="image/*"
+            {...register(id, {
+              onChange: (e) => validateImg(e)
+            })}
           />
         </div>
       </div>

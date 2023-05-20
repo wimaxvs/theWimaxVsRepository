@@ -18,11 +18,12 @@ type SubSeg = {
   subsegmentId?: string;
   order?: number;
   title?: string;
-  subtitle?: string;
-  dateFrom?: Date;
-  dateTo?: Date;
+  subTitle?: string;
+  dateFrom?: Date | string;
+  dateTo?: Date | string;
   content?: { description: string }[] | string[];
 };
+type OmittedSubSeg = Omit<SubSeg, "parentSection" | "subsegmentId">;
 
 interface SubSectionContainerProps {
   editable?: boolean;
@@ -33,8 +34,25 @@ const SubSectionContainer: React.FC<SubSectionContainerProps> = ({
 }) => {
   const cvSubSegmentStore = useCvSubSegments();
   const [currentSection] = useCurrentSection((state) => [state.currentSection]);
+  const filteredSubsegments = cvSubSegmentStore.subsegments
+    .filter((subseg) => subseg.parentSection === currentSection)
+    .map((subsegB) => {
+      return {
+        ...subsegB,
+        content: subsegB?.content?.map((element: string) => ({
+          description: element,
+        })) as { description: string }[],
+      };
+    });
+  const [initFormValues, setInitFormValues] = useState<OmittedSubSeg>({
+    order: 1,
+    title: "",
+    subTitle: "",
+    dateFrom: "",
+    dateTo: "",
+    content: [{ description: "" }],
+  });
   const [isLoading, setIsLoading] = useState(false);
-  const [order, setOrder] = useState<number>(1);
 
   const {
     control,
@@ -44,27 +62,8 @@ const SubSectionContainer: React.FC<SubSectionContainerProps> = ({
     formState: { errors },
   } = useForm<FieldValues>({
     defaultValues: {
-      subsegments: editable
-        ? [
-            ...cvSubSegmentStore.subsegments
-              .filter((subseg) => subseg.parentSection === currentSection)
-              .map((subsegB) => ({
-                ...subsegB,
-                content: subsegB["content"]?.map((element: string) => ({
-                  description: element,
-                })),
-              })),
-          ]
-        : [
-            {
-              order: 1,
-              title: "",
-              subTitle: "",
-              dateFrom: "",
-              dateTo: "",
-              content: [{ description: "" }],
-            },
-          ],
+      subsegments:
+        editable && filteredSubsegments ? [...filteredSubsegments] : [initFormValues],
     },
   });
 
@@ -75,13 +74,17 @@ const SubSectionContainer: React.FC<SubSectionContainerProps> = ({
 
   if (editable) {
     useEffect(() => {
-      console.log(cvSubSegmentStore.subsegments)
+      reset({
+        subsegments:
+          editable && filteredSubsegments
+            ? [...filteredSubsegments]
+            : [initFormValues],
+      });
     }, [cvSubSegmentStore?.subsegments]);
   }
 
   const onSubmit: SubmitHandler<FieldValues> = (data: FieldValues) => {
     setIsLoading(true);
-    console.log(data);
 
     const newData = data.subsegments.map((subseg: SubSeg) => {
       const extractedSubseg: SubSeg = {
@@ -105,16 +108,16 @@ const SubSectionContainer: React.FC<SubSectionContainerProps> = ({
 
     cvSubSegmentStore.setSubsegments(newData);
 
-    console.log(newData);
     setIsLoading(false);
-    reset();
-
-    console.log(cvSubSegmentStore.subsegments);
+    if (!editable) {
+      reset();
+    }
   };
 
   const onDelete: (id: string, index: number) => void = (subsegId, index) => {
     cvSubSegmentStore.removeSubseg(subsegId);
     remove(index);
+    console.log(cvSubSegmentStore.subsegments);
   };
 
   return (

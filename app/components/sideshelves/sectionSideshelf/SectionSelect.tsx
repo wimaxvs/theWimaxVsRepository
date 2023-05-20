@@ -8,6 +8,7 @@ import {
   MdWorkOutline,
   MdLanguage,
   MdOutlineSchool,
+  MdOutlinePersonalInjury,
 } from "react-icons/md";
 import { BsBuildingGear, BsAward } from "react-icons/bs";
 
@@ -20,6 +21,10 @@ const SectionSelect = () => {
     label: string;
     icon: ReactElement<IconType>;
   }[] = [
+    {
+      label: "Bio",
+      icon: <MdOutlinePersonalInjury {...iconOptions} />,
+    },
     {
       label: "Education",
       icon: <MdOutlineSchool {...iconOptions} />,
@@ -56,7 +61,7 @@ const SectionSelect = () => {
 
   return (
     <div
-      className={`SectionAddition z-7 md:w-[270px] bg-white mt-2 flex flex-row md:flex-col items-center justify-around md:justify-normal rounded-xl drop-shadow-md`}
+      className={`SectionAddition z-7 w-full md:w-[270px] bg-white mt-2 flex flex-col items-center justify-around md:justify-normal rounded-xl drop-shadow-md`}
     >
       <p className=" sectionAdditionPrompt mt-2 text-deep-blue/50 font-bold text-base mb-3">
         Pick a section to add below:
@@ -66,6 +71,7 @@ const SectionSelect = () => {
           return (
             <div className="" key={index}>
               <SectionChip
+                isBio={prop.label ==="Bio"? true : false}
                 label={prop.label}
                 icon={prop.icon}
               />

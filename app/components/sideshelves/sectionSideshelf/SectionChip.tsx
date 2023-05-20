@@ -4,6 +4,7 @@ import { IconType } from "react-icons";
 import { AiOutlinePlus } from "react-icons/ai";
 import useSubSectionModal from "@/app/hooks/useSubSectionModal";
 import useSubSectionModalEditDelete from "@/app/hooks/useSubSectionModalEditDelete";
+import useBioModal from "@/app/hooks/useBioModal";
 import useCurrentSection from "@/app/hooks/useCurrentSection";
 
 interface SectionChipProps {
@@ -11,29 +12,39 @@ interface SectionChipProps {
   icon?: ReactElement<IconType>;
   addOrNum?: number;
   edilete?: boolean
+  isBio?: boolean
+  isBioEdit?: boolean
 }
 const SectionChip: React.FC<SectionChipProps> = ({
   label,
+  isBio,
+  isBioEdit,
   edilete,
   icon: Icon,
   addOrNum,
 }) => {
   const subSectionModal = useSubSectionModal();
   const subSectionModalEditDelete = useSubSectionModalEditDelete();
+  const BioModal = useBioModal();
   const [ setCurrentSection ] = useCurrentSection((state)=> [state.setCurrentSection])
 
   const menuActions = (los: string) => {
     switch (los) {
       case "addSub":
-        console.log("addSub")
         subSectionModal.onOpen();
         setCurrentSection(label)
         break;
       case "edileteSub":
-        console.log("edilete")
         subSectionModalEditDelete.onOpen();
         setCurrentSection(label)
-        console.log("edilete")
+        break;
+      case "isBio":
+        BioModal.onOpen();
+        setCurrentSection(label)
+        break;
+      case "isBioEdit":
+        BioModal.onEdit();
+        setCurrentSection(label)
         break;
 
       default:
@@ -43,7 +54,15 @@ const SectionChip: React.FC<SectionChipProps> = ({
 
   return (
     <button
-      onClick={edilete? () => menuActions("edileteSub") : () => menuActions("addSub")}
+      onClick={
+        edilete
+          ? () => menuActions("edileteSub")
+          : isBio
+          ? () => menuActions("isBio")
+          : isBioEdit
+          ? () => menuActions("isBioEdit")
+          : () => menuActions("addSub")
+      }
       className="sectionChip py-2 px-3 rounded-md hover:bg-deep-blue/10 transition hover:ease-in ease-in duration-300 text-deep-blue w-full flex flex-row items-center justify-around "
     >
       <div className="flex flex-row gap-2 items-center w-2/3">

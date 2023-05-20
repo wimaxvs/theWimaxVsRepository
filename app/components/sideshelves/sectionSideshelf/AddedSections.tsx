@@ -3,14 +3,12 @@
 import React from "react";
 import useCvSubSegments from "@/app/hooks/useCvSubSegments";
 import SectionChip from "./SectionChip";
-import { useEffect } from "react";
 
 const AddedSections = () => {
   const subsegments = useCvSubSegments().subsegments;
+  const bioSubSeg = useCvSubSegments().theCurrentUser;
+  
 
-  useEffect(() => {
-    console.log(subsegments);
-  }, []);
 
   const sectionsSelected = (() => {
     const sectionCounts = subsegments?.reduce(
@@ -24,6 +22,11 @@ const AddedSections = () => {
 
     return (
       <>
+        {bioSubSeg && (
+          <React.Fragment>
+            <SectionChip isBioEdit label={"Bio"} addOrNum={1} />
+          </React.Fragment>
+        )}
         {Object.entries(sectionCounts).map(([parentSection, count]) => (
           <React.Fragment key={parentSection}>
             <SectionChip edilete label={parentSection} addOrNum={count} />
@@ -33,11 +36,11 @@ const AddedSections = () => {
     );
   })();
 
-  if (subsegments?.length > 0) {
+  if (subsegments?.length > 0 || bioSubSeg) {
     return (
       <>
         <div
-          className={`AddedSections z-7 md:w-[270px] bg-white mt-2 flex flex-row md:flex-col items-center justify-around md:justify-normal rounded-xl drop-shadow-md`}
+          className={`AddedSections z-7 md:w-[270px] bg-white mt-2 flex flex-col items-center justify-around md:justify-normal rounded-xl drop-shadow-md`}
         >
           <p className=" addedSectionNotif mt-2 text-deep-blue/50 font-bold text-base mb-3">
             These sections are in your CV:

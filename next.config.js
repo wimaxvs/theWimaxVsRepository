@@ -5,7 +5,7 @@ const nextConfig = {
   },
   images: {
     domains: [
-      "lh3.googleusercontent.com","via.placeholder.com"
+      "lh3.googleusercontent.com","via.placeholder.com", "localhost:3000"
     ]
   }
 }

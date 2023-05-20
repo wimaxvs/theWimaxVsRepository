@@ -3,7 +3,7 @@ import AddedSections from "./AddedSections";
 
 const SectionContainer = () => {
   return (
-    <div>
+    <div className={`sectionAddedSelectContainer w-full md:w-[270px]`}>
       <SectionSelect />
       <AddedSections />
     </div>
