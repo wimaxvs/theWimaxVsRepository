@@ -7,10 +7,7 @@ import { BsCameraFill } from "react-icons/bs";
 interface ImageAdditionProps {
   id: string;
   register: UseFormRegister<FieldValues>;
-  filePreview?:
-    | string
-    | React.Dispatch<React.SetStateAction<string | null>>
-    | null;
+  
 }
 
 const ImageAddition: React.FC<ImageAdditionProps> = ({
