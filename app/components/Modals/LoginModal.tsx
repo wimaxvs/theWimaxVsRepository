@@ -7,8 +7,8 @@ import { FieldValues, SubmitHandler, useForm } from "react-hook-form";
 import { FcGoogle } from "react-icons/fc";
 import { useRouter } from "next/navigation";
 
-import useRegisterModal from "@/app/hooks/useRegisterModal";
-import useLoginModal from "@/app/hooks/useLoginModal";
+import useRegisterModal from "@/app/hooks/modalHooks/useRegisterModal";
+import useLoginModal from "@/app/hooks/modalHooks/useLoginModal";
 
 import Modal from "./Modal";
 import Input from "../Inputs/Input";
@@ -43,8 +43,8 @@ const LoginModal = () => {
 
       if (callback?.ok) {
         toast.success("Logged in");
-        router.refresh()
-        router.push('/dash');
+        router.refresh();
+        router.push("/dash");
         loginModal.onClose();
       }
 
@@ -89,7 +89,7 @@ const LoginModal = () => {
         outline
         label="Continue with Google"
         icon={FcGoogle}
-        onClick={() => signIn('google', {callbackUrl: '/dash'})}
+        onClick={() => signIn("google", { callbackUrl: "/dash" })}
       />
       <div
         className="

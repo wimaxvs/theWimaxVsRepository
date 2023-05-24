@@ -2,8 +2,7 @@
 
 import { useCallback, useState } from "react";
 import { toast } from "react-hot-toast";
-import useSubSectionModalEditDelete from "@/app/hooks/useSubSectionModalEditDelete";
-import useCvSubSegments from "@/app/hooks/useCvSubSegments";
+import useSubSectionModalEditDelete from "@/app/hooks/modalHooks/useSubSectionModalEditDelete";
 import Modal from "@/app/components/Modals/Modal";
 import SubSectionContainer from "../sideshelves/sectionSideshelf/SubSectionContainer";
 import Heading from "@/app/components/Heading";
@@ -11,7 +10,6 @@ import useCurrentSection from "@/app/hooks/useCurrentSection";
 
 const AddSubSectionModalEditDelete = () => {
   const subSectionModalEdilete = useSubSectionModalEditDelete();
-  const cvSubSegments = useCvSubSegments()
 
   const [currentSection] = useCurrentSection((state) => [state.currentSection]);
   const [isLoading, setIsLoading] = useState(false);
@@ -27,7 +25,7 @@ const AddSubSectionModalEditDelete = () => {
     <div className="flex flex-col gap-2">
       <Heading
         title="Edit or delete Subsegments"
-        subtitle={`these are the subsegments in the ${currentSection} section`}
+        subtitle={`these are the subsegments in the ${currentSection} section. Save to reflect in the CV`}
       />
       <SubSectionContainer editable/>
     </div>

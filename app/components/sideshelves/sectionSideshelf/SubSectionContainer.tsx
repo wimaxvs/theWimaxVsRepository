@@ -63,7 +63,9 @@ const SubSectionContainer: React.FC<SubSectionContainerProps> = ({
   } = useForm<FieldValues>({
     defaultValues: {
       subsegments:
-        editable && filteredSubsegments ? [...filteredSubsegments] : [initFormValues],
+        editable && filteredSubsegments
+          ? [...filteredSubsegments]
+          : [initFormValues],
     },
   });
 
@@ -91,6 +93,8 @@ const SubSectionContainer: React.FC<SubSectionContainerProps> = ({
         ...subseg,
         order: +subseg["order"]!,
         parentSection: currentSection,
+        dateFrom: subseg["dateFrom"],
+        dateTo: subseg["dateTo"],
       };
       if (!subseg.subsegmentId) {
         const subsegmentId = uuidv4().toString();
@@ -170,7 +174,7 @@ const SubSectionContainer: React.FC<SubSectionContainerProps> = ({
           <Button
             lightColored
             specifiedColor={"bg-velvet-blue/40"}
-            label={"Save Changes"}
+            label={"Save"}
             onClick={handleSubmit(onSubmit)}
           />
         )}

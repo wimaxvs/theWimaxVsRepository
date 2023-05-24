@@ -1,17 +1,29 @@
 import { create } from "zustand";
 import { persist, createJSONStorage } from "zustand/middleware";
-import { SafeUser } from "@/app/types";
-import getCurrentUser from "../actions/getCurrentUser";
 
-type SubSeg = {
+export type SubSeg = {
   parentSection?: string;
   subsegmentId?: string;
   order?: number;
   title?: string;
-  subtitle?: string;
-  dateFrom?: Date;
-  dateTo?: Date;
+  subTitle?: string;
+  dateFrom?: string;
+  dateTo?: string;
   content?: string[];
+  isDeleted?: boolean;
+  createdAt?: string;
+  updatedAt?: string;
+  parentCvId?: string;
+};
+
+type cv = {
+  createdAt?: string;
+  cvName?: string | null;
+  cvId?: string;
+  isDeleted?: boolean;
+  updatedAt?: string;
+  userId?: string;
+  subSegments?: SubSeg[];
 };
 
 type user = {
@@ -27,6 +39,9 @@ type user = {
 interface SubSegmentStore {
   theCurrentUser?: user;
   subsegments: SubSeg[];
+  cv: cv;
+
+  setCv: (creds: Partial<cv>) => void;
   setSubsegments: (subSegs: SubSeg[]) => void;
   setEssentials: (handm: SubSegmentStore["theCurrentUser"]) => void;
 
@@ -46,6 +61,7 @@ const useCvSubSegments = create<SubSegmentStore>()(
         location: "",
       },
       subsegments: [],
+      cv: {},
 
       setSubsegments: (subSegs) =>
         set((state) => {
@@ -67,14 +83,14 @@ const useCvSubSegments = create<SubSegmentStore>()(
           return { subsegments: updatedSubsegment };
         }),
 
+      setEssentials: (handm) => set({ theCurrentUser: { ...handm } }),
+      setCv: (creds) => set((state)=> ({cv: {...state.cv, ...creds}})),
       removeSubseg: (id) =>
         set((state) => ({
           subsegments: state.subsegments.filter(
             (subseg) => subseg.subsegmentId !== id
           ),
         })),
-
-      setEssentials: (handm) => set({ theCurrentUser: { ...handm } }),
     }),
     {
       name: "subsegment-storage", // name of the item in the storage (must be unique)

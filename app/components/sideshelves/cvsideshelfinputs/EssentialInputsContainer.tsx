@@ -65,8 +65,6 @@ const EssentialInputsContainer = () => {
 
   const onSubmit: SubmitHandler<FieldValues> = (data) => {
     setIsLoading(true);
-    console.log(typeof(data.image[0]));
-    console.log(data.image[0])
 
     data = {
       ...data,
@@ -134,7 +132,7 @@ const EssentialInputsContainer = () => {
             <Button
               lightColored
               specifiedColor={"bg-velvet-blue/40"}
-              label={"Save Changes"}
+              label={"Save"}
               disabled={isLoading}
               onClick={handleSubmit(onSubmit)}
               sx={"mt-2"}

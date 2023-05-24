@@ -2,7 +2,7 @@
 
 import { useCallback, useState } from "react";
 import { toast } from "react-hot-toast";
-import useBioModal from "@/app/hooks/useBioModal";
+import useBioModal from "@/app/hooks/modalHooks/useBioModal";
 import Modal from "@/app/components/Modals/Modal";
 import EssentialInputsContainer from "../sideshelves/cvsideshelfinputs/EssentialInputsContainer";
 import Heading from "@/app/components/Heading";

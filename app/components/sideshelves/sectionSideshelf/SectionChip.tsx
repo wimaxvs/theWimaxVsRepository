@@ -2,9 +2,9 @@
 import { ReactElement } from "react";
 import { IconType } from "react-icons";
 import { AiOutlinePlus } from "react-icons/ai";
-import useSubSectionModal from "@/app/hooks/useSubSectionModal";
-import useSubSectionModalEditDelete from "@/app/hooks/useSubSectionModalEditDelete";
-import useBioModal from "@/app/hooks/useBioModal";
+import useSubSectionModal from "@/app/hooks/modalHooks/useSubSectionModal";
+import useSubSectionModalEditDelete from "@/app/hooks/modalHooks/useSubSectionModalEditDelete";
+import useBioModal from "@/app/hooks/modalHooks/useBioModal";
 import useCurrentSection from "@/app/hooks/useCurrentSection";
 
 interface SectionChipProps {

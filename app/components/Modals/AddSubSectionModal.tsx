@@ -2,7 +2,7 @@
 
 import { useCallback, useState } from "react";
 import { toast } from "react-hot-toast";
-import useSubSectionModal from "@/app/hooks/useSubSectionModal";
+import useSubSectionModal from "@/app/hooks/modalHooks/useSubSectionModal";
 
 import Modal from "@/app/components/Modals/Modal";
 import SubSectionContainer from "../sideshelves/sectionSideshelf/SubSectionContainer";
@@ -27,7 +27,7 @@ const AddSubSectionModal = () => {
     <div className="flex flex-col gap-2">
       <Heading
         title="Fill Out Your Section"
-        subtitle={`Add subsegments to the ${currentSection} section`}
+        subtitle={`Add subsegments to the ${currentSection} section and save.`}
       />
       <SubSectionContainer/>
     </div>
