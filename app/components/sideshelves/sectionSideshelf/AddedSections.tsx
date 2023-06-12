@@ -7,6 +7,7 @@ import Button from "../../Button";
 import axios from "axios";
 import toast from "react-hot-toast";
 import { SubSeg } from "@/app/hooks/useCvSubSegments";
+import Accordion from "../../Accordion";
 
 const AddedSections = () => {
   const cvStore = useCvSubSegments();
@@ -107,23 +108,23 @@ const AddedSections = () => {
     return (
       <>
         <div
-          className={`AddedSections z-7 md:w-[270px] bg-white mt-2 flex flex-col items-center justify-around md:justify-normal rounded-xl drop-shadow-md`}
+          className={`AddedSections z-7 w-11/12  bg-white mt-2 flex flex-col items-center justify-around md:justify-normal rounded-xl drop-shadow-md`}
         >
-          <p className=" addedSectionNotif mt-2 text-deep-blue/50 font-bold text-base mb-3">
-            These sections are in your CV:
-          </p>
-          <section className="arrayOfAddedChips flex flex-col gap-2 pb-4 w-5/6">
-            {sectionsSelected}
-          </section>
-          <div className={`commitButton w-5/6 mb-4`}>
-            <Button
-              disabled={isLoading}
-              label={"Commit"}
-              onClick={() =>
-                postSubsegments(subsegments, seeVee.cvId as string)
-              }
-            ></Button>
-          </div>
+          <Accordion
+            isAdded
+            label={"These sections are in your CV:"}
+          >
+              {sectionsSelected}
+            <div className={`commitButton w-5/6 mb-4 flex flex-row justify-center mx-auto`}>
+              <Button
+                disabled={isLoading}
+                label={"Commit"}
+                onClick={() =>
+                  postSubsegments(subsegments, seeVee.cvId as string)
+                }
+              />
+            </div>
+          </Accordion>
         </div>
       </>
     );

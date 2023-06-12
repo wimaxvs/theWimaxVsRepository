@@ -79,7 +79,7 @@ const SubSectionInput: React.FC<SubSectionInputProps> = ({
                         disabled={false}
                         register={register}
                         errors={errors}
-                        required
+                        required={obj.inputId === "title"}
                         isSubSegment
                         defaultValue={
                           obj.defaultValue ? obj.defaultValue : undefined

@@ -1,7 +1,9 @@
-import { ReactElement } from "react";
+"use client"
+import { ReactElement, useState } from "react";
 import { IconType } from "react-icons/lib";
 import SectionChip from "./SectionChip";
 // import { FaGraduationCap } from "react-icons/fa";
+import { BsChevronDown, BsChevronUp } from "react-icons/bs";
 import { BiPaint, BiCertification } from "react-icons/bi";
 import {
   MdOutlineSummarize,
@@ -11,10 +13,13 @@ import {
   MdOutlinePersonalInjury,
 } from "react-icons/md";
 import { BsBuildingGear, BsAward } from "react-icons/bs";
+import Accordion from "../../Accordion";
 
 const SectionSelect = () => {
 
-  const iconOptions ={size:18, color:"#343e83"}
+  const iconOptions = { size: 18, color: "#343e83" }
+  
+  const [chipsVisible, setChipsVisible] = useState<boolean>(true) 
   
   const buttonProps: {
     color?: string;
@@ -61,24 +66,29 @@ const SectionSelect = () => {
 
   return (
     <div
-      className={`SectionAddition z-7 w-full md:w-[270px] bg-white mt-2 flex flex-col items-center justify-around md:justify-normal rounded-xl drop-shadow-md`}
+      className={`SectionAddition z-7 w-11/12 bg-white mt-2 flex flex-col items-center justify-around md:justify-normal rounded-xl drop-shadow-md`}
     >
-      <p className=" sectionAdditionPrompt mt-2 text-deep-blue/50 font-bold text-base mb-3">
-        Pick a section to add below:
-      </p>
-      <section className="arrayOfChips flex flex-col gap-2 pb-4 w-5/6">
+      {/**Accordion */}
+      <Accordion
+        UpIcon={<BsChevronUp size={20} color={"#343e83"} />}
+        DownIcon={<BsChevronDown size={20} color={"#343e83"} />}
+        label={"Pick a section to add below:"}
+      >
+      {/**Accordion */}
+
+      
         {buttonProps.map((prop, index) => {
           return (
             <div className="" key={index}>
               <SectionChip
-                isBio={prop.label ==="Bio"? true : false}
+                isBio={prop.label === "Bio" ? true : false}
                 label={prop.label}
                 icon={prop.icon}
               />
             </div>
           );
         })}
-      </section>
+      </Accordion>
     </div>
   );
 };

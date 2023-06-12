@@ -76,43 +76,37 @@ export async function POST(request: Request) {
       });
 
       return NextResponse.json(cv);
-    
     } else {
-      let cv;
-      if (subsegments.length > 0) {
-        cv = await prisma.cV.create({
-          data: {
-            user: { connect: { id: currentUser?.id } },
-            subSections: {
-              createMany: {
-                data: [
-                  ...subsegments.map((subsegment: SubSeg) => ({
-                    title: subsegment.title,
-                    content: subsegment.content,
-                    order: subsegment.order,
-                    subTitle: subsegment.subTitle,
-                    dateFrom: subsegment.dateFrom
-                      ? parseISO(subsegment.dateFrom)
-                      : null,
-                    dateTo: subsegment.dateTo
-                      ? parseISO(subsegment.dateTo)
-                      : null,
-                    parentSection: subsegment.parentSection,
-                  })),
-                ],
-              },
+      let cv = await prisma.cV.create({
+        data: {
+          user: { connect: { id: currentUser?.id } },
+          subSections: {
+            createMany: {
+              data: [
+                ...subsegments.map((subsegment: SubSeg) => ({
+                  title: subsegment.title,
+                  content: subsegment.content,
+                  order: subsegment.order,
+                  subTitle: subsegment.subTitle,
+                  dateFrom: subsegment.dateFrom
+                    ? parseISO(subsegment.dateFrom)
+                    : null,
+                  dateTo: subsegment.dateTo
+                    ? parseISO(subsegment.dateTo)
+                    : null,
+                  parentSection: subsegment.parentSection,
+                })),
+              ],
             },
           },
-          include: {
-            subSections: true,
-          },
-        });
-        return NextResponse.json(cv);
-      }
+        },
+        include: {
+          subSections: true,
+        },
+      });
+      return NextResponse.json(cv);
     }
   } else {
     return NextResponse.json({ message: "No changes registered" });
   }
 }
-     
-

@@ -3,7 +3,6 @@ import Button from "../../Button";
 import Input from "../../Inputs/Input";
 import {
   Control,
-  FieldArrayMethodProps,
   FieldErrors,
   FieldValues,
   UseFormRegister,
@@ -49,7 +48,6 @@ const SubSectionContentInput: React.FC<InputArrayProps> = ({
             disabled={false}
             register={register}
             errors={errors}
-            required
           />
           <div className="w-1/6 h-full">
             <Button

@@ -66,7 +66,10 @@ const SectionChip: React.FC<SectionChipProps> = ({
       className="sectionChip py-2 px-3 rounded-md hover:bg-deep-blue/10 transition hover:ease-in ease-in duration-300 text-deep-blue w-full flex flex-row items-center justify-around "
     >
       <div className="flex flex-row gap-2 items-center w-2/3">
-        {Icon && Icon} {label}
+        <i className={`md:hidden lg:block`}>{Icon && Icon}</i>
+        <p className="flex flex-row justify-items-start items-start pl-0">
+          {label}
+        </p>
       </div>
       {addOrNum ? (
         <div className="px-2 rounded-full bg-deep-blue">
