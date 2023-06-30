@@ -1,14 +1,17 @@
 "use client";
 import Input from "@/app/components/Inputs/Input";
-import ImageAddition from "@/app/components/sideshelves/cvsideshelfinputs/ImageAddition";
+import ImageAddition from "@/app/components/sideshelves/cvsideshelfinputs/ImageAddition/ImageAddition";
 import useCvSubSegments from "@/app/hooks/useCvSubSegments";
 import React, { useState } from "react";
 import { FieldValues, useForm, SubmitHandler } from "react-hook-form";
+import useIA from "./ImageAddition/hooks/useIA";
 import Button from "../../Button";
+import { toast } from "react-hot-toast";
 
 interface IIALprops {
   id: string;
   label: string;
+  isSummary?:boolean
 }
 
 const EssentialInputsContainer = () => {
@@ -45,6 +48,11 @@ const EssentialInputsContainer = () => {
         label: "Location",
       },
     ],
+    [{
+      id: "bio",
+      label: "Profile Summary",
+      isSummary: true
+    }]
   ]);
 
   const {
@@ -59,21 +67,33 @@ const EssentialInputsContainer = () => {
       telephone: cvSubSegments.theCurrentUser?.telephone,
       dob: cvSubSegments.theCurrentUser?.dob,
       location: cvSubSegments.theCurrentUser?.location,
+      bio: cvSubSegments.theCurrentUser?.bio,
       image: undefined,
     },
   });
 
-  const onSubmit: SubmitHandler<FieldValues> = (data) => {
+  const onSubmit: SubmitHandler<FieldValues> = async (data) => {
     setIsLoading(true);
+    try {
+      const imgData = await useIA().uploadFile(data.image[0]);
+      data = {
+        ...data,
+        dob: data.dob,
+        image: imgData,
+      };
+      cvSubSegments.setEssentials({ ...data });
 
-    data = {
-      ...data,
-      dob: new Date(data.dob),
-      image: data.image[0],
-    };
-    cvSubSegments.setEssentials({ ...data });
-
-    setIsLoading(false);
+      setIsLoading(false);
+    } catch (error) {
+      toast.error(
+        <>
+          <div className="p-4 text-bold text-rose-800 flex flex-col items-center bg-rose-100 rounded-lg my-4">
+            {`Error: ${error}`}
+          </div>
+        </>
+      );
+      setIsLoading(false);
+    }
   };
 
   return (
@@ -83,7 +103,7 @@ const EssentialInputsContainer = () => {
       <div
         className={`CvSideShelf bg-light-purple/20 mt-2 flex flex-row md:flex-col items-center justify-around md:justify-normal rounded-xl drop-shadow-md`}
       >
-        <div className="flex flex-col flex items-center">
+        <div className="flex flex-col items-center w-11/12">
           <p className="inputsThemselves mt-2 text-deep-blue/40 font-bold text-base">
             Who are you?
           </p>
@@ -111,6 +131,7 @@ const EssentialInputsContainer = () => {
                             }`}
                           >
                             <Input
+                              isSummary={space.isSummary? true : false}
                               key={index}
                               isSubSegment
                               isBioData

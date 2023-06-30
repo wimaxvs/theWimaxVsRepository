@@ -15,7 +15,7 @@ export default function Page() {
   return (
     <>
       <div
-        className={`sectionSelectAndPdfViewer w-full bg-off-white flex md:flex-row gap-4`}
+        className={`sectionSelectAndPdfViewer w-full bg-off-white flex md:flex-row gap-4 overflow-y-auto`}
       >
         <section
           className={`CreateLayoutEssentials md:mr-0 z-10 mx-auto mt-24 md:mt-4 pb-4 md:ml-32 w-5/6 md:w-1/4 lg:w-1/6 overflow-y-auto h-5/6 flex flex-col items-center rounded-xl`}
@@ -34,7 +34,7 @@ export default function Page() {
           </>
         </section>
         <section
-          className={`pdfViewer md:w-1/2 md:mt-8 rounded-xl md:h-5/6 hidden md:block`} 
+          className={`pdfViewer md:w-1/2 md:mt-8 rounded-xl md:h-5/6 hidden md:block`}
         >
           <ClientOnly>
             <Viewer />

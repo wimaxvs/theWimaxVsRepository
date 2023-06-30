@@ -48,7 +48,7 @@ const Accordion: React.FC<AccordionProps> = ({
       <section
         className={`arrayOfChips ${
           isVisible ? "flex" : "hidden"
-        } flex-col gap-2 pb-4 w-5/6 transition ease-in duration-300`}
+        } flex-col gap-2 pb-4 w-5/6`}
       >
         {children}
       </section>

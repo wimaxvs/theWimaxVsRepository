@@ -1,48 +1,31 @@
 "use client";
 
-import { Page, Text, View, Document, StyleSheet, PDFDownloadLink } from "@react-pdf/renderer";
-import useCvSubSegments from "@/app/hooks/useCvSubSegments";
-import React from "react";
-import useFirstDocStyles from "./hooks/useFirstDocStyles";
+import { PDFDownloadLink, PDFViewer } from "@react-pdf/renderer";
+import useFirstDocStyles from "./hooks/styles/useDoc1Styles";
+import useAllDocs from "./hooks/documents/useAllDocs";
 import useCvData from "./hooks/useCvData";
+import { useEffect } from "react";
 
-// Create Document Component
 const SampleDoc = () => {
   const styles = useFirstDocStyles().styles;
-  const { sections, subsegments } = useCvData();
+  let forUe = useAllDocs();
+  const TheDoc = useAllDocs().TheDocs.Doc1;
+  const { theCurrentUser } = useCvData();
 
-  const TheDoc = () => (
-    <Document style={styles.document}>
-      <Page size="A4" style={styles.page}>
-        {sections?.map((section, index) => {
-          return (
-            <React.Fragment key={index}>
-              <View style={styles.view}>
-                <Text>{section}</Text>
-                {subsegments
-                  .filter((subseg) => {
-                    return subseg.parentSection === section;
-                  })
-                  .map((subseg, index) => {
-                    return (
-                      <React.Fragment key={index}>
-                        <Text>{subseg.title}</Text>
-                      </React.Fragment>
-                    );
-                  })}
-              </View>
-            </React.Fragment>
-          );
-        })}
-      </Page>
-    </Document>
-  );
-  
+  useEffect(() => {
+    console.log(typeof forUe);
+  }, []);
+
   const DownloadButton = () => (
     <div>
-      <PDFDownloadLink style={styles.downloadLink}  document={<TheDoc />} fileName="somename.pdf">
+      <PDFDownloadLink
+        style={styles.downloadLink}
+        document={<TheDoc />}
+        fileName={`Me-CV: ${
+          theCurrentUser?.firstname! + theCurrentUser?.lastname
+        } CV`}
+      >
         {({ blob, url, loading, error }) =>
-          
           loading ? "Loading document..." : "Download now!"
         }
       </PDFDownloadLink>
@@ -51,8 +34,13 @@ const SampleDoc = () => {
 
   return (
     <>
-      <article className={`flex flex-col gap-4 h-full`}>
-        {TheDoc()}
+      <article
+        className={`flex flex-col gap-4 h-full bg-gradient-to-r from-deep-blue to-blue-purple rounded-lg`}
+      >
+        <PDFViewer showToolbar={false} style={styles.pdfViewer}>
+          {TheDoc()}
+        </PDFViewer>
+
         {DownloadButton()}
       </article>
     </>

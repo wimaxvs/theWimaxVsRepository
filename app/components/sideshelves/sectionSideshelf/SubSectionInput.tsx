@@ -15,6 +15,7 @@ interface SubSectionInputProps {
   register: UseFormRegister<FieldValues>;
   errors: FieldErrors<FieldValues>;
   control: Control<FieldValues, any>;
+  parentSection: string;
 }
 
 const SubSectionInput: React.FC<SubSectionInputProps> = ({
@@ -22,8 +23,24 @@ const SubSectionInput: React.FC<SubSectionInputProps> = ({
   register,
   errors,
   control,
+  parentSection,
 }) => {
   const [innerOrder, setInnerOrder] = useState<number>(order + 1);
+  const noDate =[
+    "Languages",
+    "Skills",
+    "Hobbies",
+    "Awards",
+  ];
+  const noContent =[
+    "Languages",
+    "Skills",
+    "Hobbies",
+  ];
+
+  const dontPutDate = noDate.indexOf(parentSection) >= 0;
+  const dontPutContent = noContent.indexOf(parentSection) >= 0;
+  const dontPutOrder = parentSection === "Hobbies";
 
   const inputSectionDivContent: {
     inputId: string;
@@ -34,7 +51,7 @@ const SubSectionInput: React.FC<SubSectionInputProps> = ({
     [
       {
         inputId: "order",
-        inputLabel: "Order",
+        inputLabel: dontPutContent ? "Level" : "Order",
         type: "number",
         defaultValue: innerOrder,
       },
@@ -55,40 +72,51 @@ const SubSectionInput: React.FC<SubSectionInputProps> = ({
             <div
               className={`${theDiv
                 .map((obj, i) => `${obj.inputId} ${i}`)
-                .join(
-                  "-"
-                )} flex flex-row gap-4 items-center justify-start drop-shadow-none w-full`}
+                .join("-")} 
+                flex flex-row gap-4 items-center justify-start drop-shadow-none w-full`}
             >
-              {theDiv.map((obj, i) => {
-                return (
-                  <React.Fragment key={i}>
-                    <div
-                      className={`${
-                        obj.inputId === "title"
-                          ? "w-full"
-                          : obj.inputId === "subTitle"
-                          ? "w-full"
-                          : "w-1/6"
-                      }`}
-                    >
-                      <Input
-                        isBioData
-                        id={`subsegments[${order}][${obj.inputId}]`}
-                        label={obj.inputLabel}
-                        type={obj.type ? obj.type : ""}
-                        disabled={false}
-                        register={register}
-                        errors={errors}
-                        required={obj.inputId === "title"}
-                        isSubSegment
-                        defaultValue={
-                          obj.defaultValue ? obj.defaultValue : undefined
-                        }
-                      />
-                    </div>
-                  </React.Fragment>
-                );
-              })}
+              {theDiv
+                .filter((div) =>
+                  dontPutDate
+                    ? ["dateFrom", "dateTo"].indexOf(div.inputId) < 0
+                    : true
+                )
+                .filter((div) =>
+                  dontPutContent ? div.inputId !== "subTitle" : true
+                )
+                .filter((div) =>
+                  dontPutOrder ? div.inputId !== "order" : true
+                )
+                .map((obj, i) => {
+                  return (
+                    <React.Fragment key={i}>
+                      <div
+                        className={`${
+                          obj.inputId === "title"
+                            ? "w-full"
+                            : obj.inputId === "subTitle"
+                            ? "w-full"
+                            : "w-1/6"
+                        }`}
+                      >
+                        <Input
+                          isBioData
+                          id={`subsegments[${order}][${obj.inputId}]`}
+                          label={obj.inputLabel}
+                          type={obj.type ? obj.type : ""}
+                          disabled={false}
+                          register={register}
+                          errors={errors}
+                          required={obj.inputId === "title"}
+                          isSubSegment
+                          defaultValue={
+                            obj.defaultValue ? obj.defaultValue : undefined
+                          }
+                        />
+                      </div>
+                    </React.Fragment>
+                  );
+                })}
             </div>
           </React.Fragment>
         );
@@ -101,12 +129,14 @@ const SubSectionInput: React.FC<SubSectionInputProps> = ({
       className={`subSectionInput mt-6  drop-shadow-md rounded-md px-2 pt-4 flex flex-col w-11/12 gap-2 items-center`}
     >
       {inputSectionDivs}
-      <SubSectionContentInput
-        register={register}
-        errors={errors}
-        control={control}
-        order={order}
-      />
+      {!dontPutContent && (
+        <SubSectionContentInput
+          register={register}
+          errors={errors}
+          control={control}
+          order={order}
+        />
+      )}
     </section>
   );
 };

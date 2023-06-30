@@ -5,9 +5,12 @@ const nextConfig = {
   },
   images: {
     domains: [
-      "lh3.googleusercontent.com","via.placeholder.com", "localhost:3000"
-    ]
-  }
-}
+      "lh3.googleusercontent.com",
+      "via.placeholder.com",
+      "localhost:3000",
+      "res.cloudinary.com",
+    ],
+  },
+};
 
-module.exports = nextConfig
+module.exports = nextConfig;

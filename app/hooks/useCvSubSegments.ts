@@ -34,12 +34,14 @@ type user = {
   telephone?: string;
   dob?: Date;
   location?: string;
+  bio?: string
 };
 
 interface SubSegmentStore {
   theCurrentUser?: user;
   subsegments: SubSeg[];
   cv: cv;
+  parentSections: string[];
 
   setCv: (creds: Partial<cv>) => void;
   setSubsegments: (subSegs: SubSeg[]) => void;
@@ -59,8 +61,16 @@ const useCvSubSegments = create<SubSegmentStore>()(
         telephone: "",
         dob: new Date(),
         location: "",
+        bio: ""
       },
       subsegments: [],
+      parentSections: get()?.subsegments?.reduce((acc: string[], obj) => {
+        const { parentSection } = obj;
+        if (parentSection && !acc.includes(parentSection)) {
+          acc.push(parentSection);
+        }
+        return acc;
+      }, []),
       cv: {},
 
       setSubsegments: (subSegs) =>
@@ -84,7 +94,7 @@ const useCvSubSegments = create<SubSegmentStore>()(
         }),
 
       setEssentials: (handm) => set({ theCurrentUser: { ...handm } }),
-      setCv: (creds) => set((state)=> ({cv: {...state.cv, ...creds}})),
+      setCv: (creds) => set((state) => ({ cv: { ...state.cv, ...creds } })),
       removeSubseg: (id) =>
         set((state) => ({
           subsegments: state.subsegments.filter(

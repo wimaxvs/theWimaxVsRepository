@@ -115,7 +115,7 @@ const AddedSections = () => {
             label={"These sections are in your CV:"}
           >
               {sectionsSelected}
-            <div className={`commitButton w-5/6 mb-4 flex flex-row justify-center mx-auto`}>
+            {/* <div className={`commitButton w-5/6 mb-4 flex flex-row justify-center mx-auto`}>
               <Button
                 disabled={isLoading}
                 label={"Commit"}
@@ -123,7 +123,7 @@ const AddedSections = () => {
                   postSubsegments(subsegments, seeVee.cvId as string)
                 }
               />
-            </div>
+            </div> */}
           </Accordion>
         </div>
       </>

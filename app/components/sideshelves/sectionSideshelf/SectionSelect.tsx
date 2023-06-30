@@ -1,12 +1,11 @@
-"use client"
-import { ReactElement, useState } from "react";
+"use client";
+import { ReactElement, useEffect } from "react";
 import { IconType } from "react-icons/lib";
 import SectionChip from "./SectionChip";
 // import { FaGraduationCap } from "react-icons/fa";
 import { BsChevronDown, BsChevronUp } from "react-icons/bs";
 import { BiPaint, BiCertification } from "react-icons/bi";
 import {
-  MdOutlineSummarize,
   MdWorkOutline,
   MdLanguage,
   MdOutlineSchool,
@@ -14,14 +13,16 @@ import {
 } from "react-icons/md";
 import { BsBuildingGear, BsAward } from "react-icons/bs";
 import Accordion from "../../Accordion";
+import useCvData from "../docViewer/hooks/useCvData";
 
 const SectionSelect = () => {
+  const iconOptions = { size: 18, color: "#343e83" };
+  const sections = useCvData().sections
 
-  const iconOptions = { size: 18, color: "#343e83" }
-  
-  const [chipsVisible, setChipsVisible] = useState<boolean>(true) 
-  
-  const buttonProps: {
+  useEffect(() => {
+  },[sections])
+
+  const chipProps: {
     color?: string;
     label: string;
     icon: ReactElement<IconType>;
@@ -42,10 +43,7 @@ const SectionSelect = () => {
       label: "Skills",
       icon: <BsBuildingGear {...iconOptions} />,
     },
-    {
-      label: "Summary",
-      icon: <MdOutlineSummarize {...iconOptions} />,
-    },
+   
     {
       label: "Hobbies",
       icon: <BiPaint {...iconOptions} />,
@@ -66,7 +64,7 @@ const SectionSelect = () => {
 
   return (
     <div
-      className={`SectionAddition z-7 w-11/12 bg-white mt-2 flex flex-col items-center justify-around md:justify-normal rounded-xl drop-shadow-md`}
+      className={`SectionAddition z-7 w-11/12 bg-white mt-2 flex flex-col items-center justify-around md:justify-normal rounded-xl drop-shadow-md transition ease-in duration-300`}
     >
       {/**Accordion */}
       <Accordion
@@ -74,20 +72,21 @@ const SectionSelect = () => {
         DownIcon={<BsChevronDown size={20} color={"#343e83"} />}
         label={"Pick a section to add below:"}
       >
-      {/**Accordion */}
+        {/**Accordion */}
 
-      
-        {buttonProps.map((prop, index) => {
-          return (
-            <div className="" key={index}>
-              <SectionChip
-                isBio={prop.label === "Bio" ? true : false}
-                label={prop.label}
-                icon={prop.icon}
-              />
-            </div>
-          );
-        })}
+        {chipProps
+          .filter((prop) => sections?.indexOf(prop.label) < 0)
+          .map((prop, index) => {
+            return (
+              <div className="" key={index}>
+                <SectionChip
+                  isBio={prop.label === "Bio" ? true : false}
+                  label={prop.label}
+                  icon={prop.icon}
+                />
+              </div>
+            );
+          })}
       </Accordion>
     </div>
   );

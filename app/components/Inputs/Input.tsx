@@ -2,8 +2,10 @@
 
 import { FieldErrors, FieldValues, UseFormRegister } from "react-hook-form";
 import { BiDollar } from "react-icons/bi";
+import InputDecipher from "./InputDecipher";
 
 interface InputProps {
+  isSummary?: boolean;
   id: string;
   label: string;
   type?: string;
@@ -13,12 +15,13 @@ interface InputProps {
   register: UseFormRegister<FieldValues>;
   errors: FieldErrors;
   isBioData?: boolean;
-  placeholder?: string
-  isSubSegment?:boolean
-  defaultValue?: any
+  placeholder?: string;
+  isSubSegment?: boolean;
+  defaultValue?: any;
 }
 
 const Input: React.FC<InputProps> = ({
+  isSummary,
   id,
   label,
   type,
@@ -30,7 +33,7 @@ const Input: React.FC<InputProps> = ({
   isBioData,
   placeholder,
   defaultValue,
-  isSubSegment
+  isSubSegment,
 }) => {
   return (
     <div
@@ -44,14 +47,16 @@ const Input: React.FC<InputProps> = ({
           className="text-neutral-700 absolute top-5 left-2"
         />
       )}
-      <input
+      <InputDecipher
+        textarea={isSummary}
         id={id}
         disabled={disabled}
-        {...register(id, { required })}
+        register={register}
+        required={required}
         placeholder={placeholder ? placeholder : " "}
         defaultValue={defaultValue ? defaultValue : undefined}
         type={type}
-        className={`peer w-full p-4 pt-6 font-light 
+        classNameProp={`peer w-full p-4 pt-6 font-light 
         ${
           isBioData
             ? "bg-actual-white/60 hover:bg-actual-white"

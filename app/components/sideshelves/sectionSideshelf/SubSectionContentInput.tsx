@@ -14,14 +14,14 @@ interface InputArrayProps {
   register: UseFormRegister<FieldValues>;
   errors: FieldErrors<FieldValues>;
   control: Control<FieldValues, any>;
-  order: number
+  order: number;
 }
 
 const SubSectionContentInput: React.FC<InputArrayProps> = ({
   register,
   errors,
   control,
-  order
+  order,
 }) => {
 
   const { fields, append, remove } = useFieldArray({
@@ -69,7 +69,7 @@ const SubSectionContentInput: React.FC<InputArrayProps> = ({
   return (
     <>
       <p className="subSegmentContentArray text-deep-blue/40 font-bold text-md w-full">
-        Care to specify further...?
+       {"Care to specify further...?"}
       </p>
       <div className="contentInputArrays flex flex-col gap-2 w-full drop-shadow-md rounded-md items-center">
         {inputSectionContentInputs}

@@ -2,6 +2,7 @@ import useCvSubSegments from "@/app/hooks/useCvSubSegments";
 
 const useCvData = () => {
   const [subsegments] = useCvSubSegments((state) => [state.subsegments]);
+  const [theCurrentUser] = useCvSubSegments((state) => [state.theCurrentUser]);
 
   const sections = subsegments?.reduce((acc: string[], obj) => {
     const { parentSection } = obj;
@@ -13,7 +14,7 @@ const useCvData = () => {
     return acc;
   }, []);
 
-  return { subsegments, sections };
+  return { subsegments, sections, theCurrentUser };
 };
 
 export default useCvData;

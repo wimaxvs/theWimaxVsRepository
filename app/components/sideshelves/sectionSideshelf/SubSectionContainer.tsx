@@ -101,11 +101,13 @@ const SubSectionContainer: React.FC<SubSectionContainerProps> = ({
         extractedSubseg.subsegmentId = subsegmentId;
       }
 
-      const extractedContent: string[] = (
-        subseg["content"] as { description: string }[]
-      ).map((el: { description: string }) => {
-        return el.description;
-      });
+      const extractedContent: string[] = subseg["content"]
+        ? (subseg["content"] as { description: string }[]).map(
+            (el: { description: string }) => {
+              return el.description;
+            }
+          )
+        : [""];
       extractedSubseg.content = extractedContent;
       return extractedSubseg;
     });
@@ -121,16 +123,17 @@ const SubSectionContainer: React.FC<SubSectionContainerProps> = ({
   const onDelete: (id: string, index: number) => void = (subsegId, index) => {
     cvSubSegmentStore.removeSubseg(subsegId);
     remove(index);
-    console.log(cvSubSegmentStore.subsegments);
   };
 
   return (
     <div
       className={`subSectionInputContainer bg-light-purple/20 py-4 rounded-md flex flex-col items-center`}
     >
-      <div className="description flex pl-2 w-full ml-12 flex flex-col items-start">
-        <p className={`text-deep-blue/70 font-bold text-xl`}>Subsegments:</p>
-      </div>
+      {
+        <div className="description flex pl-2 w-full ml-12 flex-col items-start">
+          <p className={`text-deep-blue/70 font-bold text-xl`}>Subsegments:</p>
+        </div>
+      }
       {fields.map((field, index) => {
         const theField: SubSeg = field as SubSeg;
         return (
@@ -139,6 +142,7 @@ const SubSectionContainer: React.FC<SubSectionContainerProps> = ({
               className={`listOfSubsegmentInputs w-full flex flex-col items-center`}
             >
               <SubSectionInput
+                parentSection={currentSection}
                 register={register}
                 errors={errors}
                 order={index}
@@ -164,12 +168,14 @@ const SubSectionContainer: React.FC<SubSectionContainerProps> = ({
         );
       })}
       <div className="flex flex-row gap-4 px-2 mt-2 w-11/12">
-        <Button
-          lightColored
-          specifiedColor={"bg-blue-purple/40"}
-          label={`Add ${fields.length > 0 ? "Another" : "A"} Subsegment`}
-          onClick={() => append({})}
-        />
+        {
+          <Button
+            lightColored
+            specifiedColor={"bg-blue-purple/40"}
+            label={`Add ${fields.length > 0 ? "Another" : "A"} Subsegment`}
+            onClick={() => append({})}
+          />
+        }
         {fields.length > 0 && (
           <Button
             lightColored

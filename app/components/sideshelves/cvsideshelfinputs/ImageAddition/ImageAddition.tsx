@@ -3,6 +3,7 @@ import { FieldValues, UseFormRegister } from "react-hook-form";
 import useCvSubSegments from "@/app/hooks/useCvSubSegments";
 import React from "react";
 import { BsCameraFill } from "react-icons/bs";
+import toast from "react-hot-toast";
 
 interface ImageAdditionProps {
   id: string;
@@ -14,10 +15,9 @@ const ImageAddition: React.FC<ImageAdditionProps> = ({
   register,
   id,
   }) => {
-  let img = useCvSubSegments().theCurrentUser?.image
-  // img = URL.createObjectURL(img as Blob)
-  
-  const [imagePreview, setImagePreview] = React.useState("");
+  let userImg = useCvSubSegments().theCurrentUser?.image
+   
+  const [imagePreview, setImagePreview] = React.useState(userImg as string);
   const placeholderPic =
     "https://via.placeholder.com/150/FFFFFF/000000/?text=add+picture";
 
@@ -28,7 +28,13 @@ const ImageAddition: React.FC<ImageAdditionProps> = ({
       const imgDoc = event?.target.files[0];
       console.log(typeof(imgDoc))
       if (imgDoc.size >= 3048576) {
-        return alert("Max file size is 3mb");
+        return toast.error(
+          <>
+            <div className="p-4 text-bold text-rose-800 flex flex-col items-center bg-rose-100 rounded-lg my-4">
+              {`Error: Max file size is 3mb`}
+            </div>
+          </>
+        );
       } else {
         setImagePreview(URL.createObjectURL(imgDoc));
       }
@@ -45,7 +51,7 @@ const ImageAddition: React.FC<ImageAdditionProps> = ({
         </p>
         <div className="avatarAdditionSpace mt-2 mb-8 relative rounded-full bg-neutral-300 h-[110px] w-[110px] flex flex-col items-center content-center border-2 border-blue-purple/20">
           <img
-            src={imagePreview || placeholderPic}
+            src={(imagePreview) || placeholderPic}
             alt="avatar placeholder"
             className="signup-profile-pic object-cover rounded-full h-[109px] w-[109px]"
           />
@@ -57,11 +63,11 @@ const ImageAddition: React.FC<ImageAdditionProps> = ({
           <input
             type="file"
             id={id}
-            multiple
+            multiple={false}
             hidden
             accept="image/*"
             {...register(id, {
-              onChange: (e) => validateImg(e)
+              onChange: (e) => validateImg(e),
             })}
           />
         </div>
