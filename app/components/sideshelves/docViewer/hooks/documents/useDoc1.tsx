@@ -15,9 +15,9 @@ import useCvData from "../useCvData";
 import usePlaceholderImage from "../styles/usePlaceholderImage";
 
 const useDoc1 = () => {
-  const imgSrc = usePlaceholderImage().imgSrc;
-  const styles = useDoc1Styles().styles;
-  const dividerOptions = useDoc1Styles().dividerOptions;
+  const {imgSrc} = usePlaceholderImage();
+  const {styles} = useDoc1Styles();
+  const {dividerOptions} = useDoc1Styles();
   const { sections, subsegments, theCurrentUser } = useCvData();
 
   const Doc1 = () => (

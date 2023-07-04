@@ -26,15 +26,16 @@ type cv = {
   subSegments?: SubSeg[];
 };
 
-type user = {
+export type user = {
   firstname?: string;
   lastname?: string;
   email?: string;
-  image?: string | Blob | null;
+  image?: string | null | undefined;
   telephone?: string;
   dob?: Date;
   location?: string;
-  bio?: string
+  bio?: string;
+  prospectiveTitle?: string
 };
 
 interface SubSegmentStore {
@@ -61,7 +62,8 @@ const useCvSubSegments = create<SubSegmentStore>()(
         telephone: "",
         dob: new Date(),
         location: "",
-        bio: ""
+        bio: "",
+        prospectiveTitle: ""
       },
       subsegments: [],
       parentSections: get()?.subsegments?.reduce((acc: string[], obj) => {

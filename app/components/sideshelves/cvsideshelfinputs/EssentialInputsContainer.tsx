@@ -7,6 +7,7 @@ import { FieldValues, useForm, SubmitHandler } from "react-hook-form";
 import useIA from "./ImageAddition/hooks/useIA";
 import Button from "../../Button";
 import { toast } from "react-hot-toast";
+import useBioModal from "@/app/hooks/modalHooks/useSubSectionModalEditDelete";
 
 interface IIALprops {
   id: string;
@@ -17,6 +18,7 @@ interface IIALprops {
 const EssentialInputsContainer = () => {
   const cvSubSegments = useCvSubSegments();
   const [isLoading, setIsLoading] = useState<boolean>(false);
+  const bioModalFunctions = useBioModal()
   const [inputIdsAndLabels, setInputIdsAndLabels] = useState<IIALprops[][]>([
     [
       {
@@ -49,6 +51,10 @@ const EssentialInputsContainer = () => {
       },
     ],
     [{
+      id: "prospectiveTitle",
+      label: "Job Title",
+    }],
+    [{
       id: "bio",
       label: "Profile Summary",
       isSummary: true
@@ -67,8 +73,9 @@ const EssentialInputsContainer = () => {
       telephone: cvSubSegments.theCurrentUser?.telephone,
       dob: cvSubSegments.theCurrentUser?.dob,
       location: cvSubSegments.theCurrentUser?.location,
+      prospectiveTitle: cvSubSegments.theCurrentUser?.prospectiveTitle,
       bio: cvSubSegments.theCurrentUser?.bio,
-      image: undefined,
+      image: cvSubSegments.theCurrentUser?.image,
     },
   });
 
@@ -83,6 +90,7 @@ const EssentialInputsContainer = () => {
       };
       cvSubSegments.setEssentials({ ...data });
 
+      bioModalFunctions.onClose()
       setIsLoading(false);
     } catch (error) {
       toast.error(
@@ -92,6 +100,7 @@ const EssentialInputsContainer = () => {
           </div>
         </>
       );
+      
       setIsLoading(false);
     }
   };
@@ -131,7 +140,7 @@ const EssentialInputsContainer = () => {
                             }`}
                           >
                             <Input
-                              isSummary={space.isSummary? true : false}
+                              isSummary={space.isSummary?? false}
                               key={index}
                               isSubSegment
                               isBioData

@@ -12,7 +12,8 @@ import useCvSubSegments from "@/app/hooks/useCvSubSegments";
 import useCurrentSection from "@/app/hooks/useCurrentSection";
 import { BsTrash } from "react-icons/bs";
 import Button from "../../Button";
-
+import useSubSectionModal from "@/app/hooks/modalHooks/useSubSectionModal";
+import useSubSectionModalEditDelete from "@/app/hooks/modalHooks/useSubSectionModalEditDelete";
 type SubSeg = {
   parentSection?: string;
   subsegmentId?: string;
@@ -34,6 +35,8 @@ const SubSectionContainer: React.FC<SubSectionContainerProps> = ({
 }) => {
   const cvSubSegmentStore = useCvSubSegments();
   const [currentSection] = useCurrentSection((state) => [state.currentSection]);
+  const subSectionModalFunctions = useSubSectionModal();
+  const editableSubSectionModalFunctions = useSubSectionModalEditDelete();
   const filteredSubsegments = cvSubSegmentStore.subsegments
     .filter((subseg) => subseg.parentSection === currentSection)
     .map((subsegB) => {
@@ -118,6 +121,8 @@ const SubSectionContainer: React.FC<SubSectionContainerProps> = ({
     if (!editable) {
       reset();
     }
+    subSectionModalFunctions.onClose();
+    editableSubSectionModalFunctions.onClose()
   };
 
   const onDelete: (id: string, index: number) => void = (subsegId, index) => {

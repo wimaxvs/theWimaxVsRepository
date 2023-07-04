@@ -2,14 +2,14 @@
 
 import { PDFDownloadLink, PDFViewer } from "@react-pdf/renderer";
 import useFirstDocStyles from "./hooks/styles/useDoc1Styles";
-import useAllDocs from "./hooks/documents/useAllDocs";
 import useCvData from "./hooks/useCvData";
 import { useEffect } from "react";
+import useAllDocs from "./hooks/documents/useAllDocs";
 
 const SampleDoc = () => {
   const styles = useFirstDocStyles().styles;
   let forUe = useAllDocs();
-  const TheDoc = useAllDocs().TheDocs.Doc1;
+  const TheDoc = useAllDocs().TheDocs.Doc2;
   const { theCurrentUser } = useCvData();
 
   useEffect(() => {
