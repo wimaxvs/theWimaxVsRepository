@@ -32,13 +32,22 @@ const useDoc2Components = () => {
   const sectionHeader = (
     title: string,
     styles: indexObj,
-    rectOptions: rectOptionsExtension
+    rectOptions: rectOptionsExtension,
+    isAac?: boolean
   ) => (
     <View style={styles.sectionHeader}>
       <Svg width="89" height="21" style={styles.upperNameRect}>
         <Rect {...rectOptions} />
       </Svg>
-      <Text style={styles.sectionHeaderTitle}>{title.toUpperCase()}</Text>
+      <Text
+        style={
+          isAac
+            ? { ...styles.sectionHeaderTitle, ...styles.narrowSectionHeaderTitle }
+            : styles.sectionHeaderTitle
+        }
+      >
+        {title.toUpperCase()}
+      </Text>
     </View>
   );
 
@@ -68,20 +77,24 @@ const useDoc2Components = () => {
     >
       <View style={styles.titleAndDate}>
         <Text style={styles.contactSubSegTitle}>{subseg.title}</Text>
+      </View>
+      {(subseg.dateFrom || subseg.dateTo) && (
         <Text style={{ ...styles.sectionText, ...styles.forTitleDate }}>
           {`/ ${new Date(subseg.dateFrom as string).getFullYear()} - ${new Date(
             subseg.dateTo as string
           ).getFullYear()}`}
         </Text>
-      </View>
+      )}
       <Text style={styles.sectionText}>{subseg.subTitle?.toUpperCase()}</Text>
-      <View style={styles.sectionContent}>
-        {subseg.content?.map((line, index) => (
-          <Text key={index} style={styles.sectionText}>
-            {line}
-          </Text>
-        ))}
-      </View>
+      {subseg.content && (
+        <View style={styles.sectionContent}>
+          {subseg.content?.map((line, index) => (
+            <Text key={index} style={styles.sectionText}>
+              {line}
+            </Text>
+          ))}
+        </View>
+      )}
     </View>
   );
 
@@ -91,14 +104,22 @@ const useDoc2Components = () => {
     styles: indexObj,
     rectOptions: rectOptionsExtension,
     subsegments: SubSeg[],
-    desiredSection: string
+    desiredSection: string,
+    isAac?: boolean
   ) =>
     sections.indexOf(desiredSection) >= 0 && (
-      <View style={styles.leftColSection}>
+      <View
+        style={
+          isAac
+            ? { ...styles.leftColSection, ...styles.narrowLeftColSection }
+            : styles.leftColSection
+        }
+      >
         {sectionHeader(
           desiredSection,
           styles,
-          rectOptions as unknown as rectOptionsExtension
+          rectOptions as unknown as rectOptionsExtension,
+          isAac? isAac : undefined
         )}
         {subsegments
           ?.filter((subseg) => subseg.parentSection === desiredSection)

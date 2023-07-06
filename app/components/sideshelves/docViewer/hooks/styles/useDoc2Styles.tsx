@@ -21,6 +21,15 @@ const colorPalette = {
   dateText: "#555",
 };
 
+const flexRow: {} = {
+  display: "flex",
+  flexDirection: "row"
+}
+const flexCol: {} = {
+  display: "flex",
+  flexDirection: "column"
+}
+
 const useDoc2Styles = () => {
   const rectOptions = {
     width: "100%",
@@ -45,26 +54,24 @@ const useDoc2Styles = () => {
       marginTop: "10px",
       border: "none",
       borderRadius: "12px",
-      display: "flex",
-      flexDirection: "column",
+      ...flexCol,
       alignItems: "center",
       justifyContent: "center",
       padding: "10px",
     },
     page: {
+      paddingTop: 15,
       paddingBottom: 65,
     },
     header: {
-      display: "flex",
-      flexDirection: "row",
+      ...flexRow,
       width: "100%",
       height: "25%",
     },
     imageSection: {
       height: "100%",
       width: "40%",
-      display: "flex",
-      flexDirection: "column",
+      ...flexCol,
       alignItems: "center",
       justifyContent: "center",
     },
@@ -80,8 +87,7 @@ const useDoc2Styles = () => {
     },
     upperNameSection: {
       position: "relative",
-      display: "flex",
-      flexDirection: "column",
+      ...flexCol,
       justifyContent: "flex-start",
       alignItems: "flex-start",
       height: "100%",
@@ -95,8 +101,7 @@ const useDoc2Styles = () => {
       left: "20px",
       width: "100%",
       maxWidth: "100%",
-      display: "flex",
-      flexDirection: "column",
+      ...flexCol,
       alignItems: "flex-start",
       justifyContent: "flex-start",
     },
@@ -115,15 +120,13 @@ const useDoc2Styles = () => {
     },
 
     body: {
-      display: "flex",
-      flexDirection: "row",
+      ...flexRow,
       gap: "20px",
       padding: "0 15px",
     },
     column: {
       padding: "15px 0px",
-      display: "flex",
-      flexDirection: "column",
+      ...flexCol,
     },
     leftColumn: {
       flexGrow: 1,
@@ -134,11 +137,13 @@ const useDoc2Styles = () => {
       maxWidth: "65%",
     },
     leftColSection: {
-      display: "flex",
-      flexDirection: "column",
+      ...flexCol,
       alignItems: "flex-start",
       gap: "7.5px",
       marginBottom: "25px",
+    },
+    narrowLeftColSection: {
+      maxWidth: "45%",
     },
     forLoadingBar: {
       gap: "3px",
@@ -148,8 +153,7 @@ const useDoc2Styles = () => {
       position: "relative",
       height: "30px",
       width: "100%",
-      display: "flex",
-      flexDirection: "row",
+      ...flexRow,
       alignItems: "flex-end",
       padding: "0 0 0 10px",
     },
@@ -158,17 +162,19 @@ const useDoc2Styles = () => {
       letterSpacing: "2px",
       color: colorPalette.titleText,
     },
+    narrowSectionHeaderTitle: {
+      fontSize: "14px"
+    },
     sectionText: {
       fontSize: "12px",
       color: colorPalette.contentText,
       padding: "0 0 0 10px",
     },
     forTitleDate: {
-      padding: "0 0 0 0px",
+      fontSize: "10px",
     },
     contactSubSeg: {
-      display: "flex",
-      flexDirection: "column",
+      ...flexCol,
       alignItems: "flex-start",
       gap: "5px",
     },
@@ -179,8 +185,7 @@ const useDoc2Styles = () => {
       padding: "0 0 0 10px",
     },
     loadingBar: {
-      display: "flex",
-      flexDirection: "row",
+      ...flexRow,
       alignItems: "center",
       padding: "0 0 0 10px",
     },
@@ -194,19 +199,30 @@ const useDoc2Styles = () => {
       backgroundColor: colorPalette.lightYellow,
     },
     titleAndDate: {
-      display: "flex",
-      flexDirection: "row",
+      ...flexRow,
       gap: "5px",
       justifyContent: "flex-start",
       alignItems: "center",
     },
     sectionContent: {
-      display: "flex",
-      flexDirection: "column",
+      ...flexCol,
       gap: "5px",
       alignItems: "flex-start",
       padding: "10px 0 0 5px",
-      
+    },
+    awardsAndCertifications: {
+      ...flexRow,
+      gap: "25px",
+      justifyContent: "flex-start",
+    },
+    pageNumber: {
+      position: "absolute",
+      fontSize: 12,
+      bottom: 30,
+      left: 0,
+      right: 0,
+      textAlign: "center",
+      color: "grey",
     },
   });
 

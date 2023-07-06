@@ -1,3 +1,5 @@
+"use client"
+
 import React, { ReactNode, ReactElement, useState } from "react";
 import { IconType } from "react-icons";
 import { BsChevronDown, BsChevronUp } from "react-icons/bs";

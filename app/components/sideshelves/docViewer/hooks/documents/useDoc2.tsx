@@ -14,11 +14,9 @@ import useDoc2Styles from "../styles/useDoc2Styles";
 import usePlaceholderImage from "../styles/usePlaceholderImage";
 import useCvData from "../useCvData";
 import useDoc2Components, {
-  indexObj,
   rectOptionsExtension,
   userExtension,
 } from "./useDoc2Components";
-import { user } from "@/app/hooks/useCvSubSegments";
 
 const useDoc2 = () => {
   const { imgSrc } = usePlaceholderImage();
@@ -102,9 +100,7 @@ const useDoc2 = () => {
                   styles,
                   rectOptions as unknown as rectOptionsExtension
                 )}
-                <Text style={styles.sectionText}>
-                  {theCurrentUser?.bio}
-                </Text>
+                <Text style={styles.sectionText}>{theCurrentUser?.bio}</Text>
               </View>
             )}
 
@@ -144,16 +140,39 @@ const useDoc2 = () => {
             )}
 
             {/**Education */}
-            {sl(
-              false,
-              sections,
-              styles,
-              rectOptions,
-              subsegments,
-              "Education"
-            )}
+            {sl(false, sections, styles, rectOptions, subsegments, "Education")}
+
+            <View style={styles.awardsAndCertifications}>
+              {/* certification  */}
+              {sl(
+                false,
+                sections,
+                styles,
+                rectOptions,
+                subsegments,
+                "Certifications",
+                true
+              )}
+              {/* Awards  */}
+              {sl(
+                false,
+                sections,
+                styles,
+                rectOptions,
+                subsegments,
+                "Awards",
+                true
+              )}
+            </View>
           </View>
         </View>
+        <Text
+          style={styles.pageNumber}
+          render={({ pageNumber, totalPages }) =>
+            `${pageNumber} / ${totalPages}`
+          }
+          fixed
+        />
       </Page>
     </Document>
   );
