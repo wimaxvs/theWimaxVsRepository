@@ -14,6 +14,8 @@ import { BsTrash } from "react-icons/bs";
 import Button from "../../Button";
 import useSubSectionModal from "@/app/hooks/modalHooks/useSubSectionModal";
 import useSubSectionModalEditDelete from "@/app/hooks/modalHooks/useSubSectionModalEditDelete";
+import toast from "react-hot-toast";
+
 type SubSeg = {
   parentSection?: string;
   subsegmentId?: string;
@@ -121,6 +123,13 @@ const SubSectionContainer: React.FC<SubSectionContainerProps> = ({
     if (!editable) {
       reset();
     }
+    toast.success(
+      <>
+        <div className="p-4 text-bold text-green-800 flex flex-col items-center bg-green-100 rounded-lg my-4">
+          {`Saved Successfully!`}
+        </div>
+      </>
+    );
     subSectionModalFunctions.onClose();
     editableSubSectionModalFunctions.onClose()
   };

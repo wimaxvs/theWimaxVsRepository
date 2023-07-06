@@ -7,18 +7,18 @@ import { FieldValues, useForm, SubmitHandler } from "react-hook-form";
 import useIA from "./ImageAddition/hooks/useIA";
 import Button from "../../Button";
 import { toast } from "react-hot-toast";
-import useBioModal from "@/app/hooks/modalHooks/useSubSectionModalEditDelete";
+import useBioModal from "@/app/hooks/modalHooks/useBioModal";
 
 interface IIALprops {
   id: string;
   label: string;
-  isSummary?:boolean
+  isSummary?: boolean;
 }
 
 const EssentialInputsContainer = () => {
   const cvSubSegments = useCvSubSegments();
   const [isLoading, setIsLoading] = useState<boolean>(false);
-  const bioModalFunctions = useBioModal()
+  const bioModalFunctions = useBioModal();
   const [inputIdsAndLabels, setInputIdsAndLabels] = useState<IIALprops[][]>([
     [
       {
@@ -50,15 +50,19 @@ const EssentialInputsContainer = () => {
         label: "Location",
       },
     ],
-    [{
-      id: "prospectiveTitle",
-      label: "Job Title",
-    }],
-    [{
-      id: "bio",
-      label: "Profile Summary",
-      isSummary: true
-    }]
+    [
+      {
+        id: "prospectiveTitle",
+        label: "Job Title",
+      },
+    ],
+    [
+      {
+        id: "bio",
+        label: "Profile Summary",
+        isSummary: true,
+      },
+    ],
   ]);
 
   const {
@@ -82,7 +86,12 @@ const EssentialInputsContainer = () => {
   const onSubmit: SubmitHandler<FieldValues> = async (data) => {
     setIsLoading(true);
     try {
-      const imgData = await useIA().uploadFile(data.image[0]);
+      let imgData: string;
+      if (typeof data.image[0] !== "object") {
+        imgData = cvSubSegments.theCurrentUser?.image as string;
+      } else {
+        imgData = await useIA().uploadFile(data.image[0]);
+      }
       data = {
         ...data,
         dob: data.dob,
@@ -90,7 +99,15 @@ const EssentialInputsContainer = () => {
       };
       cvSubSegments.setEssentials({ ...data });
 
-      bioModalFunctions.onClose()
+      console.log("closing modal");
+      bioModalFunctions.onClose();
+      toast.success(
+        <>
+          <div className="p-4 text-bold text-green-800 flex flex-col items-center bg-green-100 rounded-lg my-4">
+            {`Saved Successfully!`}
+          </div>
+        </>
+      );
       setIsLoading(false);
     } catch (error) {
       toast.error(
@@ -100,7 +117,7 @@ const EssentialInputsContainer = () => {
           </div>
         </>
       );
-      
+
       setIsLoading(false);
     }
   };
@@ -140,7 +157,7 @@ const EssentialInputsContainer = () => {
                             }`}
                           >
                             <Input
-                              isSummary={space.isSummary?? false}
+                              isSummary={space.isSummary ?? false}
                               key={index}
                               isSubSegment
                               isBioData
