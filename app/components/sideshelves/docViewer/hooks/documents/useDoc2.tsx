@@ -142,7 +142,7 @@ const useDoc2 = () => {
             {/**Education */}
             {sl(false, sections, styles, rectOptions, subsegments, "Education")}
 
-            <View style={styles.awardsAndCertifications}>
+            <View break style={styles.awardsAndCertifications} >
               {/* certification  */}
               {sl(
                 false,

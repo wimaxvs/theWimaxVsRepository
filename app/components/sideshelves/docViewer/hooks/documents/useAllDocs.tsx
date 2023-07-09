@@ -2,14 +2,17 @@
 
 import useDoc1 from "./useDoc1";
 import useDoc2 from "./useDoc2";
+import useDoc3 from "./useDoc3";
 
 const useAllDocs = () => {
-  const doc1 = useDoc1().Doc1
-  const doc2 = useDoc2().Doc2
+  const {Doc1} = useDoc1()
+  const {Doc2} = useDoc2()
+  const {Doc3} = useDoc3()
 
   const TheDocs = {
-    Doc1: doc1,
-    Doc2: doc2
+    Doc1,
+    Doc2,
+    Doc3
 
   };
 

@@ -9,7 +9,7 @@ import useAllDocs from "./hooks/documents/useAllDocs";
 const SampleDoc = () => {
   const styles = useFirstDocStyles().styles;
   let forUe = useAllDocs();
-  const TheDoc = useAllDocs().TheDocs.Doc2;
+  const TheDoc = useAllDocs().TheDocs.Doc3;
   const { theCurrentUser } = useCvData();
 
   useEffect(() => {

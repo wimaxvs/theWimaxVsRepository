@@ -3,20 +3,25 @@ import React from "react";
 
 import { SubSeg, user } from "@/app/hooks/useCvSubSegments";
 import { Line, Svg, View, Text, Rect } from "@react-pdf/renderer";
+import useDoc3Styles from "../styles/useDoc3Styles";
+
+type striNum = string | number;
 
 export interface indexObj {
-  [key: string]: { [key: string]: string | number };
+  [key: string]: { [key: string]: striNum };
 }
 
 export type rectOptionsExtension = {
-  width: string | number;
-  height: string | number;
+  width: striNum;
+  height: striNum;
   fill: string;
 };
 
-export type userExtension = user & { [key: string]: string | number | null };
+export type userExtension = user & { [key: string]: striNum | null };
 
 const useDoc2Components = () => {
+  const { rectOptions } = useDoc3Styles();
+
   const contactSubSeg = (
     section: string,
     index: number,
@@ -42,7 +47,10 @@ const useDoc2Components = () => {
       <Text
         style={
           isAac
-            ? { ...styles.sectionHeaderTitle, ...styles.narrowSectionHeaderTitle }
+            ? {
+                ...styles.sectionHeaderTitle,
+                ...styles.narrowSectionHeaderTitle,
+              }
             : styles.sectionHeaderTitle
         }
       >
@@ -57,7 +65,7 @@ const useDoc2Components = () => {
       style={{ ...styles.leftColSection, ...styles.forLoadingBar }}
     >
       <Text style={styles.sectionText}>{subseg.title}</Text>
-      <View style={styles.loadingBar}>
+      <View break style={styles.loadingBar}>
         <View style={styles.outerBar}>
           <View
             style={[
@@ -119,7 +127,7 @@ const useDoc2Components = () => {
           desiredSection,
           styles,
           rectOptions as unknown as rectOptionsExtension,
-          isAac? isAac : undefined
+          isAac ? isAac : undefined
         )}
         {subsegments
           ?.filter((subseg) => subseg.parentSection === desiredSection)
@@ -131,7 +139,27 @@ const useDoc2Components = () => {
       </View>
     );
 
-  return { sectionHeader, contactSubSeg, loadingBar, sl };
+  const rectSvg = (
+    width: striNum,
+    height: striNum,
+    styles: indexObj,
+    rectOptionsParam: string,
+    whichClassName?: string
+  ) => (
+    <Svg
+      width={width}
+      height={height}
+      style={
+        whichClassName
+          ? styles[whichClassName]
+          : styles.letterHeadUpperRightRect
+      }
+    >
+      <Rect {...rectOptions(rectOptionsParam)} />
+    </Svg>
+  );
+
+  return { sectionHeader, contactSubSeg, loadingBar, sl, rectSvg };
 };
 
 export default useDoc2Components;
