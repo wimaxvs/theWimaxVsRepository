@@ -3,18 +3,15 @@
 import { PDFDownloadLink, PDFViewer } from "@react-pdf/renderer";
 import useFirstDocStyles from "./hooks/styles/useDoc1Styles";
 import useCvData from "./hooks/useCvData";
-import { useEffect } from "react";
 import useAllDocs from "./hooks/documents/useAllDocs";
+import useCurrentTemplate from "@/app/hooks/useCurrentTemplate";
 
 const SampleDoc = () => {
   const styles = useFirstDocStyles().styles;
-  let forUe = useAllDocs();
-  const TheDoc = useAllDocs().TheDocs.Doc3;
+  const { currentTemplate } = useCurrentTemplate();
+  const TheDoc = useAllDocs().theDocs[currentTemplate];
   const { theCurrentUser } = useCvData();
 
-  useEffect(() => {
-    console.log(typeof forUe);
-  }, []);
 
   const DownloadButton = () => (
     <div>
@@ -35,7 +32,7 @@ const SampleDoc = () => {
   return (
     <>
       <article
-        className={`flex flex-col gap-4 h-full bg-gradient-to-r from-deep-blue to-blue-purple rounded-lg`}
+        className={`flex flex-col gap-4 h-full bg-gradient-to-r from-deep-blue to-blue-purple rounded-lg `}
       >
         <PDFViewer showToolbar={false} style={styles.pdfViewer}>
           {TheDoc()}

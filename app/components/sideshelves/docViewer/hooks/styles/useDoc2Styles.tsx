@@ -145,9 +145,18 @@ const useDoc2Styles = () => {
     narrowLeftColSection: {
       maxWidth: "45%",
     },
+    eduSection: {
+      ...flexRow,
+      gap: "10px",
+      flexWrap: "wrap",
+      maxWidth: "95%"
+    },
+    forEdu: {
+      maxWidth: "50%",
+    },
     forLoadingBar: {
       gap: "3px",
-      marginBottom: "0px",
+      marginBottom: "10px",
     },
     sectionHeader: {
       position: "relative",

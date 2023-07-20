@@ -1,10 +1,8 @@
-"use client"
 import useCvSubSegments from "@/app/hooks/useCvSubSegments";
 import { useCallback } from "react";
 
 const useCvData = () => {
-  const [subsegments] = useCvSubSegments((state) => [state.subsegments]);
-  const [theCurrentUser] = useCvSubSegments((state) => [state.theCurrentUser]);
+  const {theCurrentUser, subsegments} = useCvSubSegments();
 
   const sections = subsegments?.reduce((acc: string[], obj) => {
     const { parentSection } = obj;
@@ -19,7 +17,6 @@ const useCvData = () => {
   const fontSizeDeterminant = useCallback(
     (word: string, limit: number, size: number) => {
       if (word.length > limit) {
-        console.log(word);
         const fontSize = (limit / word.length) * size;
         return { fontSize: `${fontSize}px` };
       }
@@ -32,6 +29,9 @@ const useCvData = () => {
     fnSize: fontSizeDeterminant(theCurrentUser?.firstname as string, 8, 60).fontSize,
     lnSize: fontSizeDeterminant(theCurrentUser?.lastname as string, 8, 60).fontSize,
     ptSize: fontSizeDeterminant(theCurrentUser?.prospectiveTitle as string, 31, 20).fontSize,
+    fnSizeB: fontSizeDeterminant(theCurrentUser?.firstname as string, 8, 40).fontSize,
+    lnSizeB: fontSizeDeterminant(theCurrentUser?.lastname as string, 8, 40).fontSize,
+    lesserPtSize: fontSizeDeterminant(theCurrentUser?.prospectiveTitle as string, 31, 12).fontSize,
   }
 
   return { subsegments, sections, theCurrentUser, fontSizes };

@@ -2,12 +2,32 @@
 import { Font, StyleSheet } from "@react-pdf/renderer";
 
 Font.register({
-  family: "Roboto",
-  src: "/fonts/Roboto-Black.ttf",
-});
-Font.register({
-  family: "Unisans",
-  src: "/fonts/Uni Sans Thin.otf",
+  family: "Poppins",
+  fonts: [
+    {
+      src: `/fonts/doc3/Poppins-Regular.ttf`,
+    },
+    {
+      src: `/fonts/doc3/Poppins-Bold.ttf`,
+      fontWeight: "bold",
+    },
+    {
+      src: `/fonts/doc3/Poppins-ExtraBold.ttf`,
+      fontWeight: "heavy",
+    },
+    {
+      src: `/fonts/doc3/Poppins-Medium.ttf`,
+      fontWeight: "normal",
+    },
+    {
+      src: `/fonts/doc3/Poppins-Thin.ttf`,
+      fontWeight: "thin",
+    },
+    {
+      src: `/fonts/doc3/Poppins-Light.ttf`,
+      fontWeight: "light",
+    },
+  ],
 });
 
 const colorPalette: { [key: string]: string } = {
@@ -34,12 +54,12 @@ const flexCol: {} = {
 };
 
 const useDoc3Styles = () => {
-  const rectOptions = (color?: string) => {
+  const rectOptions = (color?: string, isSquare?: boolean) => {
     return {
       width: "100%",
       height: "100%",
-      rx: "15",
-      ry: "15",
+      rx: isSquare ? "0" : "15",
+      ry: isSquare ? "0" : "15",
       fill: color ? colorPalette[color] : colorPalette.salmon,
     };
   };
@@ -69,7 +89,6 @@ const useDoc3Styles = () => {
     page: {
       paddingTop: 15,
       paddingBottom: 65,
-      // backgroundColor: colorPalette.salmon,
     },
     letterHead: {
       position: "absolute",
@@ -77,17 +96,97 @@ const useDoc3Styles = () => {
       width: "100%",
     },
     letterHeadUpperRightRect: {
+      position: "absolute",
       left: "40%",
-      top: " -15"
+      top: "-15",
     },
     letterHeadLowerLeftRect: {
-      // left: "20%",
-      // bottom: "100%"
-      top: "65%"
+      position: "absolute",
+      top: "95%",
+    },
+    letterHeadLowerRightRect: {
+      position: "absolute",
+      right: "-15%",
+      top: "100%",
     },
 
-    
- 
+    //header////////////////////////////////////////
+    header: {
+      ...flexRow,
+      width: "100%",
+      height: "35%",
+      padding: "15px 40px 0",
+    },
+    //header name////////////////////////////////////////
+    nameSection: {
+      width: "60%",
+      height: "100%",
+    },
+    upperNameSection: {
+      position: "relative",
+      width: "100%",
+      maxWidth: "100%",
+      ...flexCol,
+      alignItems: "flex-start",
+      justifyContent: "center",
+    },
+    lowerNameSection: {
+      position: "relative",
+      width: "100%",
+      maxWidth: "100%",
+      ...flexCol,
+      alignItems: "flex-start",
+      justifyContent: "center",
+    },
+    upperNameText: {
+      fontFamily: "Poppins",
+      fontWeight: "heavy",
+      lineHeight: 1.1,
+      padding: 0,
+    },
+    upperJobTitleTextContainer: {
+      marginTop: "10px",
+      paddingRight: "10px",
+      color: colorPalette.subtitleText,
+      fontWeight: "thin",
+      fontFamily: "Poppins",
+    },
+    lowerContactTextContainer: {
+      ...flexRow,
+      alignItems: "center",
+      gap: "5px",
+      maxHeight: "15px",
+      minHeight: "15px",
+      marginTop:"5px"
+    },
+    lowerContactText: {
+      paddingRight: "10px",
+      color: colorPalette.contentText,
+      lineHeight: 1,
+      fontWeight: "normal",
+      fontFamily: "Poppins",
+    },
+    lowerContactTextIcon: {
+      height: "90%",
+      aspectRatio: "1/1",
+      objectFit: "contain"
+    },
+    //header image////////////////////////////////////////
+    imageSection: {
+      height: "100%",
+      width: "40%",
+      ...flexCol,
+      alignItems: "center",
+      // justifyContent: "center",
+    },
+    imageItself: {
+      borderRadius: "15",
+      objectFit: "cover",
+      height: "100%",
+      // width: "185px",
+      aspectRatio: "1/1"
+    },
+
     pageNumber: {
       position: "absolute",
       fontSize: 12,

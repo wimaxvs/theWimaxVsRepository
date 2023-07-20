@@ -104,6 +104,12 @@ const useDoc2 = () => {
               </View>
             )}
 
+            {/* skills */}
+            {sl(true, sections, styles, rectOptions, subsegments, "Skills")}
+
+            {/* Languages */}
+            {sl(true, sections, styles, rectOptions, subsegments, "Languages")}
+
             {/* Hobbies */}
             {sections.indexOf("Hobbies") >= 0 && (
               <View style={styles.leftColSection}>
@@ -121,12 +127,6 @@ const useDoc2 = () => {
                   ))}
               </View>
             )}
-
-            {/* skills */}
-            {sl(true, sections, styles, rectOptions, subsegments, "Skills")}
-
-            {/* Languages */}
-            {sl(true, sections, styles, rectOptions, subsegments, "Languages")}
           </View>
           <View style={{ ...styles.rightColumn, ...styles.column }}>
             {/**Work Experience */}
@@ -142,7 +142,7 @@ const useDoc2 = () => {
             {/**Education */}
             {sl(false, sections, styles, rectOptions, subsegments, "Education")}
 
-            <View break style={styles.awardsAndCertifications} >
+            <View break style={styles.awardsAndCertifications}>
               {/* certification  */}
               {sl(
                 false,

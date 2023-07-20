@@ -78,10 +78,23 @@ const useDoc2Components = () => {
     </View>
   );
 
-  const workAndEdu = (index: number, subseg: SubSeg, styles: indexObj) => (
+  const workAndEdu = (
+    index: number,
+    subseg: SubSeg,
+    styles: indexObj,
+    isEdu?: boolean
+  ) => (
     <View
       key={index}
-      style={{ ...styles.leftColSection, ...styles.forLoadingBar }}
+      style={
+        isEdu
+          ? {
+              ...styles.leftColSection,
+              ...styles.forLoadingBar,
+              ...styles.forEdu,
+            }
+          : { ...styles.leftColSection, ...styles.forLoadingBar }
+      }
     >
       <View style={styles.titleAndDate}>
         <Text style={styles.contactSubSegTitle}>{subseg.title}</Text>
@@ -114,37 +127,48 @@ const useDoc2Components = () => {
     subsegments: SubSeg[],
     desiredSection: string,
     isAac?: boolean
-  ) =>
-    sections.indexOf(desiredSection) >= 0 && (
-      <View
-        style={
-          isAac
-            ? { ...styles.leftColSection, ...styles.narrowLeftColSection }
-            : styles.leftColSection
-        }
-      >
-        {sectionHeader(
-          desiredSection,
-          styles,
-          rectOptions as unknown as rectOptionsExtension,
-          isAac ? isAac : undefined
-        )}
-        {subsegments
-          ?.filter((subseg) => subseg.parentSection === desiredSection)
-          .map((subseg, index) =>
-            isSl
-              ? loadingBar(index, subseg, styles)
-              : workAndEdu(index, subseg, styles)
+  ) => {
+    const isEduOrCert = desiredSection === "Education";
+
+    return (
+      sections.indexOf(desiredSection) >= 0 && (
+        <View
+          style={
+            isAac
+              ? { ...styles.leftColSection, ...styles.narrowLeftColSection }
+              : styles.leftColSection
+          }
+        >
+          {sectionHeader(
+            desiredSection,
+            styles,
+            rectOptions as unknown as rectOptionsExtension,
+            isAac ? isAac : undefined
           )}
-      </View>
+          <View style={isEduOrCert ? styles.eduSection : undefined}>
+            {subsegments
+              ?.filter((subseg) => subseg.parentSection === desiredSection)
+              .sort((a, b) => b?.order! - a?.order!)
+              .map((subseg, index) =>
+                isSl
+                  ? loadingBar(index, subseg, styles)
+                  : isEduOrCert
+                  ? workAndEdu(index, subseg, styles, true)
+                  : workAndEdu(index, subseg, styles)
+              )}
+          </View>
+        </View>
+      )
     );
+  };
 
   const rectSvg = (
     width: striNum,
     height: striNum,
     styles: indexObj,
-    rectOptionsParam: string,
-    whichClassName?: string
+    color: string,
+    whichClassName?: string,
+    isSquare?: boolean
   ) => (
     <Svg
       width={width}
@@ -155,7 +179,7 @@ const useDoc2Components = () => {
           : styles.letterHeadUpperRightRect
       }
     >
-      <Rect {...rectOptions(rectOptionsParam)} />
+      <Rect {...rectOptions(color, isSquare)} />
     </Svg>
   );
 
