@@ -34,7 +34,7 @@ const useCvData = () => {
     lesserPtSize: fontSizeDeterminant(theCurrentUser?.prospectiveTitle as string, 31, 12).fontSize,
   }
 
-  return { subsegments, sections, theCurrentUser, fontSizes };
+  return { subsegments, sections, theCurrentUser, fontSizeDeterminant, fontSizes };
 };
 
 export default useCvData;

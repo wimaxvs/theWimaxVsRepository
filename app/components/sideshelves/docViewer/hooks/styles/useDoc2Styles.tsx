@@ -179,6 +179,11 @@ const useDoc2Styles = () => {
       color: colorPalette.contentText,
       padding: "0 0 0 10px",
     },
+    augmentedSectionText: {
+      fontSize: "12px",
+      color: colorPalette.contentText,
+      padding: "0 0 0 10px",
+    },
     forTitleDate: {
       fontSize: "10px",
     },

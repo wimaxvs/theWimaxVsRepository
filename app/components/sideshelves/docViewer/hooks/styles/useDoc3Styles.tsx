@@ -114,7 +114,7 @@ const useDoc3Styles = () => {
     header: {
       ...flexRow,
       width: "100%",
-      height: "35%",
+      height: "30%",
       padding: "15px 40px 0",
     },
     //header name////////////////////////////////////////
@@ -157,7 +157,7 @@ const useDoc3Styles = () => {
       gap: "5px",
       maxHeight: "15px",
       minHeight: "15px",
-      marginTop:"5px"
+      marginTop: "5px",
     },
     lowerContactText: {
       paddingRight: "10px",
@@ -169,7 +169,7 @@ const useDoc3Styles = () => {
     lowerContactTextIcon: {
       height: "90%",
       aspectRatio: "1/1",
-      objectFit: "contain"
+      objectFit: "contain",
     },
     //header image////////////////////////////////////////
     imageSection: {
@@ -177,14 +177,12 @@ const useDoc3Styles = () => {
       width: "40%",
       ...flexCol,
       alignItems: "center",
-      // justifyContent: "center",
     },
     imageItself: {
       borderRadius: "15",
       objectFit: "cover",
       height: "100%",
-      // width: "185px",
-      aspectRatio: "1/1"
+      aspectRatio: "1/1",
     },
 
     pageNumber: {
@@ -195,6 +193,107 @@ const useDoc3Styles = () => {
       right: 0,
       textAlign: "center",
       color: "grey",
+    },
+
+    //Body////////////////////////////////////////
+    body: {
+      ...flexRow,
+      gap: "20px",
+      padding: "0 40px",
+    },
+    column: {
+      padding: "5px 0px",
+      ...flexCol,
+    },
+    leftColumn: {
+      flexGrow: 1,
+      maxWidth: "30%",
+    },
+    rightColumn: {
+      flexGrow: 2,
+      maxWidth: "65%",
+      borderLeft: `1px solid ${colorPalette.mistyRose}`,
+      padding: "5px 0 5px 15px",
+    },
+    //Left Body////////////////////////////////////////
+    leftColSection: {
+      ...flexCol,
+      alignItems: "flex-start",
+      gap: "7.5px",
+      marginBottom: "10px",
+    },
+    sectionText: {
+      fontSize: "12px",
+      color: colorPalette.contentText,
+      fontFamily: "Poppins",
+    },
+    augmentedSectionText: {
+      marginTop: "5px",
+      fontSize: "10px",
+      color: colorPalette.contentText,
+      fontFamily: "Poppins",
+      lineHeight: 1,
+      fontWeight: "normal",
+    },
+    sectionHeaderTitle: {
+      fontFamily: "Poppins",
+      fontWeight: "bold",
+      lineHeight: 1,
+      letterSpacing: "2px",
+      color: colorPalette.titleText,
+    },
+    //Loading Bar////////////////////////////////////////
+    forLoadingBar: {
+      gap: "3px",
+      marginTop: "5px",
+    },
+    loadingBar: {
+      ...flexRow,
+      alignItems: "center",
+      maxWidth: "100%",
+    },
+    outerBar: {
+      width: "95%",
+      height: 2,
+      backgroundColor: `${colorPalette.celadonGreen}`,
+    },
+    innerBar: {
+      height: "100%",
+      backgroundColor: colorPalette.lightBeige,
+    },
+    //Right Body////////////////////////////////////////
+    eduSection: {
+      ...flexRow,
+      gap: "10px",
+      flexWrap: "wrap",
+      maxWidth: "95%",
+    },
+    awardsAndCertifications: {
+      ...flexRow,
+      gap: "25px",
+      justifyContent: "flex-start",
+    },
+    forEdu: {
+      maxWidth: "50%",
+    },
+    titleAndDate: {
+      ...flexRow,
+      gap: "5px",
+      justifyContent: "flex-start",
+      alignItems: "center",
+    },
+    contactSubSegTitle: {
+      fontSize: "15px",
+      fontFamily: "Poppins",
+      fontWeight: "bold",
+      lineHeight: 1,
+      color: colorPalette.celadonGreen,
+    },
+    forTitleDate: {
+      fontFamily: "Poppins",
+      fontSize: "10px",
+      lineHeight: 1,
+      color: colorPalette.dateText,
     },
   });
 

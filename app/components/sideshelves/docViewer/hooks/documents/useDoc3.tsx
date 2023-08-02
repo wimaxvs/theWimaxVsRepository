@@ -1,28 +1,36 @@
 "use client";
 
-import {
-  Page,
-  Text,
-  View,
-  Document,
-  Image,
-  Svg,
-  Rect,
-} from "@react-pdf/renderer";
+import { Page, Text, View, Document, Image } from "@react-pdf/renderer";
 import React from "react";
 import useDoc3Styles from "../styles/useDoc3Styles";
 import usePlaceholderImage from "../styles/usePlaceholderImage";
 import useCvData from "../useCvData";
-import useDoc2Components, {
-  rectOptionsExtension,
-  userExtension,
-} from "./useDoc2Components";
+import useDocComponents from "./useDocComponents";
 
 const useDoc3 = () => {
   const { imgSrc, PhoneIcon, LocationIcon, EmailIcon } = usePlaceholderImage();
-  const { styles } = useDoc3Styles();
+  const { styles, rectOptions } = useDoc3Styles();
   const { sections, subsegments, theCurrentUser, fontSizes } = useCvData();
-  const { sectionHeader, contactSubSeg, sl, rectSvg } = useDoc2Components();
+  const { miniSectionHeader, contactSubSeg, sl, rectSvg } = useDocComponents();
+
+  const slMap = (
+    array: string[],
+    obj?: { isSl?: boolean; isAac?: boolean; header?: string }
+  ) =>
+    array.map((section, index) => (
+      <React.Fragment key={index}>
+        {sl(
+          obj?.isSl as boolean,
+          sections,
+          styles,
+          rectOptions(),
+          subsegments,
+          section,
+          obj?.isAac,
+          obj?.header
+        )}
+      </React.Fragment>
+    ));
 
   const Doc3 = () => (
     <Document style={styles.document}>
@@ -106,6 +114,62 @@ const useDoc3 = () => {
               style={styles.imageItself}
             />
           </View>
+        </View>
+        <View style={styles.body}>
+          <View style={{ ...styles.leftColumn, ...styles.column }}>
+            {/* profile summary  */}
+            {theCurrentUser?.bio && (
+              <View style={styles.leftColSection}>
+                {miniSectionHeader("Profile", styles)}
+                <Text
+                  style={{
+                    ...styles.lowerContactText,
+                    fontSize: "10px",
+                  }}
+                >
+                  {theCurrentUser?.bio}
+                </Text>
+              </View>
+            )}
+
+            {/* skills and Languages */}
+            {slMap(["Skills", "Languages"], {
+              isSl: true,
+              isAac: false,
+              header: "noHeader",
+            })}
+
+            {/* Hobbies */}
+            {sections.indexOf("Hobbies") >= 0 && (
+              <View style={styles.leftColSection}>
+                {miniSectionHeader("Hobbies", styles)}
+                {subsegments
+                  ?.filter((subseg) => subseg.parentSection === "Hobbies")
+                  .map((subseg, index) => (
+                    <Text key={index} style={styles.sectionText}>
+                      {subseg.title}
+                    </Text>
+                  ))}
+              </View>
+            )}
+          </View>
+          <View style={{ ...styles.column, ...styles.rightColumn }}>
+            {/**Work Experience and Education */}
+            {slMap(["Work Experience", "Education"], {
+              isSl: false,
+              isAac: false,
+              header: "noHeader",
+            })}
+
+            <View break style={styles.awardsAndCertifications}>
+              {/* certification and Awards */}
+              {slMap(["Certifications", "Awards"], {
+                isSl: false,
+                isAac: true,
+                header: "noHeader",
+              })}
+            </View>
+          </View>{" "}
         </View>
         <Text
           style={styles.pageNumber}

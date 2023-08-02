@@ -13,16 +13,16 @@ import React from "react";
 import useDoc2Styles from "../styles/useDoc2Styles";
 import usePlaceholderImage from "../styles/usePlaceholderImage";
 import useCvData from "../useCvData";
-import useDoc2Components, {
+import useDocComponents, {
   rectOptionsExtension,
   userExtension,
-} from "./useDoc2Components";
+} from "./useDocComponents";
 
 const useDoc2 = () => {
   const { imgSrc } = usePlaceholderImage();
   const { styles, rectOptions } = useDoc2Styles();
   const { sections, subsegments, theCurrentUser, fontSizes } = useCvData();
-  const { sectionHeader, contactSubSeg, sl } = useDoc2Components();
+  const { sectionHeader, contactSubSeg, sl } = useDocComponents();
 
   const Doc2 = () => (
     <Document style={styles.document}>

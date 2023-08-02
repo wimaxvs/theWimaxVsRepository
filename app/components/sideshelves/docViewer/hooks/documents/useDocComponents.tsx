@@ -19,7 +19,7 @@ export type rectOptionsExtension = {
 
 export type userExtension = user & { [key: string]: striNum | null };
 
-const useDoc2Components = () => {
+const useDocComponents = () => {
   const { rectOptions } = useDoc3Styles();
 
   const contactSubSeg = (
@@ -40,7 +40,7 @@ const useDoc2Components = () => {
     rectOptions: rectOptionsExtension,
     isAac?: boolean
   ) => (
-    <View style={styles.sectionHeader}>
+    <View break style={styles.sectionHeader}>
       <Svg width="89" height="21" style={styles.upperNameRect}>
         <Rect {...rectOptions} />
       </Svg>
@@ -57,6 +57,12 @@ const useDoc2Components = () => {
         {title.toUpperCase()}
       </Text>
     </View>
+  );
+
+  const miniSectionHeader = (title: string, styles: indexObj) => (
+    <Text break style={styles.sectionHeaderTitle}>
+      {title}
+    </Text>
   );
 
   const loadingBar = (index: number, subseg: SubSeg, styles: indexObj) => (
@@ -106,11 +112,13 @@ const useDoc2Components = () => {
           ).getFullYear()}`}
         </Text>
       )}
-      <Text style={styles.sectionText}>{subseg.subTitle?.toUpperCase()}</Text>
+      <Text style={{ ...styles.sectionText }}>
+        {subseg.subTitle?.toUpperCase()}
+      </Text>
       {subseg.content && (
         <View style={styles.sectionContent}>
           {subseg.content?.map((line, index) => (
-            <Text key={index} style={styles.sectionText}>
+            <Text key={index} style={styles.augmentedSectionText}>
               {line}
             </Text>
           ))}
@@ -126,25 +134,33 @@ const useDoc2Components = () => {
     rectOptions: rectOptionsExtension,
     subsegments: SubSeg[],
     desiredSection: string,
-    isAac?: boolean
+    isAac?: boolean,
+    header?: string
   ) => {
     const isEduOrCert = desiredSection === "Education";
+    const noToHeader = header === "noHeader";
 
     return (
       sections.indexOf(desiredSection) >= 0 && (
         <View
+          key={desiredSection}
           style={
             isAac
               ? { ...styles.leftColSection, ...styles.narrowLeftColSection }
               : styles.leftColSection
           }
         >
-          {sectionHeader(
-            desiredSection,
-            styles,
-            rectOptions as unknown as rectOptionsExtension,
-            isAac ? isAac : undefined
-          )}
+          {/**Section Header */}
+          {!noToHeader &&
+            sectionHeader(
+              desiredSection,
+              styles,
+              rectOptions as unknown as rectOptionsExtension,
+              isAac ? isAac : undefined
+            )}
+          {noToHeader && miniSectionHeader(desiredSection, styles)}
+
+          {/**Section Content */}
           <View style={isEduOrCert ? styles.eduSection : undefined}>
             {subsegments
               ?.filter((subseg) => subseg.parentSection === desiredSection)
@@ -183,7 +199,32 @@ const useDoc2Components = () => {
     </Svg>
   );
 
-  return { sectionHeader, contactSubSeg, loadingBar, sl, rectSvg };
+  const doc4Edu = (
+    styles: indexObj,
+    sections: string[],
+    desiredSection: string
+  ) => {
+    const titleText = desiredSection.toUpperCase()
+    return (
+      sections.indexOf(desiredSection) >= 0 && (
+        <View style={styles.leftColumnEduSection}>
+          {miniSectionHeader(titleText, styles)}{" "}
+        </View>
+      )
+    );
+  };
+  const doc4ContactSection = () => {};
+
+  return {
+    sectionHeader,
+    contactSubSeg,
+    loadingBar,
+    sl,
+    rectSvg,
+    miniSectionHeader,
+    doc4ContactSection,
+    doc4Edu,
+  };
 };
 
-export default useDoc2Components;
+export default useDocComponents;
