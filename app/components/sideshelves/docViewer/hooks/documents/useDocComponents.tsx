@@ -2,7 +2,7 @@
 import React from "react";
 
 import { SubSeg, user } from "@/app/hooks/useCvSubSegments";
-import { Line, Svg, View, Text, Rect } from "@react-pdf/renderer";
+import { Line, Svg, View, Text, Rect, Circle } from "@react-pdf/renderer";
 import useDoc3Styles from "../styles/useDoc3Styles";
 
 type striNum = string | number;
@@ -59,8 +59,19 @@ const useDocComponents = () => {
     </View>
   );
 
-  const miniSectionHeader = (title: string, styles: indexObj) => (
-    <Text break style={styles.sectionHeaderTitle}>
+  const miniSectionHeader = (
+    title: string,
+    styles: indexObj,
+    specificHeaderStyle?: string
+  ) => (
+    <Text
+      break
+      style={
+        specificHeaderStyle
+          ? styles[specificHeaderStyle]
+          : styles["sectionHeaderTitle"]
+      }
+    >
       {title}
     </Text>
   );
@@ -178,6 +189,105 @@ const useDocComponents = () => {
     );
   };
 
+  const doc4WorkExp = (
+    index: number,
+    subseg: SubSeg,
+    styles: indexObj,
+    rectOptions?: rectOptionsExtension
+  ) => {
+    return (
+      <View key={index} style={styles.doc4RightColumnWE}>
+        <View
+          style={{
+            ...styles.doc4RightColumnWEHalf,
+            ...styles.doc4RightColumnWEFirstHalf,
+          }}
+        >
+          {(subseg.dateFrom || subseg.dateTo) && (
+            <>
+              <Text
+                style={{ ...styles.subSegTitle, ...styles.forRightColumnTitle }}
+              >
+                {`${new Date(
+                  subseg.dateFrom as string
+                ).getFullYear()} - ${new Date(
+                  subseg.dateTo as string
+                ).getFullYear()}`}
+              </Text>
+              {rectOptions &&
+                ornamentalRectangle(rectOptions, {
+                  width: "75",
+                  height: "2.5",
+                })}
+            </>
+          )}
+        </View>
+        <View
+          style={{
+            ...styles.doc4RightColumnWEHalf,
+            ...styles.doc4RightColumnWESecondHalf,
+          }}
+        >
+          <Text
+            style={{ ...styles.subSegTitle, ...styles.forRightColumnTitle }}
+          >
+            {subseg.title}
+          </Text>
+          <Text
+            style={{ ...styles.subSegTitle, ...styles.forRightColumnSubTitle }}
+          >
+            {subseg.subTitle}
+          </Text>
+          {subseg.content && (
+            <View style={styles.doc4RightColumnWESecondHalfContent}>
+              {subseg.content?.map((line, index) => (
+                <Text key={index} style={styles.rightBodyProfileSectionContent}>
+                  {line}
+                </Text>
+              ))}
+            </View>
+          )}
+        </View>
+      </View>
+    );
+  };
+
+  const slBeta = (
+    params: {
+      sections: string[];
+      styles: indexObj;
+      rectOptions: rectOptionsExtension;
+      subsegments: SubSeg[];
+      desiredSection: string;
+    },
+    specificStyles?: { [key: string]: string }
+  ) => {
+    const { sections, styles, rectOptions, subsegments, desiredSection } =
+      params;
+    return (
+      sections.indexOf(desiredSection) >= 0 && (
+        <View style={styles.rightBodyProfileSection}>
+          {/**Section Header */}
+          {miniSectionHeader(
+            desiredSection.toUpperCase(),
+            styles,
+            specificStyles?.titleStyle as string
+          )}
+
+          {/**Section Content */}
+          <View style={styles.doc4RightColumnWEContainer}>
+            {subsegments
+              ?.filter((subseg) => subseg.parentSection === desiredSection)
+              .sort((a, b) => b?.order! - a?.order!)
+              .map((subseg, index) =>
+                doc4WorkExp(index, subseg, styles, rectOptions)
+              )}
+          </View>
+        </View>
+      )
+    );
+  };
+
   const rectSvg = (
     width: striNum,
     height: striNum,
@@ -199,21 +309,188 @@ const useDocComponents = () => {
     </Svg>
   );
 
-  const doc4Edu = (
+  const doc4LeftSubSeg = (index: number, subseg: SubSeg, styles: indexObj) => {
+    const notEdu =
+      ["Education", "Certifications"].indexOf(subseg.parentSection!) === -1;
+    const subSegSubTitleStyle = {
+      ...styles.subSegTitle,
+      ...styles.dateText,
+      ...styles.subSegSubTitle,
+    };
+    return (
+      <View key={index} style={styles.leftColSection}>
+        <View
+          style={{
+            display: "flex",
+            flexDirection: "row",
+            justifyContent: "flex-start",
+            alignItems: "center",
+            gap: "3px",
+          }}
+        >
+          {notEdu && (
+            <Text
+              style={{ ...styles.subSegTitle, color: "rgba(254, 185, 198, 1)" }}
+            >
+              {"-"}
+            </Text>
+          )}
+          <Text
+            style={
+              notEdu
+                ? {
+                    ...subSegSubTitleStyle,
+                  }
+                : styles.subSegTitle
+            }
+          >
+            {subseg.title}
+          </Text>
+        </View>
+        <Text
+          style={{
+            ...subSegSubTitleStyle,
+          }}
+        >
+          {subseg.subTitle?.toUpperCase()}
+        </Text>
+        {(subseg.dateFrom || subseg.dateTo) && (
+          <Text style={{ ...styles.subSegTitle, ...styles.dateText }}>
+            {`${new Date(subseg.dateFrom as string).getFullYear()} - ${new Date(
+              subseg.dateTo as string
+            ).getFullYear()}`}
+          </Text>
+        )}
+      </View>
+    );
+  };
+
+  const doc4Left = (
     styles: indexObj,
     sections: string[],
-    desiredSection: string
+    desiredSection: string,
+    subsegments: SubSeg[]
   ) => {
-    const titleText = desiredSection.toUpperCase()
+    const titleText = desiredSection.toUpperCase();
     return (
       sections.indexOf(desiredSection) >= 0 && (
         <View style={styles.leftColumnEduSection}>
           {miniSectionHeader(titleText, styles)}{" "}
+          {subsegments
+            ?.filter((subseg) => subseg.parentSection === desiredSection)
+            .sort((a, b) => b?.order! - a?.order!)
+            .map((subseg, index) => doc4LeftSubSeg(index, subseg, styles))}
         </View>
       )
     );
   };
-  const doc4ContactSection = () => {};
+
+  const contactBoxText = (
+    styles: indexObj,
+    prefix: string,
+    content: string
+  ) => (
+    <>
+      <Text
+        style={{
+          ...styles.contactBoxNoticeText,
+          ...styles.contactBoxPrefixText,
+        }}
+      >
+        {prefix}
+      </Text>
+      <Text
+        style={{
+          ...styles.contactBoxNoticeText,
+          ...styles.contactBoxContentText,
+        }}
+      >
+        {content}
+      </Text>
+    </>
+  );
+
+  const doc4ContactSection = (styles: indexObj, theCurrentUser: user) => {
+    return (
+      <View style={styles.rightColContactBox}>
+        <View style={styles.contactBoxLabelAndAddress}>
+          <View style={styles.contactBoxNotice}>
+            <Text style={styles.contactBoxNoticeText}>{"Contact"}</Text>
+          </View>
+          <View style={styles.contactBoxAddress}>
+            {contactBoxText(styles, "A:", theCurrentUser.location as string)}
+          </View>
+        </View>
+        <View style={styles.contactBoxLabelAndAddress}>
+          <View
+            style={{
+              ...styles.contactBoxAddress,
+              ...styles.contactBoxTelephone,
+            }}
+          >
+            {contactBoxText(styles, "T:", theCurrentUser.telephone as string)}
+          </View>
+          <View
+            style={{ ...styles.contactBoxAddress, ...styles.contactBoxEmail }}
+          >
+            {contactBoxText(styles, "E:", theCurrentUser.email as string)}
+          </View>
+        </View>
+      </View>
+    );
+  };
+
+  const ornamentalRectangle = (
+    rectOptions: rectOptionsExtension,
+    outerSvgOptions: { width: string; height: string }
+  ) => (
+    <Svg {...outerSvgOptions}>
+      <Rect {...rectOptions} />
+    </Svg>
+  );
+  const doc4ProfileSection = (
+    styles: indexObj,
+    theCurrentUser: user,
+    rectOptions: rectOptionsExtension
+  ) => (
+    <View style={styles.rightBodyProfileSection}>
+      <View style={styles.rightBodyProfileSectionTitle}>
+        <Text style={styles.rightBodyProfileSectionTitleItself}>
+          {"Profile".toUpperCase()}
+        </Text>
+        {ornamentalRectangle(rectOptions, { width: "260", height: "2.5" })}
+      </View>
+      <Text style={styles.rightBodyProfileSectionContent}>
+        {theCurrentUser?.bio}
+      </Text>
+    </View>
+  );
+
+  ///✅✅✅✅✅✅✅✅✅✅✅✅✅✅✅✅✅✅✅✅✅✅
+  const CircularLoadingBar = (skillLevel: number, styles: indexObj ) => {
+    const radius = 20;
+    const numberOfSegments = 10;
+    const degreesPerSegment = 360 / numberOfSegments;
+
+    const filledSegments = Math.round((skillLevel / 10) * numberOfSegments);
+
+    const segments = Array.from({ length: numberOfSegments }, (_, index) => (
+      <View
+        key={index}
+        style={[
+          styles.segment,
+          index < filledSegments ? styles.filledSegment : {},
+          { transform: `rotate(${index * degreesPerSegment}deg)` },
+        ]}
+      />
+    ));
+
+    return (
+      <View style={styles.loadingBar}>
+        <View style={styles.loadingBarContainer}>{segments}</View>
+      </View>
+    );
+  };
 
   return {
     sectionHeader,
@@ -223,7 +500,10 @@ const useDocComponents = () => {
     rectSvg,
     miniSectionHeader,
     doc4ContactSection,
-    doc4Edu,
+    doc4Left,
+    doc4ProfileSection,
+    slBeta,
+    CircularLoadingBar,
   };
 };
 

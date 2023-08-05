@@ -35,6 +35,7 @@ const colorPalette: { [key: string]: string } = {
   teal: "rgba(4, 131, 153, 1)",
   lightPink: "rgba(254, 185, 198, 1)",
   mauve: "rgba(185, 107, 133, 1)",
+  midnightBlue: "#021E20",
 
   titleText: "#222",
   subtitleText: "#333",
@@ -106,16 +107,12 @@ const useDoc4Styles = () => {
       ...flexCol,
     },
     leftColumn: {
-      ...flexCol,
-      flexGrow: 1,
-      width: "30%",
-      maxWidth: "30%",
+      width: "40%",
+      minHeight: "100%",
       backgroundColor: colorPalette.darkBlue,
     },
     rightColumn: {
-      flexGrow: 2,
-      maxWidth: "65%",
-      padding: "5px 0 5px 15px",
+      width: "65%",
     },
     //Left Body////////////////////////////////////////
     leftColumnLinkBox: {
@@ -127,12 +124,12 @@ const useDoc4Styles = () => {
     //Left Body Name////////////////////////////////////////
     upperNameSection: {
       position: "relative",
-      width: "100%",
+      width: "80%",
       maxWidth: "100%",
       ...flexCol,
       alignItems: "flex-start",
       justifyContent: "center",
-      padding: "0 0 0 10px",
+      margin: "0 auto 0 auto",
     },
     upperNameText: {
       fontFamily: "Roboto",
@@ -151,12 +148,12 @@ const useDoc4Styles = () => {
     //left column image////////////////////////////////////////
     imageSection: {
       aspectRatio: "1/1",
-      width: "150px",
+      width: "80%",
       height: "150px",
       ...flexCol,
       alignItems: "center",
       borderTop: `2px solid ${colorPalette.lightPink}`,
-      margin: "0 0 0 10px",
+      margin: "0 auto 0 auto",
     },
     imageItself: {
       objectFit: "cover",
@@ -168,7 +165,8 @@ const useDoc4Styles = () => {
     leftColumnEduSection: {
       ...flexCol,
       gap: "5px",
-      margin: "0 0 0 10px",
+      width: "80%",
+      margin: "0 auto 0 auto",
     },
     sectionHeaderTitle: {
       color: colorPalette.lightPink,
@@ -176,8 +174,157 @@ const useDoc4Styles = () => {
       fontFamily: "Roboto",
       fontSize: "15px",
     },
+    leftColSection: {
+      ...flexCol,
+      alignItems: "flex-start",
+      gap: "3px",
+    },
+    subSegTitle: {
+      color: "white",
+      fontWeight: "normal",
+      fontFamily: "Roboto",
+      fontSize: "14px",
+      lineHeight: 1,
+    },
+    dateText: {
+      fontWeight: "thin",
+      fontSize: "12px",
+    },
+    subSegSubTitle: {
+      fontWeight: "light",
+    },
 
     //Right Body////////////////////////////////////////
+    //Right Body Contact Box////////////////////////////////////////
+    rightColContactBox: {
+      width: "100%",
+      margin: "0 auto 0 auto",
+      ...flexCol,
+      border: `2px solid ${colorPalette.midnightBlue}`,
+    },
+    contactBoxLabelAndAddress: {
+      ...flexRow,
+    },
+    contactBoxNotice: {
+      backgroundColor: colorPalette.lightPink,
+    },
+    contactBoxNoticeText: {
+      lineHeight: 1,
+      fontFamily: "Roboto",
+      fontWeight: "normal",
+      fontSize: "10px",
+      color: "white",
+      padding: "7.5px 10px",
+    },
+    contactBoxPrefixText: {
+      color: colorPalette.darkBlue,
+      padding: "5px 0px",
+    },
+    contactBoxContentText: {
+      color: colorPalette.midnightBlue,
+      padding: "7.5px 0px",
+    },
+    contactBoxAddress: {
+      ...flexRow,
+      justifyContent: "center",
+      alignItems: "center",
+      gap: "3px",
+      width: "70%",
+      margin: "0 auto 0 auto",
+      borderBottom: `2px solid ${colorPalette.midnightBlue}`,
+    },
+    contactBoxTelephone: {
+      borderBottom: `0`,
+    },
+    contactBoxEmail: {
+      borderBottom: `0`,
+      borderLeft: `2px solid ${colorPalette.midnightBlue}`,
+    },
+    //Right Body Profile////////////////////////////////////////
+    rightBodyProfileSection: {
+      ...flexCol,
+      gap: "10px",
+      width: "100%",
+      margin: "0 auto 0 auto",
+    },
+    rightBodyProfileSectionTitle: {
+      ...flexRow,
+      alignItems: "center",
+      justifyContent: "space-around",
+    },
+    rightBodyProfileSectionTitleItself: {
+      fontWeight: "normal",
+      fontFamily: "Roboto",
+      fontSize: "15px",
+      lineHeight: 1,
+      color: `${colorPalette.midnightBlue}`,
+    },
+    rightBodyProfileSectionContent: {
+      fontWeight: "light",
+      fontFamily: "Roboto",
+      fontSize: "10px",
+      lineHeight: 1.1,
+      color: `${colorPalette.midnightBlue}`,
+    },
+    //Right Body Profile////////////////////////////////////////
+    doc4RightColumnWEContainer: {
+      ...flexCol,
+      gap: "15px",
+    },
+    doc4RightColumnWE: {
+      ...flexRow,
+      gap: "15px",
+    },
+    doc4RightColumnWEHalf: {
+      ...flexCol,
+      gap: "10px",
+    },
+    doc4RightColumnWEFirstHalf: {
+      maxWidth: "30%",
+    },
+    forRightColumnTitle: {
+      color: colorPalette.darkBlue,
+      lineHeight: 1,
+    },
+    doc4RightColumnWESecondHalf: {
+      gap: "5px",
+    },
+    forRightColumnSubTitle: {
+      color: colorPalette.contentText,
+      lineHeight: 1,
+      fontSize: "10px",
+      fontWeight: "light",
+      marginBottom: "3px",
+    },
+    doc4RightColumnWESecondHalfContent: {
+      gap: "3px",
+    },
+
+    loadingBar: {
+      width: 100,
+      height: 100,
+      alignItems: "center",
+      justifyContent: "center",
+    },
+    loadingBarContainer: {
+      width: 40,
+      height: 40,
+      borderRadius: 20,
+      borderWidth: 4,
+      borderColor: "#3498db",
+      borderStyle: "solid",
+      position: "relative",
+    },
+    segment: {
+      position: "absolute",
+      width: "50%",
+      height: 2,
+      backgroundColor: "rgba(0, 0, 0, 0.2)",
+      transformOrigin: "center right",
+    },
+    filledSegment: {
+      backgroundColor: "#3498db",
+    },
   });
 
   return { styles, rectOptions };
