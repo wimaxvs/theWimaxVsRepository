@@ -26,7 +26,7 @@ const useDoc4 = () => {
     doc4ContactSection,
     doc4ProfileSection,
     slBeta,
-    CircularLoadingBar,
+    // CircularLoadingBar,
   } = useDocComponents();
 
   const returnFontSize = (word: string, size: number) =>
@@ -124,7 +124,7 @@ const useDoc4 = () => {
               { titleStyle: "rightBodyProfileSectionTitleItself" }
             )}
             {/**User Languages view */}
-            {CircularLoadingBar(5, styles)}
+            {/* {CircularLoadingBar(5, styles)} */}
           </View>
         </View>
         <Text
