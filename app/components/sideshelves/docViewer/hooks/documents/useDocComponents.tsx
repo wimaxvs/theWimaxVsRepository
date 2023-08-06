@@ -467,30 +467,30 @@ const useDocComponents = () => {
   );
 
   ///✅✅✅✅✅✅✅✅✅✅✅✅✅✅✅✅✅✅✅✅✅✅
-  const CircularLoadingBar = (skillLevel: number, styles: indexObj ) => {
-    const radius = 20;
-    const numberOfSegments = 10;
-    const degreesPerSegment = 360 / numberOfSegments;
+  // const CircularLoadingBar = (skillLevel: number, styles: indexObj ) => {
+  //   const radius = 20;
+  //   const numberOfSegments = 10;
+  //   const degreesPerSegment = 360 / numberOfSegments;
 
-    const filledSegments = Math.round((skillLevel / 10) * numberOfSegments);
+  //   const filledSegments = Math.round((skillLevel / 10) * numberOfSegments);
 
-    const segments = Array.from({ length: numberOfSegments }, (_, index) => (
-      <View
-        key={index}
-        style={[
-          styles.segment,
-          index < filledSegments ? styles.filledSegment : {},
-          { transform: `rotate(${index * degreesPerSegment}deg)` },
-        ]}
-      />
-    ));
+  //   const segments = Array.from({ length: numberOfSegments }, (_, index) => (
+  //     <View
+  //       key={index}
+  //       style={[
+  //         styles.segment,
+  //         index < filledSegments ? styles.filledSegment : {},
+  //         { transform: `rotate(${index * degreesPerSegment}deg)` },
+  //       ]}
+  //     />
+  //   ));
 
-    return (
-      <View style={styles.loadingBar}>
-        <View style={styles.loadingBarContainer}>{segments}</View>
-      </View>
-    );
-  };
+  //   return (
+  //     <View style={styles.loadingBar}>
+  //       <View style={styles.loadingBarContainer}>{segments}</View>
+  //     </View>
+  //   );
+  // };
 
   return {
     sectionHeader,
@@ -503,7 +503,7 @@ const useDocComponents = () => {
     doc4Left,
     doc4ProfileSection,
     slBeta,
-    CircularLoadingBar,
+    // CircularLoadingBar,
   };
 };
 

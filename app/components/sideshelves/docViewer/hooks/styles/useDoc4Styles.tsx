@@ -300,31 +300,31 @@ const useDoc4Styles = () => {
       gap: "3px",
     },
 
-    loadingBar: {
-      width: 100,
-      height: 100,
-      alignItems: "center",
-      justifyContent: "center",
-    },
-    loadingBarContainer: {
-      width: 40,
-      height: 40,
-      borderRadius: 20,
-      borderWidth: 4,
-      borderColor: "#3498db",
-      borderStyle: "solid",
-      position: "relative",
-    },
-    segment: {
-      position: "absolute",
-      width: "50%",
-      height: 2,
-      backgroundColor: "rgba(0, 0, 0, 0.2)",
-      transformOrigin: "center right",
-    },
-    filledSegment: {
-      backgroundColor: "#3498db",
-    },
+    // loadingBar: {
+    //   width: 100,
+    //   height: 100,
+    //   alignItems: "center",
+    //   justifyContent: "center",
+    // },
+    // loadingBarContainer: {
+    //   width: 40,
+    //   height: 40,
+    //   borderRadius: 20,
+    //   borderWidth: 4,
+    //   borderColor: "#3498db",
+    //   borderStyle: "solid",
+    //   position: "relative",
+    // },
+    // segment: {
+    //   position: "absolute",
+    //   width: "50%",
+    //   height: 2,
+    //   backgroundColor: "rgba(0, 0, 0, 0.2)",
+    //   transformOrigin: "center right",
+    // },
+    // filledSegment: {
+    //   backgroundColor: "#3498db",
+    // },
   });
 
   return { styles, rectOptions };
