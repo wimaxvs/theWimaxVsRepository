@@ -2,7 +2,7 @@
 import React from "react";
 
 import { SubSeg, user } from "@/app/hooks/useCvSubSegments";
-import { Line, Svg, View, Text, Rect, Circle } from "@react-pdf/renderer";
+import { Line, Svg, View, Text, Rect, Circle, Path } from "@react-pdf/renderer";
 import useDoc3Styles from "../styles/useDoc3Styles";
 
 type striNum = string | number;
@@ -466,31 +466,45 @@ const useDocComponents = () => {
     </View>
   );
 
-  ///✅✅✅✅✅✅✅✅✅✅✅✅✅✅✅✅✅✅✅✅✅✅
-  // const CircularLoadingBar = (skillLevel: number, styles: indexObj ) => {
-  //   const radius = 20;
-  //   const numberOfSegments = 10;
-  //   const degreesPerSegment = 360 / numberOfSegments;
+const CircularLoadingBar = (skillLevel: number, styles: indexObj) => {
+  const lesserRadius = 14;
+  const radius = 20;
+  const strokeWidth = 4;
+  const centerX = 50;
+  const centerY = 50;
 
-  //   const filledSegments = Math.round((skillLevel / 10) * numberOfSegments);
+  const fullCircle = `
+    M ${centerX},${centerY - lesserRadius}
+    A ${lesserRadius},${lesserRadius},0,1,1,${centerX},${centerY + lesserRadius}
+    A ${lesserRadius},${lesserRadius},0,1,1,${centerX},${centerY - lesserRadius}
+  `;
 
-  //   const segments = Array.from({ length: numberOfSegments }, (_, index) => (
-  //     <View
-  //       key={index}
-  //       style={[
-  //         styles.segment,
-  //         index < filledSegments ? styles.filledSegment : {},
-  //         { transform: `rotate(${index * degreesPerSegment}deg)` },
-  //       ]}
-  //     />
-  //   ));
+  const startAngle = 0; // Angle in degrees where the skill level starts
+  const endAngle = startAngle - ((10 - skillLevel) / 10) * 360; // Angle for the end of the skill level
 
-  //   return (
-  //     <View style={styles.loadingBar}>
-  //       <View style={styles.loadingBarContainer}>{segments}</View>
-  //     </View>
-  //   );
-  // };
+  const triangle = `
+  M ${centerX},${centerY}
+  L ${centerX + radius},${centerY}
+  A ${radius},${radius},0,${skillLevel <= 5 ? 0 : 1},0,${
+    centerX + radius * Math.cos((endAngle * Math.PI) / 180)
+  },${centerY - radius * Math.sin((endAngle * Math.PI) / 180)}
+  Z
+`;
+
+  return (
+    <View style={styles.loadingBar}>
+      <Svg style={styles.forSvg}>
+        <Path
+          d={fullCircle}
+          fill="none"
+          stroke="#3498db"
+          strokeWidth={strokeWidth}
+        />
+        <Path d={triangle} fill="white" />
+      </Svg>
+    </View>
+  );
+};
 
   return {
     sectionHeader,
@@ -503,7 +517,7 @@ const useDocComponents = () => {
     doc4Left,
     doc4ProfileSection,
     slBeta,
-    // CircularLoadingBar,
+    CircularLoadingBar,
   };
 };
 
