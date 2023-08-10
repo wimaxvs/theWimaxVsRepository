@@ -300,22 +300,29 @@ const useDoc4Styles = () => {
       gap: "3px",
     },
 
+    //Doc 4 Lang Section /////////////////////////
     //for loading bar
     forSvg: {
-      transform: "scaleY(-1)",
+      // transform: "scaleY(-1)",
     },
     loadingBar: {
-      width: 100,
-      height: 100,
-      display: "flex",
-      alignItems: "center",
-      justifyContent: "center",
       transform: "rotate(-90)",
     },
-    loadingBarContainer: {
-      width: 40,
-      height: 40,
-      position: "relative",
+    
+
+    //Lang section itself
+    doc4LangSection: {
+      ...flexRow,
+      alignItems: "center",
+      gap: "20px",
+      flexWrap:"wrap",
+      justifyContent: "space-around",
+      width: "100%",
+    },
+    doc4Lang: {
+      ...flexCol,
+      gap: "5px",
+      alignItems: "center",
     },
   });
 

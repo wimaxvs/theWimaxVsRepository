@@ -252,6 +252,24 @@ const useDocComponents = () => {
     );
   };
 
+  const doc4LangSection = (
+    index: number,
+    subseg: SubSeg,
+    styles: indexObj,
+  ) => {
+    return (
+      <View key={index} style={styles.doc4Lang}>
+        <Text style={{ ...styles.subSegTitle, ...styles.forRightColumnTitle }}>
+          {subseg.title}
+        </Text>
+        {CircularLoadingBar(10 - subseg.order!, styles)}
+        <Text style={styles.rightBodyProfileSectionContent}>
+          {`${subseg.order! * 10}%`}
+        </Text>
+      </View>
+    );
+  };
+
   const slBeta = (
     params: {
       sections: string[];
@@ -264,6 +282,8 @@ const useDocComponents = () => {
   ) => {
     const { sections, styles, rectOptions, subsegments, desiredSection } =
       params;
+    const isLang = desiredSection === "Languages";
+
     return (
       sections.indexOf(desiredSection) >= 0 && (
         <View style={styles.rightBodyProfileSection}>
@@ -275,14 +295,24 @@ const useDocComponents = () => {
           )}
 
           {/**Section Content */}
-          <View style={styles.doc4RightColumnWEContainer}>
-            {subsegments
-              ?.filter((subseg) => subseg.parentSection === desiredSection)
-              .sort((a, b) => b?.order! - a?.order!)
-              .map((subseg, index) =>
-                doc4WorkExp(index, subseg, styles, rectOptions)
-              )}
-          </View>
+          {
+            <View
+              style={
+                isLang
+                  ? styles.doc4LangSection
+                  : styles.doc4RightColumnWEContainer
+              }
+            >
+              {subsegments
+                ?.filter((subseg) => subseg.parentSection === desiredSection)
+                .sort((a, b) => b?.order! - a?.order!)
+                .map((subseg, index) =>
+                  isLang
+                    ? doc4LangSection(index, subseg, styles)
+                    : doc4WorkExp(index, subseg, styles, rectOptions)
+                )}
+            </View>
+          }
         </View>
       )
     );
@@ -466,45 +496,45 @@ const useDocComponents = () => {
     </View>
   );
 
-const CircularLoadingBar = (skillLevel: number, styles: indexObj) => {
-  const lesserRadius = 14;
-  const radius = 20;
-  const strokeWidth = 4;
-  const centerX = 50;
-  const centerY = 50;
+  const CircularLoadingBar = (skillLevel: number, styles: indexObj) => {
+    const lesserRadius = 14;
+    const radius = 20;
+    const strokeWidth = 4;
+    const centerX = 25;
+    const centerY = 25;
 
-  const fullCircle = `
+    const fullCircle = `
     M ${centerX},${centerY - lesserRadius}
     A ${lesserRadius},${lesserRadius},0,1,1,${centerX},${centerY + lesserRadius}
     A ${lesserRadius},${lesserRadius},0,1,1,${centerX},${centerY - lesserRadius}
   `;
 
-  const startAngle = 0; // Angle in degrees where the skill level starts
-  const endAngle = startAngle - ((10 - skillLevel) / 10) * 360; // Angle for the end of the skill level
+    const startAngle = 0; // Angle in degrees where the skill level starts
+    const endAngle = startAngle - ((10 - skillLevel) / 10) * 360; // Angle for the end of the skill level
 
-  const triangle = `
+    const triangle = `
   M ${centerX},${centerY}
   L ${centerX + radius},${centerY}
   A ${radius},${radius},0,${skillLevel <= 5 ? 0 : 1},0,${
-    centerX + radius * Math.cos((endAngle * Math.PI) / 180)
-  },${centerY - radius * Math.sin((endAngle * Math.PI) / 180)}
+      centerX + radius * Math.cos((endAngle * Math.PI) / 180)
+    },${centerY - radius * Math.sin((endAngle * Math.PI) / 180)}
   Z
 `;
 
-  return (
-    <View style={styles.loadingBar}>
-      <Svg style={styles.forSvg}>
-        <Path
-          d={fullCircle}
-          fill="none"
-          stroke="#3498db"
-          strokeWidth={strokeWidth}
-        />
-        <Path d={triangle} fill="white" />
-      </Svg>
-    </View>
-  );
-};
+    return (
+      <View style={styles.loadingBar}>
+        <Svg width={50} height={50} style={styles.forSvg}>
+          <Path
+            d={fullCircle}
+            fill="none"
+            stroke="rgba(254, 185, 198, 1)"
+            strokeWidth={strokeWidth}
+          />
+          <Path d={triangle} fill="white" />
+        </Svg>
+      </View>
+    );
+  };
 
   return {
     sectionHeader,
@@ -517,7 +547,6 @@ const CircularLoadingBar = (skillLevel: number, styles: indexObj) => {
     doc4Left,
     doc4ProfileSection,
     slBeta,
-    CircularLoadingBar,
   };
 };
 

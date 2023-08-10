@@ -26,7 +26,6 @@ const useDoc4 = () => {
     doc4ContactSection,
     doc4ProfileSection,
     slBeta,
-    CircularLoadingBar,
   } = useDocComponents();
 
   const returnFontSize = (word: string, size: number) =>
@@ -104,14 +103,12 @@ const useDoc4 = () => {
           >
             {/**User Contact box view */}
             {doc4ContactSection(styles, theCurrentUser as user)}
-
             {/**User Profile view */}
             {doc4ProfileSection(
               styles,
               theCurrentUser as user,
               rectOptions("lightPink", true)
             )}
-
             {/**User Work Experience view */}
             {slBeta(
               {
@@ -124,7 +121,16 @@ const useDoc4 = () => {
               { titleStyle: "rightBodyProfileSectionTitleItself" }
             )}
             {/**User Languages view */}
-            {CircularLoadingBar(10, styles)}
+            {slBeta(
+              {
+                sections,
+                styles,
+                rectOptions: rectOptions("lightPink", true),
+                subsegments,
+                desiredSection: "Languages",
+              },
+              { titleStyle: "rightBodyProfileSectionTitleItself" }
+            )}{" "}
           </View>
         </View>
         <Text
