@@ -252,21 +252,18 @@ const useDocComponents = () => {
     );
   };
 
-  const doc4LangSection = (
-    index: number,
-    subseg: SubSeg,
-    styles: indexObj,
-  ) => {
+  const doc4LangSection = (index: number, subseg: SubSeg, styles: indexObj) => {
     return (
-      <View key={index} style={styles.doc4Lang}>
-        <Text style={{ ...styles.subSegTitle, ...styles.forRightColumnTitle }}>
-          {subseg.title}
-        </Text>
-        {CircularLoadingBar(10 - subseg.order!, styles)}
-        <Text style={styles.rightBodyProfileSectionContent}>
-          {`${subseg.order! * 10}%`}
-        </Text>
-      </View>
+      subseg.order! > 0 && (
+        <View key={index} style={styles.doc4Lang}>
+          <Text
+            style={{ ...styles.subSegTitle, ...styles.forRightColumnTitle }}
+          >
+            {subseg.title}
+          </Text>
+          {CircularLoadingBar(10 - subseg.order!, styles)}
+        </View>
+      )
     );
   };
 
@@ -497,11 +494,11 @@ const useDocComponents = () => {
   );
 
   const CircularLoadingBar = (skillLevel: number, styles: indexObj) => {
-    const lesserRadius = 14;
-    const radius = 20;
+    const lesserRadius = 28;
+    const radius = 40;
     const strokeWidth = 4;
-    const centerX = 25;
-    const centerY = 25;
+    const centerX = 35;
+    const centerY = 35;
 
     const fullCircle = `
     M ${centerX},${centerY - lesserRadius}
@@ -523,7 +520,7 @@ const useDocComponents = () => {
 
     return (
       <View style={styles.loadingBar}>
-        <Svg width={50} height={50} style={styles.forSvg}>
+        <Svg width={70} height={70}>
           <Path
             d={fullCircle}
             fill="none"
@@ -532,6 +529,14 @@ const useDocComponents = () => {
           />
           <Path d={triangle} fill="white" />
         </Svg>
+        <Text
+          style={{
+            ...styles.rightBodyProfileSectionContent,
+            ...styles.forSkillLevel,
+          }}
+        >
+          {`${(10 - skillLevel) * 10}%`}
+        </Text>
       </View>
     );
   };

@@ -302,20 +302,23 @@ const useDoc4Styles = () => {
 
     //Doc 4 Lang Section /////////////////////////
     //for loading bar
-    forSvg: {
-      // transform: "scaleY(-1)",
-    },
     loadingBar: {
       transform: "rotate(-90)",
+      position: "relative",
     },
-    
+    forSkillLevel: {
+      position: "absolute",
+      top: "45%",
+      left: "35%",
+      transform: "rotate(90)",
+    },
 
     //Lang section itself
     doc4LangSection: {
       ...flexRow,
       alignItems: "center",
       gap: "20px",
-      flexWrap:"wrap",
+      flexWrap: "wrap",
       justifyContent: "space-around",
       width: "100%",
     },
