@@ -229,14 +229,18 @@ const useDoc4Styles = () => {
       justifyContent: "center",
       alignItems: "center",
       gap: "3px",
-      width: "70%",
       margin: "0 auto 0 auto",
       borderBottom: `2px solid ${colorPalette.midnightBlue}`,
     },
+    justWidth: {
+      width: "70%",      
+    },
     contactBoxTelephone: {
+      flexGrow: 1,
       borderBottom: `0`,
     },
     contactBoxEmail: {
+      flexGrow: 2,
       borderBottom: `0`,
       borderLeft: `2px solid ${colorPalette.midnightBlue}`,
     },
@@ -324,7 +328,7 @@ const useDoc4Styles = () => {
     },
     doc4Lang: {
       ...flexCol,
-      gap: "5px",
+      gap: "7.5px",
       alignItems: "center",
     },
   });

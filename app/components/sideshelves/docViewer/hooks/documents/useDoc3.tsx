@@ -161,8 +161,8 @@ const useDoc3 = () => {
               header: "noHeader",
             })}
 
+            {/* certification and Awards */}
             <View break style={styles.awardsAndCertifications}>
-              {/* certification and Awards */}
               {slMap(["Certifications", "Awards"], {
                 isSl: false,
                 isAac: true,

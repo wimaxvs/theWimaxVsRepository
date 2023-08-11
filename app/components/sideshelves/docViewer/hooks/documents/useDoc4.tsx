@@ -21,15 +21,27 @@ const useDoc4 = () => {
   const { styles, rectOptions } = useDoc4Styles();
   const { sections, subsegments, theCurrentUser, fontSizeDeterminant } =
     useCvData();
-  const {
-    doc4Left,
-    doc4ContactSection,
-    doc4ProfileSection,
-    slBeta,
-  } = useDocComponents();
+  const { doc4Left, doc4ContactSection, doc4ProfileSection, slBeta } =
+    useDocComponents();
 
   const returnFontSize = (word: string, size: number) =>
     fontSizeDeterminant(word as string, 8, size).fontSize;
+
+  const slBetaMap = (array: string[]) =>
+    array.map((section, index) => (
+      <React.Fragment key={index}>
+        {slBeta(
+          {
+            sections,
+            styles,
+            rectOptions: rectOptions("lightPink", true),
+            subsegments,
+            desiredSection: section,
+          },
+          { titleStyle: "rightBodyProfileSectionTitleItself" }
+        )}
+      </React.Fragment>
+    ));
 
   const Doc4 = () => (
     <Document style={styles.document}>
@@ -103,34 +115,16 @@ const useDoc4 = () => {
           >
             {/**User Contact box view */}
             {doc4ContactSection(styles, theCurrentUser as user)}
+
             {/**User Profile view */}
             {doc4ProfileSection(
               styles,
               theCurrentUser as user,
               rectOptions("lightPink", true)
             )}
-            {/**User Work Experience view */}
-            {slBeta(
-              {
-                sections,
-                styles,
-                rectOptions: rectOptions("lightPink", true),
-                subsegments,
-                desiredSection: "Work Experience",
-              },
-              { titleStyle: "rightBodyProfileSectionTitleItself" }
-            )}
-            {/**User Languages view */}
-            {slBeta(
-              {
-                sections,
-                styles,
-                rectOptions: rectOptions("lightPink", true),
-                subsegments,
-                desiredSection: "Languages",
-              },
-              { titleStyle: "rightBodyProfileSectionTitleItself" }
-            )}
+
+            {/**User Work Experience, Languages and Awards view */}
+            {slBetaMap(["Work Experience", "Languages", "Awards"])}
           </View>
         </View>
         <Text
