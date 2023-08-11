@@ -58,6 +58,12 @@ const EssentialInputsContainer = () => {
     ],
     [
       {
+        id: "personalLink",
+        label: "Link (LinkedIn/Social Media)",
+      },
+    ],
+    [
+      {
         id: "bio",
         label: "Profile Summary",
         isSummary: true,
@@ -78,6 +84,7 @@ const EssentialInputsContainer = () => {
       dob: cvSubSegments.theCurrentUser?.dob,
       location: cvSubSegments.theCurrentUser?.location,
       prospectiveTitle: cvSubSegments.theCurrentUser?.prospectiveTitle,
+      personalLink: cvSubSegments.theCurrentUser?.personalLink,
       bio: cvSubSegments.theCurrentUser?.bio,
       image: cvSubSegments.theCurrentUser?.image,
     },
@@ -99,7 +106,6 @@ const EssentialInputsContainer = () => {
       };
       cvSubSegments.setEssentials({ ...data });
 
-      console.log("closing modal");
       bioModalFunctions.onClose();
       toast.success(
         <>

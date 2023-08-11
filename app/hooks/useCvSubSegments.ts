@@ -36,6 +36,7 @@ export type user = {
   location?: string;
   bio?: string;
   prospectiveTitle?: string
+  personalLink?: string
 };
 
 interface SubSegmentStore {
@@ -63,7 +64,8 @@ const useCvSubSegments = create<SubSegmentStore>()(
         dob: new Date(),
         location: "",
         bio: "",
-        prospectiveTitle: ""
+        prospectiveTitle: "",
+        personalLink: "",
       },
       subsegments: [],
       parentSections: get()?.subsegments?.reduce((acc: string[], obj) => {
