@@ -119,7 +119,12 @@ const useDoc4Styles = () => {
       backgroundColor: colorPalette.lightPink,
       width: "90%",
       height: 25,
+      ...flexCol,
+      alignItems: "center",
+      justifyContent: "center"
     },
+    leftColumnLinkBoxText: {
+textDecoration: "none"    },
 
     //Left Body Name////////////////////////////////////////
     upperNameSection: {

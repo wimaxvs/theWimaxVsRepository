@@ -21,6 +21,8 @@ model User {
   image      String?
   dob          DateTime? @default(now())
   location     String?
+  prospectiveTitle     String?
+  personalLink     String?
   bio          String   @default("Hi, I'm looking to find employment in your firm!")
   isPaid       Boolean  @default(false)
   emailVerified     DateTime?

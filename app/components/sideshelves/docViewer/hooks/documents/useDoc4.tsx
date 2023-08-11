@@ -8,6 +8,7 @@ import {
   Image,
   Svg,
   Rect,
+  Link,
 } from "@react-pdf/renderer";
 import React from "react";
 import useDoc4Styles from "../styles/useDoc4Styles";
@@ -52,7 +53,19 @@ const useDoc4 = () => {
           >
             {/**Linked In box view */}
             <View style={styles.leftColumnLinkBox}>
-              {"theCurrentUser.linkedIn"}
+              <Link
+                src={theCurrentUser?.personalLink as string}
+                style={{
+                  ...styles.upperJobTitleTextContainer,
+                  ...styles.leftColumnLinkBoxText,
+                  fontSize: returnFontSize(
+                    theCurrentUser?.prospectiveTitle as string,
+                    18
+                  ),
+                }}
+              >
+                {theCurrentUser?.personalLink?.toUpperCase()}
+              </Link>
             </View>
             {/**Name view */}
             <View style={styles.upperNameSection}>

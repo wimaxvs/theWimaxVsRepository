@@ -11,6 +11,7 @@ interface InputDecipherProps {
   classNameProp?: string;
   type?: string;
   required?: boolean;
+  setMax10?:boolean
 }
 
 const InputDecipher: React.FC<InputDecipherProps> = ({
@@ -23,6 +24,7 @@ const InputDecipher: React.FC<InputDecipherProps> = ({
   type,
   required,
   defaultValue,
+  setMax10
 }) => {
   const options = {
     id: id,
@@ -35,7 +37,7 @@ const InputDecipher: React.FC<InputDecipherProps> = ({
   if (textarea) {
     return <textarea {...options} {...register(id, { required })} rows={5} />;
   }
-  return <input {...options} {...register(id, { required })} type={type} />;
+  return <input {...options} {...register(id, { required })} type={type} min={1} max={setMax10 ? 10 : 20} />;
 };
 
 export default InputDecipher;

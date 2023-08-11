@@ -100,6 +100,7 @@ const SubSectionInput: React.FC<SubSectionInputProps> = ({
                         }`}
                       >
                         <Input
+                          setMax10 = {obj.inputLabel === "Level"}
                           isBioData
                           id={`subsegments[${order}][${obj.inputId}]`}
                           label={obj.inputLabel}

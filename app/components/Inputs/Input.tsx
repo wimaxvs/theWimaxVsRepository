@@ -18,6 +18,7 @@ interface InputProps {
   placeholder?: string;
   isSubSegment?: boolean;
   defaultValue?: any;
+  setMax10?:boolean
 }
 
 const Input: React.FC<InputProps> = ({
@@ -34,6 +35,7 @@ const Input: React.FC<InputProps> = ({
   placeholder,
   defaultValue,
   isSubSegment,
+  setMax10
 }) => {
   return (
     <div
@@ -48,6 +50,7 @@ const Input: React.FC<InputProps> = ({
         />
       )}
       <InputDecipher
+        setMax10={setMax10? setMax10 : false}
         textarea={isSummary}
         id={id}
         disabled={disabled}
