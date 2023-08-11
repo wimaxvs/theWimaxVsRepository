@@ -130,7 +130,7 @@ const useDoc4 = () => {
                 desiredSection: "Languages",
               },
               { titleStyle: "rightBodyProfileSectionTitleItself" }
-            )}{" "}
+            )}
           </View>
         </View>
         <Text
