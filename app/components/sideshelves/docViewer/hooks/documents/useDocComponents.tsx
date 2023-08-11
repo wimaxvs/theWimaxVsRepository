@@ -444,7 +444,7 @@ const useDocComponents = () => {
           <View style={styles.contactBoxNotice}>
             <Text style={styles.contactBoxNoticeText}>{"Contact"}</Text>
           </View>
-          <View style={styles.contactBoxAddress}>
+          <View style={{...styles.contactBoxAddress, ...styles.justWidth}}>
             {contactBoxText(styles, "A:", theCurrentUser.location as string)}
           </View>
         </View>
