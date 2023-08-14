@@ -31,11 +31,12 @@ Font.register({
 });
 
 const colorPalette: { [key: string]: string } = {
-  darkBlue: "rgba(0, 80, 103, 0.8)",
-  teal: "rgba(4, 131, 153, 1)",
-  lightPink: "rgba(254, 185, 198, 1)",
-  mauve: "rgba(185, 107, 133, 1)",
-  midnightBlue: "#021E20",
+  platinum: "#E7E3DE",
+  powderBlue: "#B6C1D5",
+  khaki: "#C6A992",
+  darkSlateGray: "#304B44",
+  dun: "#E3CBA6",
+  paleDogwood: "#E4BEB5",
 
   titleText: "#222",
   subtitleText: "#333",
@@ -86,7 +87,8 @@ const useDoc5Styles = () => {
       padding: "10px",
     },
     page: {
-      padding: "15 15 65 15",
+      padding: "0 0 65 0",
+      position: "relative",
     },
     pageNumber: {
       position: "absolute",
@@ -99,6 +101,31 @@ const useDoc5Styles = () => {
     },
 
     //Body////////////////////////////////////////
+    body: {
+      ...flexRow,
+      gap: "20px",
+    },
+    //Header////////////////////////////////////////
+    header: {
+      ...flexRow,
+      backgroundColor: colorPalette.powderBlue,
+      width: "110%",
+      height: "40%",
+      top: "-20%",
+      left: "-5%",
+      transform: "rotate(-10deg)",
+      position: "relative",
+    },
+    pictureAndNameInHeader: {
+      position: "absolute",
+      overflow: "hidden",
+      // top: "2%",
+      // left: "-6%",
+      height: "100%",
+      width: "100%",
+      transform: "rotate(10deg)",
+      backgroundColor: colorPalette.khaki,
+    },
   });
 
   return { styles, rectOptions };

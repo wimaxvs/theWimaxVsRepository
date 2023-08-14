@@ -46,6 +46,11 @@ const useDoc5 = () => {
   const Doc5 = () => (
     <Document style={styles.document}>
       <Page size="A4" style={styles.page}>
+        
+        <View style={styles.header}>
+          <View style={styles.pictureAndNameInHeader}></View>
+          
+        </View>
         <View style={styles.body}>
           
         </View>
