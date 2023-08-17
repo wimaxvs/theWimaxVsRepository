@@ -5,7 +5,7 @@ import React from "react";
 import useDoc3Styles from "../styles/useDoc3Styles";
 import usePlaceholderImage from "../styles/usePlaceholderImage";
 import useCvData from "../useCvData";
-import useDocComponents from "./useDocComponents";
+import useDocComponents from "./docComponents/useDocComponents";
 
 const useDoc3 = () => {
   const { imgSrc, PhoneIcon, LocationIcon, EmailIcon } = usePlaceholderImage();

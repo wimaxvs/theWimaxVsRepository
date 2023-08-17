@@ -16,7 +16,7 @@ import useCvData from "../useCvData";
 import useDocComponents, {
   rectOptionsExtension,
   userExtension,
-} from "./useDocComponents";
+} from "./docComponents/useDocComponents";
 
 const useDoc2 = () => {
   const { imgSrc } = usePlaceholderImage();
