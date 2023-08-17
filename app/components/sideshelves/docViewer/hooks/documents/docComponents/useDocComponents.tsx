@@ -3,9 +3,9 @@ import React from "react";
 
 import { SubSeg, user } from "@/app/hooks/useCvSubSegments";
 import { Line, Svg, View, Text, Rect, Circle, Path } from "@react-pdf/renderer";
-import useDoc3Styles from "../styles/useDoc3Styles";
+import useDoc3Styles from "../../styles/useDoc3Styles";
 
-type striNum = string | number;
+export type striNum = string | number;
 
 export interface indexObj {
   [key: string]: { [key: string]: striNum };
@@ -444,7 +444,7 @@ const useDocComponents = () => {
           <View style={styles.contactBoxNotice}>
             <Text style={styles.contactBoxNoticeText}>{"Contact"}</Text>
           </View>
-          <View style={{...styles.contactBoxAddress, ...styles.justWidth}}>
+          <View style={{ ...styles.contactBoxAddress, ...styles.justWidth }}>
             {contactBoxText(styles, "A:", theCurrentUser.location as string)}
           </View>
         </View>
@@ -552,6 +552,7 @@ const useDocComponents = () => {
     doc4Left,
     doc4ProfileSection,
     slBeta,
+    ornamentalRectangle
   };
 };
 

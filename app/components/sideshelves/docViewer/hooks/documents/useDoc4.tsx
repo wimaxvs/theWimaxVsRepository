@@ -14,7 +14,7 @@ import React from "react";
 import useDoc4Styles from "../styles/useDoc4Styles";
 import usePlaceholderImage from "../styles/usePlaceholderImage";
 import useCvData from "../useCvData";
-import useDocComponents from "./useDocComponents";
+import useDocComponents from "./docComponents/useDocComponents";
 import { user } from "@/app/hooks/useCvSubSegments";
 
 const useDoc4 = () => {
