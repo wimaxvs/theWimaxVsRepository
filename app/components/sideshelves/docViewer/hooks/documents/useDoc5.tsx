@@ -22,7 +22,7 @@ const useDoc5 = () => {
   const { styles, rectOptions } = useDoc5Styles();
   const { sections, subsegments, theCurrentUser, fontSizeDeterminant } =
     useCvData();
-  const { bioData, profileSummary } = useDocComponentsB();
+  const { bioData, profileSummary, doc5TotemPole } = useDocComponentsB();
 
   const returnFontSize = (word: string, size: number) =>
     fontSizeDeterminant(word as string, 8, size).fontSize;
@@ -83,8 +83,11 @@ const useDoc5 = () => {
             {bioData(styles, theCurrentUser as user)}
 
             {/**The profile summary */}
-            {theCurrentUser?.bio &&
-              profileSummary(styles, theCurrentUser as user)}
+            {profileSummary(styles, theCurrentUser as user)}
+
+            {/* *The user education  */}
+            {doc5TotemPole(subsegments, styles, "Education", sections)}
+
           </View>
           <View style={{ ...styles.column, ...styles.rightColumn }}></View>
         </View>
@@ -100,7 +103,9 @@ const useDoc5 = () => {
             theCurrentUser?.personalLink,
           ].map((contact, index) => (
             <View key={index} style={styles.contactLink}>
-              <Text style={{ ...styles.basicText, fontSize: "8px" }}>{contact}</Text>
+              <Text style={{ ...styles.basicText, fontSize: "8px" }}>
+                {contact}
+              </Text>
             </View>
           ))}
         </View>

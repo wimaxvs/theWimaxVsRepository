@@ -48,6 +48,14 @@ const colorPalette: { [key: string]: string } = {
   dateText: "#555",
 };
 
+const colorPaletteB: { [key: string]: string } = {
+  darkGreen: "#1d382b",
+  mossGreen: "#66976b",
+  paleBeige: "#e3c6bc",
+  dustyRose: "#c8868d",
+  lightGray: "#d1e4e3",
+};
+
 const flexRow: {} = {
   display: "flex",
   flexDirection: "row",
@@ -56,11 +64,14 @@ const flexCol: {} = {
   display: "flex",
   flexDirection: "column",
 };
-const fontSettings:{} = {
+const fontSettings: {} = {
   fontFamily: "Montserrat",
   fontWeight: "light",
   letterSpacing: "1.5px",
-  lineHeight: 1.2
+  lineHeight: 1.2,
+};
+const totemHead = {
+  width: "50%",
 };
 
 const useDoc5Styles = () => {
@@ -222,6 +233,7 @@ const useDoc5Styles = () => {
       gap: "4px",
       padding: "0 12.5px 0 17.5px",
       margin: "15px 0 0 0",
+      outlineStyle: "solid"
     },
     bioDataTableRow: {
       width: "100%",
@@ -240,6 +252,29 @@ const useDoc5Styles = () => {
     forSummary: {
       fontSize: "8px",
       padding: "0 12.5px 0 17.5px",
+    },
+
+    //Totem
+    actualTotem: {
+      ...flexCol,
+      width: "100%",
+    },
+    withRightBorder: {
+      borderRight: `10px solid ${colorPaletteB.paleBeige}`,
+      alignSelf: "flex-start",
+      height:"200px",
+      transform:"translateX(5px)",
+      backgroundColor:colorPaletteB.dustyRose,
+      ...totemHead,
+    },
+    withLeftBorder: {
+      borderLeft: `10px solid ${colorPaletteB.paleBeige}`,
+      borderLeftColor: colorPalette.jungleGreen,
+      alignSelf: "flex-end",
+      height: "200px",
+      transform:"translateX(-5px)",
+      backgroundColor:colorPaletteB.dustyRose,
+      ...totemHead,
     },
   });
 
