@@ -1,4 +1,4 @@
-import { user } from "@/app/hooks/useCvSubSegments";
+import { SubSeg, user } from "@/app/hooks/useCvSubSegments";
 import { indexObj, striNum } from "./useDocComponents";
 import { Text, View } from "@react-pdf/renderer";
 import useDoc5Styles from "../../styles/useDoc5Styles";
@@ -11,7 +11,7 @@ const useDocComponentsB = () => {
   const { fontSizeDeterminant } = useCvData();
 
   const returnFontSize = (word: string, size: number) =>
-    fontSizeDeterminant(word as string, 8, size).fontSize;
+    fontSizeDeterminant(word as string, 10, size).fontSize;
 
   const returnFormattedDate = (date: Date, trigger: string) => {
     let theDate = new Date(date);
@@ -50,7 +50,9 @@ const useDocComponentsB = () => {
 
     return (
       <>
-        <Text style={{...styles.biographySectionTitle, fontSize: "12px"}}>{sectionTitle}</Text>
+        <Text style={{ ...styles.biographySectionTitle, fontSize: "12px" }}>
+          {sectionTitle}
+        </Text>
         {rect(rectWidth, rectHeight, rectColor)}
       </>
     );
@@ -68,7 +70,7 @@ const useDocComponentsB = () => {
       <Text
         style={{
           ...styles.basicText,
-          fontSize: returnFontSize("Something Lo", 12),
+          fontSize: returnFontSize(valueString, 8),
         }}
       >
         {valueString}
@@ -125,28 +127,69 @@ const useDocComponentsB = () => {
   };
 
   const profileSummary = (styles: indexObj, theCurrentUser: user) => {
-    return (
-      <View style={styles.biographySection}>
-        {doc5SectionTitle({
-          styles: styles,
-          sectionTitle: "SUMMARY",
-          rectWidth: "50",
-          rectHeight: "2",
-          rectColor: "coralPink",
-        })}
-        <Text
-          style={{
-            ...styles.basicText,
-            ...styles.forSummary
-          }}
-        >
-          {theCurrentUser.bio}
-        </Text>
-      </View>
-    );
+    if (theCurrentUser.bio)
+      return (
+        <View style={styles.biographySection}>
+          {doc5SectionTitle({
+            styles: styles,
+            sectionTitle: "SUMMARY",
+            rectWidth: "50",
+            rectHeight: "2",
+            rectColor: "coralPink",
+          })}
+          <Text
+            style={{
+              ...styles.basicText,
+              ...styles.forSummary,
+            }}
+          >
+            {theCurrentUser.bio}
+          </Text>
+        </View>
+      );
+    return null;
   };
 
-  return { bioData, profileSummary };
+  const actualTotem = (subsegments: SubSeg[], styles: indexObj) => (
+    <View style={styles.actualTotem}>
+      {subsegments.map((subseg, index) => (
+        <>
+          <View
+            key={index}
+            style={
+              index % 2 === 0 ? {...styles.withRightBorder} : styles.withLeftBorder
+            }
+          ></View>
+        </>
+      ))}
+    </View>
+  );
+
+  const doc5TotemPole = (
+    subsegments: SubSeg[],
+    styles: indexObj,
+    desiredSection: string,
+    sections: string[]
+  ) => {
+    let neededSubsegs = subsegments.filter(
+      (segment) => segment.parentSection === desiredSection
+    );
+    if (sections.indexOf(desiredSection) >= 0)
+      return (
+        <View style={styles.biographySection}>
+          {doc5SectionTitle({
+            styles: styles,
+            sectionTitle: desiredSection.toUpperCase(),
+            rectWidth: "50",
+            rectHeight: "2",
+            rectColor: "coralPink",
+          })}
+          {actualTotem(neededSubsegs, styles)}
+        </View>
+      );
+  };
+
+  return { bioData, profileSummary, doc5TotemPole };
 };
 
 export default useDocComponentsB;
