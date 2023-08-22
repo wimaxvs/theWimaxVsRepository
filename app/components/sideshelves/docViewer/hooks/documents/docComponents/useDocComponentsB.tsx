@@ -32,6 +32,14 @@ const useDocComponentsB = () => {
     }
   };
 
+  const tbcp: { [key: string]: string } = {
+    lightGray: "#d1e4e3",
+    paleBeige: "#e3c6bc",
+    dustyRose: "#c8868d",
+    mossGreen: "#66976b",
+    steelBlue: "#4682B4",
+  };
+
   const rect = (width: striNum, height: striNum, color?: string) => {
     return ornamentalRectangle(doc5RectOptions(color, true), {
       width: width as string,
@@ -152,16 +160,42 @@ const useDocComponentsB = () => {
 
   const actualTotem = (subsegments: SubSeg[], styles: indexObj) => (
     <View style={styles.actualTotem}>
-      {subsegments.map((subseg, index) => (
-        <>
-          <View
-            key={index}
-            style={
-              index % 2 === 0 ? {...styles.withRightBorder} : styles.withLeftBorder
-            }
-          ></View>
-        </>
-      ))}
+      {subsegments.map((subseg, index) => {
+        const borderCol = Object.values(tbcp)[index % Object.keys(tbcp).length];
+        return (
+          <>
+            <View
+              key={index}
+              style={[
+                styles.actualTotem,
+                index % 2 === 0
+                  ? {
+                      ...styles.withRightBorder,
+                      borderRight: `10px solid ${borderCol}`,
+                    }
+                  : {
+                      ...styles.withLeftBorder,
+                      borderLeft: `10px solid ${borderCol}`,
+                    },
+              ]}
+            >
+              <Text style={styles.totemTitle}>{subseg.title}</Text>
+              <Text style={styles.totemDate}>{`${subseg.dateFrom?.substring(
+                0,
+                4
+              )} - ${subseg.dateTo?.substring(0, 4)}`}</Text>
+              <Text style={styles.totemSubtitle}>{subseg.subTitle}</Text>
+              {subseg.content?.map((line, index) => (
+                <View break style={styles.totemContentView}>
+                  <Text key={index} style={styles.totemDate}>
+                    {line}
+                  </Text>
+                </View>
+              ))}
+            </View>
+          </>
+        );
+      })}
     </View>
   );
 
