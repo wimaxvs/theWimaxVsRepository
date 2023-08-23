@@ -5,8 +5,7 @@ import { Inter } from "next/font/google";
 import AddSubSectionModal from "@/app/components/Modals/AddSubSectionModal";
 import AddSubSectionModalEditDelete from "@/app/components/Modals/AddSubSectionModalEditDelete";
 import AddBioModal from "@/app/components/Modals/AddBioModal";
-import SectionContainer from "@/app/components/sideshelves/sectionSideshelf/SectionContainer";
-
+import SectionContainer from "@/app/components/sideshelves/sectionSideshelf/SectionContainerB";
 
 interface CreatelayoutProps {
   children: React.ReactNode;

@@ -1,31 +1,39 @@
 "use client";
-
 import React from "react";
-
-import useCurrentTemplate from "@/app/hooks/useCurrentTemplate";
+import useCurrentTemplateForReal from "@/app/hooks/useCurrentTemplate";
+import { BsChevronDown, BsChevronUp } from "react-icons/bs";
+import Accordion from "../../Accordion";
 
 const SectionTemplate = () => {
   const { currentTemplate, setCurrentTemplate, existentDocs } =
-    useCurrentTemplate();
+    useCurrentTemplateForReal();
 
   return (
-    <>
-      <label className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">
-        Pick a template
-      </label>
-
-      <select
-        className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-        value={currentTemplate}
-        onChange={(e) => setCurrentTemplate(e.target.value)}
+    <div
+      className={`SectionAddition z-7 w-11/12 bg-white mt-2 flex flex-col items-center justify-around md:justify-normal rounded-xl drop-shadow-md transition ease-in duration-300`}
+    >
+      {/**Accordion */}
+      <Accordion
+        UpIcon={<BsChevronUp size={20} color={"#343e83"} />}
+        DownIcon={<BsChevronDown size={20} color={"#343e83"} />}
+        label={"Pick a template Below:"}
       >
         {existentDocs.map((option, i) => {
-          return <option key={i}>{option}</option>;
+          return (
+            <button
+              className={`sectionChip py-2 px-3 rounded-md hover:bg-deep-blue/10 transition hover:ease-in ease-in duration-300 text-deep-blue w-full flex flex-row items-center justify-around ${
+                currentTemplate === option ? "bg-deep-blue/10" : ""
+              }`}
+              onClick={() => setCurrentTemplate(option)}
+              key={i}
+            >
+              {option}
+            </button>
+          );
         })}
-      </select>
-
+      </Accordion>
       {/* <h2>{selected}</h2> */}
-    </>
+    </div>
   );
 };
 
