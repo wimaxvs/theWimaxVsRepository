@@ -18,7 +18,7 @@ export default function Page() {
         className={`sectionSelectAndPdfViewer w-full bg-off-white flex md:flex-row gap-4 overflow-y-auto`}
       >
         <section
-          className={`CreateLayoutEssentials md:mr-0 z-10 mx-auto mt-24 md:mt-4 pb-4 md:ml-32 w-5/6 md:w-1/4 lg:w-1/6 overflow-y-auto h-5/6 flex flex-col items-center rounded-xl`}
+          className={`CreateLayoutEssentials min-w-[480px] md:mr-0 z-10 mx-auto mt-24 md:mt-4 pb-4 md:ml-32 w-5/6 md:w-1/4 lg:w-1/6 overflow-y-auto h-5/6 flex flex-col items-center rounded-xl `}
         >
           <p className="font-bold text-lg text-blue-purple mt-2">CV Sections</p>
           <p className="font-bold text-md text-blue-purple/70">
