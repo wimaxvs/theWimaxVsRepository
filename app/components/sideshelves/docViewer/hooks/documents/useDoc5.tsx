@@ -62,6 +62,8 @@ const useDoc5 = () => {
             {theCurrentUser?.prospectiveTitle?.toUpperCase()}
           </Text>
         </View>
+        <View fixed style={styles.colBehindLeftCol}>
+          </View>
         <View style={styles.leftCol}>
           {/**User Image view */}
           <View style={styles.imageSection}>

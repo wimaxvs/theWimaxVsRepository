@@ -160,12 +160,17 @@ const useDoc5Styles = () => {
     },
 
     //Left Column////////////////////////////////////////
+    colBehindLeftCol: {
+      position: "absolute",
+      width: "40%",
+      height: "100%",
+      backgroundColor: colorPalette.evenPalerPink,
+    },
     leftCol: {
       ...flexCol,
       position: "absolute",
       height: "100%",
       width: "40%",
-      backgroundColor: colorPalette.evenPalerPink,
     },
     imageSection: {
       position: "relative",
@@ -280,10 +285,9 @@ const useDoc5Styles = () => {
       color: colorPalette.subtitleText,
     },
     totemContentView: {
-      ...flexCol, 
+      ...flexCol,
       gap: "3px",
       marginTop: "5px",
-      
     },
   });
 
