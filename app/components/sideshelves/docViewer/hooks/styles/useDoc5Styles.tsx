@@ -212,7 +212,7 @@ const useDoc5Styles = () => {
       width: "40%",
     },
     rightColumn: {
-      width: "60%",
+      width: "50%",
     },
     //left col section css////////////////////////////////////////
     biographySection: {
@@ -220,6 +220,15 @@ const useDoc5Styles = () => {
       gap: "5px",
       width: "100%",
       alignItems: "center",
+    },
+    alignStart: {
+      alignItems: "flex-start",
+    },
+    headerContainer: {
+      ...flexCol,
+      alignItems: "center",
+      gap: "5px",
+      marginBottom: "10px",
     },
     biographySectionTitle: {
       ...fontSettings,
@@ -259,13 +268,13 @@ const useDoc5Styles = () => {
     },
     withRightBorder: {
       alignSelf: "flex-start",
-      transform: "translateX(5px)",
+      transform: "translateX(3px)",
       ...totemHead,
       padding: "0 5px 0 17.5px",
     },
     withLeftBorder: {
       alignSelf: "flex-end",
-      transform: "translateX(-5px)",
+      transform: "translateX(-3px)",
       ...totemHead,
       padding: "0 12.5px 0 5px",
     },
@@ -284,10 +293,58 @@ const useDoc5Styles = () => {
       fontSize: "6px",
       color: colorPalette.subtitleText,
     },
+    bolder: {
+      fontWeight: "semibold",
+    },
     totemContentView: {
       ...flexCol,
       gap: "3px",
       marginTop: "5px",
+    },
+    workTotem: {
+      ...flexRow,
+    },
+    workTotemView: {
+      padding: "0 7.5px 10px 7.5px",
+      gap: "3px",
+    },
+    workTotemDateView: {
+      ...flexCol,
+      gap: "10px",
+      width: "20%",
+      alignItems: "center",
+      justifyContent: "flex-start",
+    },
+    workTotemDeetsView: {
+      ...flexCol,
+      width: "80%",
+    },
+
+    //skills
+    doc5SkillsContainer: {
+      width: "100%",
+      height: "150px",
+      ...flexCol,
+    },
+    doc5SkillsMap: {
+      ...flexRow,
+      gap: '5px',
+      alignItems: "center",
+      flexWrap: "wrap",
+    },
+    doc5SkillsMapBubble: {
+      height: "5px",
+      width: "5px",
+      borderRadius: "50%",
+    },
+    doc5SkillBubbleContainer: {
+      position: "relative",
+      width:"100%",
+      height: "100%"
+    },
+    doc5SkillsBubble: {
+      position: "absolute",
+      borderRadius: "50%",
     },
   });
 
