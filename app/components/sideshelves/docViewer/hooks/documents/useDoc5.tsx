@@ -22,7 +22,7 @@ const useDoc5 = () => {
   const { styles, rectOptions } = useDoc5Styles();
   const { sections, subsegments, theCurrentUser, fontSizeDeterminant } =
     useCvData();
-  const { bioData, profileSummary, doc5TotemPole } = useDocComponentsB();
+  const { bioData, profileSummary, doc5TotemPole, doc5skills } = useDocComponentsB();
 
   const returnFontSize = (word: string, size: number) =>
     fontSizeDeterminant(word as string, 8, size).fontSize;
@@ -62,8 +62,7 @@ const useDoc5 = () => {
             {theCurrentUser?.prospectiveTitle?.toUpperCase()}
           </Text>
         </View>
-        <View fixed style={styles.colBehindLeftCol}>
-          </View>
+        <View fixed style={styles.colBehindLeftCol}></View>
         <View style={styles.leftCol}>
           {/**User Image view */}
           <View style={styles.imageSection}>
@@ -89,9 +88,14 @@ const useDoc5 = () => {
 
             {/* *The user education  */}
             {doc5TotemPole(subsegments, styles, "Education", sections)}
-
           </View>
-          <View style={{ ...styles.column, ...styles.rightColumn }}></View>
+          <View style={{ ...styles.column, ...styles.rightColumn }}>
+            {/* *The user education  */}
+            {doc5TotemPole(subsegments, styles, "Work Experience", sections, true)}
+
+            {/* *The user skills  */}
+            {doc5skills(subsegments, styles, "Skills", true)}
+          </View>
         </View>
         <Text
           style={styles.pageNumber}
