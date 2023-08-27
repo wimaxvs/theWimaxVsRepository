@@ -1,7 +1,8 @@
 import { SubSeg, user } from "@/app/hooks/useCvSubSegments";
 import { indexObj, striNum } from "./useDocComponents";
-import { Text, View } from "@react-pdf/renderer";
+import { Path, Svg, Text, View } from "@react-pdf/renderer";
 import useDoc5Styles from "../../styles/useDoc5Styles";
+import useDoc3Styles from "../../styles/useDoc3Styles";
 import useDocComponents from "./useDocComponents";
 import useCvData from "../../useCvData";
 import React from "react";
@@ -10,7 +11,7 @@ const useDocComponentsB = () => {
   const { rectOptions: doc5RectOptions } = useDoc5Styles();
   const { ornamentalRectangle } = useDocComponents();
   const { fontSizeDeterminant } = useCvData();
-
+  const { styles: styles3 } = useDoc3Styles();
   const returnFontSize = (word: string, size: number) =>
     fontSizeDeterminant(word as string, 10, size).fontSize;
 
@@ -189,10 +190,14 @@ const useDocComponentsB = () => {
                   ]}
                 >
                   <Text style={styles.totemTitle}>{subseg.title}</Text>
-                  <Text style={styles.totemDate}>{`${subseg.dateFrom?.substring(
-                    0,
-                    4
-                  )} - ${subseg.dateTo?.substring(0, 4)}`}</Text>
+                  {subseg.dateFrom && subseg.dateTo && (
+                    <Text
+                      style={styles.totemDate}
+                    >{`${subseg.dateFrom?.substring(
+                      0,
+                      4
+                    )} - ${subseg.dateTo?.substring(0, 4)}`}</Text>
+                  )}
                   <Text style={styles.totemSubtitle}>{subseg.subTitle}</Text>
                   {subseg.content?.map((line, index) => (
                     <View break style={styles.totemContentView}>
@@ -227,7 +232,7 @@ const useDocComponentsB = () => {
                   <View
                     style={[styles.workTotemDeetsView, styles.workTotemView]}
                   >
-                    <Text style={styles.totemTitle}>{subseg.title}</Text>
+                    <Text style={[styles.totemTitle]}>{subseg.title}</Text>
 
                     <Text style={styles.totemSubtitle}>{subseg.subTitle}</Text>
 
@@ -301,7 +306,7 @@ const useDocComponentsB = () => {
             backgroundColor: bkgCol,
             top: `${topPosition}px`,
             left: `${leftPosition}px`,
-            opacity: 0.5,
+            opacity: 0.7,
           },
         ]}
       ></View>
@@ -316,13 +321,14 @@ const useDocComponentsB = () => {
         <View
           style={[styles.doc5SkillsMapBubble, { backgroundColor: bkgCol }]}
         ></View>
-        <Text
-          style={{ ...styles.totemDate, ...styles.bolder }}
-        >{`${subseg.title}`}</Text>
-        3{" "}
-        <Text style={{ ...styles.totemDate }}>{`: ${
-          subseg.order! * 10
-        }%`}</Text>
+        <View style={styles.doc5SkillsMapText}>
+          <Text
+            style={{ ...styles.totemDate, ...styles.bolder }}
+          >{`${subseg.title}`}</Text>{" "}
+          <Text style={{ ...styles.totemDate }}>{`: ${
+            subseg.order! * 10
+          }%`}</Text>
+        </View>
       </React.Fragment>
     );
   };
@@ -370,7 +376,186 @@ const useDocComponentsB = () => {
     return;
   };
 
-  return { bioData, profileSummary, doc5TotemPole, doc5skills };
+  const loadingBar = (styles: indexObj, subseg: SubSeg, index: number) => (
+    <View key={index} style={styles.forLoadingBar}>
+      <Text style={styles.totemDate}>{subseg.title}</Text>
+      <View break style={styles.loadingBar}>
+        <View style={[styles.outerBar, { backgroundColor: tbcp.paleBeige }]}>
+          <View
+            style={[
+              styles.innerBar,
+              {
+                width: `${(subseg?.order! / 10) * 100}%`,
+                backgroundColor: tbcp.steelBlue,
+              },
+            ]}
+          />
+        </View>
+      </View>
+    </View>
+  );
+
+  const doc5languages = (
+    subsegments: SubSeg[],
+    styles: indexObj,
+    desiredSection: string,
+    panTitleLeft?: boolean
+  ) => {
+    let desiredSubsegments = subsegments.filter(
+      (subseg) => subseg.parentSection === desiredSection
+    );
+    if (desiredSubsegments.length > 0)
+      return (
+        <>
+          <View
+            style={[
+              styles.biographySection,
+              panTitleLeft ? styles.alignStart : {},
+            ]}
+          >
+            {doc5SectionTitle({
+              styles: styles,
+              sectionTitle: desiredSection.toUpperCase(),
+              rectWidth: "50",
+              rectHeight: "2",
+              rectColor: "coralPink",
+            })}
+            <View style={[styles.doc5LangContainer, styles.forLangContainer]}>
+              {subsegments
+                ?.filter((subseg) => subseg.parentSection === desiredSection)
+                .sort((a, b) => b?.order! - a?.order!)
+                .map((subseg, index) => loadingBar(styles, subseg, index))}
+            </View>
+          </View>
+        </>
+      );
+  };
+
+  const doc5Certifications = (
+    subsegments: SubSeg[],
+    styles: indexObj,
+    desiredSection: string,
+    panTitleLeft?: boolean
+  ) => {
+    let desiredSubsegments = subsegments.filter(
+      (subseg) => subseg.parentSection === desiredSection
+    );
+    if (desiredSubsegments.length > 0)
+      return (
+        <>
+          <View
+            style={[
+              styles.biographySection,
+              panTitleLeft ? styles.alignStart : {},
+            ]}
+          >
+            {doc5SectionTitle({
+              styles: styles,
+              sectionTitle: desiredSection.toUpperCase(),
+              rectWidth: "50",
+              rectHeight: "2",
+              rectColor: "coralPink",
+            })}
+            <View
+              style={
+                desiredSection === "Certifications"
+                  ? styles.doc5LangContainer
+                  : styles.doc5HobbiesContainer
+              }
+            >
+              {desiredSection === "Certifications" &&
+                subsegments
+                  ?.filter((subseg) => subseg.parentSection === desiredSection)
+                  .sort((a, b) => b?.order! - a?.order!)
+                  .map((subseg, index) => {
+                    let bkgCol =
+                      Object.values(tbcp)[index % Object.keys(tbcp).length];
+
+                    return (
+                      <View key={index} style={[styles.certContainer]}>
+                        <View style={styles.certDateAndDivider}>
+                          {subseg.dateFrom && subseg.dateTo && (
+                            <Text
+                              style={styles.totemDate}
+                            >{`${subseg.dateFrom?.substring(
+                              0,
+                              4
+                            )} - ${subseg.dateTo?.substring(0, 4)}`}</Text>
+                          )}
+                          <View
+                            style={[
+                              styles.certDivider,
+                              { backgroundColor: bkgCol },
+                            ]}
+                          ></View>
+                        </View>
+                        <View style={[styles.certDeetsView]}>
+                          <Text
+                            style={[styles.totemTitle, { fontSize: "6px" }]}
+                          >
+                            {subseg.title}
+                          </Text>
+
+                          <Text
+                            style={[
+                              styles.totemSubtitle,
+                              { fontSize: "6px", fontWeight: "thin" },
+                            ]}
+                          >
+                            {subseg.subTitle}
+                          </Text>
+
+                          {subseg.content?.map((line, index) => (
+                            <View
+                              break
+                              style={[
+                                styles.totemContentView,
+                                { marginTop: "2px" },
+                              ]}
+                            >
+                              <Text break key={index} style={[styles.totemDate]}>
+                                {line}
+                              </Text>
+                            </View>
+                          ))}
+                        </View>
+                      </View>
+                    );
+                  })}
+              {desiredSection === "Hobbies" &&
+                subsegments
+                  ?.filter((subseg) => subseg.parentSection === desiredSection)
+                  .sort((a, b) => b?.order! - a?.order!)
+                  .map((subseg, index) => {
+                    return (
+                      <View style={styles.hobbyLine} key={index}>
+                        <Text
+                          style={{
+                            ...styles.totemSubtitle,
+                            ...styles.bolder,
+                            color: tbcp.steelBlue,
+                          }}
+                        >
+                          {"-"}
+                        </Text>
+                        <Text style={styles.totemSubtitle}>{subseg.title}</Text>
+                      </View>
+                    );
+                  })}
+            </View>
+          </View>
+        </>
+      );
+  };
+
+  return {
+    bioData,
+    profileSummary,
+    doc5TotemPole,
+    doc5skills,
+    doc5languages,
+    doc5Certifications,
+  };
 };
 
 export default useDocComponentsB;

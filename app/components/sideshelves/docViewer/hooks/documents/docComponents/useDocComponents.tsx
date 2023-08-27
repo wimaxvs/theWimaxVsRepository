@@ -493,12 +493,21 @@ const useDocComponents = () => {
     </View>
   );
 
-  const CircularLoadingBar = (skillLevel: number, styles: indexObj) => {
-    const lesserRadius = 28;
-    const radius = 40;
-    const strokeWidth = 4;
-    const centerX = 35;
-    const centerY = 35;
+  const CircularLoadingBar = (
+    skillLevel: number,
+    styles: indexObj,
+    minorRadius?: number,
+    majorRadius?: number,
+    strokeW?: number,
+    center?: number,
+    svgParam?: number,
+    strokeColor?: string
+  ) => {
+    const lesserRadius = minorRadius ? minorRadius : 28;
+    const radius = majorRadius ? majorRadius : 40;
+    const strokeWidth = strokeW ? strokeW : 4;
+    const centerX = center ? center : 35;
+    const centerY = center ? center : 35;
 
     const fullCircle = `
     M ${centerX},${centerY - lesserRadius}
@@ -520,11 +529,11 @@ const useDocComponents = () => {
 
     return (
       <View style={styles.loadingBar}>
-        <Svg width={70} height={70}>
+        <Svg width={svgParam ? svgParam : 70} height={svgParam ? svgParam : 70}>
           <Path
             d={fullCircle}
             fill="none"
-            stroke="rgba(254, 185, 198, 1)"
+            stroke={strokeColor? strokeColor : "rgba(254, 185, 198, 1)"}
             strokeWidth={strokeWidth}
           />
           <Path d={triangle} fill="white" />
@@ -552,7 +561,7 @@ const useDocComponents = () => {
     doc4Left,
     doc4ProfileSection,
     slBeta,
-    ornamentalRectangle
+    ornamentalRectangle,
   };
 };
 

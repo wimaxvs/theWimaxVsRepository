@@ -287,6 +287,7 @@ textDecoration: "none"    },
     doc4RightColumnWEHalf: {
       ...flexCol,
       gap: "10px",
+      maxWidth: "70%",
     },
     doc4RightColumnWEFirstHalf: {
       maxWidth: "30%",
