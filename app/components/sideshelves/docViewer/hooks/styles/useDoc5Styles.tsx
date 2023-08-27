@@ -420,7 +420,7 @@ const useDoc5Styles = () => {
       width: "100%",
       padding: "0 12.5px 0 17.5px",
       ...flexCol,
-      alignItems: "flex-start",
+      alignItems: "center",
       gap: "7.5px",
     },
     hobbyLine: {
