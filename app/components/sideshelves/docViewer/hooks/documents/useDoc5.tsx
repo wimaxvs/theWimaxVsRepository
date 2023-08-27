@@ -22,16 +22,22 @@ const useDoc5 = () => {
   const { styles, rectOptions } = useDoc5Styles();
   const { sections, subsegments, theCurrentUser, fontSizeDeterminant } =
     useCvData();
-  const { bioData, profileSummary, doc5TotemPole, doc5skills } = useDocComponentsB();
-
+  const {
+    bioData,
+    profileSummary,
+    doc5TotemPole,
+    doc5skills,
+    doc5languages,
+    doc5Certifications,
+  } = useDocComponentsB();
   const returnFontSize = (word: string, size: number) =>
     fontSizeDeterminant(word as string, 8, size).fontSize;
 
   const Doc5 = () => (
     <Document style={styles.document}>
-      <Page size="A4" style={styles.page}>
+      <Page size="A4" style={styles.page} wrap>
         {/**The page decorators */}
-        <View style={styles.header}></View>
+        <View style={[styles.header, ]}></View>
         {/**Apparently in Header */}
         <View style={styles.nameInHeader}>
           <Text
@@ -88,13 +94,45 @@ const useDoc5 = () => {
 
             {/* *The user education  */}
             {doc5TotemPole(subsegments, styles, "Education", sections)}
+
+            {/* *The user awards  */}
+
+            {/* *The user hobbies  */}
+            {sections.indexOf("Hobbies") >= 0 &&
+              doc5Certifications(subsegments, styles, "Hobbies", false)}
+
           </View>
           <View style={{ ...styles.column, ...styles.rightColumn }}>
             {/* *The user education  */}
-            {doc5TotemPole(subsegments, styles, "Work Experience", sections, true)}
+            {doc5TotemPole(
+              subsegments,
+              styles,
+              "Work Experience",
+              sections,
+              true
+            )}
 
             {/* *The user skills  */}
             {doc5skills(subsegments, styles, "Skills", true)}
+
+            {/* *The user languages and certificates */}
+            <View style={styles.doc5LangAndCert}>
+              {sections.indexOf("Languages") >= 0 && (
+                <View style={{ width: "50%" }}>
+                  {doc5languages(subsegments, styles, "Languages", true)}
+                </View>
+              )}
+              {sections.indexOf("Certifications") >= 0 && (
+                <View style={{ width: "50%" }}>
+                  {doc5Certifications(
+                    subsegments,
+                    styles,
+                    "Certifications",
+                    true
+                  )}
+                </View>
+              )}
+            </View>
           </View>
         </View>
         <Text

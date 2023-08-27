@@ -281,16 +281,19 @@ const useDoc5Styles = () => {
     totemTitle: {
       ...fontSettings,
       fontSize: "10px",
+      lineHeight: 1,
       color: colorPalette.steelBlue,
     },
     totemSubtitle: {
       ...fontSettings,
       fontSize: "8px",
-      color: colorPalette.titleText,
+      lineHeight: 1,
+      color: colorPalette.contentText,
     },
     totemDate: {
       ...fontSettings,
       fontSize: "6px",
+      lineHeight: 1,
       color: colorPalette.subtitleText,
     },
     bolder: {
@@ -328,7 +331,6 @@ const useDoc5Styles = () => {
     },
     doc5SkillsMap: {
       ...flexRow,
-      gap: '5px',
       alignItems: "center",
       flexWrap: "wrap",
     },
@@ -337,14 +339,94 @@ const useDoc5Styles = () => {
       width: "5px",
       borderRadius: "50%",
     },
+    doc5SkillsMapText: {
+      ...flexRow,
+      gap: 0,
+      marginRight: "5px",
+      marginLeft: "2.5px",
+    },
     doc5SkillBubbleContainer: {
       position: "relative",
-      width:"100%",
-      height: "100%"
+      width: "100%",
+      height: "100%",
     },
     doc5SkillsBubble: {
       position: "absolute",
       borderRadius: "50%",
+    },
+
+    //lang and certs
+    doc5LangAndCert: {
+      ...flexRow,
+      gap: "15px",
+      width: "100%",
+    },
+    doc5LangContainer: {
+      ...flexRow,
+      width: "100%",
+      flexWrap: "wrap",
+    },
+    //lang
+    forLangContainer: {
+      justifyContent: "space-between",
+    },
+    forLoadingBar: {
+      ...flexCol,
+      alignItems: "flex-start",
+      gap: "5px",
+      marginBottom: "10px",
+    },
+    loadingBar: {
+      ...flexRow,
+      alignItems: "center",
+      maxWidth: "50%",
+    },
+    outerBar: {
+      width: "95%",
+      height: 2,
+      backgroundColor: `${colorPalette.mistyBlue}`,
+    },
+    innerBar: {
+      height: "100%",
+      backgroundColor: colorPalette.steelBlue,
+    },
+    //cert
+    certContainer: {
+      ...flexCol,
+      alignItems: "flex-start",
+      gap: "3px",
+      maxWidth: "50%",
+    },
+    certDateAndDivider: {
+      height: "15px",
+      ...flexCol,
+      justifyContent: "space-between",
+      width: "100%",
+    },
+    certDivider: {
+      width: "100%",
+      height: "2.5px",
+    },
+    certDeetsView: {
+      margintTop: 0,
+      ...flexCol,
+      gap: "3px",
+      width: "80%",
+      marginRight: "15px",
+    },
+
+    //Hobbies
+    doc5HobbiesContainer: {
+      width: "100%",
+      padding: "0 12.5px 0 17.5px",
+      ...flexCol,
+      alignItems: "flex-start",
+      gap: "7.5px",
+    },
+    hobbyLine: {
+      ...flexRow,
+      gap: "3px",
+      alignItems: "center",
     },
   });
 
