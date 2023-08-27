@@ -37,7 +37,7 @@ const useDoc5 = () => {
     <Document style={styles.document}>
       <Page size="A4" style={styles.page} wrap>
         {/**The page decorators */}
-        <View style={[styles.header, ]}></View>
+        <View style={[styles.header]}></View>
         {/**Apparently in Header */}
         <View style={styles.nameInHeader}>
           <Text
@@ -100,7 +100,6 @@ const useDoc5 = () => {
             {/* *The user hobbies  */}
             {sections.indexOf("Hobbies") >= 0 &&
               doc5Certifications(subsegments, styles, "Hobbies", false)}
-
           </View>
           <View style={{ ...styles.column, ...styles.rightColumn }}>
             {/* *The user education  */}
@@ -132,6 +131,10 @@ const useDoc5 = () => {
                   )}
                 </View>
               )}
+            </View>
+            <View>
+              {sections.indexOf("Awards") >= 0 &&
+                doc5Certifications(subsegments, styles, "Awards", true)}
             </View>
           </View>
         </View>

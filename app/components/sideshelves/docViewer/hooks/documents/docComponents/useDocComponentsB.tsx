@@ -458,23 +458,30 @@ const useDocComponentsB = () => {
             })}
             <View
               style={
-                desiredSection === "Certifications"
+                desiredSection !== "Hobbies"
                   ? styles.doc5LangContainer
                   : styles.doc5HobbiesContainer
               }
             >
-              {desiredSection === "Certifications" &&
+              {desiredSection !== "Hobbies" &&
                 subsegments
                   ?.filter((subseg) => subseg.parentSection === desiredSection)
                   .sort((a, b) => b?.order! - a?.order!)
                   .map((subseg, index) => {
                     let bkgCol =
                       Object.values(tbcp)[index % Object.keys(tbcp).length];
-
+                    let datesPresent: boolean =
+                      subseg.dateFrom !== undefined &&
+                      subseg.dateTo !== undefined;
                     return (
                       <View key={index} style={[styles.certContainer]}>
-                        <View style={styles.certDateAndDivider}>
-                          {subseg.dateFrom && subseg.dateTo && (
+                        <View
+                          style={[
+                            styles.certDateAndDivider,
+                            !datesPresent ? { justifyContent: "flex-end" } : {},
+                          ]}
+                        >
+                          {datesPresent && (
                             <Text
                               style={styles.totemDate}
                             >{`${subseg.dateFrom?.substring(
@@ -513,7 +520,11 @@ const useDocComponentsB = () => {
                                 { marginTop: "2px" },
                               ]}
                             >
-                              <Text break key={index} style={[styles.totemDate]}>
+                              <Text
+                                break
+                                key={index}
+                                style={[styles.totemDate]}
+                              >
                                 {line}
                               </Text>
                             </View>
@@ -536,7 +547,7 @@ const useDocComponentsB = () => {
                             color: tbcp.steelBlue,
                           }}
                         >
-                          {"-"}
+                          {index + 1}
                         </Text>
                         <Text style={styles.totemSubtitle}>{subseg.title}</Text>
                       </View>
