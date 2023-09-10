@@ -5,6 +5,7 @@ import useDoc2 from "./useDoc2";
 import useDoc3 from "./useDoc3";
 import useDoc4 from "./useDoc4";
 import useDoc5 from "./useDoc5";
+import useDoc6 from "./useDoc6";
 
 const useAllDocs = () => {
   const Doc1 = { doc: useDoc1().Doc1, name: "Doc1" };
@@ -12,8 +13,16 @@ const useAllDocs = () => {
   const Doc3 = { doc: useDoc3().Doc3, name: "Doc3" };
   const Doc4 = { doc: useDoc4().Doc4, name: "Doc4" };
   const Doc5 = { doc: useDoc5().Doc5, name: "Doc5" };
+  const Doc6 = { doc: useDoc6().Doc6, name: "Doc6" };
 
-  const docs = [Doc1.name, Doc2.name, Doc3.name, Doc4.name, Doc5.name,];
+  const docs = [
+    Doc1.name,
+    Doc2.name,
+    Doc3.name,
+    Doc4.name,
+    Doc5.name,
+    Doc6.name,
+  ];
 
   const theDocs: { [key: string]: () => JSX.Element } = {
     Doc1: Doc1.doc,
@@ -21,6 +30,7 @@ const useAllDocs = () => {
     Doc3: Doc3.doc,
     Doc4: Doc4.doc,
     Doc5: Doc5.doc,
+    Doc6: Doc6.doc,
   };
 
   return { theDocs, docs };
