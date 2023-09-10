@@ -12,7 +12,7 @@ type Action = {
 
 
 const useCurrentTemplate = create<State & Action>((set) => ({
-  currentTemplate: "Doc5",
+  currentTemplate: "Doc6",
 
   setCurrentTemplate: (TemplateStringToSet) =>
     set(() => ({ currentTemplate: TemplateStringToSet })),

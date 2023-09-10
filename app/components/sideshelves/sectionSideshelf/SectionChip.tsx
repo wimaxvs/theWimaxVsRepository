@@ -63,11 +63,11 @@ const SectionChip: React.FC<SectionChipProps> = ({
           ? () => menuActions("isBioEdit")
           : () => menuActions("addSub")
       }
-      className="sectionChip py-2 px-3 rounded-md hover:bg-deep-blue/10 transition hover:ease-in ease-in duration-300 text-deep-blue w-full flex flex-row items-center justify-around "
+      className="sectionChip py-2 px-3 rounded-md hover:bg-deep-blue/10 transition hover:ease-in ease-in duration-300 text-deep-blue w-full flex flex-row items-center justify-between "
     >
       <div className="flex flex-row gap-2 items-center w-2/3">
         <i className={`md:hidden lg:block`}>{Icon && Icon}</i>
-        <p className="flex flex-row justify-items-start items-start pl-0">
+        <p className="flex flex-row justify-items-start items-start text-left pl-0">
           {label}
         </p>
       </div>
