@@ -8,32 +8,17 @@ import useDoc5 from "./useDoc5";
 import useDoc6 from "./useDoc6";
 
 const useAllDocs = () => {
-  const Doc1 = { doc: useDoc1().Doc1, name: "Doc1" };
-  const Doc2 = { doc: useDoc2().Doc2, name: "Doc2" };
-  const Doc3 = { doc: useDoc3().Doc3, name: "Doc3" };
-  const Doc4 = { doc: useDoc4().Doc4, name: "Doc4" };
-  const Doc5 = { doc: useDoc5().Doc5, name: "Doc5" };
-  const Doc6 = { doc: useDoc6().Doc6, name: "Doc6" };
 
-  const docs = [
-    Doc1.name,
-    Doc2.name,
-    Doc3.name,
-    Doc4.name,
-    Doc5.name,
-    Doc6.name,
+  const theDocs = [
+    { doc: useDoc1().Doc1, name: "Antique" },
+    { doc: useDoc2().Doc2, name: "Mella Yella" },
+    { doc: useDoc3().Doc3, name: "Utopia" },
+    { doc: useDoc4().Doc4, name: "Dolphin" },
+    { doc: useDoc5().Doc5, name: "Zoid" },
+    { doc: useDoc6().Doc6, name: "Doc6" },
   ];
 
-  const theDocs: { [key: string]: () => JSX.Element } = {
-    Doc1: Doc1.doc,
-    Doc2: Doc2.doc,
-    Doc3: Doc3.doc,
-    Doc4: Doc4.doc,
-    Doc5: Doc5.doc,
-    Doc6: Doc6.doc,
-  };
-
-  return { theDocs, docs };
+  return { theDocs };
 };
 
 export default useAllDocs;

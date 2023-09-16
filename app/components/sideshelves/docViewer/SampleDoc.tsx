@@ -9,7 +9,8 @@ import useCurrentTemplate from "@/app/hooks/useCurrentTemplate";
 const SampleDoc = () => {
   const styles = useFirstDocStyles().styles;
   const { currentTemplate } = useCurrentTemplate();
-  const TheDoc = useAllDocs().theDocs[currentTemplate];
+  const TheDoc = useAllDocs()?.theDocsB?.find(doc => doc.name === currentTemplate);
+  const ActDoc = TheDoc!.doc
   const { theCurrentUser } = useCvData();
 
 
@@ -17,7 +18,7 @@ const SampleDoc = () => {
     <div>
       <PDFDownloadLink
         style={styles.downloadLink}
-        document={<TheDoc />}
+        document={<ActDoc />}
         fileName={`Me-CV: ${
           theCurrentUser?.firstname! + theCurrentUser?.lastname
         } CV`}
@@ -35,7 +36,7 @@ const SampleDoc = () => {
         className={`flex flex-col gap-4 h-full bg-gradient-to-r from-deep-blue to-blue-purple rounded-lg `}
       >
         <PDFViewer showToolbar={false} style={styles.pdfViewer}>
-          {TheDoc()}
+          {ActDoc()}
         </PDFViewer>
 
         {DownloadButton()}

@@ -32,7 +32,6 @@ const SectionTemplate = () => {
           );
         })}
       </Accordion>
-      {/* <h2>{selected}</h2> */}
     </div>
   );
 };
