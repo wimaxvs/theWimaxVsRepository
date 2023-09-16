@@ -21,7 +21,7 @@ const useCurrentTemplate = create<State & Action>((set) => ({
 
 const useCurrentTemplateForReal = () => {
   const { currentTemplate, setCurrentTemplate } = useCurrentTemplate();
-  const existentDocs = useAllDocs().docs;
+  const existentDocs = useAllDocs().theDocs.map((doc)=> doc.name);
   
 
   return { currentTemplate, setCurrentTemplate, existentDocs };
