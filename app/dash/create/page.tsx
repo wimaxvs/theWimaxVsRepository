@@ -34,7 +34,7 @@ export default function Page() {
           </>
         </section>
         <section
-          className={`pdfViewer md:w-1/2 md:mt-8 rounded-xl md:h-5/6 hidden md:block`}
+          className={`pdfViewer  md:mt-8 rounded-xl md:h-5/6 hidden md:block`}
         >
           <ClientOnly>
             <Viewer />

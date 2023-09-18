@@ -22,16 +22,17 @@ const Sidebar = () => {
       icon: <AiOutlinePlus size={26} color={"white"} />,
       yerl: `/create`,
     },
-    {
-      label: "My CVs",
-      icon: <HiOutlineDocumentDuplicate size={26} color={"white"} />,
-      yerl: `/mycvs`,
-    },
-    {
-      label: "Templates",
-      icon: <HiOutlineTemplate size={26} color={"white"} />,
-      yerl: `/templates`,
-    },
+    //the below options will be available at a later stage.
+    // {
+    //   label: "My CVs",
+    //   icon: <HiOutlineDocumentDuplicate size={26} color={"white"} />,
+    //   yerl: `/mycvs`,
+    // },
+    // {
+    //   label: "Templates",
+    //   icon: <HiOutlineTemplate size={26} color={"white"} />,
+    //   yerl: `/templates`,
+    // },
   ]);
   return (
     <aside
