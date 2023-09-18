@@ -2,39 +2,40 @@
 import { Font, StyleSheet } from "@react-pdf/renderer";
 
 Font.register({
-  family: "Montserrat",
+  family: "Roboto",
   fonts: [
     {
-      src: `/fonts/doc5/Montserrat-Regular.ttf`,
+      src: `/fonts/doc4/Roboto-Regular.ttf`,
     },
     {
-      src: `/fonts/doc5/Montserrat-Bold.ttf`,
+      src: `/fonts/doc4/Roboto-Bold.ttf`,
       fontWeight: "bold",
     },
     {
-      src: `/fonts/doc5/Montserrat-Black.ttf`,
+      src: `/fonts/doc4/Roboto-Black.ttf`,
       fontWeight: "heavy",
     },
     {
-      src: `/fonts/doc5/Montserrat-SemiBold.ttf`,
-      fontWeight: "semibold",
-    },
-    {
-      src: `/fonts/doc5/Montserrat-Medium.ttf`,
+      src: `/fonts/doc4/Roboto-Medium.ttf`,
       fontWeight: "normal",
     },
     {
-      src: `/fonts/doc5/Montserrat-Thin.ttf`,
+      src: `/fonts/doc4/Roboto-Thin.ttf`,
       fontWeight: "thin",
     },
     {
-      src: `/fonts/doc5/Montserrat-Light.ttf`,
+      src: `/fonts/doc4/Roboto-Light.ttf`,
       fontWeight: "light",
     },
   ],
 });
 
-const colorPalette: { [key: string]: string } = {};
+const colorPalette: { [key: string]: string } = {
+  black : "#151513",
+  darkGrey : "#474945",
+  grey : "#6e716c",
+  darkBlue : "#012745",
+};
 
 const flexRow: {} = {
   display: "flex",
@@ -45,7 +46,7 @@ const flexCol: {} = {
   flexDirection: "column",
 };
 const fontSettings: {} = {
-  fontFamily: "Montserrat",
+  fontFamily: "Roboto",
   fontWeight: "light",
   letterSpacing: "1.5px",
   lineHeight: 1.2,
@@ -109,32 +110,18 @@ const useDoc5Styles = () => {
       ...flexRow,
       justifyContent: "space-between",
     },
-
-    imageSection: {
-      position: "relative",
-      width: "100%",
-      height: "30%",
-      ...flexCol,
-      alignItems: "center",
-      transform: "skew(0, -10deg)",
-      top: "-3%",
-    },
-    imageItself: {
-      objectFit: "cover",
-      width: "100%",
-      height: "100%",
-      aspectRatio: "1/1",
-      transform: "skew(0, 10deg)",
-      overflow: "hidden",
+    basicText: {
+      fontSize: "8px",
+      ...fontSettings,
+      color: colorPalette.contentText,
     },
 
     //Body////////////////////////////////////////
     body: {
-      ...flexRow,
+      ...flexCol,
+      padding: "40px 20px 20px 20px",
       gap: "20px",
-      position: "absolute",
       width: "100%",
-      marginTop: "36.5%",
     },
     column: {
       ...flexCol,
@@ -144,7 +131,117 @@ const useDoc5Styles = () => {
       width: "40%",
     },
     rightColumn: {
-      width: "50%",
+      width: "60%",
+      borderLeft: `1px solid #999`,
+    },
+    sectionTitle: {
+      fontWeight: "normal",
+      letterSpacing: "2.5px",
+      color: "#444",
+    },
+    sectionContent: {
+      fontSize: "10px",
+      fontWeight: "thin",
+      lineHeight: 1.1,
+      color: "#777",
+      maxWidth: "100%"
+    },
+
+    //upper image and name section
+    imageAndNameSection: {
+      ...flexRow,
+      justifyContent: "space-between",
+      height: "150px",
+      width: "100%",
+      paddingBottom: "15px",
+      borderBottom: `1px solid #999`,
+    },
+
+    //upper name section
+    nameAndTitleSegment: {
+      ...flexCol,
+      alignItems: "flex-start",
+      justifyContent: "center",
+      height: "100%",
+      width: "60%",
+    },
+    fullName: {
+      ...flexRow,
+      flexWrap: "wrap",
+    },
+    upperNameText: {
+      fontFamily: "Roboto",
+      fontWeight: "heavy",
+      lineHeight: 1.1,
+      padding: 0,
+      letterSpacing: "5px",
+    },
+    upperJobTitleTextContainer: {
+      paddingRight: "10px",
+      fontWeight: "light",
+      fontFamily: "Roboto",
+      lineHeight: 1.1,
+      color: "#555",
+    },
+    locationIconText: {
+      ...flexRow,
+      gap: "5px",
+      alignItems: "center",
+    },
+    lowerContactTextIcon: {
+      height: "10px",
+      aspectRatio: "1/1",
+      objectFit: "contain",
+    },
+
+    //upper image section
+    imageSegment: {
+      ...flexCol,
+      alignItems: "center",
+      justifyContent: "flex-start",
+      height: "100%",
+      width: "35%",
+    },
+    imageItself: {
+      objectFit: "cover",
+      height: "100%",
+      aspectRatio: "1/1",
+      overflow: "hidden",
+      borderRadius: "50%",
+    },
+
+    //lower body css
+    lowerBody: {
+      ...flexRow,
+      justifyContent: "space-around",
+      width: "100%",
+    },
+
+    //summary section
+    summarySection: {
+      ...flexRow,
+      width: "100%",
+    },
+    summarySectionDot: {
+      height: "7.5px",
+      width: "7.5px",
+      backgroundColor: "#444",
+      borderRadius: "50%",
+      marginTop: "20px",
+      position: "relative",
+      transform: "translateX(-3.75px)",
+    },
+    summarySectionContent: {
+      ...flexCol,
+      gap: "7.5px",
+      textAlign: "left",
+      alignItems: "flex-start",
+      padding: "0px 10px 0 15px",
+    },
+    summarySectionDivider: {
+      marginTop: "20px",
+      width: "100%",
+      borderBottom: "1px solid #999"
     },
   });
 

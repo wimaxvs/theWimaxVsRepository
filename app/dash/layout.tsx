@@ -40,11 +40,13 @@ export default async function Dash({children}:DashlayoutProps){
             features.
           </p>
           <p>Or head home here:</p>
-          <button
-            className={`bg-deep-blue mt-2 py-2 px-4 rounded-lg drop-shadow-lg`}
-          >
-            <Link href="/">Home</Link>
-          </button>
+          <Link href="/">
+            <button
+              className={`bg-deep-blue mt-2 py-2 px-4 rounded-lg drop-shadow-lg`}
+            >
+              Home
+            </button>
+          </Link>
         </div>
       </div>
     );
