@@ -1,6 +1,6 @@
 import SectionSelect from "./SectionSelect";
 import AddedSections from "./AddedSections";
-import SectionTemplate from "./SectionTemplate";
+import SectionTemplate from "./TemplateSelect";
 
 const SectionContainer = () => {
   return (

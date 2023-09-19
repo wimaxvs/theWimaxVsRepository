@@ -15,7 +15,7 @@ const useAllDocs = () => {
     { doc: useDoc3().Doc3, name: "Utopia" },
     { doc: useDoc4().Doc4, name: "Dolphin" },
     { doc: useDoc5().Doc5, name: "Zoid" },
-    { doc: useDoc6().Doc6, name: "Minima" },
+    { doc: useDoc6().Doc6, name: "Cooper" },
   ];
 
   return { theDocs };
