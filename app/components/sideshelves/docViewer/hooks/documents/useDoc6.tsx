@@ -14,7 +14,7 @@ import useDoc6Styles from "../styles/useDoc6Styles";
 import usePlaceholderImage from "../styles/usePlaceholderImage";
 import useCvData from "../useCvData";
 import useDocComponents from "./docComponents/useDocComponents";
-import useDocComponentsB from "./docComponents/useDocComponentsB";
+import useDocComponentsC from "./docComponents/useDocComponentsC";
 import { user } from "@/app/hooks/useCvSubSegments";
 
 const useDoc6 = () => {
@@ -22,7 +22,7 @@ const useDoc6 = () => {
   const { styles, rectOptions } = useDoc6Styles();
   const { sections, subsegments, theCurrentUser, fontSizeDeterminant } =
     useCvData();
-  const {} = useDocComponentsB();
+  const { theLineBelowASection, theContentInWorkSection } = useDocComponentsC();
   const returnFontSize = (word: string, size: number) =>
     fontSizeDeterminant(word as string, 8, size).fontSize;
 
@@ -104,18 +104,39 @@ const useDoc6 = () => {
             <View
               style={[styles.column, styles.rightColumn, { height: "100%" }]}
             >
-              <View style={[styles.summarySection]}>
-                <View style={styles.summarySectionDot}></View>
-                <View style={styles.summarySectionContent}>
-                  <Text style={[styles.upperNameText, styles.sectionTitle]}>
-                    {"PROFILE"}
-                  </Text>
-                  <Text style={styles.sectionContent}>
-                    {theCurrentUser?.bio}
-                  </Text>
-                  <View style={styles.summarySectionDivider}></View>
+              {/* The current user's bio/profile summary */}
+              {theCurrentUser?.bio && (
+                <View style={[styles.summarySection]}>
+                  <View style={styles.summarySectionDot}></View>
+                  <View style={styles.summarySectionContent}>
+                    <Text style={[styles.upperNameText, styles.sectionTitle]}>
+                      {"PROFILE"}
+                    </Text>
+                    <Text style={styles.sectionContent}>
+                      {theCurrentUser?.bio}
+                    </Text>
+                    <View style={styles.summarySectionDivider}></View>
+                  </View>
                 </View>
-              </View>
+              )}
+
+              {/* The current user's work experience */}
+              {sections.indexOf("Work Experience") >= 0 && (
+                <View
+                  style={[styles.summarySectionContent, styles.workSection]}
+                >
+                  <Text style={[styles.upperNameText, styles.sectionTitle]}>
+                    {"WORK EXPERIENCE"}
+                  </Text>
+                  {theContentInWorkSection(
+                    styles,
+                    subsegments.filter(
+                      (subseg) => subseg.parentSection === "Work Experience"
+                    )
+                  )}
+                  {theLineBelowASection(styles)}
+                </View>
+              )}
             </View>
           </View>
         </View>

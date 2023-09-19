@@ -87,7 +87,7 @@ const useDoc5Styles = () => {
     },
     page: {
       position: "relative",
-      padding: "0 0 30px 0",
+      padding: "10px 0 30px 0",
       backgroundColor: colorPalette.mistyBlue,
     },
     pageNumber: {
@@ -135,6 +135,7 @@ const useDoc5Styles = () => {
       borderLeft: `1px solid #999`,
     },
     sectionTitle: {
+      fontSize: "14px",
       fontWeight: "normal",
       letterSpacing: "2.5px",
       color: "#444",
@@ -144,7 +145,7 @@ const useDoc5Styles = () => {
       fontWeight: "thin",
       lineHeight: 1.1,
       color: "#777",
-      maxWidth: "100%"
+      maxWidth: "100%",
     },
 
     //upper image and name section
@@ -204,7 +205,8 @@ const useDoc5Styles = () => {
     },
     imageItself: {
       objectFit: "cover",
-      height: "100%",
+      width: "125px",
+      height: "125px",
       aspectRatio: "1/1",
       overflow: "hidden",
       borderRadius: "50%",
@@ -223,13 +225,13 @@ const useDoc5Styles = () => {
       width: "100%",
     },
     summarySectionDot: {
-      height: "7.5px",
-      width: "7.5px",
+      height: "10px",
+      width: "10px",
       backgroundColor: "#444",
       borderRadius: "50%",
       marginTop: "20px",
       position: "relative",
-      transform: "translateX(-3.75px)",
+      transform: "translateX(-5px)",
     },
     summarySectionContent: {
       ...flexCol,
@@ -241,7 +243,52 @@ const useDoc5Styles = () => {
     summarySectionDivider: {
       marginTop: "20px",
       width: "100%",
-      borderBottom: "1px solid #999"
+      borderBottom: "1px solid #999",
+    },
+
+    //work experience sections
+    workSection: {
+      ...flexCol,
+      gap: "7.5px",
+      padding: "0px 10px 0 22.5px",
+      maxWidth: "100%",
+    },
+    innerWorkSection: {
+      ...flexCol,
+      alignItems: "flex-start",
+      gap: "3px",
+      maxWidth: "100%",
+    },
+    titleWithDot: {
+      ...flexRow,
+      alignItems: "center",
+      mawWidth: "90%"
+    },
+    innerWorkSectionTitle: {
+      left: "-7.5px",
+      fontSize: "14px",
+      lineHeight: 1.1,
+      fontFamily: "Roboto",
+      fontWeight: "light",
+      color: "#444",
+      letterSpacing: "1px",
+    },
+    sectionSubtitle: {
+      fontSize: "12px",
+      fontFamily: "Roboto",
+      fontWeight: "light",
+      color: "#666",
+    },
+    actualContent: {
+      gap: '2.5px',
+    },
+    workContent: {
+      alignItems: "center",
+      left: "3.75px",
+      gap: "3px",
+      marginBottom: "1.5px",
+      maxWidth: "95%",
+      whiteSpace: "pre-wrap"
     },
   });
 

@@ -1,8 +1,7 @@
 import { SubSeg, user } from "@/app/hooks/useCvSubSegments";
 import { indexObj, striNum } from "./useDocComponents";
-import { Path, Svg, Text, View } from "@react-pdf/renderer";
+import { Text, View } from "@react-pdf/renderer";
 import useDoc5Styles from "../../styles/useDoc5Styles";
-import useDoc3Styles from "../../styles/useDoc3Styles";
 import useDocComponents from "./useDocComponents";
 import useCvData from "../../useCvData";
 import React from "react";
@@ -11,7 +10,6 @@ const useDocComponentsB = () => {
   const { rectOptions: doc5RectOptions } = useDoc5Styles();
   const { ornamentalRectangle } = useDocComponents();
   const { fontSizeDeterminant } = useCvData();
-  const { styles: styles3 } = useDoc3Styles();
   const returnFontSize = (word: string, size: number) =>
     fontSizeDeterminant(word as string, 10, size).fontSize;
 
