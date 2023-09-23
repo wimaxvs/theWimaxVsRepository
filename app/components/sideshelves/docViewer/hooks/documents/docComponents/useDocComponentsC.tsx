@@ -35,47 +35,82 @@ const useDocComponentsC = () => {
     </View>
   );
 
-  const theContentInWorkSection = (styles: indexObj, subsegs: SubSeg[]) => {
+  const theContentInWorkSection = (
+    styles: indexObj,
+    subsegs: SubSeg[],
+    section?: string
+  ) => {
+    let  isEducational = section === "Education" || section === "Certifications"
     let content = subsegs.map((subseg, index) => (
       <View key={index} style={styles.innerWorkSection}>
         <View style={styles.titleWithDot}>
-          <View
-            style={[
-              styles.summarySectionDot,
-              { marginTop: 0, transform: "translateX(-27.5px)" },
-            ]}
-          ></View>
-          <Text style={styles.innerWorkSectionTitle}>{subseg.title}</Text>
+          {isEducational ? (
+            <></>
+          ) : (
+            <View
+              style={[
+                styles.summarySectionDot,
+                { marginTop: 0, transform: "translateX(-27.5px)" },
+              ]}
+            ></View>
+          )}
+          <Text style={[styles.innerWorkSectionTitle,  {left: isEducational? "": "-7.5px"}]}>{subseg.title}</Text>
         </View>
-        <View style={[styles.titleWithDot, { gap: "3px", left: "10px" }]}>
-          {[
-            subseg.subTitle,
-            "|",
-            returnFormattedDate(subseg.dateFrom!, "trig"),
-            "-",
-            returnFormattedDate(subseg.dateTo!, "trig"),
-          ].map((string: string | undefined, index: number) => (
-            <Text
-              style={[styles.innerWorkSectionTitle, styles.sectionSubtitle]}
-              key={index}
-            >
-              {string}
-            </Text>
-          ))}
+        <View style={[styles.titleWithDot, { gap: "3px", left: isEducational? "7.5px":"10px" }]}>
+          {[subseg.subTitle]
+            .concat(
+              isEducational
+                ? []
+                : [
+                    "|",
+                    returnFormattedDate(subseg.dateFrom!, "trig"),
+                    "-",
+                    returnFormattedDate(subseg.dateTo!, "trig"),
+                  ]
+            )
+            .map((string: string | undefined, index: number) => (
+              <Text
+                style={[styles.innerWorkSectionTitle, styles.sectionSubtitle]}
+                key={index}
+              >
+                {string}
+              </Text>
+            ))}
         </View>
-        <View style={[styles.actualContent, {left: "10px"}]}>
-          {subseg.content?.map((line, index) => (
-            <View key={index} style={[styles.titleWithDot, styles.workContent]}>
-              <View
-                style={[
-                  styles.summarySectionDot,
-                  { marginTop: 0, height: "3.75px", width: "3.75px" },
-                ]}
-              ></View>
-              <Text style={styles.sectionContent}>{line}</Text>
-            </View>
-          ))}
-        </View>
+        {isEducational ? (
+          <View style={[styles.titleWithDot, { gap: "3px", left: isEducational? "7.5px":"10px" }]}>
+            {[
+              returnFormattedDate(subseg.dateFrom!, "trig"),
+              "-",
+              returnFormattedDate(subseg.dateTo!, "trig"),
+            ].map((string: string | undefined, index: number) => (
+              <Text
+                style={[styles.innerWorkSectionTitle, styles.sectionSubtitle]}
+                key={index}
+              >
+                {string}
+              </Text>
+            ))}
+          </View>
+        ) : (
+          <View style={[styles.actualContent, { left: "10px" }]}>
+            {subseg.content &&
+              subseg.content?.map((line, index) => (
+                <View
+                  key={index}
+                  style={[styles.titleWithDot, styles.workContent]}
+                >
+                  <View
+                    style={[
+                      styles.summarySectionDot,
+                      { marginTop: 0, height: "3.75px", width: "3.75px" },
+                    ]}
+                  ></View>
+                  <Text style={styles.sectionContent}>{line}</Text>
+                </View>
+              ))}
+          </View>
+        )}
       </View>
     ));
 
