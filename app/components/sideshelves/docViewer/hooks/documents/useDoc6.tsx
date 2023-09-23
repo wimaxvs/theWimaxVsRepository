@@ -100,7 +100,68 @@ const useDoc6 = () => {
           <View style={styles.lowerBody}>
             <View
               style={[styles.column, styles.leftColumn, { height: "100%" }]}
-            ></View>
+            >
+              {/* The current user's Education */}
+              {sections.indexOf("Education") >= 0 && (
+                <View
+                  style={[styles.summarySectionContent, styles.workSection]}
+                >
+                  <Text style={[styles.upperNameText, styles.sectionTitle]}>
+                    {"Education"}
+                  </Text>
+                  {theContentInWorkSection(
+                    styles,
+                    subsegments.filter(
+                      (subseg) => subseg.parentSection === "Education"
+                    ),
+                    "Education"
+                  )}
+                  {theLineBelowASection(styles)}
+                </View>
+              )}
+              {/* The current user's Certifications */}
+              {sections.indexOf("Certifications") >= 0 && (
+                <View
+                  style={[styles.summarySectionContent, styles.workSection]}
+                >
+                  <Text style={[styles.upperNameText, styles.sectionTitle]}>
+                    {"Certifications"}
+                  </Text>
+                  {theContentInWorkSection(
+                    styles,
+                    subsegments.filter(
+                      (subseg) => subseg.parentSection === "Certifications"
+                    ),
+                    "Certifications"
+                  )}
+                  {theLineBelowASection(styles)}
+                </View>
+              )}
+              {/* The current user's Skilla */}
+              {sections.indexOf("Skills") >= 0 && (
+                <View
+                  style={[styles.summarySectionContent, styles.workSection]}
+                >
+                  <Text style={[styles.upperNameText, styles.sectionTitle]}>
+                    {"Skills"}
+                  </Text>
+                  {subsegments.filter(
+                    (subseg) => subseg.parentSection === "Skills"
+                  ) &&
+                    subsegments
+                      .filter((subseg) => subseg.parentSection === "Skills")
+                      ?.map((line, index) => (
+                        <View
+                          key={index}
+                          style={[styles.titleWithDot, styles.workContent]}
+                        >
+                          <Text style={styles.sectionContent}>{line?.title}</Text>
+                        </View>
+                      ))}
+                  {theLineBelowASection(styles)}
+                </View>
+              )}
+            </View>
             <View
               style={[styles.column, styles.rightColumn, { height: "100%" }]}
             >

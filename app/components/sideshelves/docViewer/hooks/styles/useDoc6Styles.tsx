@@ -249,7 +249,7 @@ const useDoc5Styles = () => {
     //work experience sections
     workSection: {
       ...flexCol,
-      gap: "7.5px",
+      gap: "10px",
       padding: "0px 10px 0 22.5px",
       maxWidth: "100%",
     },
