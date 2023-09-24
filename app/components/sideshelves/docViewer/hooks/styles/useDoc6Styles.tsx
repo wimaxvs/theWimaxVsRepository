@@ -262,7 +262,6 @@ const useDoc5Styles = () => {
     titleWithDot: {
       ...flexRow,
       alignItems: "center",
-      mawWidth: "90%"
     },
     innerWorkSectionTitle: {
       left: "-7.5px",
@@ -280,7 +279,7 @@ const useDoc5Styles = () => {
       color: "#666",
     },
     actualContent: {
-      gap: '2.5px',
+      gap: "2.5px",
     },
     workContent: {
       alignItems: "center",
@@ -288,8 +287,24 @@ const useDoc5Styles = () => {
       gap: "3px",
       marginBottom: "1.5px",
       maxWidth: "95%",
-      whiteSpace: "pre-wrap"
+      whiteSpace: "pre-wrap",
     },
+
+    //languages
+    langs: {
+      ...flexRow,
+      justifyContent: "flex-start",
+      flexWrap: "wrap",
+      maxWidth: "95%",
+      // gap: "10px"
+    },
+    lang: {
+      ...flexCol,
+      gap: "3px",
+      margin: "3px 0px 5px 0px",
+      alignItems: "flex-start",
+      flexGrow: 1
+    }
   });
 
   return { styles, rectOptions };

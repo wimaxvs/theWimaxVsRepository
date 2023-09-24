@@ -22,7 +22,11 @@ const useDoc6 = () => {
   const { styles, rectOptions } = useDoc6Styles();
   const { sections, subsegments, theCurrentUser, fontSizeDeterminant } =
     useCvData();
-  const { theLineBelowASection, theContentInWorkSection } = useDocComponentsC();
+  const {
+    theLineBelowASection,
+    theContentInWorkSection,
+    mapLanguageAbilityToCEFR,
+  } = useDocComponentsC();
   const returnFontSize = (word: string, size: number) =>
     fontSizeDeterminant(word as string, 8, size).fontSize;
 
@@ -101,43 +105,29 @@ const useDoc6 = () => {
             <View
               style={[styles.column, styles.leftColumn, { height: "100%" }]}
             >
-              {/* The current user's Education */}
-              {sections.indexOf("Education") >= 0 && (
-                <View
-                  style={[styles.summarySectionContent, styles.workSection]}
-                >
-                  <Text style={[styles.upperNameText, styles.sectionTitle]}>
-                    {"Education"}
-                  </Text>
-                  {theContentInWorkSection(
-                    styles,
-                    subsegments.filter(
-                      (subseg) => subseg.parentSection === "Education"
-                    ),
-                    "Education"
-                  )}
-                  {theLineBelowASection(styles)}
-                </View>
+              {/* The current user's Merits */}
+              {["Education", "Certifications", "Awards"].map(
+                (title, index) =>
+                  sections.indexOf(title) >= 0 && (
+                    <View
+                      key={index}
+                      style={[styles.summarySectionContent, styles.workSection]}
+                    >
+                      <Text style={[styles.upperNameText, styles.sectionTitle]}>
+                        {title.toUpperCase()}
+                      </Text>
+                      {theContentInWorkSection(
+                        styles,
+                        subsegments.filter(
+                          (subseg) => subseg.parentSection === title
+                        ),
+                        title
+                      )}
+                      {theLineBelowASection(styles)}
+                    </View>
+                  )
               )}
-              {/* The current user's Certifications */}
-              {sections.indexOf("Certifications") >= 0 && (
-                <View
-                  style={[styles.summarySectionContent, styles.workSection]}
-                >
-                  <Text style={[styles.upperNameText, styles.sectionTitle]}>
-                    {"Certifications"}
-                  </Text>
-                  {theContentInWorkSection(
-                    styles,
-                    subsegments.filter(
-                      (subseg) => subseg.parentSection === "Certifications"
-                    ),
-                    "Certifications"
-                  )}
-                  {theLineBelowASection(styles)}
-                </View>
-              )}
-              {/* The current user's Skilla */}
+              {/* The current user's Skills */}
               {sections.indexOf("Skills") >= 0 && (
                 <View
                   style={[styles.summarySectionContent, styles.workSection]}
@@ -155,13 +145,16 @@ const useDoc6 = () => {
                           key={index}
                           style={[styles.titleWithDot, styles.workContent]}
                         >
-                          <Text style={styles.sectionContent}>{line?.title}</Text>
+                          <Text style={styles.sectionContent}>
+                            {line?.title}
+                          </Text>
                         </View>
                       ))}
                   {theLineBelowASection(styles)}
                 </View>
               )}
             </View>
+
             <View
               style={[styles.column, styles.rightColumn, { height: "100%" }]}
             >
@@ -196,6 +189,43 @@ const useDoc6 = () => {
                     )
                   )}
                   {theLineBelowASection(styles)}
+                </View>
+              )}
+
+              {/* The current user's spoken languages */}
+              {sections.indexOf("Languages") >= 0 && (
+                <View
+                  style={[styles.summarySectionContent, styles.workSection]}
+                >
+                  <Text style={[styles.upperNameText, styles.sectionTitle]}>
+                    {"LANGUAGES"}
+                  </Text>
+                  <View style={styles.langs}>
+                    {subsegments
+                      .filter((subseg) => subseg.parentSection === "Languages")
+                      .sort((a, b) => a?.order! - b?.order!)
+                      .map((language, index) => (
+                        <View key={index} style={styles.lang}>
+                          <Text
+                            style={[
+                              styles.innerWorkSectionTitle,
+                              { left: "0" },
+                            ]}
+                          >
+                            {language.title}
+                          </Text>
+                          <Text
+                            style={[
+                              styles.innerWorkSectionTitle,
+                              styles.sectionSubtitle,
+                              { left: "0" },
+                            ]}
+                          >
+                            {mapLanguageAbilityToCEFR(language.order as number)}
+                          </Text>
+                        </View>
+                      ))}
+                  </View>
                 </View>
               )}
             </View>
