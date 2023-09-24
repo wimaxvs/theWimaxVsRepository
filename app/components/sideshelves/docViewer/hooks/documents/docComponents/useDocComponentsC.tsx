@@ -29,6 +29,24 @@ const useDocComponentsC = () => {
     }
   };
 
+  function mapLanguageAbilityToCEFR(level: number) {
+    if (level < 1 || level > 10) {
+      return "Invalid input"; // Handle out-of-range input
+    }
+
+    if (level <= 2) {
+      return "A1 - Beginner";
+    } else if (level <= 4) {
+      return "A2 - Elementary";
+    } else if (level <= 6) {
+      return "B1 - Intermediate";
+    } else if (level <= 8) {
+      return "B2 - Upper Intermediate";
+    } else {
+      return "C1/C2 - Advanced/Proficient";
+    }
+  }
+
   const theLineBelowASection = (styles: indexObj) => (
     <View style={styles.summarySection}>
       <View style={styles.summarySectionDivider}></View>
@@ -40,11 +58,12 @@ const useDocComponentsC = () => {
     subsegs: SubSeg[],
     section?: string
   ) => {
-    let  isEducational = section === "Education" || section === "Certifications"
+    let isMerited =
+      ["Education", "Certifications", "Awards"].indexOf(section as string) >= 0;
     let content = subsegs.map((subseg, index) => (
       <View key={index} style={styles.innerWorkSection}>
         <View style={styles.titleWithDot}>
-          {isEducational ? (
+          {isMerited ? (
             <></>
           ) : (
             <View
@@ -54,12 +73,24 @@ const useDocComponentsC = () => {
               ]}
             ></View>
           )}
-          <Text style={[styles.innerWorkSectionTitle,  {left: isEducational? "": "-7.5px"}]}>{subseg.title}</Text>
+          <Text
+            style={[
+              styles.innerWorkSectionTitle,
+              { left: isMerited ? "" : "-7.5px" },
+            ]}
+          >
+            {subseg.title}
+          </Text>
         </View>
-        <View style={[styles.titleWithDot, { gap: "3px", left: isEducational? "7.5px":"10px" }]}>
+        <View
+          style={[
+            styles.titleWithDot,
+            { gap: "3px", left: isMerited ? "7.5px" : "10px" },
+          ]}
+        >
           {[subseg.subTitle]
             .concat(
-              isEducational
+              isMerited
                 ? []
                 : [
                     "|",
@@ -77,8 +108,13 @@ const useDocComponentsC = () => {
               </Text>
             ))}
         </View>
-        {isEducational ? (
-          <View style={[styles.titleWithDot, { gap: "3px", left: isEducational? "7.5px":"10px" }]}>
+        {isMerited && section !== "Awards" ? (
+          <View
+            style={[
+              styles.titleWithDot,
+              { gap: "3px", left: isMerited ? "7.5px" : "10px" },
+            ]}
+          >
             {[
               returnFormattedDate(subseg.dateFrom!, "trig"),
               "-",
@@ -92,6 +128,8 @@ const useDocComponentsC = () => {
               </Text>
             ))}
           </View>
+        ) : section === "Awards" ? (
+          <></>
         ) : (
           <View style={[styles.actualContent, { left: "10px" }]}>
             {subseg.content &&
@@ -120,6 +158,7 @@ const useDocComponentsC = () => {
   return {
     theLineBelowASection,
     theContentInWorkSection,
+    mapLanguageAbilityToCEFR,
   };
 };
 
