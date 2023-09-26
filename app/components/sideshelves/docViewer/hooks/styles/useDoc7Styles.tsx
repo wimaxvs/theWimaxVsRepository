@@ -52,7 +52,7 @@ const fontSettings: {} = {
   lineHeight: 1.2,
 };
 
-const useDoc6Styles = () => {
+const useDoc7Styles = () => {
   const rectOptions = (color?: string, isSquare?: boolean) => {
     return {
       width: "100%",
@@ -310,4 +310,4 @@ const useDoc6Styles = () => {
   return { styles, rectOptions };
 };
 
-export default useDoc6Styles;
+export default useDoc7Styles;
