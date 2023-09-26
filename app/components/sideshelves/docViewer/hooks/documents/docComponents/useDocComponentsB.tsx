@@ -198,7 +198,7 @@ const useDocComponentsB = () => {
                   )}
                   <Text style={styles.totemSubtitle}>{subseg.subTitle}</Text>
                   {subseg.content?.map((line, index) => (
-                    <View break style={styles.totemContentView}>
+                    <View style={styles.totemContentView}>
                       <Text key={index} style={styles.totemDate}>
                         {line}
                       </Text>
@@ -235,7 +235,7 @@ const useDocComponentsB = () => {
                     <Text style={styles.totemSubtitle}>{subseg.subTitle}</Text>
 
                     {subseg.content?.map((line, index) => (
-                      <View break style={styles.totemContentView}>
+                      <View style={styles.totemContentView}>
                         <Text key={index} style={styles.totemDate}>
                           {line}
                         </Text>
@@ -346,6 +346,7 @@ const useDocComponentsB = () => {
           style={[
             styles.biographySection,
             panTitleLeft ? styles.alignStart : {},
+            desiredSection === "Skills" ? { marginBottom: "30px" } : {},
           ]}
         >
           {doc5SectionTitle({
@@ -377,7 +378,7 @@ const useDocComponentsB = () => {
   const loadingBar = (styles: indexObj, subseg: SubSeg, index: number) => (
     <View key={index} style={styles.forLoadingBar}>
       <Text style={styles.totemDate}>{subseg.title}</Text>
-      <View break style={styles.loadingBar}>
+      <View style={styles.loadingBar}>
         <View style={[styles.outerBar, { backgroundColor: tbcp.paleBeige }]}>
           <View
             style={[
@@ -512,17 +513,12 @@ const useDocComponentsB = () => {
 
                           {subseg.content?.map((line, index) => (
                             <View
-                              break
                               style={[
                                 styles.totemContentView,
                                 { marginTop: "2px" },
                               ]}
                             >
-                              <Text
-                                break
-                                key={index}
-                                style={[styles.totemDate]}
-                              >
+                              <Text key={index} style={[styles.totemDate]}>
                                 {line}
                               </Text>
                             </View>
