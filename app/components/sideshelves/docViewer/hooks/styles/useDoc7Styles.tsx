@@ -27,6 +27,11 @@ Font.register({
       src: `/fonts/doc4/Roboto-Light.ttf`,
       fontWeight: "light",
     },
+    {
+      src: `/fonts/doc4/Roboto-MediumItalic.ttf`,
+      fontStyle: "italic",
+      fontWeight: "normal",
+    },
   ],
 });
 
@@ -125,20 +130,24 @@ const useDoc7Styles = () => {
     },
     column: {
       ...flexCol,
+      alignItems: "flex-end",
       gap: "20px",
-    },
-    leftColumn: {
-      width: "40%",
-    },
-    rightColumn: {
-      width: "60%",
-      borderLeft: `1px solid #999`,
+      width: "50%",
+      maxWidth: "50%",
+      minHeight: "40px",
     },
     sectionTitle: {
       fontSize: "14px",
-      fontWeight: "normal",
-      letterSpacing: "2.5px",
       color: "#444",
+      fontFamily: "Roboto",
+      fontWeight: "bold",
+    },
+    sectionSubtitle: {
+      fontWeight: "normal",
+      fontSize: "12px",
+      fontFamily: "Roboto",
+      color: "#666",
+      fontStyle: "italic",
     },
     sectionContent: {
       fontSize: "10px",
@@ -148,163 +157,117 @@ const useDoc7Styles = () => {
       maxWidth: "100%",
     },
 
-    //upper image and name section
-    imageAndNameSection: {
-      ...flexRow,
-      justifyContent: "space-between",
-      height: "150px",
-      width: "100%",
-      paddingBottom: "15px",
-      borderBottom: `1px solid #999`,
-    },
-
     //upper name section
-    nameAndTitleSegment: {
+    nameSectionBlock: {
+      width: "100%",
       ...flexCol,
-      alignItems: "flex-start",
-      justifyContent: "center",
-      height: "100%",
-      width: "60%",
+      alignItems: "center",
+      gap: "10px",
     },
-    fullName: {
+    theNameBox: {
+      padding: "10px 20px",
       ...flexRow,
-      flexWrap: "wrap",
+      alignItems: "center",
+      justifyContent: "center",
+      border: "1px solid #999",
     },
-    upperNameText: {
-      fontFamily: "Roboto",
-      fontWeight: "heavy",
-      lineHeight: 1.1,
-      padding: 0,
-      letterSpacing: "5px",
-    },
-    upperJobTitleTextContainer: {
-      paddingRight: "10px",
+    theNameItself: {
+      fontSize: "18px",
+      color: "#000",
+      letterSpacing: "2px",
       fontWeight: "light",
       fontFamily: "Roboto",
-      lineHeight: 1.1,
-      color: "#555",
     },
-    locationIconText: {
-      ...flexRow,
-      gap: "5px",
-      alignItems: "center",
+    theJobPosition: {
+      fontSize: "10px",
+      color: "#333",
     },
-    lowerContactTextIcon: {
-      height: "10px",
-      aspectRatio: "1/1",
-      objectFit: "contain",
-    },
-
     //upper image section
     imageSegment: {
       ...flexCol,
       alignItems: "center",
-      justifyContent: "flex-start",
-      height: "100%",
-      width: "35%",
+      justifyContent: "center",
+      height: "80px",
+      width: "80px",
     },
     imageItself: {
       objectFit: "cover",
-      width: "125px",
-      height: "125px",
+      width: "80px",
+      height: "80px",
       aspectRatio: "1/1",
       overflow: "hidden",
       borderRadius: "50%",
     },
 
-    //lower body css
+    //lower body
+    parentSection: {
+      width: "100%",
+      ...flexCol,
+      alignItems: "flex-end",
+      gap: "10px",
+    },
+
+    //lower left body
     lowerBody: {
       ...flexRow,
-      justifyContent: "space-around",
-      width: "100%",
-    },
-
-    //summary section
-    summarySection: {
-      ...flexRow,
-      width: "100%",
-    },
-    summarySectionDot: {
-      height: "10px",
-      width: "10px",
-      backgroundColor: "#444",
-      borderRadius: "50%",
-      marginTop: "20px",
-      position: "relative",
-      transform: "translateX(-5px)",
-    },
-    summarySectionContent: {
-      ...flexCol,
-      gap: "7.5px",
-      textAlign: "left",
-      alignItems: "flex-start",
-      padding: "0px 10px 0 15px",
-    },
-    summarySectionDivider: {
-      marginTop: "20px",
-      width: "100%",
-      borderBottom: "1px solid #999",
-    },
-
-    //work experience sections
-    workSection: {
-      ...flexCol,
       gap: "10px",
-      padding: "0px 10px 0 22.5px",
       maxWidth: "100%",
     },
-    innerWorkSection: {
-      ...flexCol,
-      alignItems: "flex-start",
-      gap: "3px",
-      maxWidth: "100%",
-    },
-    titleWithDot: {
-      ...flexRow,
-      alignItems: "center",
-    },
-    innerWorkSectionTitle: {
-      left: "-7.5px",
-      fontSize: "14px",
+    sectionTitleDetails: {
+      fontFamily: "Roboto",
+      fontWeight: "heavy",
       lineHeight: 1.1,
-      fontFamily: "Roboto",
-      fontWeight: "light",
-      color: "#444",
-      letterSpacing: "1px",
-    },
-    sectionSubtitle: {
-      fontSize: "12px",
-      fontFamily: "Roboto",
-      fontWeight: "light",
-      color: "#666",
-    },
-    actualContent: {
-      gap: "2.5px",
-    },
-    workContent: {
-      alignItems: "center",
-      left: "3.75px",
-      gap: "3px",
-      marginBottom: "1.5px",
-      maxWidth: "95%",
-      whiteSpace: "pre-wrap",
+      padding: 0,
+      letterSpacing: "3px",
     },
 
-    //languages
-    langs: {
-      ...flexRow,
-      justifyContent: "flex-start",
-      flexWrap: "wrap",
-      maxWidth: "95%",
-      // gap: "10px"
+    //divider
+    divider: {
+      height: "100%",
+      border: "1px solid #999",
+      margin: "0px 10px",
     },
-    lang: {
+
+    sectionCol: {
       ...flexCol,
       gap: "3px",
-      margin: "3px 0px 5px 0px",
+      padding: "5px",
+      maxWidth: "95%",
+    },
+    leftColSection: {
+      alignItems: "flex-end",
+    },
+    rightColSection: {
       alignItems: "flex-start",
-      flexGrow: 1
-    }
+    },
+    leftColContentSection: {
+      maxWidth: "95%",
+      ...flexCol,
+      gap: "2px",
+      marginTop: "5px",
+    },
+
+    //for loading bar
+    loadingBarElement: {
+      maxWidth: "95%",
+      ...flexRow,
+      alignItems: "center",
+      justifyContent: "space-between",
+    },
+    loadingBar: {
+      ...flexRow,
+      alignItems: "center",
+      maxWidth: "50%",
+    },
+    outerBar: {
+      width: "95%",
+      height: 2.5,
+      backgroundColor: `${colorPalette.grey}`,
+    },
+    innerBar: {
+      height: "100%",
+      backgroundColor: colorPalette.black,
+    },
   });
 
   return { styles, rectOptions };

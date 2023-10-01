@@ -13,13 +13,12 @@ import React from "react";
 import useDoc6Styles from "../styles/useDoc6Styles";
 import usePlaceholderImage from "../styles/usePlaceholderImage";
 import useCvData from "../useCvData";
-import useDocComponents from "./docComponents/useDocComponents";
 import useDocComponentsC from "./docComponents/useDocComponentsC";
 import { user } from "@/app/hooks/useCvSubSegments";
 
 const useDoc6 = () => {
   const { imgSrc, LocationIcon } = usePlaceholderImage();
-  const { styles, rectOptions } = useDoc6Styles();
+  const { styles } = useDoc6Styles();
   const { sections, subsegments, theCurrentUser, fontSizeDeterminant } =
     useCvData();
   const {

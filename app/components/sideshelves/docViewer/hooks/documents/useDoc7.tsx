@@ -24,6 +24,8 @@ const useDoc7 = () => {
     useCvData();
   const {
     mapLanguageAbilityToCEFR,
+    introspectDetailedSection,
+    loadingBar
   } = useDocComponentsC();
   const returnFontSize = (word: string, size: number) =>
     fontSizeDeterminant(word as string, 8, size).fontSize;
@@ -36,8 +38,61 @@ const useDoc7 = () => {
         {/**The page's actual content */}
         <View style={styles.body}>
           {/**The page's upper section content */}
-          
-          
+          <View style={styles.nameSectionBlock}>
+            <View style={styles.theNameBox}>
+              <Text style={styles.theNameItself}>
+                {`${theCurrentUser?.firstname?.toUpperCase()} ${theCurrentUser?.lastname?.toUpperCase()}`}
+              </Text>
+            </View>
+            <Text style={[styles.theNameItself, styles.theJobPosition]}>
+              {`${theCurrentUser?.prospectiveTitle}`}
+            </Text>
+            {theCurrentUser?.image && (
+              <View style={styles.imageSegment}>
+                <Image
+                  src={
+                    theCurrentUser?.image
+                      ? (theCurrentUser?.image as string)
+                      : imgSrc
+                  }
+                  style={styles.imageItself}
+                />
+              </View>
+            )}
+          </View>
+
+          {/**The page's lower section content */}
+          <View style={styles.lowerBody}>
+            {/**The page's left body */}
+            <View style={[styles.column]}>
+              {sections.includes("Work Experience") && introspectDetailedSection(
+                styles,
+                subsegments.filter(
+                  (subseg) => subseg.parentSection === "Work Experience"
+                ),
+                "WORK EXPERIENCE"
+              )}
+            </View>
+            {/**The page's body divider */}
+            <View style={styles.divider}></View>
+            {/**The page's right body */}
+            <View style={[styles.column]}>
+              {sections.includes("Education") && introspectDetailedSection(
+                styles,
+                subsegments.filter(
+                  (subseg) => subseg.parentSection === "Education"
+                ),
+                "EDUCATION"
+              )}
+              {sections.includes("Skills") && loadingBar(
+                styles,
+                subsegments.filter(
+                  (subseg) => subseg.parentSection === "Skills"
+                ),
+                "SKILLS"
+              )}
+            </View>
+          </View>
         </View>
         <Text
           style={styles.pageNumber}

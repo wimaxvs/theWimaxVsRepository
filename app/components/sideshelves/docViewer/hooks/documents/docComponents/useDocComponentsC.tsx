@@ -155,10 +155,135 @@ const useDocComponentsC = () => {
     return content;
   };
 
+  const introspectSectionTitle = (styles: indexObj, title: string) => (
+    <Text style={[styles.sectionTitleDetails, styles.sectionTitle]}>
+      {title}
+    </Text>
+  );
+
+  const introspectDetailedSection = (
+    styles: indexObj,
+    subsegs: SubSeg[],
+    section?: string
+  ) => {
+    let isMerited: boolean = ["education"].indexOf(section!.toLowerCase()) >= 0;
+    const content =
+      subsegs.length > 0 ? (
+        subsegs.map((subseg, index) => (
+          <View
+            key={index}
+            style={[styles.sectionCol].concat(
+              isMerited ? styles.rightColSection : styles.leftColSection
+            )}
+          >
+            <Text
+              style={[
+                styles.sectionContent,
+                { textAlign: isMerited ? "left" : "right" },
+              ]}
+            >
+              {`${returnFormattedDate(
+                subseg.dateFrom!,
+                "trig"
+              )} - ${returnFormattedDate(subseg.dateTo!, "trig")}`}
+            </Text>
+            <Text
+              style={[
+                styles.sectionTitle,
+                { textAlign: isMerited ? "left" : "right" },
+              ]}
+            >
+              {subseg.title}
+            </Text>
+            <Text
+              style={[
+                styles.sectionSubtitle,
+                { textAlign: isMerited ? "left" : "right" },
+              ]}
+            >
+              {subseg.subTitle}
+            </Text>
+            {section?.toLowerCase() === "work experience" && (
+              <View
+                style={[styles.leftColContentSection].concat(
+                  isMerited ? styles.rightColSection : styles.leftColSection
+                )}
+              >
+                {subseg.content?.map((string, index) => (
+                  <Text
+                    key={index}
+                    style={[
+                      {
+                        textAlign: isMerited ? "left" : "right",
+                      },
+                      styles.sectionContent,
+                    ]}
+                  >
+                    {string}
+                  </Text>
+                ))}
+              </View>
+            )}
+          </View>
+        ))
+      ) : (
+        <></>
+      );
+
+    return (
+      <View
+        style={[styles.parentSection].concat(
+          isMerited ? { alignItems: "flex-start" } : {}
+        )}
+      >
+        {introspectSectionTitle(styles, section!.toUpperCase())}
+        {content}
+      </View>
+    );
+  };
+
+  const loadingBar = (styles: indexObj, subsegs: SubSeg[], section: string) => {
+    return (
+      <View style={[styles.parentSection, { alignItems: "flex-start" }]}>
+        {introspectSectionTitle(styles, section!.toUpperCase())}
+        <View
+          style={[
+              styles.leftColContentSection,
+            styles.rightColSection,
+            { width: "95%", marginTop: 0 },
+          ]}
+        >
+          {subsegs?.map((segment, index) => (
+            <View
+                key={index}
+              style={[styles.loadingBarElement, { width: "95%" }]}
+            >
+              <Text style={[styles.sectionContent, { textAlign: "left" }]}>
+                {segment.title}
+              </Text>
+              <View style={styles.loadingBar}>
+                <View style={styles.outerBar}>
+                  <View
+                    style={[
+                      styles.innerBar,
+                      { width: `${(segment?.order! / 10) * 100}%` },
+                    ]}
+                  />
+                </View>
+              </View>
+            </View>
+          ))}
+        </View>
+      </View>
+    );
+  };
+
   return {
     theLineBelowASection,
     theContentInWorkSection,
     mapLanguageAbilityToCEFR,
+    introspectDetailedSection,
+    loadingBar,
   };
 };
 
