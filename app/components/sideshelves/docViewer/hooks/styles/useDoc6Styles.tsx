@@ -135,13 +135,13 @@ const useDoc6Styles = () => {
       borderLeft: `1px solid #999`,
     },
     sectionTitle: {
-      fontSize: "14px",
+      fontSize: "12px",
       fontWeight: "normal",
       letterSpacing: "2.5px",
       color: "#444",
     },
     sectionContent: {
-      fontSize: "10px",
+      fontSize: "8px",
       fontWeight: "thin",
       lineHeight: 1.1,
       color: "#777",
@@ -265,7 +265,7 @@ const useDoc6Styles = () => {
     },
     innerWorkSectionTitle: {
       left: "-7.5px",
-      fontSize: "14px",
+      fontSize: "12px",
       lineHeight: 1.1,
       fontFamily: "Roboto",
       fontWeight: "light",
@@ -273,7 +273,7 @@ const useDoc6Styles = () => {
       letterSpacing: "1px",
     },
     sectionSubtitle: {
-      fontSize: "12px",
+      fontSize: "10px",
       fontFamily: "Roboto",
       fontWeight: "light",
       color: "#666",

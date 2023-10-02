@@ -29,7 +29,7 @@ const useDocComponentsC = () => {
     }
   };
 
-  function mapLanguageAbilityToCEFR(level: number) {
+  const mapLanguageAbilityToCEFR = (level: number) => {
     if (level < 1 || level > 10) {
       return "Invalid input"; // Handle out-of-range input
     }
@@ -45,7 +45,7 @@ const useDocComponentsC = () => {
     } else {
       return "C1/C2 - Advanced/Proficient";
     }
-  }
+  };
 
   const theLineBelowASection = (styles: indexObj) => (
     <View style={styles.summarySection}>
@@ -166,7 +166,10 @@ const useDocComponentsC = () => {
     subsegs: SubSeg[],
     section?: string
   ) => {
-    let isMerited: boolean = ["education"].indexOf(section!.toLowerCase()) >= 0;
+    let isMerited: boolean =
+      ["education", "awards", "certifications"].indexOf(
+        section!.toLowerCase()
+      ) >= 0;
     const content =
       subsegs.length > 0 ? (
         subsegs.map((subseg, index) => (
@@ -176,21 +179,23 @@ const useDocComponentsC = () => {
               isMerited ? styles.rightColSection : styles.leftColSection
             )}
           >
-            <Text
-              style={[
-                styles.sectionContent,
-                { textAlign: isMerited ? "left" : "right" },
-              ]}
-            >
-              {`${returnFormattedDate(
-                subseg.dateFrom!,
-                "trig"
-              )} - ${returnFormattedDate(subseg.dateTo!, "trig")}`}
-            </Text>
+            {section?.toLowerCase() !== "awards" && (
+              <Text
+                style={[
+                  styles.sectionContent,
+                  { textAlign: isMerited ? "left" : "right" },
+                ]}
+              >
+                {`${returnFormattedDate(
+                  subseg.dateFrom!,
+                  "trig"
+                )} - ${returnFormattedDate(subseg.dateTo!, "trig")}`}
+              </Text>
+            )}
             <Text
               style={[
                 styles.sectionTitle,
-                { textAlign: isMerited ? "left" : "right" },
+                { textAlign: isMerited ? "left" : "right", fontSize: "9px" },
               ]}
             >
               {subseg.title}
@@ -242,38 +247,68 @@ const useDocComponentsC = () => {
     );
   };
 
-  const loadingBar = (styles: indexObj, subsegs: SubSeg[], section: string) => {
+  const loadingBarLangAndProfile = (
+    styles: indexObj,
+    content: SubSeg[] | string,
+    section?: string
+  ) => {
+    let isTrait = ["skills", "languages"].indexOf(section!.toLowerCase()) >= 0;
+    const isString = typeof content === "string";
+    let isLang = section!.toLowerCase() === "languages";
+
     return (
-      <View style={[styles.parentSection, { alignItems: "flex-start" }]}>
+      <View
+        style={[
+          styles.parentSection,
+          isLang || isString ? styles.sectionCol : {},
+          {
+            alignItems: isLang
+              ? "flex-end"
+              : isTrait
+              ? "flex-start"
+              : "flex-end",
+          },
+        ]}
+      >
         {introspectSectionTitle(styles, section!.toUpperCase())}
-        <View
-          style={[
+        {isTrait && (
+          <View
+            style={[
               styles.leftColContentSection,
-            styles.rightColSection,
-            { width: "95%", marginTop: 0 },
-          ]}
-        >
-          {subsegs?.map((segment, index) => (
-            <View
-                key={index}
-              style={[styles.loadingBarElement, { width: "95%" }]}
-            >
-              <Text style={[styles.sectionContent, { textAlign: "left" }]}>
-                {segment.title}
-              </Text>
-              <View style={styles.loadingBar}>
-                <View style={styles.outerBar}>
-                  <View
-                    style={[
-                      styles.innerBar,
-                      { width: `${(segment?.order! / 10) * 100}%` },
-                    ]}
-                  />
+              isLang ? {alignItems: "flex-end"} : styles.rightColSection,
+              { width: "100%", marginTop: 0 },
+            ]}
+          >
+            {!isString &&
+              content?.map((segment, index) => (
+                <View
+                  key={index}
+                  style={[styles.loadingBarElement, { width: "100%" }].concat(
+                    isLang ? styles.reverseLoadingBarElement : {}
+                  )}
+                >
+                  <Text style={[styles.sectionContent, { textAlign: "left" }]}>
+                    {segment.title}
+                  </Text>
+                  <View style={styles.loadingBar}>
+                    <View style={styles.outerBar}>
+                      <View
+                        style={[
+                          styles.innerBar,
+                          { width: `${(segment?.order! / 10) * 100}%` },
+                        ]}
+                      />
+                    </View>
+                  </View>
                 </View>
-              </View>
-            </View>
-          ))}
-        </View>
+              ))}
+          </View>
+        )}
+        {!isTrait && (
+          <Text style={[styles.sectionContent, { textAlign: "right" }]}>
+            {isString && content}
+          </Text>
+        )}
       </View>
     );
   };
@@ -283,7 +318,7 @@ const useDocComponentsC = () => {
     theContentInWorkSection,
     mapLanguageAbilityToCEFR,
     introspectDetailedSection,
-    loadingBar,
+    loadingBarLangAndProfile,
   };
 };
 
