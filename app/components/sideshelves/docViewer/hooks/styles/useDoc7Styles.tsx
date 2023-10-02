@@ -36,10 +36,10 @@ Font.register({
 });
 
 const colorPalette: { [key: string]: string } = {
-  black : "#151513",
-  darkGrey : "#474945",
-  grey : "#6e716c",
-  darkBlue : "#012745",
+  black: "#151513",
+  darkGrey: "#474945",
+  grey: "#6e716c",
+  darkBlue: "#012745",
 };
 
 const flexRow: {} = {
@@ -226,7 +226,7 @@ const useDoc7Styles = () => {
       height: "100%",
       border: "1px solid #999",
       margin: "0px 10px",
-      backgroundColor: "#999"
+      backgroundColor: "#999",
     },
 
     sectionCol: {
@@ -241,7 +241,7 @@ const useDoc7Styles = () => {
     rightColSection: {
       alignItems: "flex-start",
       padding: "0px 5px",
-      paddingLeft: 0
+      paddingLeft: 0,
     },
     leftColContentSection: {
       maxWidth: "95%",
@@ -259,7 +259,7 @@ const useDoc7Styles = () => {
     },
     reverseLoadingBarElement: {
       flexDirection: "row-reverse",
-      marginRight: 0
+      marginRight: 0,
     },
     loadingBar: {
       ...flexRow,
@@ -274,6 +274,21 @@ const useDoc7Styles = () => {
     innerBar: {
       height: "100%",
       backgroundColor: colorPalette.black,
+    },
+    hobbyBox: {
+      width: "100%",
+      ...flexRow,
+      flexWrap: "wrap",
+      justifyContent: "space-between",
+    },
+    actHobby: {
+      width: "50%",
+      ...flexRow,
+      justifyContent: "flex-start",
+      marginBottom: "3px",
+      padding: "2px",
+      boxSizing: "border-box",
+      textAlign: "left",
     },
   });
 

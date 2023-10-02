@@ -275,7 +275,7 @@ const useDocComponentsC = () => {
           <View
             style={[
               styles.leftColContentSection,
-              isLang ? {alignItems: "flex-end"} : styles.rightColSection,
+              isLang ? { alignItems: "flex-end" } : styles.rightColSection,
               { width: "100%", marginTop: 0 },
             ]}
           >
@@ -313,12 +313,37 @@ const useDocComponentsC = () => {
     );
   };
 
+  const hobbySection = (
+    styles: indexObj,
+    content: SubSeg[],
+    section?: string
+  ) => {
+    return (
+      <View
+        style={[
+          styles.parentSection,
+          { alignItems: "flex-start" },
+        ]}
+      >
+        {introspectSectionTitle(styles, section!?.toUpperCase())}
+        <View style={styles.hobbyBox}>
+          {content.map((cont, index) => (
+            <Text key={index} style={[styles.sectionContent, styles.actHobby]}>
+              {`${index+1}. ${cont?.title}`}
+            </Text>
+          ))}
+        </View>
+      </View>
+    );
+  };
+
   return {
     theLineBelowASection,
     theContentInWorkSection,
     mapLanguageAbilityToCEFR,
     introspectDetailedSection,
     loadingBarLangAndProfile,
+    hobbySection,
   };
 };
 

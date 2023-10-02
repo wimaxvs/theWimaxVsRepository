@@ -23,9 +23,9 @@ const useDoc7 = () => {
   const { sections, subsegments, theCurrentUser, fontSizeDeterminant } =
     useCvData();
   const {
-    mapLanguageAbilityToCEFR,
     introspectDetailedSection,
     loadingBarLangAndProfile,
+    hobbySection
   } = useDocComponentsC();
   const returnFontSize = (word: string, size: number) =>
     fontSizeDeterminant(word as string, 8, size).fontSize;
@@ -65,6 +65,9 @@ const useDoc7 = () => {
           <View style={styles.lowerBody}>
             {/**The page's left body */}
             <View style={[styles.column]}>
+              {theCurrentUser?.bio &&
+                loadingBarLangAndProfile(styles, theCurrentUser.bio, "PROFILE")}
+
               {sections.includes("Work Experience") &&
                 introspectDetailedSection(
                   styles,
@@ -73,8 +76,7 @@ const useDoc7 = () => {
                   ),
                   "WORK EXPERIENCE"
                 )}
-              {theCurrentUser?.bio &&
-                loadingBarLangAndProfile(styles, theCurrentUser.bio, "PROFILE")}
+
               {sections.includes("Languages") &&
                 loadingBarLangAndProfile(
                   styles,
@@ -88,30 +90,23 @@ const useDoc7 = () => {
             <View style={styles.divider}></View>
             {/**The page's right body */}
             <View style={[styles.column]}>
-              {sections.includes("Education") &&
-                introspectDetailedSection(
-                  styles,
-                  subsegments.filter(
-                    (subseg) => subseg.parentSection === "Education"
-                  ),
-                  "EDUCATION"
-                )}
-              {sections.includes("Certifications") &&
-                introspectDetailedSection(
-                  styles,
-                  subsegments.filter(
-                    (subseg) => subseg.parentSection === "Certifications"
-                  ),
-                  "CERTIFICATIONS"
-                )}
-              {sections.includes("Awards") &&
-                introspectDetailedSection(
-                  styles,
-                  subsegments.filter(
-                    (subseg) => subseg.parentSection === "Awards"
-                  ),
-                  "AWARDS"
-                )}
+              {["Education", "Certifications", "Awards"].map(
+                (string, index) => {
+                  return (
+                    <View key={index} style={{ width: "100%" }}>
+                      {sections.includes(string) &&
+                        introspectDetailedSection(
+                          styles,
+                          subsegments.filter(
+                            (subseg) => subseg.parentSection === string
+                          ),
+                          string.toUpperCase()
+                        )}
+                    </View>
+                  );
+                }
+              )}
+
               {sections.includes("Skills") &&
                 loadingBarLangAndProfile(
                   styles,
@@ -119,6 +114,14 @@ const useDoc7 = () => {
                     (subseg) => subseg.parentSection === "Skills"
                   ),
                   "SKILLS"
+                )}
+              {sections.includes("Hobbies") &&
+                hobbySection(
+                  styles,
+                  subsegments.filter(
+                    (subseg) => subseg.parentSection === "Hobbies"
+                  ),
+                  "HOBBIES"
                 )}
             </View>
           </View>
