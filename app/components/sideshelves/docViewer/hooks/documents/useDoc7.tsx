@@ -25,7 +25,7 @@ const useDoc7 = () => {
   const {
     mapLanguageAbilityToCEFR,
     introspectDetailedSection,
-    loadingBar
+    loadingBarLangAndProfile,
   } = useDocComponentsC();
   const returnFontSize = (word: string, size: number) =>
     fontSizeDeterminant(word as string, 8, size).fontSize;
@@ -65,32 +65,61 @@ const useDoc7 = () => {
           <View style={styles.lowerBody}>
             {/**The page's left body */}
             <View style={[styles.column]}>
-              {sections.includes("Work Experience") && introspectDetailedSection(
-                styles,
-                subsegments.filter(
-                  (subseg) => subseg.parentSection === "Work Experience"
-                ),
-                "WORK EXPERIENCE"
-              )}
+              {sections.includes("Work Experience") &&
+                introspectDetailedSection(
+                  styles,
+                  subsegments.filter(
+                    (subseg) => subseg.parentSection === "Work Experience"
+                  ),
+                  "WORK EXPERIENCE"
+                )}
+              {theCurrentUser?.bio &&
+                loadingBarLangAndProfile(styles, theCurrentUser.bio, "PROFILE")}
+              {sections.includes("Languages") &&
+                loadingBarLangAndProfile(
+                  styles,
+                  subsegments.filter(
+                    (subseg) => subseg.parentSection === "Languages"
+                  ),
+                  "LANGUAGES"
+                )}
             </View>
             {/**The page's body divider */}
             <View style={styles.divider}></View>
             {/**The page's right body */}
             <View style={[styles.column]}>
-              {sections.includes("Education") && introspectDetailedSection(
-                styles,
-                subsegments.filter(
-                  (subseg) => subseg.parentSection === "Education"
-                ),
-                "EDUCATION"
-              )}
-              {sections.includes("Skills") && loadingBar(
-                styles,
-                subsegments.filter(
-                  (subseg) => subseg.parentSection === "Skills"
-                ),
-                "SKILLS"
-              )}
+              {sections.includes("Education") &&
+                introspectDetailedSection(
+                  styles,
+                  subsegments.filter(
+                    (subseg) => subseg.parentSection === "Education"
+                  ),
+                  "EDUCATION"
+                )}
+              {sections.includes("Certifications") &&
+                introspectDetailedSection(
+                  styles,
+                  subsegments.filter(
+                    (subseg) => subseg.parentSection === "Certifications"
+                  ),
+                  "CERTIFICATIONS"
+                )}
+              {sections.includes("Awards") &&
+                introspectDetailedSection(
+                  styles,
+                  subsegments.filter(
+                    (subseg) => subseg.parentSection === "Awards"
+                  ),
+                  "AWARDS"
+                )}
+              {sections.includes("Skills") &&
+                loadingBarLangAndProfile(
+                  styles,
+                  subsegments.filter(
+                    (subseg) => subseg.parentSection === "Skills"
+                  ),
+                  "SKILLS"
+                )}
             </View>
           </View>
         </View>

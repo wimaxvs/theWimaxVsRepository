@@ -137,20 +137,20 @@ const useDoc7Styles = () => {
       minHeight: "40px",
     },
     sectionTitle: {
-      fontSize: "14px",
+      fontSize: "12px",
       color: "#444",
       fontFamily: "Roboto",
-      fontWeight: "bold",
+      fontWeight: "normal",
     },
     sectionSubtitle: {
       fontWeight: "normal",
-      fontSize: "12px",
+      fontSize: "10px",
       fontFamily: "Roboto",
       color: "#666",
       fontStyle: "italic",
     },
     sectionContent: {
-      fontSize: "10px",
+      fontSize: "9px",
       fontWeight: "thin",
       lineHeight: 1.1,
       color: "#777",
@@ -226,6 +226,7 @@ const useDoc7Styles = () => {
       height: "100%",
       border: "1px solid #999",
       margin: "0px 10px",
+      backgroundColor: "#999"
     },
 
     sectionCol: {
@@ -239,6 +240,8 @@ const useDoc7Styles = () => {
     },
     rightColSection: {
       alignItems: "flex-start",
+      padding: "0px 5px",
+      paddingLeft: 0
     },
     leftColContentSection: {
       maxWidth: "95%",
@@ -253,6 +256,10 @@ const useDoc7Styles = () => {
       ...flexRow,
       alignItems: "center",
       justifyContent: "space-between",
+    },
+    reverseLoadingBarElement: {
+      flexDirection: "row-reverse",
+      marginRight: 0
     },
     loadingBar: {
       ...flexRow,
