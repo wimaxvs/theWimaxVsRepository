@@ -19,7 +19,7 @@ const useAllDocs = () => {
     { doc: useDoc5().Doc5, name: "Zoid" },
     { doc: useDoc6().Doc6, name: "Cooper" },
     { doc: useDoc7().Doc7, name: "Introspect" },
-    { doc: useDoc8().Doc8, name: "Parallel" },
+    { doc: useDoc8().Doc8, name: "Chikane" },
   ];
 
   return { theDocs };

@@ -250,7 +250,8 @@ const useDocComponentsC = () => {
   const loadingBarLangAndProfile = (
     styles: indexObj,
     content: SubSeg[] | string,
-    section?: string
+    section?: string,
+    bankLeft?: boolean
   ) => {
     let isTrait = ["skills", "languages"].indexOf(section!.toLowerCase()) >= 0;
     const isString = typeof content === "string";
@@ -262,7 +263,9 @@ const useDocComponentsC = () => {
           styles.parentSection,
           isLang || isString ? styles.sectionCol : {},
           {
-            alignItems: isLang
+            alignItems: bankLeft
+              ? "flex-start"
+              : isLang
               ? "flex-end"
               : isTrait
               ? "flex-start"
@@ -275,7 +278,11 @@ const useDocComponentsC = () => {
           <View
             style={[
               styles.leftColContentSection,
-              isLang ? { alignItems: "flex-end" } : styles.rightColSection,
+              bankLeft
+                ? styles.rightColSection
+                : isLang
+                ? { alignItems: "flex-end" }
+                : styles.rightColSection,
               { width: "100%", marginTop: 0 },
             ]}
           >
@@ -319,17 +326,12 @@ const useDocComponentsC = () => {
     section?: string
   ) => {
     return (
-      <View
-        style={[
-          styles.parentSection,
-          { alignItems: "flex-start" },
-        ]}
-      >
+      <View style={[styles.parentSection, { alignItems: "flex-start" }]}>
         {introspectSectionTitle(styles, section!?.toUpperCase())}
         <View style={styles.hobbyBox}>
           {content.map((cont, index) => (
             <Text key={index} style={[styles.sectionContent, styles.actHobby]}>
-              {`${index+1}. ${cont?.title}`}
+              {`${index + 1}. ${cont?.title}`}
             </Text>
           ))}
         </View>
@@ -344,6 +346,7 @@ const useDocComponentsC = () => {
     introspectDetailedSection,
     loadingBarLangAndProfile,
     hobbySection,
+    introspectSectionTitle,
   };
 };
 
