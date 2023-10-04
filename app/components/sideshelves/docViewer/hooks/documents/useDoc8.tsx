@@ -5,18 +5,134 @@ import React from "react";
 import useDoc8Styles from "../styles/useDoc8Styles";
 import usePlaceholderImage from "../styles/usePlaceholderImage";
 import useCvData from "../useCvData";
+import useDocComponentsD from "./docComponents/useDocComponentsD";
 import useDocComponentsC from "./docComponents/useDocComponentsC";
+import useDoc7Styles from "../styles/useDoc7Styles";
 
 const useDoc8 = () => {
   const { imgSrc } = usePlaceholderImage();
   const { styles } = useDoc8Styles();
+  const { styles: stylesB } = useDoc7Styles();
   const { sections, subsegments, theCurrentUser, fontSizeDeterminant } =
     useCvData();
-  const {} = useDocComponentsC();
+  const { anySection, circularDot } = useDocComponentsD();
+  const { loadingBarLangAndProfile } = useDocComponentsC();
 
   const Doc8 = () => (
     <Document style={styles.document}>
       <Page size="A4" style={styles.page} wrap>
+        <View style={styles.body}>
+          <View style={[styles.column, styles.leftBody]}>
+            <View style={styles.upperLeftBody}>
+              <View style={styles.leftUpperLeftBody}>
+                <Text
+                  style={[
+                    styles.userName,
+                    {
+                      marginTop: "50px",
+                      ...fontSizeDeterminant(
+                        theCurrentUser!.firstname!.toUpperCase(),
+                        8,
+                        30
+                      ),
+                    },
+                  ]}
+                >
+                  {theCurrentUser?.firstname?.toUpperCase()}
+                </Text>
+                <Text
+                  style={[
+                    styles.userName,
+                    {
+                      ...fontSizeDeterminant(
+                        theCurrentUser!.firstname!.toUpperCase(),
+                        8,
+                        30
+                      ),
+                    },
+                  ]}
+                >
+                  {theCurrentUser?.lastname?.toUpperCase()}
+                </Text>
+                <Text style={[styles.sectionContent]}>
+                  {theCurrentUser?.prospectiveTitle?.toUpperCase()}
+                </Text>
+              </View>
+              {circularDot(styles)}
+              <View style={styles.rightUpperLeftBody}>
+                {theCurrentUser?.image && (
+                  <View
+                    style={[
+                      styles.imageSegment,
+                      {
+                        marginTop: "50px",
+                      },
+                    ]}
+                  >
+                    <Image
+                      src={
+                        theCurrentUser?.image
+                          ? (theCurrentUser?.image as string)
+                          : imgSrc
+                      }
+                      style={styles.imageItself}
+                    />
+                  </View>
+                )}
+                <View style={styles.contacts}>
+                  <Text style={styles.sectionTitle}>{"Contact Info"}</Text>
+                  <Text style={styles.sectionContent}>
+                    {theCurrentUser?.location}
+                  </Text>
+                  <Text style={styles.sectionContent}>
+                    {theCurrentUser?.telephone}
+                  </Text>
+                  <Text style={styles.sectionContent}>
+                    {theCurrentUser?.email}
+                  </Text>
+                  <Text style={styles.sectionContent}>
+                    {theCurrentUser?.personalLink}
+                  </Text>
+                </View>
+              </View>
+            </View>
+            <View style={[styles.column, styles.lowerLeftBody]}>
+              {["Work Experience", "Certifications"].map((sect, index) => (
+                <React.Fragment key={index}>
+                  {sections.includes(sect) &&
+                    anySection(
+                      styles,
+                      subsegments.filter((seg) => seg.parentSection === sect),
+                      sect
+                    )}
+                </React.Fragment>
+              ))}
+              {sections.includes("Languages") &&
+                loadingBarLangAndProfile(
+                  styles,
+                  subsegments.filter(
+                    (subseg) => subseg.parentSection === "Languages"
+                  ),
+                  "LANGUAGES",
+                  true
+                )}
+            </View>
+          </View>
+          <View style={[styles.column, styles.rightBody]}>
+            {circularDot(styles, true)}
+            {anySection(styles, theCurrentUser?.bio as string, "Profile")}
+            {["Education", "Skills", "Awards", "Hobbies"].map((sect, index) => (
+              <React.Fragment key={index}>
+                {sections.includes(sect) &&
+                  anySection(
+                    styles,
+                    subsegments.filter((seg) => seg.parentSection === sect),
+                    sect
+                  )}
+              </React.Fragment>
+            ))}
+          </View>
+        </View>
         <Text
           style={styles.pageNumber}
           render={({ pageNumber }) => `${pageNumber}`}
