@@ -8,6 +8,7 @@ import useDoc5 from "./useDoc5";
 import useDoc6 from "./useDoc6";
 import useDoc7 from "./useDoc7";
 import useDoc8 from "./useDoc8";
+import useDoc9 from "./useDoc9";
 
 const useAllDocs = () => {
 
@@ -20,6 +21,7 @@ const useAllDocs = () => {
     { doc: useDoc6().Doc6, name: "Cooper" },
     { doc: useDoc7().Doc7, name: "Introspect" },
     { doc: useDoc8().Doc8, name: "Chikane" },
+    { doc: useDoc9().Doc9, name: "Beetle" },
   ];
 
   return { theDocs };
