@@ -88,7 +88,7 @@ const useDoc9Styles = () => {
     //Body////////////////////////////////////////
     body: {
       ...flexCol,
-      padding: "40px 20px 20px",
+      padding: "0px 20px 20px",
       gap: "20px",
       width: "100%",
     },
@@ -96,6 +96,9 @@ const useDoc9Styles = () => {
     //upper body
     upperBody: {
       ...flexRow,
+      position: "relative",
+      top: "-10px",
+      width: "100%",
     },
     leftUpperBody: {
       ...flexCol,
