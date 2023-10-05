@@ -149,7 +149,7 @@ const useDoc8Styles = () => {
       top: 0,
       left: "0%",
       transform: "translateX(-11px)",
-      justifyContent: "flex-start"
+      justifyContent: "flex-start",
     },
 
     //left side of body
@@ -290,10 +290,11 @@ const useDoc8Styles = () => {
       fontStyle: "italic",
     },
     sectionContent: {
+      fontFamily: "Gabarito",
       fontSize: "9px",
       fontWeight: "thin",
       lineHeight: 1.1,
-      color: "#777",
+      color: "black",
       maxWidth: "100%",
     },
 

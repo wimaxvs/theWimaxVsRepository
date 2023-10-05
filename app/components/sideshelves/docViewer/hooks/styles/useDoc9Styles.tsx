@@ -20,11 +20,11 @@ Font.register({
       fontWeight: "heavy",
     },
     {
-      src: `/fonts/doc8/Gabarito-Medium.ttf`,
+      src: `/fonts/doc3/Poppins-Medium.ttf`,
       fontWeight: "normal",
     },
     {
-      src: `/fonts/doc4/Roboto-Thin.ttf`,
+      src: `/fonts/doc3/Poppins-Thin.ttf`,
       fontWeight: "thin",
     },
     {
@@ -32,19 +32,12 @@ Font.register({
       fontWeight: "light",
     },
     {
-      src: `/fonts/doc4/Roboto-MediumItalic.ttf`,
+      src: `/fonts/doc3/Poppins-MediumItalic.ttf`,
       fontStyle: "italic",
       fontWeight: "normal",
     },
   ],
 });
-
-const colorPalette: { [key: string]: string } = {
-  black: "#151513",
-  darkGrey: "#474945",
-  grey: "#6e716c",
-  darkBlue: "#012745",
-};
 
 const flexRow: {} = {
   display: "flex",
@@ -54,24 +47,8 @@ const flexCol: {} = {
   display: "flex",
   flexDirection: "column",
 };
-const fontSettings: {} = {
-  fontFamily: "Gabarito",
-  fontWeight: "light",
-  letterSpacing: "1.5px",
-  lineHeight: 1.2,
-};
 
 const useDoc9Styles = () => {
-  const rectOptions = (color?: string, isSquare?: boolean) => {
-    return {
-      width: "100%",
-      height: "100%",
-      rx: isSquare ? "0" : "15",
-      ry: isSquare ? "0" : "15",
-      fill: color ? colorPalette[color] : colorPalette.mistyBlue,
-    };
-  };
-
   const styles = StyleSheet.create({
     pdfViewer: {
       width: "70%",
@@ -97,7 +74,7 @@ const useDoc9Styles = () => {
     page: {
       position: "relative",
       padding: "10px 0 30px 0",
-      backgroundColor: colorPalette.mistyBlue,
+      backgroundColor: "white",
     },
     pageNumber: {
       position: "absolute",
@@ -110,162 +87,69 @@ const useDoc9Styles = () => {
 
     //Body////////////////////////////////////////
     body: {
-      ...flexRow,
-      padding: "40px 20px 20px 20px",
-      gap: "5px",
+      ...flexCol,
+      padding: "40px 20px 20px",
+      gap: "20px",
       width: "100%",
+    },
+
+    //upper body
+    upperBody: {
+      ...flexRow,
+    },
+    leftUpperBody: {
+      ...flexCol,
+      alignItems: "center",
+      justifyContent: "center",
+      width: "40%",
+      maxWidth: "40%",
+      borderRight: "1px solid black",
+      position: "relative",
+    },
+    rightUpperBody: {
+      width: "55%",
+      maxWidth: "55%",
+      ...flexCol,
+      justifyContent: "flex-start",
+      paddingLeft: "15px",
+    },
+    firstNameWrapper: {
+      position: "relative",
+      width: "100%",
+      backgroundColor: "#ffda29",
+    },
+
+    //lower body
+    bodyModification: {
+      padding: 0,
+    },
+    lowerBody: {
+      ...flexCol,
+      gap: "20px",
+    },
+    upperLowerBody: {
+      padding: "5px 15px",
+    },
+    lowerLowerBody: {
+      ...flexRow,
+      gap: "10px",
+      padding: "5px 15px",
+    },
+    leftLowerLowerBody: {
+      width: "40%",
+      maxWidth: "40%",
+      paddingRight: "15px",
+      borderRight: "1px solid black",
+    },
+    rightLowerLowerBody: {
+      paddingLeft: "15px",
+      width: "55%",
+      maxWidth: "55%",
     },
     column: {
       ...flexCol,
       gap: "20px",
       minHeight: "40px",
-    },
-    divider: {
-      height: "100%",
-      border: "1px solid #999",
-      margin: "0px 10px",
-      backgroundColor: "#999",
-    },
-    circularDotCasing: {
-      height: "60px",
-      width: "20px",
-      ...flexCol,
-      alignItems: "center",
-      justifyContent: "center",
-      position: "absolute",
-      top: "140px",
-      left: "55%",
-      transform: "translateX(-10px)",
-      backgroundColor: "white",
-    },
-    circularDot: {
-      height: "7.5px",
-      width: "7.5px",
-      border: "2px solid #333",
-      borderRadius: "50%",
-    },
-    secondDotMutation: {
-      height: "20px",
-      top: 0,
-      left: "0%",
-      transform: "translateX(-11px)",
-      justifyContent: "flex-start"
-    },
-
-    //left side of body
-    leftBody: {
-      width: "57.5%",
-      maxWidth: "60%",
-      ...flexCol,
-      marginRight: "5px",
-    },
-    upperLeftBody: {
-      width: "100%",
-      position: "relative",
-      top: "-50px",
-      ...flexRow,
-      gap: "15px",
-    },
-    leftUpperLeftBody: {
-      width: "55%",
-      ...flexCol,
-      gap: "7.5px",
-      alignItems: "flex-end",
-      textAlign: "right",
-      paddingRight: "15px",
-      borderRight: "1px solid #333",
-    },
-    userName: {
-      fontFamily: "Gabarito",
-      fontWeight: "normal",
-      lineHeight: 1.1,
-    },
-    rightUpperLeftBody: {
-      width: "40%",
-      ...flexCol,
-      alignItems: "flex-start",
-      textAlign: "left",
-      gap: "15px",
-    },
-    contacts: {
-      ...flexCol,
-      gap: "3px",
-      alignItems: "flex-start",
-      width: "100%",
-    },
-    lowerLeftBody: {
-      width: "100%",
-      top: "-40px",
-    },
-    negativeTopMargin: {
-      marginTop: "-7px",
-    },
-    parentSection: {
-      width: "100%",
-      ...flexCol,
-      alignItems: "flex-end",
-      gap: "10px",
-    },
-    leftColSection: {
-      alignItems: "flex-end",
-    },
-    leftColContentSection: {
-      maxWidth: "95%",
-      ...flexCol,
-      gap: "2px",
-      marginTop: "5px",
-    },
-    //for loading bar
-    loadingBarElement: {
-      maxWidth: "95%",
-      ...flexRow,
-      alignItems: "center",
-      justifyContent: "space-between",
-    },
-    reverseLoadingBarElement: {
-      // flexDirection: "row-reverse",
-      marginRight: 0,
-    },
-    loadingBar: {
-      ...flexRow,
-      alignItems: "center",
-      maxWidth: "50%",
-    },
-    outerBar: {
-      width: "95%",
-      height: 2.5,
-      backgroundColor: `${colorPalette.grey}`,
-    },
-    innerBar: {
-      height: "100%",
-      backgroundColor: colorPalette.black,
-    },
-
-    //right body
-    rightBody: {
-      maxWidth: "40%",
-      width: "40%",
-      marginTop: "100px",
-      borderLeft: "1px solid #333",
-      paddingLeft: "10px",
-    },
-    anySection: {
-      ...flexCol,
-      gap: "10px",
-      width: "95%",
-    },
-    skillElement: {
-      ...flexRow,
-      justifyContent: "flex-start",
-      alignItems: "center",
-      gap: "3px",
-      width: "100%",
-    },
-    skillDot: {
-      height: "4.5px",
-      width: "4.5px",
-      borderRadius: "50%",
-      border: "1px solid #333",
     },
 
     //text settings
@@ -290,10 +174,11 @@ const useDoc9Styles = () => {
       fontStyle: "italic",
     },
     sectionContent: {
+      fontFamily: "Gabarito",
       fontSize: "9px",
       fontWeight: "thin",
       lineHeight: 1.1,
-      color: "#777",
+      color: "black",
       maxWidth: "100%",
     },
 
@@ -302,20 +187,19 @@ const useDoc9Styles = () => {
       ...flexCol,
       alignItems: "center",
       justifyContent: "center",
-      width: "120px",
-      height: "150px",
+      width: "132px",
+      height: "165px",
     },
     imageItself: {
       objectFit: "cover",
-      width: "120px",
-      height: "150px",
+      width: "132px",
+      height: "165px",
       aspectRatio: "1/1",
       overflow: "hidden",
-      filter: "grayscale(100%)",
     },
   });
 
-  return { styles, rectOptions };
+  return { styles };
 };
 
 export default useDoc9Styles;
