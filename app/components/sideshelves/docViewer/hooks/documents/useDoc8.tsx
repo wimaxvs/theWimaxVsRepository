@@ -7,12 +7,10 @@ import usePlaceholderImage from "../styles/usePlaceholderImage";
 import useCvData from "../useCvData";
 import useDocComponentsD from "./docComponents/useDocComponentsD";
 import useDocComponentsC from "./docComponents/useDocComponentsC";
-import useDoc7Styles from "../styles/useDoc7Styles";
 
 const useDoc8 = () => {
   const { imgSrc } = usePlaceholderImage();
   const { styles } = useDoc8Styles();
-  const { styles: stylesB } = useDoc7Styles();
   const { sections, subsegments, theCurrentUser, fontSizeDeterminant } =
     useCvData();
   const { anySection, circularDot } = useDocComponentsD();
