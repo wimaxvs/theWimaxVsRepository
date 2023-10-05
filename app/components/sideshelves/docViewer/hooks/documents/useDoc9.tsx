@@ -17,7 +17,7 @@ const useDoc9 = () => {
   const { styles: stylesFrom7 } = useDoc7Styles();
   const { sections, subsegments, theCurrentUser, fontSizeDeterminant } =
     useCvData();
-  const { anySection, circularDot } = useDocComponentsD();
+  const { anySection } = useDocComponentsD();
   const { loadingBarLangAndProfile } = useDocComponentsC();
 
   const Doc9 = () => (
