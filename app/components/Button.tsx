@@ -15,6 +15,7 @@ interface ButtonProps {
   icon?: IconType;
   iconColor?: string;
   sx?: string;
+  isLoginRegister?: boolean
 }
 
 const Button: React.FC<ButtonProps> = ({
@@ -30,7 +31,8 @@ const Button: React.FC<ButtonProps> = ({
   small,
   icon: Icon,
   iconColor,
-  sx
+  sx,
+  isLoginRegister
 }) => {
   return (
     <button
@@ -45,7 +47,7 @@ const Button: React.FC<ButtonProps> = ({
           ? `${sx}`
           : `${sx.slice(0, sx.indexOf("w-"))} w-full`
       } 
-      ${Icon ? "flex flex-row gap justify-around" : ""} 
+      ${Icon && isLoginRegister ? "flex flex-row gap-2 justify-center" : Icon ? "flex flex-row gap justify-around" : ""} 
       ${
         outline
           ? "bg-white"

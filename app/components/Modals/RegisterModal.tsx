@@ -91,13 +91,14 @@ const RegisterModal = () => {
         label="Continue with Google"
         icon={FcGoogle}
         onClick={() => signIn("google")}
+        isLoginRegister
       />
       <div className="text-neutral text-center mt-4 font-light">
         <div className="justify-center flex flex-row items-center gap-2">
           <div>Already have an account?</div>
           <div
             onClick={onToggle}
-            className="text-neutral-800 cursor-pointer hover:underline"
+            className="text-blue-800 cursor-pointer hover:underline"
           >
             Log in
           </div>
@@ -116,6 +117,7 @@ const RegisterModal = () => {
       onSubmit={handleSubmit(onSubmit)}
       body={bodyContent}
       footer={footerContent}
+      isInputModal
     />
   );
 };

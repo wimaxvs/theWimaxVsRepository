@@ -90,6 +90,7 @@ const LoginModal = () => {
         label="Continue with Google"
         icon={FcGoogle}
         onClick={() => signIn("google", { callbackUrl: "/dash" })}
+        isLoginRegister
       />
       <div
         className="
@@ -100,7 +101,7 @@ const LoginModal = () => {
           <span
             onClick={onToggle}
             className="
-              text-neutral-800
+              text-blue-800
               cursor-pointer 
               hover:underline
             "
@@ -123,6 +124,7 @@ const LoginModal = () => {
       onSubmit={handleSubmit(onSubmit)}
       body={bodyContent}
       footer={footerContent}
+      isInputModal
     />
   );
 };
