@@ -85,6 +85,16 @@ const useDoc10Styles = () => {
       color: "grey",
     },
 
+    //Letterhead content /////////////////////////
+    letterHead: {
+      width: "37.3%",
+      height: "30%",
+      left: "20px",
+      top: "5%",
+      position: "absolute",
+      backgroundColor: "#ebecf0",
+    },
+
     //Body////////////////////////////////////////
     body: {
       ...flexCol,
@@ -92,12 +102,173 @@ const useDoc10Styles = () => {
       gap: "20px",
       width: "100%",
     },
+    bodyPartition: {
+      ...flexRow,
+      width: "100%",
+    },
 
-   
+    //upper body ( name and contact )
+    upperBody: {
+      position: "relative",
+      gap: "20px",
+    },
+    leftUpperBody: {
+      width: "65%",
+      ...flexCol,
+      alignItems: "baseline",
+      justifyContent: "center",
+    },
+    nameAndTitleBox: {
+      ...flexCol,
+      alignItems: "flex-start",
+      left: "10%",
+      maxWidth: "100%",
+    },
+    rightUpperBody: {
+      minHeight: "40px",
+      flexGrow: 1.3,
+      borderLeft: "1px solid black",
+      ...flexCol,
+      gap: "5px",
+      justifyContent: "flex-end",
+      paddingLeft: "20px",
+    },
+
+    //mid body ( user profile )
+    profileDemarcation: {
+      top: "20px",
+      width: "100%",
+      minHeight: "40px",
+      justifyContent: "space-between",
+      position: "relative",
+    },
+    leftProfileDemarcation: {
+      width: "35.5%",
+      position: "relative",
+      left: "-20px",
+      borderTop: "1px solid black",
+      height: "100%",
+    },
+    rightProfileDemarcation: {
+      width: "55%",
+      ...flexCol,
+      gap: "10px",
+      alignItems: "flex-start",
+      justifyContent: "flex-start",
+    },
+
+    //lower body ( remaining sections )
+    lowerBody: {
+      position: "relative",
+      top: "20px",
+      justifyContent: "space-between",
+    },
     column: {
       ...flexCol,
       gap: "20px",
       minHeight: "40px",
+      // alignItems: "center",
+    },
+    leftLowerBody: {
+      width: "40%",
+    },
+    rightLowerBody: {
+      width: "55%",
+    },
+
+    //the skills element
+    skillElement: {
+      width: "100%",
+      ...flexCol,
+      gap: "7.5px",
+    },
+    skillUpper: {
+      ...flexRow,
+      justifyContent: "space-between",
+      width: "100%",
+    },
+    skillLower: {
+      width: "100%",
+      ...flexRow,
+      justifyContent: "center",
+    },
+    //for loading bar
+    loadingBar: {
+      ...flexRow,
+      alignItems: "center",
+      maxWidth: "95%",
+    },
+    outerBar: {
+      width: "95%",
+      height: 2.5,
+      backgroundColor: `#999`,
+    },
+    innerBar: {
+      height: "100%",
+      backgroundColor: "black",
+    },
+
+    //for merits
+    meritContainer: {
+      width: "95%",
+      ...flexRow,
+    },
+    meritLeft: {
+      width: "10px",
+      backgroundColor: "#ebecf0",
+      marginRight: "30px",
+      height:"100%"
+    },
+    meritRight: {
+      ...flexCol,
+      gap: "5px",
+      maxWidth:"80%",
+    },
+
+    //for jobs
+    jobSection: {
+      borderBottom: "1px solid black",
+      paddingBottom: "15px",
+    },
+    forIsLast: {
+      border: "none"
+    },
+    jobPartition: {
+      ...flexCol,
+      gap: "5px",
+      alignItems: "flex-start",
+      justifyContent: "flex-start",
+    },
+    jobParticulars: {
+      maxWidth: "25%",
+    },
+    jobDescription: {
+      paddingLeft: "30px",
+      maxWidth: "50%",
+    },
+
+    //languages
+    languageMap: {
+      ...flexRow,
+      flexWrap: "wrap",
+      justifyContent: "space-between",
+      maxWidth: "100%",
+      gap: "5px",
+    },
+    oneLang: {
+      ...flexRow,
+      justifyContent: "flex-start",
+      alignItems: "center",
+      minHeight: "20px",
+      gap:"5px",
+      width: "40%",
+      maxWidth: "40%",
+      margin: "5px 0",
+    },
+    langWording: {
+      ...flexCol,
+      maxWidth: "70%",
+      gap: "5px"
     },
 
     //text settings
