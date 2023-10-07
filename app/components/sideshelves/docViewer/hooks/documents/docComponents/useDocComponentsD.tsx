@@ -152,15 +152,215 @@ const useDocComponentsD = () => {
 
   let circularDot = (styles: indexObj, isSecond?: boolean) => {
     return (
-      <View style={[styles.circularDotCasing, isSecond ? styles.secondDotMutation : {}]}>
+      <View
+        style={[
+          styles.circularDotCasing,
+          isSecond ? styles.secondDotMutation : {},
+        ]}
+      >
         <View style={styles.circularDot}></View>
       </View>
     );
   };
 
+  let justABar = (styles: indexObj, subseg: SubSeg) => {
+    return (
+      <View break style={styles.loadingBar}>
+        <View style={styles.outerBar}>
+          <View
+            style={[
+              styles.innerBar,
+              { width: `${(subseg?.order! / 10) * 100}%` },
+            ]}
+          />
+        </View>
+      </View>
+    );
+  };
+
+  let justASkill = (
+    styles: indexObj,
+    stylesBeta: indexObj,
+    seg: SubSeg,
+    index: number
+  ) => {
+    return (
+      <View style={stylesBeta.skillElement} key={index}>
+        <View style={stylesBeta.skillUpper}>
+          <Text style={styles.sectionContent}>{seg?.title}</Text>
+          <Text style={styles.sectionContent}>{seg?.order}</Text>
+        </View>
+        <View style={stylesBeta.skillLower}>{justABar(stylesBeta, seg)}</View>
+      </View>
+    );
+  };
+
+  let justOneMerit = (
+    styles: indexObj,
+    stylesBeta: indexObj,
+    seg: SubSeg,
+    index: number,
+    parentSection?: string
+  ) => {
+    let isAwards = parentSection === "Awards";
+
+    return (
+      <View style={stylesBeta.meritContainer} key={index}>
+        <View style={stylesBeta.meritLeft}></View>
+        <View style={stylesBeta.meritRight}>
+          <Text style={[styles.sectionTitle]}>{seg?.title}</Text>
+          <Text style={styles.sectionSubtitle}>
+            {`${seg?.subTitle}`}
+            {!isAwards &&
+              `${
+                " | " +
+                rfDate(seg.dateFrom as string) +
+                " - " +
+                rfDate(seg.dateTo!)
+              }`}
+          </Text>
+          {seg?.content?.map((line, index) => (
+            <Text style={[styles.sectionContent]} key={index}>
+              {line}
+            </Text>
+          ))}
+        </View>
+      </View>
+    );
+  };
+
+  let justOneJob = (
+    styles: indexObj,
+    stylesBeta: indexObj,
+    seg: SubSeg,
+    index: number,
+    isLast?: boolean
+  ) => {
+    return (
+      <View
+        style={[
+          stylesBeta.meritContainer,
+          stylesBeta.jobSection,
+          isLast === true ? stylesBeta.forIsLast : {},
+        ]}
+        key={index}
+      >
+        <View style={stylesBeta.meritLeft}></View>
+        <View style={[stylesBeta.jobPartition, stylesBeta.jobParticulars]}>
+          <Text style={styles.sectionTitle}>{`${seg?.title}`}</Text>
+          <Text style={[styles.sectionSubtitle]}>{seg?.subTitle}</Text>
+          <Text style={[styles.sectionContent]}>
+            {"From " +
+              rfDate(seg.dateFrom as string) +
+              " - " +
+              rfDate(seg.dateTo as string)}
+          </Text>
+        </View>
+        <View style={[stylesBeta.jobPartition, stylesBeta.jobDescription]}>
+          {seg?.content?.map((line, i) => (
+            <Text style={[styles.sectionContent]} key={i}>
+              {line}
+            </Text>
+          ))}
+        </View>
+      </View>
+    );
+  };
+
+  let anySectionBeta = (
+    styles: indexObj,
+    stylesBeta: indexObj,
+    subsegs: string | SubSeg[],
+    sectionTitle: string
+  ) => {
+    let isLast = subsegs.length - 1;
+
+    switch (sectionTitle) {
+      case "Languages":
+        return (
+          <View style={styles.anySection}>
+            {introspectSectionTitle(styles, sectionTitle.toUpperCase())}
+            <View style={stylesBeta.languageMap}>
+              {(subsegs as SubSeg[])?.map((seg, index) => (
+                <View style={stylesBeta.oneLang} key={index}>
+                  <View style={stylesBeta.meritLeft}></View>
+                  <View style={stylesBeta.langWording}>
+                    <Text style={[styles.sectionContent]}>{seg?.title}</Text>
+                    <Text
+                      style={[styles.sectionContent, { fontWeight: "normal" }]}
+                    >
+                      {mapLanguageAbilityToCEFR(seg.order!).split(" ")[0]}
+                    </Text>
+                  </View>
+                </View>
+              ))}
+            </View>
+          </View>
+        );
+
+      case "Skills":
+        return (
+          <View style={[styles.anySection, { alignSelf: "center" }]}>
+            {introspectSectionTitle(styles, sectionTitle.toUpperCase())}
+            {(subsegs as SubSeg[]).map((seg, index) =>
+              justASkill(styles, stylesBeta, seg, index)
+            )}
+          </View>
+        );
+      case "Education":
+      case "Awards":
+      case "Certifications":
+        return (
+          <View style={[styles.anySection, { alignSelf: "center" }]}>
+            {introspectSectionTitle(styles, sectionTitle.toUpperCase())}
+            {(subsegs as SubSeg[]).map((seg, index) =>
+              justOneMerit(styles, stylesBeta, seg, index, seg.parentSection)
+            )}
+          </View>
+        );
+      case "Hobbies":
+        return (
+          <View style={[styles.anySection, { alignSelf: "center" }]}>
+            {introspectSectionTitle(styles, sectionTitle.toUpperCase())}
+
+            <View style={stylesBeta.meritContainer}>
+              <View style={stylesBeta.meritLeft}></View>
+              <View style={stylesBeta.meritRight}>
+                {(subsegs as SubSeg[]).map((seg, i) => (
+                  <Text style={[styles.sectionContent]} key={i}>
+                    {seg?.title}
+                  </Text>
+                ))}
+              </View>
+            </View>
+          </View>
+        );
+
+      case "Work Experience":
+        return (
+          <View style={styles.anySection}>
+            {introspectSectionTitle(styles, sectionTitle.toUpperCase())}
+            {(subsegs as SubSeg[]).map((seg, index) =>
+              justOneJob(
+                styles,
+                stylesBeta,
+                seg,
+                index,
+                index === isLast && true
+              )
+            )}
+          </View>
+        );
+
+      default:
+        break;
+    }
+  };
+
   return {
     anySection,
     circularDot,
+    anySectionBeta,
   };
 };
 
