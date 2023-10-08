@@ -121,10 +121,11 @@ const useDoc4Styles = () => {
       height: 25,
       ...flexCol,
       alignItems: "center",
-      justifyContent: "center"
+      justifyContent: "center",
     },
     leftColumnLinkBoxText: {
-textDecoration: "none"    },
+      textDecoration: "none",
+    },
 
     //Left Body Name////////////////////////////////////////
     upperNameSection: {
@@ -161,6 +162,7 @@ textDecoration: "none"    },
       margin: "0 auto 0 auto",
     },
     imageItself: {
+      width: "80%",
       objectFit: "cover",
       height: "100%",
       aspectRatio: "1/1",
@@ -238,7 +240,7 @@ textDecoration: "none"    },
       borderBottom: `2px solid ${colorPalette.midnightBlue}`,
     },
     justWidth: {
-      width: "70%",      
+      width: "70%",
     },
     contactBoxTelephone: {
       flexGrow: 1,
