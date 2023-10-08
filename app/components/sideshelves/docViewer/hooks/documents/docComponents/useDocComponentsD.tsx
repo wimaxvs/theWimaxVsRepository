@@ -52,7 +52,9 @@ const useDocComponentsD = () => {
 
   const detailedSectionComponent = (
     styles: indexObj,
-    subsegments: SubSeg[]
+    subsegments: SubSeg[],
+    stylesGamma?: indexObj,
+    isTemplate11?: boolean
   ) => {
     const isMerited = subsegments.every(
       (segment) =>
@@ -69,16 +71,29 @@ const useDocComponentsD = () => {
 
     let content = subsegments.map((seg, index) => (
       <React.Fragment key={index}>
-        <Text style={styles.sectionTitle}>
-          {`${seg?.title}`}
-          {!isMerited &&
-            `${
-              " | " +
-              rfDate(seg.dateFrom as string) +
-              " - " +
-              rfDate(seg.dateTo!)
-            }`}
-        </Text>
+        <View
+          style={{
+            width: "100%",
+            display: "flex",
+            flexDirection: "row",
+            alignItems: "center",
+            gap: 0,
+          }}
+        >
+          {isTemplate11 && stylesGamma && (
+            <View style={stylesGamma.template11TitleDot}></View>
+          )}
+          <Text style={styles.sectionTitle}>
+            {`${seg?.title}`}
+            {!isMerited &&
+              `${
+                " | " +
+                rfDate(seg.dateFrom as string) +
+                " - " +
+                rfDate(seg.dateTo!)
+              }`}
+          </Text>
+        </View>
         <Text style={[styles.sectionSubtitle, styles.negativeTopMargin]}>
           {seg?.subTitle}
         </Text>
@@ -101,13 +116,27 @@ const useDocComponentsD = () => {
       </React.Fragment>
     ));
 
+    if (isTemplate11) {
+      return (
+        <View
+          style={[
+            styles.anySection,
+            stylesGamma ? stylesGamma.anySectionEncasement : {},
+          ]}
+        >
+          {content}
+        </View>
+      );
+    }
     return content;
   };
 
   const anySection = (
     styles: indexObj,
     subsegs: string | SubSeg[],
-    sectionTitle: string
+    sectionTitle: string,
+    stylesGamma?: indexObj,
+    isTemplate11?: boolean
   ) => {
     let isProfile = typeof subsegs === "string";
 
@@ -117,7 +146,15 @@ const useDocComponentsD = () => {
           <View style={styles.anySection}>
             {introspectSectionTitle(styles, sectionTitle.toUpperCase())}
             {isProfile && (
-              <Text style={styles.sectionContent}>{subsegs as string}</Text>
+              <Text
+                style={[styles.sectionContent].concat(
+                  isTemplate11 && stylesGamma
+                    ? stylesGamma.forTemplate11Profile
+                    : {}
+                )}
+              >
+                {subsegs as string}
+              </Text>
             )}
           </View>
         );
@@ -128,7 +165,12 @@ const useDocComponentsD = () => {
         return (
           <View style={styles.anySection}>
             {introspectSectionTitle(styles, sectionTitle.toUpperCase())}
-            {detailedSectionComponent(styles, subsegs as SubSeg[])}
+            {detailedSectionComponent(
+              styles,
+              subsegs as SubSeg[],
+              stylesGamma,
+              isTemplate11
+            )}
           </View>
         );
       case "Skills":
@@ -138,7 +180,12 @@ const useDocComponentsD = () => {
             {introspectSectionTitle(styles, sectionTitle.toUpperCase())}
             {(subsegs as SubSeg[]).map((seg, index) => (
               <View style={styles.skillElement} key={index}>
-                <View style={styles.skillDot}></View>
+                <View
+                  style={[
+                    styles.skillDot,
+                    isTemplate11 ? stylesGamma!.skillDot : {},
+                  ]}
+                ></View>
                 <Text style={styles.sectionContent}>{seg?.title}</Text>
               </View>
             ))}
@@ -200,16 +247,21 @@ const useDocComponentsD = () => {
     stylesBeta: indexObj,
     seg: SubSeg,
     index: number,
-    parentSection?: string
+    parentSection?: string,
+    isDoc11?: boolean
   ) => {
     let isAwards = parentSection === "Awards";
 
     return (
       <View style={stylesBeta.meritContainer} key={index}>
-        <View style={stylesBeta.meritLeft}></View>
+        {!isDoc11 && <View style={stylesBeta.meritLeft}></View>}
         <View style={stylesBeta.meritRight}>
           <Text style={[styles.sectionTitle]}>{seg?.title}</Text>
-          <Text style={styles.sectionSubtitle}>
+          <Text
+            style={[styles.sectionSubtitle].concat(
+              isDoc11 ? { fonstWeight: "light", fontStyle: "normal" } : {}
+            )}
+          >
             {`${seg?.subTitle}`}
             {!isAwards &&
               `${
@@ -271,7 +323,9 @@ const useDocComponentsD = () => {
     styles: indexObj,
     stylesBeta: indexObj,
     subsegs: string | SubSeg[],
-    sectionTitle: string
+    sectionTitle: string,
+    isDoc11?: boolean,
+    stylesGamma?: indexObj
   ) => {
     let isLast = subsegs.length - 1;
 
@@ -283,7 +337,11 @@ const useDocComponentsD = () => {
             <View style={stylesBeta.languageMap}>
               {(subsegs as SubSeg[])?.map((seg, index) => (
                 <View style={stylesBeta.oneLang} key={index}>
-                  <View style={stylesBeta.meritLeft}></View>
+                  {isDoc11 && stylesGamma ? (
+                    <View style={stylesGamma.meritLeft}></View>
+                  ) : (
+                    <View style={stylesBeta.meritLeft}></View>
+                  )}
                   <View style={stylesBeta.langWording}>
                     <Text style={[styles.sectionContent]}>{seg?.title}</Text>
                     <Text
@@ -311,20 +369,38 @@ const useDocComponentsD = () => {
       case "Awards":
       case "Certifications":
         return (
-          <View style={[styles.anySection, { alignSelf: "center" }]}>
+          <View
+            style={[
+              styles.anySection,
+              sectionTitle !== "Certifications" ? { alignSelf: "center" } : {},
+              isDoc11 ? { alignSelf: "flex-start" } : {},
+            ]}
+          >
             {introspectSectionTitle(styles, sectionTitle.toUpperCase())}
             {(subsegs as SubSeg[]).map((seg, index) =>
-              justOneMerit(styles, stylesBeta, seg, index, seg.parentSection)
+              justOneMerit(
+                styles,
+                stylesBeta,
+                seg,
+                index,
+                seg.parentSection,
+                isDoc11
+              )
             )}
           </View>
         );
       case "Hobbies":
         return (
-          <View style={[styles.anySection, { alignSelf: "center" }]}>
+          <View
+            style={[
+              styles.anySection,
+              !isDoc11 ? { alignSelf: "center" } : { alignSelf: "flex-start" },
+            ]}
+          >
             {introspectSectionTitle(styles, sectionTitle.toUpperCase())}
 
             <View style={stylesBeta.meritContainer}>
-              <View style={stylesBeta.meritLeft}></View>
+              {!isDoc11 && <View style={stylesBeta.meritLeft}></View>}{" "}
               <View style={stylesBeta.meritRight}>
                 {(subsegs as SubSeg[]).map((seg, i) => (
                   <Text style={[styles.sectionContent]} key={i}>

@@ -40,7 +40,7 @@ const useDocComponents = () => {
     rectOptions: rectOptionsExtension,
     isAac?: boolean
   ) => (
-    <View break style={styles.sectionHeader}>
+    <View  style={styles.sectionHeader}>
       <Svg width="89" height="21" style={styles.upperNameRect}>
         <Rect {...rectOptions} />
       </Svg>
@@ -65,7 +65,7 @@ const useDocComponents = () => {
     specificHeaderStyle?: string
   ) => (
     <Text
-      break
+      
       style={
         specificHeaderStyle
           ? styles[specificHeaderStyle]
