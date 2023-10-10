@@ -14,7 +14,7 @@ const useDoc8 = () => {
   const { sections, subsegments, theCurrentUser, fontSizeDeterminant } =
     useCvData();
   const { anySection, circularDot } = useDocComponentsD();
-  const { loadingBarLangAndProfile } = useDocComponentsC();
+  const { loadingBarLangAndProfile, introspectSectionTitle } = useDocComponentsC();
 
   const Doc8 = () => (
     <Document style={styles.document}>
@@ -78,8 +78,9 @@ const useDoc8 = () => {
                   </View>
                 )}
                 <View style={styles.contacts}>
-                  <Text style={styles.sectionTitle}>{"Contact Info"}</Text>
-                  <Text style={styles.sectionContent}>
+                  {introspectSectionTitle(styles, "CONTACT INFO")}
+                  {/* <Text style={styles.sectionTitle}>{"Contact Info"}</Text> */}
+                  <Text style={[styles.sectionContent, {marginTop: "10px"}]}>
                     {theCurrentUser?.location}
                   </Text>
                   <Text style={styles.sectionContent}>

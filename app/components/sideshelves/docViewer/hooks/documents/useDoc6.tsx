@@ -44,7 +44,7 @@ const useDoc6 = () => {
                   ...styles.upperJobTitleTextContainer,
                   fontSize: returnFontSize(
                     theCurrentUser?.prospectiveTitle as string,
-                    40
+                    18
                   ),
                 }}
               >
@@ -81,7 +81,7 @@ const useDoc6 = () => {
                     ...styles.upperJobTitleTextContainer,
                     fontSize: returnFontSize(
                       theCurrentUser?.prospectiveTitle as string,
-                      40
+                      18
                     ),
                   }}
                 >
