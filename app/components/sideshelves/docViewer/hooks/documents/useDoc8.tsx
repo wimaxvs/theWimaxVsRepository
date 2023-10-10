@@ -79,7 +79,6 @@ const useDoc8 = () => {
                 )}
                 <View style={styles.contacts}>
                   {introspectSectionTitle(styles, "CONTACT INFO")}
-                  {/* <Text style={styles.sectionTitle}>{"Contact Info"}</Text> */}
                   <Text style={[styles.sectionContent, {marginTop: "10px"}]}>
                     {theCurrentUser?.location}
                   </Text>

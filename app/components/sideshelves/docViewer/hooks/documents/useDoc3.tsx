@@ -11,7 +11,7 @@ const useDoc3 = () => {
   const { imgSrc, PhoneIcon, LocationIcon, EmailIcon } = usePlaceholderImage();
   const { styles, rectOptions } = useDoc3Styles();
   const { sections, subsegments, theCurrentUser, fontSizes } = useCvData();
-  const { miniSectionHeader, contactSubSeg, sl, rectSvg } = useDocComponents();
+  const { miniSectionHeader, sl, rectSvg } = useDocComponents();
 
   const slMap = (
     array: string[],

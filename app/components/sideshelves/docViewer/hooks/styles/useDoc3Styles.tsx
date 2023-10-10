@@ -222,6 +222,9 @@ const useDoc3Styles = () => {
       gap: "7.5px",
       marginBottom: "10px",
     },
+    narrowLeftColSection: {
+      maxWidth: "45%",
+    },
     sectionText: {
       fontSize: "12px",
       color: colorPalette.contentText,
@@ -271,7 +274,7 @@ const useDoc3Styles = () => {
     awardsAndCertifications: {
       ...flexRow,
       gap: "25px",
-      justifyContent: "flex-start",
+      justifyContent: "space-between",
     },
     forEdu: {
       maxWidth: "50%",

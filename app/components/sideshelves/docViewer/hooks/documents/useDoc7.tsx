@@ -6,20 +6,16 @@ import {
   View,
   Document,
   Image,
-  Svg,
-  Rect,
 } from "@react-pdf/renderer";
 import React from "react";
 import useDoc7Styles from "../styles/useDoc7Styles";
 import usePlaceholderImage from "../styles/usePlaceholderImage";
 import useCvData from "../useCvData";
-import useDocComponents from "./docComponents/useDocComponents";
 import useDocComponentsC from "./docComponents/useDocComponentsC";
-import { user } from "@/app/hooks/useCvSubSegments";
 
 const useDoc7 = () => {
-  const { imgSrc, LocationIcon } = usePlaceholderImage();
-  const { styles, rectOptions } = useDoc7Styles();
+  const { imgSrc } = usePlaceholderImage();
+  const { styles } = useDoc7Styles();
   const { sections, subsegments, theCurrentUser, fontSizeDeterminant } =
     useCvData();
   const {

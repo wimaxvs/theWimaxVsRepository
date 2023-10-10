@@ -6,16 +6,13 @@ import useSubSectionModal from "@/app/hooks/modalHooks/useSubSectionModal";
 
 import Modal from "@/app/components/Modals/Modal";
 import SubSectionContainer from "../sideshelves/sectionSideshelf/SubSectionContainer";
-import Heading from "@/app/components/Heading";
+import Heading from "@/app/components/Modals/Heading";
 import useCurrentSection from "@/app/hooks/useCurrentSection";
-
-
 
 const AddSubSectionModal = () => {
   const subSectionModal = useSubSectionModal();
   const [currentSection] = useCurrentSection((state) => [state.currentSection]);
   const [isLoading, setIsLoading] = useState(false);
-
 
   const onSubmit = useCallback(() => {
     console.log("Discard button hit");
@@ -29,7 +26,7 @@ const AddSubSectionModal = () => {
         title="Fill Out Your Section"
         subtitle={`Add subsegments to the ${currentSection} section and save.`}
       />
-      <SubSectionContainer/>
+      <SubSectionContainer />
     </div>
   );
 
@@ -51,7 +48,8 @@ const AddSubSectionModal = () => {
             "
           >
             {" "}
-            The subsegments here are pieces of the {currentSection} section pie. 🍰
+            The subsegments here are pieces of the {currentSection} section pie.
+            🍰
           </span>
         </p>
       </div>

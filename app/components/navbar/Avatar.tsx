@@ -1,4 +1,3 @@
-// 'use client'
 import Image from 'next/image'
 
 interface AvatarProps{
@@ -13,7 +12,7 @@ const Avatar: React.FC<AvatarProps> = ({src}) => {
       className="rounded-full"
       height="30"
       width="30"
-      alt="avatar"
+      alt="logged in user avatar"
       src={src || imgPlaceholder}
       />
   )
