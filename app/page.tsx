@@ -1,7 +1,11 @@
+import ClientOnly from "./components/ClientOnly";
+import HomeLoginButton from "./components/HomeLoginButton";
 export default function Home() {
+
+  
   return (
     <>
-      <div className="min-w-full overflow-hidden">
+      <div className="min-w-full overflow-hidden max-h-screen overflow-y-scroll">
         <div className="px-5 md:px-10">
           <div className="mx-auto w-full max-w-7xl">
             <div className="md:pt-36 lg:pt-56 pt-40">
@@ -10,22 +14,24 @@ export default function Home() {
                   <div className="mb-20 flex-col flex items-center gap-y-10">
                     <div className="flex-col flex max-w-[800px] items-center gap-y-3">
                       <h1 className="text-center font-bold text-4xl sm:text-4xl md:text-5xl lg:text-6xl">
-                        Reliable Webflow Design &amp; Development On-Demand
+                        {"Quick and easy 3-step CV maker"}
+                      </h1>
+                      <h1 className="text-center font-semibold text-base sm:text-4xl md:base">
+                        {"First three months of use "}
+                        <b>{"ABSOLUTELY FREE!"}</b>
                       </h1>
                       <div className="max-w-[600px]">
                         <p className="text-center font-normal text-[#636262] text-xl sm:text-lg">
                           {
-                            "Get an Experienced Webflow Dev and Design team in just 2 minutes. We'll get your site designed &amp; built, reliably and without headaches. No contracts, simple pricing."
+                            "Just log in, fill in your details, pick a template and "
                           }
+                          <b>{"DOWNLOAD FOR FREE!"}</b>
                         </p>
                       </div>
                     </div>
-                    <a
-                      href="#pricing"
-                      className="inline-block flex-none cursor-pointer bg-[#f7d046] font-semibold capitalize text-black transition hover:[box-shadow:rgb(0,_0,_0)_0px_0px] py-3 rounded-lg md:rounded-2xl text-base md:text-base px-6 md:px-6"
-                    >
-                      Get Started
-                    </a>
+                    <ClientOnly>
+                      <HomeLoginButton />
+                    </ClientOnly>
                   </div>
                 </div>
                 <div className="flex-col flex w-full max-w-7xl items-center gap-y-20">

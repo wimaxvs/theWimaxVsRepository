@@ -9,6 +9,7 @@ import MenuItem from "./MenuItem";
 import useRegisterModal from "@/app/hooks/modalHooks/useRegisterModal";
 import useLoginModal from "@/app/hooks/modalHooks/useLoginModal";
 import { signOut } from "next-auth/react";
+import Navkeys from "./Navkeys";
 
 interface UserMenuProps {
   currentUser?: SafeUser | null;
@@ -57,7 +58,7 @@ const UserMenu: React.FC<UserMenuProps> = ({ currentUser }) => {
       </div>
       {isOpen && (
         <div className="absolute rounded-xl shadow-md w-[40vw] md:w-[25vw] bg-white overflow-hidden right-0 top-12 text-sm">
-          <div className="flex flex-col cursor-pointer">
+          <div className="flex flex-col cursor-pointer border-b-[1px] border-b-slate-300 pb-2 mb-2 md:pb-0 md:mb-0 md:border-none">
             {currentUser ? (
               <>
                 <MenuItem
@@ -76,6 +77,9 @@ const UserMenu: React.FC<UserMenuProps> = ({ currentUser }) => {
                 />
               </>
             )}
+          </div>
+          <div className="sm:block md:hidden lg:none flex flex-col cursor-pointer">
+            <Navkeys currentUser={currentUser} />
           </div>
         </div>
       )}

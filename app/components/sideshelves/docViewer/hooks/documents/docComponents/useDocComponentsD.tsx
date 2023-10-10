@@ -177,7 +177,7 @@ const useDocComponentsD = () => {
       case "Hobbies":
         return (
           <View style={styles.anySection}>
-            {introspectSectionTitle(styles, sectionTitle.toUpperCase())}
+            {introspectSectionTitle(styles, isTemplate11 && sectionTitle === "Hobbies" ? "INTERESTS" : sectionTitle.toUpperCase())}
             {(subsegs as SubSeg[]).map((seg, index) => (
               <View style={styles.skillElement} key={index}>
                 <View
@@ -397,7 +397,7 @@ const useDocComponentsD = () => {
               !isDoc11 ? { alignSelf: "center" } : { alignSelf: "flex-start" },
             ]}
           >
-            {introspectSectionTitle(styles, sectionTitle.toUpperCase())}
+            {introspectSectionTitle(styles, isDoc11? "Interests" : sectionTitle.toUpperCase())}
 
             <View style={stylesBeta.meritContainer}>
               {!isDoc11 && <View style={stylesBeta.meritLeft}></View>}{" "}
