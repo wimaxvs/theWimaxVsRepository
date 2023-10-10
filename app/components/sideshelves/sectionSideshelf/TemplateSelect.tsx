@@ -2,7 +2,7 @@
 import React from "react";
 import useCurrentTemplateForReal from "@/app/hooks/useCurrentTemplate";
 import { BsChevronDown, BsChevronUp } from "react-icons/bs";
-import Accordion from "../../Accordion";
+import Accordion from "../Accordion";
 
 const SectionTemplate = () => {
   const { currentTemplate, setCurrentTemplate, existentDocs } =

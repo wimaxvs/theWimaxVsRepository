@@ -12,15 +12,14 @@ import {
   MdOutlinePersonalInjury,
 } from "react-icons/md";
 import { BsBuildingGear, BsAward } from "react-icons/bs";
-import Accordion from "../../Accordion";
+import Accordion from "../Accordion";
 import useCvData from "../docViewer/hooks/useCvData";
 
 const SectionSelect = () => {
   const iconOptions = { size: 18, color: "#343e83" };
-  const sections = useCvData().sections
+  const sections = useCvData().sections;
 
-  useEffect(() => {
-  },[sections])
+  useEffect(() => {}, [sections]);
 
   const chipProps: {
     color?: string;
@@ -43,7 +42,7 @@ const SectionSelect = () => {
       label: "Skills",
       icon: <BsBuildingGear {...iconOptions} />,
     },
-   
+
     {
       label: "Hobbies",
       icon: <BiPaint {...iconOptions} />,

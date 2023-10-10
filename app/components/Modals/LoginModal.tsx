@@ -12,7 +12,7 @@ import useLoginModal from "@/app/hooks/modalHooks/useLoginModal";
 
 import Modal from "./Modal";
 import Input from "../Inputs/Input";
-import Heading from "../Heading";
+import Heading from "./Heading";
 import Button from "../Button";
 
 const LoginModal = () => {

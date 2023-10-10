@@ -1,25 +1,26 @@
 import ClientOnly from "./components/ClientOnly";
 import HomeLoginButton from "./components/HomeLoginButton";
-export default function Home() {
+import Image from "next/image";
+import Reasons from "./components/Reasons";
 
-  
+export default function Home() {
   return (
     <>
       <div className="min-w-full overflow-hidden max-h-screen overflow-y-scroll">
         <div className="px-5 md:px-10">
           <div className="mx-auto w-full max-w-7xl">
             <div className="md:pt-36 lg:pt-56 pt-40">
-              <div className="flex-col flex items-center gap-y-20 text-lg">
+              <div className="flex-col flex items-center gap-y-15 text-lg">
                 <div className="flex-col flex min-w-full items-center gap-y-20">
                   <div className="mb-20 flex-col flex items-center gap-y-10">
                     <div className="flex-col flex max-w-[800px] items-center gap-y-3">
                       <h1 className="text-center font-bold text-4xl sm:text-4xl md:text-5xl lg:text-6xl">
                         {"Quick and easy 3-step CV maker"}
                       </h1>
-                      <h1 className="text-center font-semibold text-base sm:text-4xl md:base">
-                        {"First three months of use "}
-                        <b>{"ABSOLUTELY FREE!"}</b>
-                      </h1>
+                      <h2 className="text-center font-semibold text-base sm:text-4xl md:base">
+                        {"First 3 months "}
+                        <b>{"ABSOLUTELY FREE! 📣📣"}</b>
+                      </h2>
                       <div className="max-w-[600px]">
                         <p className="text-center font-normal text-[#636262] text-xl sm:text-lg">
                           {
@@ -36,129 +37,73 @@ export default function Home() {
                 </div>
                 <div className="flex-col flex w-full max-w-7xl items-center gap-y-20">
                   <div className="flex-col flex min-w-full items-center max-[479px]:hidden">
-                    <div className="flex-row flex max-w-[100vw] items-start justify-start gap-8 max-[479px]:hidden max-[479px]:gap-x-4 min-[479px]:overflow-x-auto min-[479px]:whitespace-nowrap">
-                      <a
-                        href="https://www.solidfi.com/"
-                        target="_blank"
-                        className="inline-block h-[460px] w-[460px]  min-w-[460px] max-w-full text-[#d6a701] [box-shadow:rgba(0,_0,_0,_0.1)_0px_2px_12px] transition rounded-xl"
-                      >
-                        <img
-                          src="https://uploads-ssl.webflow.com/63431a04e3265ccced472f2f/64b669f89dad7b8061cc7598_Frame%2048148.png"
-                          alt=""
-                          className="inline-block h-full w-full max-w-full flex-none object-cover max-[479px]:max-h-[230px] max-[479px]:min-w-[230px] rounded-xl"
-                        />
-                      </a>
-                      <a
-                        href="https://www.flowspark.co/portfolio/neo"
-                        className="inline-block h-[460px] w-[460px]  min-w-[460px] max-w-full text-[#d6a701] [box-shadow:rgba(0,_0,_0,_0.1)_0px_2px_12px] transition rounded-xl"
-                      >
-                        <img
-                          src="https://uploads-ssl.webflow.com/63431a04e3265ccced472f2f/64b6696999ef17f580cffdd4_Frame%2048145.png"
-                          alt=""
-                          className="inline-block h-full w-full max-w-full flex-none object-cover max-[479px]:max-h-[230px] max-[479px]:min-w-[230px] rounded-xl"
-                        />
-                      </a>
-                      <a
-                        href="https://www.flowspark.co/portfolio/lettrlabs"
-                        className="inline-block h-[460px] w-[460px]  min-w-[460px] max-w-full text-[#d6a701] [box-shadow:rgba(0,_0,_0,_0.1)_0px_2px_12px] transition rounded-xl"
-                      >
-                        <img
-                          src="https://uploads-ssl.webflow.com/63431a04e3265ccced472f2f/64c22a7d70867f68c6c4b7b2_Frame%201000004309%20(2).png"
-                          alt=""
-                          className="inline-block h-full w-full max-w-full flex-none object-cover max-[479px]:max-h-[230px] max-[479px]:min-w-[230px] rounded-xl"
-                        />
-                      </a>
-                      <a
-                        href="https://www.flowspark.co/portfolio/elevateai"
-                        className="inline-block h-[460px] w-[460px]  min-w-[460px] max-w-full text-[#d6a701] [box-shadow:rgba(0,_0,_0,_0.1)_0px_2px_12px] transition rounded-xl"
-                      >
-                        <img
-                          src="https://uploads-ssl.webflow.com/63431a04e3265ccced472f2f/64c22acb2f351a1d4cbe78df_Frame%2048471%20(1).png"
-                          width="1362"
-                          alt=""
-                          className="inline-block h-full w-full max-w-full flex-none object-cover max-[479px]:max-h-[230px] max-[479px]:min-w-[230px] rounded-xl"
-                        />
-                      </a>
-                      <a
-                        href="https://www.flowspark.co/portfolio/solidfi"
-                        className="inline-block h-[460px] w-[460px]  min-w-[460px] max-w-full text-[#d6a701] [box-shadow:rgba(0,_0,_0,_0.1)_0px_2px_12px] transition rounded-xl"
-                      >
-                        <img
-                          src="https://uploads-ssl.webflow.com/63431a04e3265ccced472f2f/64c22a7c7ba7a73bb7859c4c_Frame%2048473%20(1).png"
-                          alt=""
-                          className="inline-block h-full w-full max-w-full flex-none object-cover max-[479px]:max-h-[230px] max-[479px]:min-w-[230px] rounded-xl"
-                        />
-                      </a>
-                      <a
-                        href="https://flowspark-quantumcal.webflow.io/"
-                        target="_blank"
-                        className="inline-block h-[460px] w-[460px]  min-w-[460px] max-w-full text-[#d6a701] [box-shadow:rgba(0,_0,_0,_0.1)_0px_2px_12px] transition rounded-xl"
-                      >
-                        <img
-                          src="https://uploads-ssl.webflow.com/63431a04e3265ccced472f2f/64c22a7d18d503a72dafa636_Frame%2048472%20(1).png"
-                          alt=""
-                          className="inline-block h-full w-full max-w-full flex-none object-cover max-[479px]:max-h-[230px] max-[479px]:min-w-[230px] rounded-xl"
-                        />
-                      </a>
-                      <a
-                        href="https://flowspark-quantumcal.webflow.io/"
-                        target="_blank"
-                        className="inline-block h-[460px] w-[460px]  min-w-[460px] max-w-full text-[#d6a701] [box-shadow:rgba(0,_0,_0,_0.1)_0px_2px_12px] transition rounded-xl"
-                      >
-                        <img
-                          src="https://uploads-ssl.webflow.com/63431a04e3265ccced472f2f/64b66a176e64fe4278d6eed2_Frame%2048147.png"
-                          alt=""
-                          className="inline-block h-full w-full max-w-full flex-none object-cover max-[479px]:max-h-[230px] max-[479px]:min-w-[230px] rounded-xl"
-                        />
-                      </a>
+                    <div className="flex-row flex max-w-[100vw] items-start justify-start max-[479px]:hidden max-[479px]:gap-x-2 min-[479px]:overflow-x-auto min-[479px]:whitespace-nowrap">
+                      {[
+                        "/images/beetle_template.png",
+                        "/images/chikane_template.png",
+                        "/images/utopia_template.png",
+                        "/images/prince_template.png",
+                        "/images/mellaYella_template.png",
+                        "/images/cooper_template.png",
+                        "/images/structura_template.png",
+                        "/images/dolphin_template.png",
+                        "/images/introspect_template.png",
+                        "/images/zoid_template.png",
+                      ].map((link, index) => (
+                        <section
+                          key={index}
+                          className={`index${index} inline-block h-[540px] w-[460px]  min-w-[460px] max-w-full text-[#d6a701] ${
+                            index !== 0 && "ml-[-80px]"
+                          } transition rounded-xl`}
+                        >
+                          <Image
+                            src={link}
+                            alt={`How the CV/resume template ${link.slice(
+                              8,
+                              -13
+                            )} is to look with your specifics input.`}
+                            width={"460"}
+                            height={"540"}
+                            className="inline-block h-full w-full max-w-full flex-none object-cover max-[479px]:max-h-[260px] max-[479px]:min-w-[230px]"
+                          />
+                        </section>
+                      ))}
                     </div>
+                  </div>
+                  <div className="flex min-h-[124px] min-w-[100vw] items-center justify-center bg-white py-10 max-[991px]:px-10 max-[767px]:px-5">
+                    <Reasons />
                   </div>
                   <div className="flex min-h-[124px] min-w-[100vw] items-center justify-center bg-black py-10 max-[991px]:px-10 max-[767px]:px-5">
                     <div className="mx-auto w-full max-w-5xl">
                       <div className="flex-row flex items-center justify-between max-[991px]:grid-cols-2 max-[991px]:grid max-[991px]:gap-12 max-[479px]:gap-8">
-                        <a
-                          href="https://manyrequests.com/"
-                          target="_blank"
-                          className="inline-block max-w-full text-[#d6a701] transition max-[991px]:justify-self-center"
-                        >
+                        <section className="inline-block max-w-full text-[#d6a701] transition max-[991px]:justify-self-center">
                           <img
                             src="https://uploads-ssl.webflow.com/63431a04e3265ccced472f2f/64b01ac17585f3bb57274538_manyrequests.svg"
                             alt="Flowspark Partner"
                             className="inline-block max-w-full max-[991px]:justify-self-center max-h-8 sm:max-h-[512px] min-h-[auto] sm:min-h-[32px]"
                           />
-                        </a>
-                        <a
-                          href="https://www.lettrlabs.com/"
-                          target="_blank"
-                          className="inline-block max-w-full text-[#d6a701] transition max-[991px]:justify-self-center"
-                        >
+                        </section>
+                        <section className="inline-block max-w-full text-[#d6a701] transition max-[991px]:justify-self-center">
                           <img
                             src="https://uploads-ssl.webflow.com/63431a04e3265ccced472f2f/64b01aa5c7ef96b9f25972b8_LettrLabs.svg"
                             alt="Flowspark Partner Logo"
                             className="inline-block max-w-full max-[991px]:justify-self-center max-h-8 sm:max-h-[512px] min-h-[auto] sm:min-h-[32px]"
                           />
-                        </a>
-                        <a
-                          href="https://uproarautomation.com/"
-                          target="_blank"
-                          className="inline-block max-w-full text-[#d6a701] transition max-[991px]:justify-self-center"
-                        >
+                        </section>
+                        <section className="inline-block max-w-full text-[#d6a701] transition max-[991px]:justify-self-center">
                           <img
                             src="https://uploads-ssl.webflow.com/63431a04e3265ccced472f2f/64b01aa2b2463352e1d1a7c6_Uproar.svg"
                             alt="Flowspark Partner Logo"
                             className="inline-block max-w-full max-[991px]:justify-self-center max-h-8 sm:max-h-[512px] min-h-[auto] sm:min-h-[32px]"
                           />
-                        </a>
-                        <a
-                          href="https://www.solidfi.com/"
-                          className="inline-block max-w-full text-[#d6a701] transition max-[991px]:justify-self-center"
-                        >
+                        </section>
+                        <section className="inline-block max-w-full text-[#d6a701] transition max-[991px]:justify-self-center">
                           <img
                             src="https://uploads-ssl.webflow.com/63431a04e3265ccced472f2f/64b01aa21cbddba2235e9ee9_solid.svg"
                             alt="Flowspark Partner Logo"
                             className="inline-block max-w-full max-[991px]:justify-self-center max-h-8 sm:max-h-[512px] min-h-[auto] sm:min-h-[32px]"
                           />
-                        </a>
+                        </section>
                       </div>
                     </div>
                   </div>

@@ -5,7 +5,7 @@ import { toast } from "react-hot-toast";
 import useSubSectionModalEditDelete from "@/app/hooks/modalHooks/useSubSectionModalEditDelete";
 import Modal from "@/app/components/Modals/Modal";
 import SubSectionContainer from "../sideshelves/sectionSideshelf/SubSectionContainer";
-import Heading from "@/app/components/Heading";
+import Heading from "@/app/components/Modals/Heading";
 import useCurrentSection from "@/app/hooks/useCurrentSection";
 
 const AddSubSectionModalEditDelete = () => {
@@ -13,7 +13,6 @@ const AddSubSectionModalEditDelete = () => {
 
   const [currentSection] = useCurrentSection((state) => [state.currentSection]);
   const [isLoading, setIsLoading] = useState(false);
-
 
   const onSubmit = useCallback(() => {
     console.log("Discard button hit");
@@ -27,7 +26,7 @@ const AddSubSectionModalEditDelete = () => {
         title="Edit or delete Subsegments"
         subtitle={`these are the subsegments in the ${currentSection} section. Save to reflect in the CV`}
       />
-      <SubSectionContainer editable/>
+      <SubSectionContainer editable />
     </div>
   );
 
@@ -49,7 +48,8 @@ const AddSubSectionModalEditDelete = () => {
             "
           >
             {" "}
-            Remember to mark the order of each Sub-segments in the {currentSection} section. ☝️
+            Remember to mark the order of each Sub-segments in the{" "}
+            {currentSection} section. ☝️
           </span>
         </p>
       </div>

@@ -5,7 +5,7 @@ import { toast } from "react-hot-toast";
 import useBioModal from "@/app/hooks/modalHooks/useBioModal";
 import Modal from "@/app/components/Modals/Modal";
 import EssentialInputsContainer from "../sideshelves/cvsideshelfinputs/EssentialInputsContainer";
-import Heading from "@/app/components/Heading";
+import Heading from "@/app/components/Modals/Heading";
 import useCurrentSection from "@/app/hooks/useCurrentSection";
 
 const AddSubSectionModal = () => {
@@ -13,7 +13,6 @@ const AddSubSectionModal = () => {
 
   const [currentSection] = useCurrentSection((state) => [state.currentSection]);
   const [isLoading, setIsLoading] = useState(false);
-
 
   const onSubmit = useCallback(() => {
     console.log("Discard button hit");
