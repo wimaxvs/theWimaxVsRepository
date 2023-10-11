@@ -22,7 +22,7 @@ export default async function Dash({children}:DashlayoutProps){
   if (currentUser) {
     return (
       <>
-        <div className="dashLayoutContainer h-full w-full bg-off-white/30 mt-20 flex flex-row absolute ">
+        <div className="dashLayoutContainer min-h-full overflow-y-scroll w-full bg-off-white/30 pt-20 flex flex-row ">
           <Sidebar />
           {children}
         </div>

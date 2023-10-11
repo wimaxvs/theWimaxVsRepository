@@ -93,10 +93,10 @@ const SubSectionInput: React.FC<SubSectionInputProps> = ({
                       <div
                         className={`${
                           obj.inputId === "title"
-                            ? "w-full"
+                            ? "w-2/3 md:w-full"
                             : obj.inputId === "subTitle"
                             ? "w-full"
-                            : "w-1/6"
+                            : "w-1/4"
                         }`}
                       >
                         <Input

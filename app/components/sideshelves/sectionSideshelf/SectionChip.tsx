@@ -11,9 +11,9 @@ interface SectionChipProps {
   label: string;
   icon?: ReactElement<IconType>;
   addOrNum?: number;
-  edilete?: boolean
-  isBio?: boolean
-  isBioEdit?: boolean
+  edilete?: boolean;
+  isBio?: boolean;
+  isBioEdit?: boolean;
 }
 const SectionChip: React.FC<SectionChipProps> = ({
   label,
@@ -26,25 +26,27 @@ const SectionChip: React.FC<SectionChipProps> = ({
   const subSectionModal = useSubSectionModal();
   const subSectionModalEditDelete = useSubSectionModalEditDelete();
   const BioModal = useBioModal();
-  const [ setCurrentSection ] = useCurrentSection((state)=> [state.setCurrentSection])
+  const [setCurrentSection] = useCurrentSection((state) => [
+    state.setCurrentSection,
+  ]);
 
   const menuActions = (los: string) => {
     switch (los) {
       case "addSub":
         subSectionModal.onOpen();
-        setCurrentSection(label)
+        setCurrentSection(label);
         break;
       case "edileteSub":
         subSectionModalEditDelete.onOpen();
-        setCurrentSection(label)
+        setCurrentSection(label);
         break;
       case "isBio":
         BioModal.onOpen();
-        setCurrentSection(label)
+        setCurrentSection(label);
         break;
       case "isBioEdit":
         BioModal.onEdit();
-        setCurrentSection(label)
+        setCurrentSection(label);
         break;
 
       default:
@@ -63,20 +65,20 @@ const SectionChip: React.FC<SectionChipProps> = ({
           ? () => menuActions("isBioEdit")
           : () => menuActions("addSub")
       }
-      className="sectionChip py-2 px-3 rounded-md hover:bg-deep-blue/10 transition hover:ease-in ease-in duration-300 text-deep-blue w-full flex flex-row items-center justify-between "
+      className="sectionChip py-2 px-3 rounded-md bg-deep-blue/10 hover:bg-deep-blue/20 transition hover:ease-in ease-in duration-300 text-deep-blue flex flex-row items-center justify-between "
     >
-      <div className="flex flex-row gap-2 items-center w-2/3">
+      <div className="flex flex-row gap-2 items-center">
         <i className={`md:hidden lg:block`}>{Icon && Icon}</i>
         <p className="flex flex-row justify-items-start items-start text-left pl-0">
           {label}
         </p>
       </div>
       {addOrNum ? (
-        <div className="px-2 rounded-full bg-deep-blue">
+        <div className="ml-4 px-2 rounded-full bg-deep-blue">
           <p className="text-bold text-white">{addOrNum}</p>
         </div>
       ) : (
-        <AiOutlinePlus size={20} color={"#343e83"} />
+        <></>
       )}
     </button>
   );

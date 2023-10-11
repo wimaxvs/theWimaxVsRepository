@@ -7,7 +7,6 @@ import Button from "../../Button";
 import axios from "axios";
 import toast from "react-hot-toast";
 import { SubSeg } from "@/app/hooks/useCvSubSegments";
-import Accordion from "../Accordion";
 
 const AddedSections = () => {
   const cvStore = useCvSubSegments();
@@ -107,12 +106,8 @@ const AddedSections = () => {
   if (subsegments?.length > 0 || bioSubSeg) {
     return (
       <>
-        <div
-          className={`AddedSections z-7 w-11/12  bg-white mt-2 flex flex-col items-center justify-around md:justify-normal rounded-xl drop-shadow-md`}
-        >
-          <Accordion isAdded label={"These sections are in your CV:"}>
-            {sectionsSelected}
-            {/* <div className={`commitButton w-5/6 mb-4 flex flex-row justify-center mx-auto`}>
+        {sectionsSelected}
+        {/* <div className={`commitButton w-5/6 mb-4 flex flex-row justify-center mx-auto`}>
               <Button
                 disabled={isLoading}
                 label={"Commit"}
@@ -121,8 +116,6 @@ const AddedSections = () => {
                 }
               />
             </div> */}
-          </Accordion>
-        </div>
       </>
     );
   } else {
