@@ -30,7 +30,7 @@ const useDoc1Styles = () => {
 
   const styles = StyleSheet.create({
     pdfViewer: {
-      width: "70%",
+      // width: "70%",
       aspectRatio: "1/1.41",
       minWidth: "385px",
       maxWidth: "510px",
@@ -161,6 +161,7 @@ const useDoc1Styles = () => {
       color: "white",
       fontWeight: 500,
       marginLeft: "10px",
+      marginBottom: "10px"
     },
 
     textContainer: {

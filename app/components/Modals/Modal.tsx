@@ -67,8 +67,8 @@ const Modal: React.FC<ModalProps> = ({
 
   return (
     <>
-      <div className="mt-40 md:mt-0 justify-center items-center flex overflow-x-hidden overflow-y-auto inset-0 z-50 outline-none focus:outline-none bg-neutral-800/70 absolute">
-        <div className="relative w-full md:w-4/6 lg:w-3/6 xl:w-2/5 my-6 mx-auto h-full lg:h-auto md:h-auto">
+      <div className="justify-center items-center flex overflow-x-hidden min-h-[2000px] inset-0 z-50 outline-none focus:outline-none bg-neutral-800/70 absolute">
+        <div className="absolute top-[140px] min-[768px]:top-[80px] w-11/12 md:w-4/6 lg:w-3/6 xl:w-2/5 my-6 mx-auto h-[800px] lg:h-auto md:h-auto">
           {/**content */}
           <div
             className={`translate duration-300 h-full ${
@@ -107,11 +107,13 @@ const Modal: React.FC<ModalProps> = ({
                       outline
                     />
                   )}
-                  {actionLabel && <Button
-                    label={actionLabel as string}
-                    disabled={disabled}
-                    onClick={handleSubmit}
-                  />}
+                  {actionLabel && (
+                    <Button
+                      label={actionLabel as string}
+                      disabled={disabled}
+                      onClick={handleSubmit}
+                    />
+                  )}
                 </div>
                 {footer}
               </div>
