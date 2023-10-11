@@ -1,7 +1,8 @@
 import ClientOnly from "./components/ClientOnly";
 import HomeLoginButton from "./components/HomeLoginButton";
 import Image from "next/image";
-import Reasons from "./components/Reasons";
+import HomeReasons from "./components/HomeReasons";
+import HomeFooter from "./components/HomeFooter";
 
 export default function Home() {
   return (
@@ -39,16 +40,16 @@ export default function Home() {
                   <div className="flex-col flex min-w-full items-center max-[479px]:hidden">
                     <div className="flex-row flex max-w-[100vw] items-start justify-start max-[479px]:hidden max-[479px]:gap-x-2 min-[479px]:overflow-x-auto min-[479px]:whitespace-nowrap">
                       {[
+                        "/images/introspect_template.png",
                         "/images/beetle_template.png",
-                        "/images/chikane_template.png",
+                        "/images/dolphin_template.png",
                         "/images/utopia_template.png",
                         "/images/prince_template.png",
                         "/images/mellaYella_template.png",
+                        "/images/chikane_template.png",
+                        "/images/zoid_template.png",
                         "/images/cooper_template.png",
                         "/images/structura_template.png",
-                        "/images/dolphin_template.png",
-                        "/images/introspect_template.png",
-                        "/images/zoid_template.png",
                       ].map((link, index) => (
                         <section
                           key={index}
@@ -71,41 +72,10 @@ export default function Home() {
                     </div>
                   </div>
                   <div className="flex min-h-[124px] min-w-[100vw] items-center justify-center bg-white py-10 max-[991px]:px-10 max-[767px]:px-5">
-                    <Reasons />
+                    <HomeReasons />
                   </div>
-                  <div className="flex min-h-[124px] min-w-[100vw] items-center justify-center bg-black py-10 max-[991px]:px-10 max-[767px]:px-5">
-                    <div className="mx-auto w-full max-w-5xl">
-                      <div className="flex-row flex items-center justify-between max-[991px]:grid-cols-2 max-[991px]:grid max-[991px]:gap-12 max-[479px]:gap-8">
-                        <section className="inline-block max-w-full text-[#d6a701] transition max-[991px]:justify-self-center">
-                          <img
-                            src="https://uploads-ssl.webflow.com/63431a04e3265ccced472f2f/64b01ac17585f3bb57274538_manyrequests.svg"
-                            alt="Flowspark Partner"
-                            className="inline-block max-w-full max-[991px]:justify-self-center max-h-8 sm:max-h-[512px] min-h-[auto] sm:min-h-[32px]"
-                          />
-                        </section>
-                        <section className="inline-block max-w-full text-[#d6a701] transition max-[991px]:justify-self-center">
-                          <img
-                            src="https://uploads-ssl.webflow.com/63431a04e3265ccced472f2f/64b01aa5c7ef96b9f25972b8_LettrLabs.svg"
-                            alt="Flowspark Partner Logo"
-                            className="inline-block max-w-full max-[991px]:justify-self-center max-h-8 sm:max-h-[512px] min-h-[auto] sm:min-h-[32px]"
-                          />
-                        </section>
-                        <section className="inline-block max-w-full text-[#d6a701] transition max-[991px]:justify-self-center">
-                          <img
-                            src="https://uploads-ssl.webflow.com/63431a04e3265ccced472f2f/64b01aa2b2463352e1d1a7c6_Uproar.svg"
-                            alt="Flowspark Partner Logo"
-                            className="inline-block max-w-full max-[991px]:justify-self-center max-h-8 sm:max-h-[512px] min-h-[auto] sm:min-h-[32px]"
-                          />
-                        </section>
-                        <section className="inline-block max-w-full text-[#d6a701] transition max-[991px]:justify-self-center">
-                          <img
-                            src="https://uploads-ssl.webflow.com/63431a04e3265ccced472f2f/64b01aa21cbddba2235e9ee9_solid.svg"
-                            alt="Flowspark Partner Logo"
-                            className="inline-block max-w-full max-[991px]:justify-self-center max-h-8 sm:max-h-[512px] min-h-[auto] sm:min-h-[32px]"
-                          />
-                        </section>
-                      </div>
-                    </div>
+                  <div className="flex min-h-[124px] min-w-[100vw] items-center justify-center bg-white py-10 max-[991px]:px-10 max-[767px]:px-5">
+                    <HomeFooter />
                   </div>
                 </div>
               </div>
