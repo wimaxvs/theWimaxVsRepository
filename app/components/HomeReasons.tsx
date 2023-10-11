@@ -1,6 +1,6 @@
 
 
-const Reasons = () => {
+const HomeReasons = () => {
   return (
     <>
       <div className="py-12 md:py-16 lg:py-20 mx-auto w-full max-w-7xl px-5 md:px-10">
@@ -24,8 +24,8 @@ const Reasons = () => {
                   </h4>
                   <p className="text-[#636262]">
                     Creating a CV/resume could be painstakingly time-consuming
-                    and frustrating... Unless you have the aesthetic part
-                    handled for you in advance. 😉
+                    and frustrating... Unless you have the{" "}
+                    <b>aesthetic aspect handled for you in advance</b>. 😉
                   </p>
                 </div>
               </div>
@@ -56,8 +56,8 @@ const Reasons = () => {
                 <div className="flex flex-col gap-2">
                   <h4 className="text-xl font-bold md:text-xl">Variety</h4>
                   <p className="text-[#636262]">
-                    We have <b>10 and counting</b> CV/Resume templates for you
-                    to choose from. Standing out has never been easier. 🌈
+                    We have <b>10+</b> CV/Resume templates for you to choose
+                    from. Standing out has never been easier. 🌈
                   </p>
                 </div>
               </div>
@@ -84,4 +84,4 @@ const Reasons = () => {
   );
 }
 
-export default Reasons
+export default HomeReasons
