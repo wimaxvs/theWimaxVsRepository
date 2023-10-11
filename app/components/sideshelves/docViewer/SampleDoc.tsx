@@ -15,7 +15,7 @@ const SampleDoc = () => {
 
 
   const DownloadButton = () => (
-    <div>
+    <div className={"mb-2"}>
       <PDFDownloadLink
         style={styles.downloadLink}
         document={<ActDoc />}
@@ -33,7 +33,7 @@ const SampleDoc = () => {
   return (
     <>
       <article
-        className={`flex flex-col align-start justify-center gap-4 pr-2 pb-6 bg-gradient-to-r from-deep-blue to-blue-purple rounded-lg `}
+        className={`flex flex-col align-start gap-6 pr-2 mb-6 pb-6 bg-gradient-to-r from-deep-blue to-blue-purple rounded-lg `} //
       >
         <PDFViewer showToolbar={false} style={styles.pdfViewer}>
           {ActDoc()}

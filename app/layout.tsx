@@ -26,7 +26,7 @@ export default async function RootLayout({
   const currentUser = await getCurrentUser();
   return (
     <html lang="en">
-      <body className={`${font.className} overflow-y-auto`}>
+      <body className={`${font.className} overflow-y-auto h-full`}>
         <ClientOnly>
           <ToasterProvider />
           <LoginModal />
