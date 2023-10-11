@@ -35,7 +35,7 @@ const Accordion: React.FC<AccordionProps> = ({
   return (
     <>
       <div
-        className={`accordionTitle w-full flex flex-row justify-between items-center px-3 `}
+        className={`accordionTitle w-[200px] flex flex-row justify-between items-center px-3 `}
         onClick={() => setVisibility((prev) => !prev)}
       >
         <p
@@ -50,7 +50,7 @@ const Accordion: React.FC<AccordionProps> = ({
       <section
         className={`arrayOfChips ${
           isVisible ? "flex" : "hidden"
-        } flex-col gap-2 pb-4 w-5/6`}
+        } flex-row flex-wrap gap-2 w-5/6 items-center`}
       >
         {children}
       </section>

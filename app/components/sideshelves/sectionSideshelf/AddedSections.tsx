@@ -107,12 +107,12 @@ const AddedSections = () => {
   if (subsegments?.length > 0 || bioSubSeg) {
     return (
       <>
-        <div
-          className={`AddedSections z-7 w-11/12  bg-white mt-2 flex flex-col items-center justify-around md:justify-normal rounded-xl drop-shadow-md`}
+        {/* <div
+          className={`AddedSections z-7 bg-white mt-2 flex flex-col md:flex-row items-center justify-around md:justify-normal rounded-xl drop-shadow-md transition ease-in duration-300 min-h-[70px]`}
         >
-          <Accordion isAdded label={"These sections are in your CV:"}>
-            {sectionsSelected}
-            {/* <div className={`commitButton w-5/6 mb-4 flex flex-row justify-center mx-auto`}>
+          <Accordion isAdded label={"Sections in your CV:"}> */}
+        {sectionsSelected}
+        {/* <div className={`commitButton w-5/6 mb-4 flex flex-row justify-center mx-auto`}>
               <Button
                 disabled={isLoading}
                 label={"Commit"}
@@ -121,8 +121,8 @@ const AddedSections = () => {
                 }
               />
             </div> */}
-          </Accordion>
-        </div>
+        {/* </Accordion>
+        </div> */}
       </>
     );
   } else {
