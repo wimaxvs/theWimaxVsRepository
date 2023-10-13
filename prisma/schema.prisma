@@ -83,3 +83,16 @@ model SubSection {
   cvId String @db.ObjectId
   cv   CV     @relation(fields: [cvId], references: [id], onDelete: Cascade)
 }
+
+model Message {
+  id        String   @id @default(auto()) @map("_id") @db.ObjectId
+  name    String?
+  email    String?
+  messageContent    String?
+  isDeleted Boolean  @default(false)
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+}
+
+//npx prisma generate

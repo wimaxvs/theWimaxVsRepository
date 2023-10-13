@@ -4,6 +4,7 @@ import Container from "../Container";
 import Logo from "./Logo";
 import UserMenu from "./UserMenu";
 import Navkeys from "./Navkeys";
+import ClientOnly from "../ClientOnly";
 
 interface NavbarProps {
   currentUser?: SafeUser | null;
@@ -19,7 +20,9 @@ const Navbar: React.FC<NavbarProps> = ({ currentUser }) => {
             <div className="hidden md:block w-1/3 md:ml-auto md:mr-6">
               <Navkeys currentUser={currentUser} />
             </div>
-            <UserMenu currentUser={currentUser} />
+            <ClientOnly>
+              <UserMenu currentUser={currentUser} />
+            </ClientOnly>
           </div>
         </Container>
       </div>
