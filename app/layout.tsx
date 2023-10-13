@@ -1,6 +1,8 @@
 import "./globals.css";
 import { Inter } from "next/font/google";
+import { Suspense } from "react";
 
+import Loading from "./Loading";
 import Navbar from "./components/navbar/Navbar";
 import ClientOnly from "./components/ClientOnly";
 import RegisterModal from "./components/Modals/RegisterModal";
@@ -31,9 +33,9 @@ export default async function RootLayout({
           <ToasterProvider />
           <LoginModal />
           <RegisterModal />
-          <Navbar currentUser={currentUser} />
         </ClientOnly>
-        {children}
+        <Navbar currentUser={currentUser} />
+        <Suspense fallback={<Loading />}>{children}</Suspense>
       </body>
     </html>
   );

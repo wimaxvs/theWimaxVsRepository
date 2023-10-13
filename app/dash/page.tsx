@@ -24,7 +24,7 @@ export default function Page() {
             <AddSubSectionModalEditDelete />
             <SectionContainer />
             <section
-              className={`pdfViewer flex rounded-xl p-4 w-full max-[500px]:w-full max-[500px]:overflow-x-auto max-[500px]:whitespace-nowrap`}
+              className={`pdfViewer flex max-h-full rounded-xl p-4 w-full max-[500px]:w-full max-[500px]:overflow-x-auto max-[500px]:whitespace-nowrap`}
             >
               <SampleDoc />
             </section>

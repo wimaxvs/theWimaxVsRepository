@@ -8,18 +8,19 @@ interface MenuItemProps {
   label: string;
   icon: ReactElement<IconType>;
   yerl?: string;
-  selected?: boolean
+  selected?: boolean;
 }
 const MenuItem: React.FC<MenuItemProps> = ({ label, icon, yerl, selected }) => {
   const pathname = usePathname();
   const router = useRouter();
 
-
   const toggleYerl = useCallback(() => {
     const rootYerl = "/dash";
     const yerlPresent = pathname?.indexOf(`${yerl}`) !== -1;
     const isAtDash = pathname === rootYerl;
-    if (!yerlPresent && isAtDash) {
+    if (yerl === "/create") {
+      router.push(`${pathname?.slice(0, rootYerl!.length)}`);
+    } else if (!yerlPresent && isAtDash) {
       router.push(`${pathname}/${yerl}`);
     } else if (
       pathname &&

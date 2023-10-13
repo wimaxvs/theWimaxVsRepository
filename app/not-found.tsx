@@ -1,5 +1,6 @@
 import Link from "next/link";
 import { Inter } from "next/font/google";
+import Image from "next/image";
 
 export const metadata = {
   title: "Me-CV: Page not found",
@@ -12,25 +13,35 @@ const font = Inter({
 
 const NotFound = () => {
   return (
-    <div
-      className={`${font.className} fixed mt-40 w-full h-40 flex flex-col items-center justify-center`}
-    >
-      <div className="fixed flex flex-col items-center w-[50%] bg-off-white px-10 py-6 rounded-xl drop-shadow-md text-white font-bold gap-1">
-        <p>The page you're looking for cannot be found.</p>
-        <p className="text-base">
-          Click on the menu in the top-right to get access to the full features.
-        </p>
-        <p>Or head home here:</p>
-
-        <Link href="/">
-          <button
-            className={`bg-deep-blue mt-2 py-2 px-4 rounded-lg drop-shadow-lg`}
-          >
-            Home
-          </button>
-        </Link>
+    <section className={`${font.className} block`}>
+      <div className="py-16 md:py-24 lg:py-32 px-5 md:px-10">
+        <div className="mx-auto flex-col flex w-full max-w-3xl items-center">
+          <Image
+            height={56}
+            width={56}
+            src="/Images/LogoHiRes.png"
+            alt="Me-CV logo on 404 page"
+            className="mb-8 mx-auto inline-block h-56 w-56 flex-none object-contain"
+          />
+          <div className="text-center">
+            <h1 className="font-bold mb-4 text-4xl md:text-6xl">404 Error</h1>
+            <div className="mx-auto max-w-[528px] mb-5 md:mb-6 lg:mb-8 flex flex-col gap-4">
+              <p>The page you're looking for cannot be found.</p>
+              <p className="text-base">
+                Click on the menu in the top-right to get access to the full
+                features.
+              </p>
+              <p>Or head home here:</p>{" "}
+            </div>
+            <Link href="/">
+              <button className="inline-block items-center bg-velvet-blue rounded-md px-8 py-4 text-center font-bold text-white">
+                Home
+              </button>
+            </Link>
+          </div>
+        </div>
       </div>
-    </div>
+    </section>
   );
 };
 
