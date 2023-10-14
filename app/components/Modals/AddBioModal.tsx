@@ -18,7 +18,7 @@ const AddSubSectionModal = () => {
     console.log("Discard button hit");
     bioModal.onClose();
     setIsLoading(false);
-  }, []);
+  }, [bioModal]);
 
   const bodyContent = (
     <div className="flex flex-col gap-2">

@@ -18,7 +18,7 @@ const AddSubSectionModalEditDelete = () => {
     console.log("Discard button hit");
     subSectionModalEdilete.onClose();
     setIsLoading(false);
-  }, []);
+  }, [subSectionModalEdilete]);
 
   const bodyContent = (
     <div className="flex flex-col gap-2">

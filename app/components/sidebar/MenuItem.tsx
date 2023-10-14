@@ -32,7 +32,7 @@ const MenuItem: React.FC<MenuItemProps> = ({ label, icon, yerl, selected }) => {
       router.push(`${rootYerl}/${yerl}`);
     }
     return;
-  }, [pathname, yerl]);
+  }, [router, pathname, yerl]);
 
   return (
     <button

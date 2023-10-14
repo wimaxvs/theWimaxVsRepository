@@ -44,17 +44,21 @@ const HomeFooter = () => {
             </div>
             <div className="max-[991px]:ml-4 max-[991px]:flex-none max-[767px]:ml-0 max-[767px]:mt-8">
               <div className="mb-4 flex max-w-[272px] items-start justify-start">
-                <img
+                <Image
+                  width={16}
+                  height={16}
                   src="https://assets.website-files.com/6357722e2a5f19121d37f84d/6358f6e257ec977d799ff999_MapPin-2.svg"
-                  alt=""
+                  alt="location icon"
                   className="inline-block mr-3"
                 />
                 <p className="text-[#647084]">Gdansk, Poland</p>
               </div>
               <div className="mb-4 flex max-w-[272px] items-start justify-start">
-                <img
+                <Image
+                  width={16}
+                  height={16}
                   src="https://assets.website-files.com/6357722e2a5f19121d37f84d/6358f6e24e55dd49a541fd06_EnvelopeSimple-3.svg"
-                  alt=""
+                  alt="email icon"
                   className="inline-block mr-3"
                 />
                 <p className="text-[#647084]">info@me-cv.com</p>

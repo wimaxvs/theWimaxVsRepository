@@ -22,7 +22,7 @@ const useCvData = () => {
       }
       return { fontSize: `${size}px` };
     },
-    [theCurrentUser]
+    []
   );
 
   const fontSizes = {

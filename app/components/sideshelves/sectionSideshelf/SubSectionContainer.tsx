@@ -90,7 +90,7 @@ const SubSectionContainer: React.FC<SubSectionContainerProps> = ({
     } else {
       return
     }
-  }, [cvSubSegmentStore?.subsegments]);
+  }, [cvSubSegmentStore.subsegments, editable, filteredSubsegments, initFormValues, reset]);
 
   const onSubmit: SubmitHandler<FieldValues> = (data: FieldValues) => {
     setIsLoading(true);

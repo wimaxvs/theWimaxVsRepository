@@ -4,6 +4,7 @@ import useCvSubSegments from "@/app/hooks/useCvSubSegments";
 import React from "react";
 import { BsCameraFill } from "react-icons/bs";
 import toast from "react-hot-toast";
+import Image from "next/image";
 
 interface ImageAdditionProps {
   id: string;
@@ -50,7 +51,7 @@ const ImageAddition: React.FC<ImageAdditionProps> = ({
           Add a picture:
         </p>
         <div className="avatarAdditionSpace mt-2 mb-8 relative rounded-full bg-neutral-300 h-[110px] w-[110px] flex flex-col items-center content-center border-2 border-blue-purple/20">
-          <img
+          <Image
             src={(imagePreview) || placeholderPic}
             alt="avatar placeholder"
             className="signup-profile-pic object-cover rounded-full h-[109px] w-[109px]"

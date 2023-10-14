@@ -38,20 +38,21 @@ const About = () => {
                   <br /> Join us on this exciting journey of transformation and
                   reinvention. We promise to keep striving for excellence as we
                   work to redefine the CV landscape, making it shorter and, most
-                  importantly, better. Your career deserves the best, and we&apos;re
-                  here to make that happen.
+                  importantly, better. Your career deserves the best, and
+                  we&apos;re here to make that happen.
                   <br />
                   <br /> Thank you for being a part story and believing in our
                   vision. Together, we can revolutionize CV creation, and we
                   eagerly anticipate your insights and collaboration as we
                   continue to refine and enhance our platform.{" "}
                   <b className="text-velvet-blue">Me-CV</b> is more than just a
-                  platform; it&apos;s a shared endeavor to redefine your professional
-                  narrative, and we&apos;re thrilled to have you on board.
+                  platform; it&apos;s a shared endeavor to redefine your
+                  professional narrative, and we&apos;re thrilled to have you on
+                  board.
                 </p>
               </div>
               <div
-                className={`inline-block flex-none cursor-pointer bg-white font-semibold capitalize text-black transition hover:[box-shadow:rgb(0,_0,_0)_0px_0px] py-3 rounded-lg md:rounded-2xl text-base md:text-base pr-6 md:pr-6`}
+                className={`inline-block flex-none cursor-pointer bg-[#f7d046] font-semibold capitalize text-black transition hover:[box-shadow:rgb(0,_0,_0)_0px_0px] py-3 rounded-lg md:rounded-2xl text-base md:text-base pr-6 md:pr-6`}
               >
                 <ClientOnly>
                   <HomeLoginButton
