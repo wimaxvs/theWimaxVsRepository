@@ -32,7 +32,7 @@ export default function Home() {
                       </div>
                     </div>
                     <ClientOnly>
-                      <HomeLoginButton />
+                      <HomeLoginButton label={"Let's Go!"} bgColor={"#f7d046"} />
                     </ClientOnly>
                   </div>
                 </div>
