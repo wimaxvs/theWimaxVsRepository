@@ -28,7 +28,9 @@
     "fonts.d.ts",
     "**/*.ts",
     "**/*.tsx",
-    ".next/types/**/*.ts"
-, "app/not-found.tsx"  ],
+    ".next/types/**/*.ts",
+    "app/not-found.tsx",
+    "app/loading.tsx"
+  ],
   "exclude": ["node_modules"]
 }

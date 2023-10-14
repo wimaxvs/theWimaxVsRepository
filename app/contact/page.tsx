@@ -39,8 +39,8 @@ const Contact = () => {
               </div>
               <div className="flex-row flex items-center">
                 <Image
-                  width={16}
-                  height={16}
+                  width={106}
+                  height={106}
                   src="/images/klaudiaB.jpg"
                   alt="Image of Klaudia Brakowska our head of marketing"
                   className="inline-block h-16 w-16 object-cover mr-4 rounded-full"

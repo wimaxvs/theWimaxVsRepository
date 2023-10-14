@@ -17,8 +17,8 @@ const NotFound = () => {
       <div className="py-16 md:py-24 lg:py-32 px-5 md:px-10">
         <div className="mx-auto flex-col flex w-full max-w-3xl items-center">
           <Image
-            height={56}
-            width={56}
+            height={500}
+            width={500}
             src="/Images/LogoHiRes.png"
             alt="Me-CV logo on 404 page"
             className="mb-8 mx-auto inline-block h-56 w-56 flex-none object-contain"
