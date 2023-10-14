@@ -1,6 +1,6 @@
 import Image from "next/image";
 import React, { Suspense } from "react";
-import Loading from "../loading";
+import Loading from "../Loading";
 import TheMessageForm from "../components/contactForm/TheMessageForm";
 
 const Contact = () => {
