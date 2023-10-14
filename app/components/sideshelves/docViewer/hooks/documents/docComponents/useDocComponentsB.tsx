@@ -198,8 +198,8 @@ const useDocComponentsB = () => {
                   )}
                   <Text style={styles.totemSubtitle}>{subseg.subTitle}</Text>
                   {subseg.content?.map((line, index) => (
-                    <View style={styles.totemContentView}>
-                      <Text key={index} style={styles.totemDate}>
+                    <View key={index} style={styles.totemContentView}>
+                      <Text style={styles.totemDate}>
                         {line}
                       </Text>
                     </View>
@@ -235,8 +235,8 @@ const useDocComponentsB = () => {
                     <Text style={styles.totemSubtitle}>{subseg.subTitle}</Text>
 
                     {subseg.content?.map((line, index) => (
-                      <View style={styles.totemContentView}>
-                        <Text key={index} style={styles.totemDate}>
+                      <View key={index} style={styles.totemContentView}>
+                        <Text style={styles.totemDate}>
                           {line}
                         </Text>
                       </View>
@@ -517,8 +517,8 @@ const useDocComponentsB = () => {
                                 styles.totemContentView,
                                 { marginTop: "2px" },
                               ]}
-                            >
-                              <Text key={index} style={[styles.totemDate]}>
+                             key={index}>
+                              <Text style={[styles.totemDate]}>
                                 {line}
                               </Text>
                             </View>

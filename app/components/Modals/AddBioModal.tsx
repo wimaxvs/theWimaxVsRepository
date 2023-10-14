@@ -52,7 +52,7 @@ const AddSubSectionModal = () => {
             "
           >
             {" "}
-            Click on the "camera" icon to add a picture 🤳
+            Click on the &quot;camera&quot; icon to add a picture 🤳
           </span>
         </p>
       </div>

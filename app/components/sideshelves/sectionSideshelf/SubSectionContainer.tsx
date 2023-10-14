@@ -79,16 +79,18 @@ const SubSectionContainer: React.FC<SubSectionContainerProps> = ({
     name: "subsegments",
   });
 
-  if (editable) {
-    useEffect(() => {
+  useEffect(() => {
+    if (editable) {
       reset({
         subsegments:
           editable && filteredSubsegments
             ? [...filteredSubsegments]
             : [initFormValues],
       });
-    }, [cvSubSegmentStore?.subsegments]);
-  }
+    } else {
+      return
+    }
+  }, [cvSubSegmentStore?.subsegments]);
 
   const onSubmit: SubmitHandler<FieldValues> = (data: FieldValues) => {
     setIsLoading(true);
@@ -131,7 +133,7 @@ const SubSectionContainer: React.FC<SubSectionContainerProps> = ({
       </>
     );
     subSectionModalFunctions.onClose();
-    editableSubSectionModalFunctions.onClose()
+    editableSubSectionModalFunctions.onClose();
   };
 
   const onDelete: (id: string, index: number) => void = (subsegId, index) => {

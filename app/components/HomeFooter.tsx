@@ -10,7 +10,8 @@ const HomeFooter = () => {
           <div className="flex-row flex justify-between max-[767px]:flex-col max-[767px]:items-start">
             <div className="w-full max-w-[640px] max-[991px]:mr-4 max-[991px]:flex-initial max-[767px]:mr-0">
               <h2 className="font-bold text-3xl md:text-5xl">
-                Let's get you out there faster, and <b className="text-pink-300">in style</b>
+                Let&apos;s get you out there faster, and{" "}
+                <b className="text-pink-300">in style</b>
               </h2>
               <div className="mt-8 grid-cols-4 grid-flow-col grid w-full max-w-[208px] gap-3">
                 {[

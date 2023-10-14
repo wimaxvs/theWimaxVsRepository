@@ -34,7 +34,7 @@ export default async function Dash({children}:DashlayoutProps){
         className={`${font.className} fixed mt-40 w-full h-40 flex flex-col items-center justify-center`}
       >
         <div className="fixed flex flex-col items-center w-[50%] bg-off-white px-10 py-6 rounded-xl drop-shadow-md text-white font-bold gap-1">
-          <p>You're signed out.</p>
+          <p>You&apos;re signed out.</p>
           <p className="text-base">
             Click on the menu in the top-right to get access to the full
             features.

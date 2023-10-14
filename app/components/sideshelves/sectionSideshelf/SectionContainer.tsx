@@ -1,3 +1,4 @@
+/* eslint-disable react/jsx-key */
 import TemplateSelect from "./TemplateSelect";
 import SelectedAddedSections from "./SelectedAddedSections";
 

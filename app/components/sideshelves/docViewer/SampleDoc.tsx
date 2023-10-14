@@ -9,10 +9,11 @@ import useCurrentTemplate from "@/app/hooks/useCurrentTemplate";
 const SampleDoc = () => {
   const styles = useFirstDocStyles().styles;
   const { currentTemplate } = useCurrentTemplate();
-  const TheDoc = useAllDocs()?.theDocs?.find(doc => doc.name === currentTemplate);
-  const ActDoc = TheDoc!.doc
+  const TheDoc = useAllDocs()?.theDocs?.find(
+    (doc) => doc.name === currentTemplate
+  );
+  const ActDoc = TheDoc!.doc;
   const { theCurrentUser } = useCvData();
-
 
   const DownloadButton = () => (
     <div className={"mb-2"}>
@@ -23,8 +24,8 @@ const SampleDoc = () => {
           theCurrentUser?.firstname! + theCurrentUser?.lastname
         } CV`}
       >
-        {({ blob, url, loading, error }) =>
-          loading ? "Loading document..." : "Download now!"
+        {({ blob, url, loading:isLoading, error }) =>
+          isLoading ? "Loading document..." : "Download now!"
         }
       </PDFDownloadLink>
     </div>

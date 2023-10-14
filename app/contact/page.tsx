@@ -1,6 +1,6 @@
 import Image from "next/image";
-import React, {Suspense} from "react";
-import Loading from "../Loading";
+import React, { Suspense } from "react";
+import Loading from "../loading";
 import TheMessageForm from "../components/contactForm/TheMessageForm";
 
 const Contact = () => {
@@ -15,7 +15,7 @@ const Contact = () => {
               </h2>
               <div className="ml-0 mr-0 mt-4 max-w-[528px] mb-5 md:mb-6 lg:mb-8 pb-4">
                 <p className="text-[#636262] max-[479px]:text-sm">
-                  Likewise, we're gonna need{" "}
+                  Likewise, we&apos;re gonna need{" "}
                   <i className="text-velvet-blue">you and the interwebs</i> to
                   make Me-CV better- <b>your voice is all we want to hear.</b>{" "}
                   😌
@@ -24,16 +24,17 @@ const Contact = () => {
               <div className="mb-8 max-w-[480px]">
                 <p className="text-[#636262] max-[479px]:text-sm">
                   If you have suggestions as to how we can make Me-CV better,
-                  you wanna raise a complaint, you'd like to say hi or anything
-                  in between or beyond, <b>we'd be glad to hear from you</b>!
+                  you wanna raise a complaint, you&apos;d like to say hi or
+                  anything in between or beyond,{" "}
+                  <b>we&apos;d be glad to hear from you</b>!
                 </p>
               </div>
 
               <div className="ml-0 mr-0 mt-4 max-w-[528px] mb-5 md:mb-6 lg:mb-8 pb-4">
                 <p className="text-[#636262] max-[479px]:text-sm">
                   Just fill in{" "}
-                  <i className="text-velvet-blue">the message form</i> and we'll
-                  get back to you soonest we can!
+                  <i className="text-velvet-blue">the message form</i> and
+                  we&apos;ll get back to you soonest we can!
                 </p>
               </div>
               <div className="flex-row flex items-center">

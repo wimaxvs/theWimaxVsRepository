@@ -12,16 +12,16 @@ const About = () => {
               <div className="flex-col flex gap-8">
                 <h2 className="font-bold text-3xl md:text-5xl">About us</h2>
                 <p className="max-[479px]:text-sm">
-                  At <b className="text-velvet-blue">Me-CV</b>, we're on a
+                  At <b className="text-velvet-blue">Me-CV</b>, we&apos;re on a
                   mission to revolutionize the traditional CV and reshape the
-                  way professionals present themselves in today's rapidly
+                  way professionals present themselves in today&apos;s rapidly
                   evolving workplace. As a small, yet passionate team, we have
                   grand aspirations, and our journey is far from over. Our
                   website is continuously evolving, with our team actively
                   working to create the most dynamic and effective
                   resume-building tool. <br />
                   <br /> What sets us apart is our shared experience of being
-                  jobseekers ourselves. We've encountered the challenges,
+                  jobseekers ourselves. We&apos;ve encountered the challenges,
                   experienced the joys of landing the perfect job, and
                   understood the frustrations of job hunting. This deep
                   understanding of the job-seeking process drives our commitment
@@ -38,7 +38,7 @@ const About = () => {
                   <br /> Join us on this exciting journey of transformation and
                   reinvention. We promise to keep striving for excellence as we
                   work to redefine the CV landscape, making it shorter and, most
-                  importantly, better. Your career deserves the best, and we're
+                  importantly, better. Your career deserves the best, and we&apos;re
                   here to make that happen.
                   <br />
                   <br /> Thank you for being a part story and believing in our
@@ -46,8 +46,8 @@ const About = () => {
                   eagerly anticipate your insights and collaboration as we
                   continue to refine and enhance our platform.{" "}
                   <b className="text-velvet-blue">Me-CV</b> is more than just a
-                  platform; it's a shared endeavor to redefine your professional
-                  narrative, and we're thrilled to have you on board.
+                  platform; it&apos;s a shared endeavor to redefine your professional
+                  narrative, and we&apos;re thrilled to have you on board.
                 </p>
               </div>
               <div

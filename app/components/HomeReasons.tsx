@@ -1,4 +1,4 @@
-
+import Image from "next/image"
 
 const HomeReasons = () => {
   return (
@@ -13,7 +13,9 @@ const HomeReasons = () => {
           <div className="grid-cols-1 gap-8 lg:grid-cols-2 lg:gap-16">
             <div className="grid gap-8 grid-cols-1 sm:grid-cols-2 lg:grid-cols-[1fr_1px_1fr_1px_1fr_1px_1fr]">
               <div className="flex flex-col items-center gap-4 text-center max-[479px]:flex-col sm:gap-4">
-                <img
+                <Image
+                height={46}
+                width={46}
                   src="https://assets.website-files.com/64f03c3722a98d614616c2d5/64f085469a6145cab15db3fd_feature%201.svg"
                   alt="The Me-CV creator saves you time"
                   className="flex min-w-[46px] items-center justify-center rounded-[100%] bg-[#f2f2f7] text-lg font-bold h-11 w-11"
@@ -31,7 +33,9 @@ const HomeReasons = () => {
               </div>
               <div className="h-full w-px bg-gray-200 max-[991px]:hidden"></div>
               <div className="flex flex-col items-center gap-4 text-center max-[479px]:flex-col sm:gap-4">
-                <img
+                <Image
+                height={46}
+                width={46}
                   src="https://assets.website-files.com/64f03c3722a98d614616c2d5/64f085463ba5cfc4489ec9f2_feature%202.svg"
                   alt="The Me-CV creator is highly reusable"
                   className="flex min-w-[46px] items-center justify-center rounded-[100%] bg-[#f2f2f7] text-lg font-bold h-11 w-11"
@@ -48,7 +52,9 @@ const HomeReasons = () => {
               </div>
               <div className="h-full w-px bg-gray-200 max-[991px]:hidden"></div>
               <div className="flex flex-col items-center gap-4 text-center max-[479px]:flex-col sm:gap-4">
-                <img
+                <Image
+                height={46}
+                width={46}
                   src="https://assets.website-files.com/64f03c3722a98d614616c2d5/64f0854640ca0af098cdb5ca_feature%203.svg"
                   alt=""
                   className="flex min-w-[46px] items-center justify-center rounded-[100%] bg-[#f2f2f7] text-lg font-bold h-11 w-11"
@@ -63,7 +69,9 @@ const HomeReasons = () => {
               </div>
               <div className="h-full w-px bg-gray-200 max-[991px]:hidden"></div>
               <div className="flex flex-col items-center gap-4 text-center max-[479px]:flex-col sm:gap-4">
-                <img
+                <Image
+                height={46}
+                width={46}
                   src="https://assets.website-files.com/64f03c3722a98d614616c2d5/64f08546db9edff387b844bd_fetaure%204.svg"
                   alt=""
                   className="flex min-w-[46px] items-center justify-center rounded-[100%] bg-[#f2f2f7] text-lg font-bold h-11 w-11"
@@ -72,7 +80,7 @@ const HomeReasons = () => {
                   <h4 className="text-xl font-bold md:text-xl">Save Money</h4>
                   <p className="text-[#636262]">
                     When we say free, we mean <b>F-R-E-E !</b> <br /> We get it,
-                    you're looking for a job, cash is tight.
+                    you&apos;re looking for a job, cash is tight.
                   </p>
                 </div>
               </div>

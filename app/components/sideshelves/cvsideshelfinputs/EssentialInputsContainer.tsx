@@ -19,6 +19,7 @@ const EssentialInputsContainer = () => {
   const cvSubSegments = useCvSubSegments();
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const bioModalFunctions = useBioModal();
+  const { uploadFile } = useIA();
   const [inputIdsAndLabels, setInputIdsAndLabels] = useState<IIALprops[][]>([
     [
       {
@@ -97,7 +98,7 @@ const EssentialInputsContainer = () => {
       if (typeof data.image[0] !== "object") {
         imgData = cvSubSegments.theCurrentUser?.image as string;
       } else {
-        imgData = await useIA().uploadFile(data.image[0]);
+        imgData = await uploadFile(data.image[0]);
       }
       data = {
         ...data,
