@@ -14,9 +14,9 @@ const Logo = () => {
       <Image
         onClick={() => router.push("/")}
         alt="logo"
-        className="sm:block md:block cursor-pointer"
-        height="50"
-        width="50"
+        className="sm:block md:block cursor-pointer max-h-6 max-w-[133px]"
+        height={64}
+        width={275}
         src="/images/Logo.png"
       />
     </Link>

@@ -6,18 +6,13 @@ import { AiOutlineMenu } from "react-icons/ai";
 import Avatar from "./Avatar";
 import { useCallback, useState } from "react";
 import MenuItem from "./MenuItem";
-import useRegisterModal from "@/app/hooks/modalHooks/useRegisterModal";
-import useLoginModal from "@/app/hooks/modalHooks/useLoginModal";
 import { signOut } from "next-auth/react";
-import Navkeys from "./Navkeys";
 
 interface UserMenuProps {
   currentUser?: SafeUser | null;
 }
 
 const UserMenu: React.FC<UserMenuProps> = ({ currentUser }) => {
-  const registerModal = useRegisterModal();
-  const loginModal = useLoginModal();
 
   const [isOpen, setIsOpen] = useState(false);
 
@@ -28,11 +23,11 @@ const UserMenu: React.FC<UserMenuProps> = ({ currentUser }) => {
   const menuActions = (los: string) => {
     switch (los) {
       case "login":
-        loginModal.onOpen();
+        (()=>{})();
         toggleOpen();
         break;
       case "signup":
-        registerModal.onOpen();
+        (() => {})();
         toggleOpen();
         break;
 
@@ -77,9 +72,6 @@ const UserMenu: React.FC<UserMenuProps> = ({ currentUser }) => {
                 />
               </>
             )}
-          </div>
-          <div className="sm:block md:hidden lg:none flex flex-col cursor-pointer">
-            <Navkeys currentUser={currentUser} />
           </div>
         </div>
       )}

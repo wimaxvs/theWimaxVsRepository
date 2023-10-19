@@ -1,88 +1,124 @@
-import ClientOnly from "./components/ClientOnly";
-import HomeLoginButton from "./components/HomeLoginButton";
 import Image from "next/image";
-import HomeReasons from "./components/HomeReasons";
-import HomeFooter from "./components/HomeFooter";
+import ClientOnly from "./components/ClientOnly";
 
 export default function Home() {
   return (
     <>
-      <div className="min-w-full overflow-hidden max-h-screen overflow-y-scroll">
-        <div className="px-5 md:px-10">
-          <div className="mx-auto w-full max-w-7xl">
-            <div className="md:pt-36 lg:pt-56 pt-40">
-              <div className="flex-col flex items-center gap-y-15 text-lg">
-                <div className="flex-col flex min-w-full items-center gap-y-20">
-                  <div className="mb-20 flex-col flex items-center gap-y-10">
-                    <div className="flex-col flex max-w-[800px] items-center gap-y-3">
-                      <h1 className="text-center font-bold text-4xl sm:text-4xl md:text-5xl lg:text-6xl">
-                        {"Quick and easy 3-step CV maker"}
-                      </h1>
-                      <h2 className="text-center font-semibold text-base sm:text-4xl md:base">
-                        {"First 3 months "}
-                        <b>{"ABSOLUTELY FREE! 📣📣"}</b>
-                      </h2>
-                      <div className="max-w-[600px]">
-                        <p className="text-center font-normal text-[#636262] text-xl sm:text-lg">
-                          {
-                            "Just log in, fill in your details, pick a template and "
-                          }
-                          <b>{"DOWNLOAD FOR FREE!"}</b>
-                        </p>
-                      </div>
-                    </div>
-                    <ClientOnly>
-                      <HomeLoginButton label={"Let's Go!"} bgColor={"#f7d046"} />
-                    </ClientOnly>
-                  </div>
-                </div>
-                <div className="flex-col flex w-full max-w-7xl items-center gap-y-20">
-                  <div className="flex-col flex min-w-full items-center max-[479px]:hidden">
-                    <div className="flex-row flex max-w-[100vw] items-start justify-start max-[479px]:hidden max-[479px]:gap-x-2 min-[479px]:overflow-x-auto min-[479px]:whitespace-nowrap">
-                      {[
-                        "/images/introspect_template.png",
-                        "/images/beetle_template.png",
-                        "/images/dolphin_template.png",
-                        "/images/utopia_template.png",
-                        "/images/prince_template.png",
-                        "/images/mellaYella_template.png",
-                        "/images/chikane_template.png",
-                        "/images/zoid_template.png",
-                        "/images/cooper_template.png",
-                        "/images/structura_template.png",
-                      ].map((link, index) => (
-                        <section
-                          key={index}
-                          className={`index${index} inline-block h-[540px] w-[460px]  min-w-[460px] max-w-full text-[#d6a701] ${
-                            index !== 0 && "ml-[-80px]"
-                          } transition rounded-xl`}
-                        >
-                          <Image
-                            src={link}
-                            alt={`How the CV/resume template ${link.slice(
-                              8,
-                              -13
-                            )} is to look with your specifics input.`}
-                            width={"460"}
-                            height={"540"}
-                            className="inline-block h-full w-full max-w-full flex-none object-cover max-[479px]:max-h-[260px] max-[479px]:min-w-[230px]"
-                          />
-                        </section>
-                      ))}
-                    </div>
-                  </div>
-                  <div className="flex min-h-[124px] min-w-[100vw] items-center justify-center bg-white py-10 max-[991px]:px-10 max-[767px]:px-5">
-                    <HomeReasons />
-                  </div>
-                  <div className="flex min-h-[124px] min-w-[100vw] items-center justify-center bg-white py-10 max-[991px]:px-10 max-[767px]:px-5">
-                    <HomeFooter />
-                  </div>
-                </div>
+      {/* <div
+        className={`h-screen w-screen bg-[url(/images/homepageBkg.png)] 
+bg-no-repeat flex flex-col items-center justify-center`}
+      ></div> */}
+
+      <section className="grid h-auto md:h-screen grid-cols-1 md:grid-cols-2 gap-0">
+        <div className="flex-col flex items-center justify-center bg-[url(/images/homepageBkg.png)] bg-no-repeat">
+          <div className="py-16 md:py-24 lg:py-32 px-5 md:px-10">
+            <div className="mx-auto text-left max-w-[480px] md:max-w-[480px] bg-white p-6 rounded-md">
+              <div className="flex-col flex items-center justify-center h-14 w-14 mb-5 md:mb-6 lg:mb-8 rounded-sm p-2">
+                <Image
+                  height={56}
+                  width={56}
+                  src="https://assets.website-files.com/6458c625291a94a195e6cf3a/6458c625291a949eade6cf7d_Vector-2.svg"
+                  alt=""
+                  className="inline-block"
+                />
               </div>
+              <p className="max-[479px]:text-sm mb-8 md:mb-12 lg:mb-16">
+                Poszukuję. Dążę. Robię to z całego serca.
+              </p>
+              <p className="font-bold max-[479px]:text-sm">Vincent Van Gogh</p>
+              <p className="text-sm sm:text-sm">Malarz</p>
             </div>
           </div>
         </div>
-      </div>
+        <div className="flex-col flex items-center justify-center bg-white">
+          <div className="py-16 md:py-24 lg:py-32 px-5 md:px-10">
+            <div className="text-center max-w-[480px] md:max-w-[480px]">
+              <div
+                className={`bg-red w-full h-full flex flex-col items-center gap-4`}
+              >
+                <Image
+                  height={64}
+                  width={275}
+                  alt="Vimax logo"
+                  src={"/images/logo.png"}
+                />
+                <h2 className="font-bold text-md md:text-md mb-8 md:mb-12 lg:mb-16">
+                  Euro Truck Simulator 2 Company Management
+                </h2>
+              </div>
+              <div className="mx-auto max-w-[400px] mb-4 pb-4">
+                <form name="wf-form-password" method="get">
+                  <div className="relative">
+                    <Image
+                      height={20}
+                      width={20}
+                      alt=""
+                      src="https://assets.website-files.com/6458c625291a94a195e6cf3a/6458c625291a9455fae6cf89_EnvelopeSimple.svg"
+                      className="absolute left-[5%] top-[26%] inline-block"
+                    />
+                    <input
+                      type="email"
+                      className="mb-4 block w-full border border-solid border-black bg-white align-middle text-[#333333] focus:border-[#3898ec] text-sm px-3 rounded-md h-9 py-6 pl-14"
+                      maxLength={256}
+                      name="name-3"
+                      placeholder="Email Address"
+                      required
+                    />
+                    <div></div>
+                    <div></div>
+                  </div>
+                  <div className="relative mb-4">
+                    <Image
+                      height={20}
+                      width={20}
+                      alt=""
+                      src="https://assets.website-files.com/6458c625291a94a195e6cf3a/6458c625291a946794e6cf8a_Lock-2.svg"
+                      className="absolute left-[5%] top-[26%] inline-block"
+                    />
+                    <input
+                      type="password"
+                      className="mb-4 block w-full border border-solid border-black bg-white align-middle text-[#333333] focus:border-[#3898ec] text-sm px-3 rounded-md h-9 py-6 pl-14"
+                      maxLength={256}
+                      name="password-4"
+                      placeholder="Password (min 8 characters)"
+                      required
+                    />
+                    <div></div>
+                    <div></div>
+                  </div>
+                  <label className="flex items-center justify-start font-medium before:table before:[grid-area:1/1/2/2] before:content-['_'] mb-6 md:mb-10 lg:mb-1 pb-12 pl-5">
+                    <input
+                      type="checkbox"
+                      name="checkbox-3"
+                      className="float-left -ml-[20px] mt-1"
+                    />
+                    <label
+                      className="ml-4 inline-block cursor-pointer text-sm sm:text-sm"
+                      htmlFor={"checkbox-3"}
+                    >
+                      I agree with the{" "}
+                      <a href="#" className="font-bold text-[#0b0b1f]">
+                        Terms &amp; Conditions
+                      </a>
+                    </label>
+                  </label>
+                  <input
+                    type="submit"
+                    value="Join Wimax"
+                    className="inline-block w-full cursor-pointer items-center bg-black px-6 py-3 text-center font-semibold text-white"
+                  />
+                </form>
+              </div>
+              <p className="text-[#636262] text-sm sm:text-sm">
+                Already have an account?{" "}
+                <a href="#" className="font-bold text-[#0b0b1f]">
+                  Login now
+                </a>
+              </p>
+            </div>
+          </div>
+        </div>
+      </section>
     </>
   );
 }
