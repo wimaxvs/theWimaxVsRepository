@@ -31,6 +31,6 @@
     ".next/types/**/*.ts",
     "app/not-found.tsx",
     "app/loading.tsx"
-  ],
+, "app/components/Forms"  ],
   "exclude": ["node_modules"]
 }
