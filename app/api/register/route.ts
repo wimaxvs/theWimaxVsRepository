@@ -17,5 +17,11 @@ export async function POST(request: Request) {
     },
   });
 
-  return NextResponse.json(user);
+  let successMessage = {
+    message: user
+      ? "Jesteś zarejestrowany/a pomyślnie."
+      : "Wystąpił błąd podczas rejestracji.",
+  };
+
+  return NextResponse.json({ ...user, ...successMessage });
 }

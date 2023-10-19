@@ -35,7 +35,6 @@ const LoginForm = () => {
     axios
       .post("/api/register", data)
       .then((res: AxiosResponse<{ code: string; message: string }>) => {
-        console.log(res.data);
         if (res.data.code === "P2002") {
           throw new Error("Email taken... 🤔 Try another one");
         } else {

@@ -15,7 +15,7 @@ const LoginOrReg = () => {
       {isLoggin && <LoginForm />}
       {!isLoggin && <RegForm />}
       <span
-        className={` mt-4 md:mt-6 lg:mt-8 w-full flex flex-col md:flex-row justify-center items-center gap-2`}
+        className={`mt-4 md:mt-6 lg:mt-8 w-full flex flex-col md:flex-row justify-center items-center gap-2`}
       >
         <p className="text-[#636262] text-sm sm:text-sm">
           {isLoggin ? "Nie masz jeszcze konta?" : "Masz juz konto?"}
