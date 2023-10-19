@@ -14,12 +14,19 @@ const LoginOrReg = () => {
     <>
       {isLoggin && <LoginForm />}
       {!isLoggin && <RegForm />}
-      <p className="text-[#636262] text-sm sm:text-sm mt-4 md:mt-6 lg:mt-8 w-full flex flex-row justify-center gap-2">
-        {isLoggin ? "Nie masz jeszcze konto?":"Masz juz konto?"}
-        <p onClick={handleClick} className="font-bold text-[#0b0b1f] cursor-pointer hover:text-blue-800">
-          {isLoggin ? "Utwórz Jej" : "Zaloguj się"}
+      <span
+        className={` mt-4 md:mt-6 lg:mt-8 w-full flex flex-col md:flex-row justify-center items-center gap-2`}
+      >
+        <p className="text-[#636262] text-sm sm:text-sm">
+          {isLoggin ? "Nie masz jeszcze konta?" : "Masz juz konto?"}
         </p>
-      </p>
+        <p
+          onClick={handleClick}
+          className="font-bold text-[#0b0b1f] cursor-pointer hover:text-blue-800"
+        >
+          {isLoggin ? "Zarejestruj Się" : "Zaloguj się"}
+        </p>
+      </span>
     </>
   );
 }

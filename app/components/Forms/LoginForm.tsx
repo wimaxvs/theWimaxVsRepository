@@ -1,9 +1,76 @@
-import React from 'react'
-import Image from 'next/image';
+"use client";
+import { useCallback, useState } from "react";
+import Image from "next/image";
+import { SignInResponse, signIn } from "next-auth/react";
+import { useRouter } from "next/navigation";
+import { toast } from "react-hot-toast";
+import { FieldValues, SubmitHandler, useForm } from "react-hook-form";
 
 const LoginForm = () => {
+  const [loginData, setLoginData] = useState<{
+    username: string;
+    password: string;
+  }>({ username: "", password: "" });
+  const router = useRouter();
+  const [isLoading, setIsLoading] = useState(false);
+
+  //   const onSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+  //     e.preventDefault();
+  //     setIsLoading(true);
+  //     try {
+  //       signIn("credentials", {
+  //         ...loginData,
+  //         redirect: false,
+  //       }).then((callback: SignInResponse | undefined) => {
+  //         setIsLoading(false);
+
+  //         if (callback?.ok) {
+  //           toast.success("Logged in");
+  //           router.refresh();
+  //           router.push("/dash");
+  //         } else if (callback?.error) {
+  //           throw new Error(callback.error);
+  //         }
+  //       });
+  //     } catch (error: any) {
+  //       toast.error(error.message);
+  //     }
+  //   };
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+  } = useForm<FieldValues>({
+    defaultValues: {
+      email: "",
+      password: "",
+    },
+  });
+
+  const onSubmit: SubmitHandler<FieldValues> = (data) => {
+    setIsLoading(true);
+
+    signIn("credentials", {
+      ...data,
+      redirect: false,
+    }).then((callback: SignInResponse | undefined) => {
+      console.log(callback);
+
+      setIsLoading(false);
+
+      if (callback?.ok) {
+        toast.success("Logged in");
+        router.refresh();
+        router.push("/dash");
+      }
+      if (callback?.error) {
+        toast.error(callback.error);
+      }
+    });
+  };
+
   return (
-    <form name="wf-form-password" method="get">
+    <form name="wf-form-password" onSubmit={handleSubmit(onSubmit)}>
       <div className="relative">
         <Image
           height={20}
@@ -13,12 +80,14 @@ const LoginForm = () => {
           className="absolute left-[5%] top-[26%] inline-block"
         />
         <input
-          type="email"
+          type="text"
           className="mb-4 block w-full border border-solid border-black bg-white align-middle text-[#333333] focus:border-[#3898ec] text-sm px-3 rounded-md h-9 py-6 pl-14"
-          maxLength={256}
-          name="name-3"
-          placeholder="Email Address"
-          required
+          placeholder="Email"
+          {...register("email", {
+            required: true,
+            maxLength: 256,
+            pattern: /^\S+@\S+$/i,
+          })}
         />
       </div>
       <div className="relative mb-4 md:mb-6 lg:mb-8">
@@ -31,20 +100,24 @@ const LoginForm = () => {
         />
         <input
           type="password"
-          className="mb-4 block w-full border border-solid border-black bg-white align-middle text-[#333333] focus:border-[#3898ec] text-sm px-3 rounded-md h-9 py-6 pl-14"
           maxLength={256}
-          name="password-4"
           placeholder="Password (min 8 characters)"
           required
+          className="mb-4 block w-full border border-solid border-black bg-white align-middle text-[#333333] focus:border-[#3898ec] text-sm px-3 rounded-md h-9 py-6 pl-14"
+          {...register("password", { required: true, maxLength: 256 })}
         />
       </div>
-      <input
+      <button
         type="submit"
-        value="Zaloguje sie"
-        className="inline-block w-full cursor-pointer items-center bg-black px-6 py-3 text-center font-semibold text-white"
-      />
+        disabled={isLoading}
+        className="inline-block w-full
+        cursor-pointer items-center bg-black px-6 py-3 text-center font-semibold
+        text-white disabled:cursor-not-allowed"
+      >
+        {"Zaloguje sie"}
+      </button>
     </form>
   );
-}
+};
 
-export default LoginForm
+export default LoginForm;

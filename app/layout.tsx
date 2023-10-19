@@ -26,7 +26,7 @@ export default async function RootLayout({
     <html lang="en">
       <body className={`${font.className} overflow-y-auto h-full`}>
         <Navbar currentUser={currentUser} />
-
+        <ToasterProvider />
         <Suspense fallback={<Loading />}>{children}</Suspense>
       </body>
     </html>
