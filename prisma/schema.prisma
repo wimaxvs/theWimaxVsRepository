@@ -10,88 +10,101 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
-model User {
-  id           String   @id @default(auto()) @map("_id") @db.ObjectId 
-  name    String?
-  username    String?
-  email        String?   @unique
-  telephone    String?
-  password     String?
-  image      String?
-  dob          DateTime? @default(now())
-  location     String?
-  prospectiveTitle     String?
-  personalLink     String?
-  bio          String   @default("Hi, I'm looking to find employment in your firm!")
-  isPaid       Boolean  @default(false)
-  emailVerified     DateTime?
-  refreshToken String?
-  createdAt    DateTime @default(now()) @map("createdAt") 
-  updatedAt    DateTime @default(now()) @map("updatedAt")
+model Vehicle {
+  id           String   @id @default(auto()) @map("_id") @db.ObjectId
+  registration String?
+  carMark      String?
+  carModel     String?
+  prevDrivers  String[] //convert driver user id to string and check for duplicity before pushing to array
 
-  userCVs     CV[]
-  accounts    Account[]
-
+  currentDriver Driver? @relation(fields: [driverId], references: [id])
+  driverId      String?  @unique @db.ObjectId
+  currentFirm   Firm?   @relation(fields: [firmId], references: [id])
+  firmId        String?  @unique @db.ObjectId
 }
 
-model Account {
+model Firm {
+  id          String   @id @default(auto()) @map("_id") @db.ObjectId
+  firmName    String?
+  firmTag     String?  @default(" 'Kamień, który się toczy, mech nie zbiera' -  Przysłowie")
+  aboutFirm   String?  @default(" 'Sztuka nie polega na robieniu czegoś szybko, ale na robieniu czegoś na czas.' -  Jean Tinguely")
+  firmSocials String[]
+  balance     Int?
+
+  owner    Driver? @relation(fields: [driverId], references: [id], name: "owner", onDelete: NoAction, onUpdate: NoAction)
+  driverId String?  @unique @db.ObjectId
+
+  Drivers     Driver[]
+  Vehicles    Vehicle[]
+  Settlements Settlement[]
+  comKms CompanyKilometers[]
+}
+
+model Driver {
+  id                 String   @id @default(auto()) @map("_id") @db.ObjectId
+  name               String?
+  username           String?
+  email              String?  @unique
+  password           String?
+  image              String?
+  currentLocation    String?
+  firmsWorked        String[] //convert firm user id to string and check for duplicity before pushing to array
+  previousVehicles   String[]
+  balance            Int?
+  totKms             Int?
+  deliveries         Int?
+  avgFuelConsumption Int?
+  seniority          String?
+
+  vehicle           Vehicle?
+  kilometerMonths   KilometerMonth[]
+  companyKilometers CompanyKilometers[]
+  settlements       Settlement[]
+  firmOwned         Firm[]              @relation("owner")
+
+  currentFirm Firm?  @relation(fields: [firmId], references: [id])
+  firmId      String? @db.ObjectId
+}
+
+model KilometerMonth {
+  id       String  @id @default(auto()) @map("_id") @db.ObjectId
+  month    String?
+  year     String?
+  kms      Int?
+  driver   Driver? @relation(fields: [driverId], references: [id], onDelete: Cascade)
+  driverId String?  @db.ObjectId
+}
+
+model CompanyKilometers {
+  id       String  @id @default(auto()) @map("_id") @db.ObjectId
+  kms      Int?
+  driver   Driver? @relation(fields: [driverId], references: [id], onDelete: Cascade)
+  driverId String?  @db.ObjectId
+  firm   Firm? @relation(fields: [firmId], references: [id], onDelete: Cascade)
+  firmId String?  @db.ObjectId
+}
+
+model Settlement {
   id String @id @default(auto()) @map("_id") @db.ObjectId
-  userId             String   @db.ObjectId
-  type               String
-  provider           String
-  providerAccountId  String
-  refresh_token      String?  @db.String
-  access_token       String?  @db.String
-  expires_at         Int?
-  token_type         String?
-  scope              String?
-  id_token           String?  @db.String
-  session_state      String?
 
-  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+  beginImage                String?
+  endImage                  String?
+  distanceCoveredSettlement Int?
+  fuelUsed                  Int?
+  litersRefueled            Int?
+  deliveryTime              Int? //mins
+  expensesSpent             Int?
+  weight                    Int?
+  ferries                   Int?
+  highways                  String[]
+  products                  String[]
+  approvalStatus            Boolean
+  misc                      String[]
 
-  @@unique([provider, providerAccountId])
-}
-
-model CV {
-  id        String   @id @default(auto()) @map("_id") @db.ObjectId
-  cvName    String?
-  isDeleted Boolean  @default(false)
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
-
-  userId String @db.ObjectId
-  user   User   @relation(fields: [userId], references: [id], onDelete: Cascade)
-
-  subSections SubSection[]
-}
-
-model SubSection {
-  id        String   @id @default(auto()) @map("_id") @db.ObjectId
-  parentSection     String?   @db.String
-  title     String?   @db.String
-  subTitle  String?   @db.String
-  order     Int?      @db.Int
-  content   String[] @db.String
-  dateFrom  DateTime?
-  dateTo    DateTime?
-  isDeleted Boolean  @default(false)
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
-
-  cvId String @db.ObjectId
-  cv   CV     @relation(fields: [cvId], references: [id], onDelete: Cascade)
-}
-
-model Message {
-  id        String   @id @default(auto()) @map("_id") @db.ObjectId
-  name    String?
-  email    String?
-  messageContent    String?
-  isDeleted Boolean  @default(false)
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
-
+  driver   Driver? @relation(fields: [driverId], references: [id], onDelete: Cascade)
+  driverId String?  @db.ObjectId
+  Firm     Firm?   @relation(fields: [firmId], references: [id], onDelete: Cascade)
+  firmId   String?  @db.ObjectId
 }
 
 //npx prisma generate

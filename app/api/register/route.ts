@@ -7,9 +7,10 @@ export async function POST(request: Request) {
   const body = await request.json();
   const { email, username, password } = body;
 
+
   const thePassword = await bcrypt.hash(password, 12);
 
-  const user = await prisma.user.create({
+  const driver = await prisma.driver.create({
     data: {
       email: email,
       username: username,
@@ -18,10 +19,10 @@ export async function POST(request: Request) {
   });
 
   let successMessage = {
-    message: user
+    message: driver
       ? "Jesteś zarejestrowany/a pomyślnie."
       : "Wystąpił błąd podczas rejestracji.",
   };
 
-  return NextResponse.json({ ...user, ...successMessage });
+  return NextResponse.json({ ...driver, ...successMessage });
 }

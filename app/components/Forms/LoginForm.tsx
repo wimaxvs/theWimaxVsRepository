@@ -114,7 +114,7 @@ const LoginForm = () => {
         cursor-pointer items-center bg-black px-6 py-3 text-center font-semibold
         text-white disabled:cursor-not-allowed"
       >
-        {"Zaloguje sie"}
+        {"Zaloguj sie"}
       </button>
     </form>
   );

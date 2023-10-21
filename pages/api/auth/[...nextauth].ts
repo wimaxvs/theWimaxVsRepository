@@ -24,19 +24,19 @@ export const authOptions: AuthOptions = {
           throw new Error("Invalid credentials");
         }
 
-        const user = await prisma.user.findUnique({
+        const driver = await prisma.driver.findUnique({
           where: {
             email: credentials.email,
           },
         });
 
-        if (!user || !user?.password) {
+        if (!driver || !driver?.password) {
           throw new Error("Invalid credentials");
         }
 
         const isCorrectPassword = await bcrypt.compare(
           credentials.password,
-          user.password
+          driver.password
         );
 
 
@@ -44,7 +44,7 @@ export const authOptions: AuthOptions = {
           throw new Error("Invalid credentials");
         }
 
-        return user;
+        return driver;
       },
     }),
   ],
