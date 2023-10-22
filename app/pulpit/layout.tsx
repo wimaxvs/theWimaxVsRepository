@@ -17,7 +17,7 @@ const font = Inter({
   subsets: ["latin"],
 });
 
-export default async function Dash({ children }: DashlayoutProps) {
+export default async function Pulpit({ children }: DashlayoutProps) {
   const currentDriver = await getCurrentUser();
   return (
     <>

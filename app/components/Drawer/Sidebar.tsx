@@ -1,3 +1,4 @@
+import Link from "next/link";
 import React from "react";
 
 const Sidebar = () => {
@@ -16,12 +17,12 @@ const Sidebar = () => {
                 Pierwsze kroki
               </h2>
               <div className="flex flex-col space-y-1">
-                <a rel="noopener noreferrer" href="#">
+                <Link rel="noopener noreferrer" href="/zaloz">
                   Załóż firmę
-                </a>
-                <a rel="noopener noreferrer" href="#">
+                </Link>
+                <Link rel="noopener noreferrer" href="/dolacz">
                   Dołącz do istniejącej
-                </a>
+                </Link>
               </div>
             </div>
             <div className="space-y-2">

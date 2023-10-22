@@ -1,5 +1,5 @@
 "use client";
-import { useCallback, useState } from "react";
+import { useState } from "react";
 import Image from "next/image";
 import { SignInResponse, signIn } from "next-auth/react";
 import { useRouter } from "next/navigation";
@@ -7,35 +7,9 @@ import { toast } from "react-hot-toast";
 import { FieldValues, SubmitHandler, useForm } from "react-hook-form";
 
 const LoginForm = () => {
-  const [loginData, setLoginData] = useState<{
-    username: string;
-    password: string;
-  }>({ username: "", password: "" });
   const router = useRouter();
   const [isLoading, setIsLoading] = useState(false);
 
-  //   const onSubmit = (e: React.FormEvent<HTMLFormElement>) => {
-  //     e.preventDefault();
-  //     setIsLoading(true);
-  //     try {
-  //       signIn("credentials", {
-  //         ...loginData,
-  //         redirect: false,
-  //       }).then((callback: SignInResponse | undefined) => {
-  //         setIsLoading(false);
-
-  //         if (callback?.ok) {
-  //           toast.success("Logged in");
-  //           router.refresh();
-  //           router.push("/dash");
-  //         } else if (callback?.error) {
-  //           throw new Error(callback.error);
-  //         }
-  //       });
-  //     } catch (error: any) {
-  //       toast.error(error.message);
-  //     }
-  //   };
   const {
     register,
     handleSubmit,
@@ -61,7 +35,7 @@ const LoginForm = () => {
       if (callback?.ok) {
         toast.success("Logged in");
         router.refresh();
-        router.push("/dash");
+        router.push("/pulpit");
       }
       if (callback?.error) {
         toast.error(callback.error);
