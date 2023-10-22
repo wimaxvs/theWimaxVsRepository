@@ -1,4 +1,4 @@
-import Sidebar from "../components/Sidebar";
+import Drawer from "../components/Drawer/Drawer";
 import getCurrentUser from "../actions/getCurrentUser";
 import Link from "next/link";
 import { Inter } from "next/font/google";
@@ -22,11 +22,11 @@ export default async function Dash({ children }: DashlayoutProps) {
   return (
     <>
       {currentUser && (
-        <div className="dashLayoutContainer min-overflow-y-hidden w-full bg-off-white/30 flex flex-row bg-gray-200">
-          <Sidebar navbar={<Navbar currentUser={currentUser} />}>
+        <>
+          <Drawer navbar={<Navbar currentUser={currentUser} />}>
             {children}
-          </Sidebar>
-        </div>
+          </Drawer>
+        </>
       )}
       {!currentUser && (
         <div
