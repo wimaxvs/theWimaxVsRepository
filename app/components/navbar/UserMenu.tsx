@@ -9,10 +9,10 @@ import MenuItem from "./MenuItem";
 import { signOut } from "next-auth/react";
 
 interface UserMenuProps {
-  currentUser?: SafeUser | null;
+  currentDriver?: SafeUser | null;
 }
 
-const UserMenu: React.FC<UserMenuProps> = ({ currentUser }) => {
+const UserMenu: React.FC<UserMenuProps> = ({ currentDriver }) => {
 
   const [isOpen, setIsOpen] = useState(false);
 
@@ -45,16 +45,16 @@ const UserMenu: React.FC<UserMenuProps> = ({ currentUser }) => {
         >
           <AiOutlineMenu />
         </div>
-        {currentUser && (
+        {currentDriver && (
           <div className="hidden md:block">
-            <Avatar src={currentUser?.image} />
+            <Avatar src={currentDriver?.image} />
           </div>
         )}
       </div>
       {isOpen && (
         <div className="absolute rounded-xl shadow-md w-[40vw] md:w-[25vw] bg-white overflow-hidden right-0 top-12 text-sm">
           <div className="flex flex-col cursor-pointer border-b-[1px] border-b-slate-300 pb-2 mb-2 md:pb-0 md:mb-0 md:border-none">
-            {currentUser ? (
+            {currentDriver ? (
               <>
                 <MenuItem
                   label="Logout"

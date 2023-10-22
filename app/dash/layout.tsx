@@ -18,17 +18,17 @@ const font = Inter({
 });
 
 export default async function Dash({ children }: DashlayoutProps) {
-  const currentUser = await getCurrentUser();
+  const currentDriver = await getCurrentUser();
   return (
     <>
-      {currentUser && (
+      {currentDriver && (
         <>
-          <Drawer navbar={<Navbar currentUser={currentUser} />}>
+          <Drawer navbar={<Navbar currentDriver={currentDriver} />}>
             {children}
           </Drawer>
         </>
       )}
-      {!currentUser && (
+      {!currentDriver && (
         <div
           className={`${font.className} fixed mt-40 w-full h-40 flex flex-col items-center justify-center`}
         >

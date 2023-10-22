@@ -4,7 +4,7 @@ import { Suspense } from "react";
 
 import Loading from "./loading";
 import ToasterProvider from "./providers/ToasterProvider";
-import getCurrentUser from "./actions/getCurrentUser";
+
 export const metadata = {
   title: "Wimax",
   description: "Euro Truck Simulator 2 Company Management Portal",
@@ -19,10 +19,6 @@ export default async function RootLayout({
 }: {
   children: React.ReactNode;
 }) {
-  
-  const currentUser = await getCurrentUser(); //if current user, redirect to dash
-
-
   return (
     <html lang="en">
       <body className={`${font.className} overflow-y-auto h-full`}>
