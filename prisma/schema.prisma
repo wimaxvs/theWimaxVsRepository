@@ -32,7 +32,7 @@ model Firm {
   balance     Int?     @default(0)
 
   owner    Driver? @relation(fields: [driverId], references: [id], onDelete: NoAction, onUpdate: NoAction)
-  driverId String? @unique @db.ObjectId
+  driverId String? @db.ObjectId
 
   Drivers     Driver[]            @relation("drivers")
   Vehicles    Vehicle[]

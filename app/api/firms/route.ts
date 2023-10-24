@@ -13,6 +13,7 @@ export async function POST(request: Request) {
   }
 
   const body = await request.json();
+  console.log(body)
   const { firmName, firmId, firmTag, aboutFirm, firmSocials } = body;
 
   if (!firmId || !firmName || !firmTag || !aboutFirm || !firmSocials) {
@@ -56,5 +57,9 @@ export async function POST(request: Request) {
     },
   });
 
-  return NextResponse.json({ theNewFirm, updatedDriver });
+  return NextResponse.json({
+    message: "Firm Created Successfully",
+    theNewFirm,
+    updatedDriver,
+  });
 }
