@@ -1,6 +1,6 @@
 "use client";
 
-import { SafeUser } from "@/app/types";
+import { SafeDriver } from "@/app/types";
 
 import { AiOutlineMenu } from "react-icons/ai";
 import Avatar from "./Avatar";
@@ -9,7 +9,7 @@ import MenuItem from "./MenuItem";
 import { signOut } from "next-auth/react";
 
 interface UserMenuProps {
-  currentDriver?: SafeUser | null;
+  currentDriver?: SafeDriver | null;
 }
 
 const UserMenu: React.FC<UserMenuProps> = ({ currentDriver }) => {
@@ -39,21 +39,21 @@ const UserMenu: React.FC<UserMenuProps> = ({ currentDriver }) => {
   return (
     <div className="relative">
       <div className="flex flex-row items-center gap-3">
-        <div
-          className="p-4 md:px-1 md:px-2 flex flex-row items-center gap-3 cursor-pointer hover:scale-125 hover:drop-shadow-mdtm transition"
-          onClick={toggleOpen}
-        >
+        {/* <div className="" onClick={toggleOpen}>
           <AiOutlineMenu />
-        </div>
+        </div> */}
         {currentDriver && (
-          <div className="hidden md:block">
+          <div
+            className="p-4 md:px-2 flex flex-row items-center gap-3 cursor-pointer hover:scale-100 hover:drop-shadow-mdtm transition"
+            onClick={toggleOpen}
+          >
             <Avatar src={currentDriver?.image} />
           </div>
         )}
       </div>
       {isOpen && (
         <div className="absolute rounded-xl shadow-md w-[40vw] md:w-[25vw] bg-white overflow-hidden right-0 top-12 text-sm">
-          <div className="flex flex-col cursor-pointer border-b-[1px] border-b-slate-300 pb-2 mb-2 md:pb-0 md:mb-0 md:border-none">
+          <div className="flex flex-col cursor-pointer pb-2 mb-2 md:pb-0 md:mb-0">
             {currentDriver ? (
               <>
                 <MenuItem

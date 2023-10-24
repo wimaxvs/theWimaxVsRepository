@@ -7,7 +7,7 @@ export async function getSession() {
   return await getServerSession(authOptions);
 }
 
-export default async function getCurrentUser() {
+export default async function getCurrentDriver() {
   try {
     const session = await getSession();
 
@@ -15,18 +15,18 @@ export default async function getCurrentUser() {
       return null;
     }
 
-    const currentUser = await prisma.driver.findUnique({
+    const currentDriver = await prisma.driver.findUnique({
       where: {
         email: session.user.email as string,
       },
     });
 
-    if (!currentUser) {
+    if (!currentDriver) {
       return null;
     }
 
     return {
-      ...currentUser,
+      ...currentDriver,
     };
   } catch (error: any) {
     return null;

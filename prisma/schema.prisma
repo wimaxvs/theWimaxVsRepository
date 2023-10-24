@@ -18,9 +18,9 @@ model Vehicle {
   prevDrivers  String[] //convert driver user id to string and check for duplicity before pushing to array
 
   currentDriver Driver? @relation(fields: [driverId], references: [id])
-  driverId      String?  @unique @db.ObjectId
+  driverId      String? @unique @db.ObjectId
   currentFirm   Firm?   @relation(fields: [firmId], references: [id])
-  firmId        String?  @unique @db.ObjectId
+  firmId        String? @unique @db.ObjectId
 }
 
 model Firm {
@@ -29,15 +29,15 @@ model Firm {
   firmTag     String?  @default(" 'Kamień, który się toczy, mech nie zbiera' -  Przysłowie")
   aboutFirm   String?  @default(" 'Sztuka nie polega na robieniu czegoś szybko, ale na robieniu czegoś na czas.' -  Jean Tinguely")
   firmSocials String[]
-  balance     Int?
+  balance     Int?     @default(0)
 
-  owner    Driver? @relation(fields: [driverId], references: [id], name: "owner", onDelete: NoAction, onUpdate: NoAction)
-  driverId String?  @unique @db.ObjectId
+  owner    Driver? @relation(fields: [driverId], references: [id], onDelete: NoAction, onUpdate: NoAction)
+  driverId String? @unique @db.ObjectId
 
-  Drivers     Driver[]
+  Drivers     Driver[]            @relation("drivers")
   Vehicles    Vehicle[]
   Settlements Settlement[]
-  comKms CompanyKilometers[]
+  comKms      CompanyKilometers[]
 }
 
 model Driver {
@@ -60,9 +60,9 @@ model Driver {
   kilometerMonths   KilometerMonth[]
   companyKilometers CompanyKilometers[]
   settlements       Settlement[]
-  firmOwned         Firm[]              @relation("owner")
+  firmsOwned        Firm[]
 
-  currentFirm Firm?  @relation(fields: [firmId], references: [id])
+  currentFirm Firm?   @relation(fields: [firmId], references: [id], name: "drivers")
   firmId      String? @db.ObjectId
 }
 
@@ -72,16 +72,16 @@ model KilometerMonth {
   year     String?
   kms      Int?
   driver   Driver? @relation(fields: [driverId], references: [id], onDelete: Cascade)
-  driverId String?  @db.ObjectId
+  driverId String? @db.ObjectId
 }
 
 model CompanyKilometers {
   id       String  @id @default(auto()) @map("_id") @db.ObjectId
   kms      Int?
   driver   Driver? @relation(fields: [driverId], references: [id], onDelete: Cascade)
-  driverId String?  @db.ObjectId
-  firm   Firm? @relation(fields: [firmId], references: [id], onDelete: Cascade)
-  firmId String?  @db.ObjectId
+  driverId String? @db.ObjectId
+  firm     Firm?   @relation(fields: [firmId], references: [id], onDelete: Cascade)
+  firmId   String? @db.ObjectId
 }
 
 model Settlement {
@@ -102,9 +102,9 @@ model Settlement {
   misc                      String[]
 
   driver   Driver? @relation(fields: [driverId], references: [id], onDelete: Cascade)
-  driverId String?  @db.ObjectId
+  driverId String? @db.ObjectId
   Firm     Firm?   @relation(fields: [firmId], references: [id], onDelete: Cascade)
-  firmId   String?  @db.ObjectId
+  firmId   String? @db.ObjectId
 }
 
 //npx prisma generate

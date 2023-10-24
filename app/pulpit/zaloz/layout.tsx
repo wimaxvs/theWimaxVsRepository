@@ -15,5 +15,5 @@ const font = Inter({
 });
 
 export default async function Zaloz({ children }: ZalozlayoutProps) {
-  return <></>;
+  return <>{children}</>;
 }

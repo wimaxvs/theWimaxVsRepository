@@ -1,5 +1,5 @@
 import Drawer from "../components/Drawer/Drawer";
-import getCurrentUser from "../actions/getCurrentUser";
+import getCurrentDriver from "../actions/getCurrentDriver";
 import Link from "next/link";
 import { Inter } from "next/font/google";
 import Navbar from "../components/navbar/Navbar";
@@ -18,7 +18,7 @@ const font = Inter({
 });
 
 export default async function Pulpit({ children }: DashlayoutProps) {
-  const currentDriver = await getCurrentUser();
+  const currentDriver = await getCurrentDriver();
   return (
     <>
       {currentDriver && (

@@ -1,9 +1,9 @@
 import React from "react";
 import Link from "next/link";
-import { SafeUser } from "@/app/types";
+import { SafeDriver } from "@/app/types";
 
 interface NavKeysProps {
-  currentUser?: SafeUser | null;
+  currentUser?: SafeDriver | null;
 }
 
 const Navkeys: React.FC<NavKeysProps> = ({ currentUser }) => {

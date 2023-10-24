@@ -1,4 +1,4 @@
-import { SafeUser } from "@/app/types";
+import { SafeDriver } from "@/app/types";
 
 import Container from "../Container";
 import Logo from "./Logo";
@@ -7,7 +7,7 @@ import Navkeys from "./Navkeys";
 import ClientOnly from "../ClientOnly";
 
 interface NavbarProps {
-  currentDriver?: SafeUser | null;
+  currentDriver?: SafeDriver | null;
 }
 
 const Navbar: React.FC<NavbarProps> = ({ currentDriver }) => {
