@@ -2,7 +2,6 @@ import { NextResponse } from "next/server";
 
 import prisma from "@/app/libs/prismadb";
 import getCurrentDriver from "@/app/actions/getCurrentDriver";
-import { Driver, Firm } from "@prisma/client";
 import { SafeDriver } from "@/app/types";
 
 export async function POST(request: Request) {

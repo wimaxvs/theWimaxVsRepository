@@ -1,20 +1,27 @@
 "use client";
 
-import { SafeDriver } from "@/app/types";
-
-import { AiOutlineMenu } from "react-icons/ai";
+import useDriver from "@/app/hooks/useCurrentDriver";
 import Avatar from "./Avatar";
-import { useCallback, useState } from "react";
+import { useCallback, useState, useEffect } from "react";
 import MenuItem from "./MenuItem";
 import { signOut } from "next-auth/react";
+import { Driver } from "@prisma/client";
 
 interface UserMenuProps {
-  currentDriver?: SafeDriver | null;
+  currentDriver?: Driver;
 }
 
 const UserMenu: React.FC<UserMenuProps> = ({ currentDriver }) => {
 
+  const {currentDriver:stateCurrentDriver, setCurrentDriver} = useDriver()
+
   const [isOpen, setIsOpen] = useState(false);
+
+  useEffect(() => {
+    if (stateCurrentDriver === undefined) {
+      setCurrentDriver(currentDriver)
+    }
+  }, [])
 
   const toggleOpen = useCallback(() => {
     setIsOpen((value) => !value);
@@ -39,25 +46,22 @@ const UserMenu: React.FC<UserMenuProps> = ({ currentDriver }) => {
   return (
     <div className="relative">
       <div className="flex flex-row items-center gap-3">
-        {/* <div className="" onClick={toggleOpen}>
-          <AiOutlineMenu />
-        </div> */}
-        {currentDriver && (
+        {stateCurrentDriver && (
           <div
             className="p-4 md:px-2 flex flex-row items-center gap-3 cursor-pointer hover:scale-100 hover:drop-shadow-mdtm transition"
             onClick={toggleOpen}
           >
-            <Avatar src={currentDriver?.image} />
+            <Avatar src={stateCurrentDriver?.image} />
           </div>
         )}
       </div>
       {isOpen && (
         <div className="absolute rounded-xl shadow-md w-[40vw] md:w-[25vw] bg-white overflow-hidden right-0 top-12 text-sm">
           <div className="flex flex-col cursor-pointer pb-2 mb-2 md:pb-0 md:mb-0">
-            {currentDriver ? (
+            {stateCurrentDriver ? (
               <>
                 <MenuItem
-                  label="Logout"
+                  label="Wyloguj"
                   onClick={() =>
                     signOut({ callbackUrl: "http://localhost:3000/" })
                   }

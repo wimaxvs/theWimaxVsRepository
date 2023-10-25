@@ -1,13 +1,11 @@
-import { SafeDriver } from "@/app/types";
-
 import Container from "../Container";
 import Logo from "./Logo";
 import UserMenu from "./UserMenu";
-import Navkeys from "./Navkeys";
 import ClientOnly from "../ClientOnly";
+import { Driver } from "@prisma/client";
 
 interface NavbarProps {
-  currentDriver?: SafeDriver | null;
+  currentDriver?: Driver;
 }
 
 const Navbar: React.FC<NavbarProps> = ({ currentDriver }) => {
