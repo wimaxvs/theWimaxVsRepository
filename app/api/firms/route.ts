@@ -13,25 +13,20 @@ export async function POST(request: Request) {
   }
 
   const body = await request.json();
-  console.log(body)
-  const { firmName, firmId, firmTag, aboutFirm, firmSocials } = body;
+  let { firmName, firmTag, aboutFirm, firmSocials } = body;
 
-  if (!firmId || !firmName || !firmTag || !aboutFirm || !firmSocials) {
+  if (!firmName || !firmTag || !aboutFirm || !firmSocials) {
     return NextResponse.error();
   }
 
   const theNewFirm = await prisma.firm.create({
     //create new firm and set the owner and put current user in driver list
     data: {
-      id: firmId,
-      driverId: currentDriver?.id,
+      ownerId: currentDriver?.id,
       firmName,
       firmTag,
       aboutFirm,
       firmSocials,
-      Drivers: {
-        create: [{ id: currentDriver?.id }],
-      },
     },
   });
 
@@ -41,24 +36,19 @@ export async function POST(request: Request) {
       id: currentDriver?.id,
     },
     data: {
-      firmsOwned: {
-        createMany: {
-          data: [
-            ...currentDriver?.firmsOwned!?.filter((firm: Firm) => {
-              firm.id !== firmId;
-            }),
-            { id: firmId },
-          ],
+      currentFirm: {
+        connect: {
+          id: theNewFirm.id,
         },
       },
     },
     include: {
-      firmsOwned: true,
+      firmOwned: true,
     },
   });
 
   return NextResponse.json({
-    message: "Firm Created Successfully",
+    message: "Sukces: Firma została pomyślnie utworzona",
     theNewFirm,
     updatedDriver,
   });

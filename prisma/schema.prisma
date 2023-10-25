@@ -31,12 +31,12 @@ model Firm {
   firmSocials String[]
   balance     Int?     @default(0)
 
-  owner    Driver? @relation(fields: [driverId], references: [id], onDelete: NoAction, onUpdate: NoAction)
-  driverId String? @db.ObjectId
+  owner    Driver? @relation(fields: [ownerId], references: [id], onDelete: NoAction, onUpdate: NoAction)
+  ownerId String? @unique @db.ObjectId
 
-  Drivers     Driver[]            @relation("drivers")
-  Vehicles    Vehicle[]
-  Settlements Settlement[]
+  drivers     Driver[]            @relation("drivers")
+  vehicles    Vehicle[]
+  settlements Settlement[]
   comKms      CompanyKilometers[]
 }
 
@@ -60,10 +60,10 @@ model Driver {
   kilometerMonths   KilometerMonth[]
   companyKilometers CompanyKilometers[]
   settlements       Settlement[]
-  firmsOwned        Firm[]
+  firmOwned        Firm?
 
   currentFirm Firm?   @relation(fields: [firmId], references: [id], name: "drivers")
-  firmId      String? @db.ObjectId
+  firmId      String? @unique @db.ObjectId
 }
 
 model KilometerMonth {

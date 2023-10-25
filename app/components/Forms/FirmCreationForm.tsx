@@ -11,6 +11,7 @@ import { MdDeleteOutline } from "react-icons/md";
 import { BiMessageSquareAdd } from "react-icons/bi";
 import axios, { AxiosResponse } from "axios";
 import { v4 as uuidv4 } from "uuid";
+import { BSON, ObjectId } from "bson";
 
 import toast from "react-hot-toast";
 
@@ -40,12 +41,13 @@ const FirmCreationForm = () => {
   });
 
   const onSubmit: SubmitHandler<FieldValues> = (data: FieldValues) => {
+    setIsLoading(isLoading => !isLoading)
     console.log(data);
     const extractedData = { ...data.firmDetails };
     let links = extractedData.firmSocials.map(
       (link: { link: string }) => link.link
     );
-    let firmId = uuidv4().toString();
+    let firmId: string | ObjectId = uuidv4().toString();
     firmId = firmId.split("-").join("");
 
     let toDb = { ...extractedData, firmSocials: links, firmId };
@@ -56,7 +58,6 @@ const FirmCreationForm = () => {
     axios
       .post("/api/firms", deets)
       .then((res: AxiosResponse<any>) => {
-        console.log(res.data);
         toast.success(
           <>
             <div className="p-4 text-bold text-green-800 flex flex-col items-center bg-green-100 rounded-lg my-4">
@@ -67,7 +68,15 @@ const FirmCreationForm = () => {
         return reset();
       })
       .catch((error: any) => {
-        toast.error(`Error: ${error}`);
+        console.log(error.code);
+        switch (error.code) {
+          case "ERR_BAD_RESPONSE":
+            toast.error(`Błąd: Masz już firmę.`);
+            break;
+
+          default:
+            break;
+        }
       })
       .finally(() => {
         setIsLoading(false);
@@ -174,7 +183,9 @@ const FirmCreationForm = () => {
         <button
           disabled={isLoading}
           type="submit"
-          className={"p-3 bg-deep-blue text-white font-semibold rounded-md"}
+          className={
+            "p-3 bg-deep-blue text-white font-semibold rounded-md disabled:opacity-75"
+          }
         >
           Prześlij
         </button>
