@@ -8,7 +8,7 @@ export default async function getAllFirms() {
       },
     });
 
-    // console.log(allTheFirms);
+    console.log(allTheFirms);
     if (!allTheFirms) {
       return null;
     }
@@ -18,3 +18,5 @@ export default async function getAllFirms() {
     return error;
   }
 }
+
+

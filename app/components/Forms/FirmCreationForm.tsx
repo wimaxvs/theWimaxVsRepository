@@ -11,8 +11,6 @@ import { MdDeleteOutline } from "react-icons/md";
 import { BiMessageSquareAdd } from "react-icons/bi";
 import axios, { AxiosResponse } from "axios";
 import { v4 as uuidv4 } from "uuid";
-import { BSON, ObjectId } from "bson";
-
 import toast from "react-hot-toast";
 
 const FirmCreationForm = () => {
@@ -47,7 +45,7 @@ const FirmCreationForm = () => {
     let links = extractedData.firmSocials.map(
       (link: { link: string }) => link.link
     );
-    let firmId: string | ObjectId = uuidv4().toString();
+    let firmId: string  = uuidv4().toString();
     firmId = firmId.split("-").join("");
 
     let toDb = { ...extractedData, firmSocials: links, firmId };
