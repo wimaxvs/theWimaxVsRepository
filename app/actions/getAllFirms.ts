@@ -5,10 +5,12 @@ export default async function getAllFirms() {
     const allTheFirms = await prisma.firm.findMany({
       include: {
         drivers: true,
+        joinRequests: {
+          include: { toFirm: true, requester: true },
+        },
       },
     });
 
-    console.log(allTheFirms);
     if (!allTheFirms) {
       return null;
     }
@@ -18,5 +20,3 @@ export default async function getAllFirms() {
     return error;
   }
 }
-
-

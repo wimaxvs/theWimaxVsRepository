@@ -27,6 +27,9 @@ export async function POST(request: Request) {
       aboutFirm,
       firmSocials,
     },
+    include: {
+      joinRequests: true
+    }
   });
 
   const updatedDriver = await prisma.driver.update({

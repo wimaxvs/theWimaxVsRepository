@@ -21,7 +21,7 @@ const UserMenu: React.FC<UserMenuProps> = ({ currentDriver }) => {
     if (stateCurrentDriver === undefined) {
       setCurrentDriver(currentDriver)
     }
-  }, [])
+  }, [currentDriver, setCurrentDriver, stateCurrentDriver])
 
   const toggleOpen = useCallback(() => {
     setIsOpen((value) => !value);

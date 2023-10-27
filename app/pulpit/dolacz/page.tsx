@@ -7,7 +7,6 @@ import React from 'react'
 const page = async () => {
 
     let allTheFirms: SafeFirm[] = await getAllFirms();
-    console.log(allTheFirms);
 
   return (
     <>

@@ -1,15 +1,17 @@
-"use client"
-import { SafeFirm } from "@/app/types";
+"use client";
+import { SafeFirm, SafeJoinRequest } from "@/app/types";
 import useDriver from "@/app/hooks/useCurrentDriver";
+import useAllFirms from "@/app/hooks/useAllFirms";
 import {
   AiOutlineInstagram,
   AiOutlineFacebook,
   AiOutlineLink,
 } from "react-icons/ai";
-import {MdJoinLeft} from "react-icons/md"
+import { FaCheck } from "react-icons/fa";
+import { MdJoinLeft } from "react-icons/md";
 import { TbBrandDiscord } from "react-icons/tb";
 import { FaTwitter } from "react-icons/fa";
-import React from "react";
+import React, { useEffect, useState } from "react";
 import Link from "next/link";
 import axios, { AxiosResponse } from "axios";
 import toast from "react-hot-toast";
@@ -18,9 +20,15 @@ interface FirmTableProps {
   allTheFirms: SafeFirm[];
 }
 
-const FirmTable: React.FC<FirmTableProps> = ({allTheFirms}) => {
+const FirmTable: React.FC<FirmTableProps> = ({ allTheFirms }) => {
+  const { currentDriver, setCurrentDriver } = useDriver();
+  const { theFirms, setRequestedFirm, setTheFirms } = useAllFirms();
 
-    const {currentDriver} = useDriver()
+  const [isLoading, setIsLoading] = useState<boolean>(false);
+
+  useEffect(() => {
+    allTheFirms && setTheFirms(allTheFirms as Partial<SafeFirm>[]);
+  }, [allTheFirms, setTheFirms]);
 
   let iconOptions: { size: number; color: string } = {
     size: 18,
@@ -40,40 +48,54 @@ const FirmTable: React.FC<FirmTableProps> = ({allTheFirms}) => {
       <AiOutlineLink {...iconOptions} />
     );
 
-    let onJoin = (driverId: string, firmId: string) => {
-        let data = {
-            driverId, firmId
+  let onJoin = (driverId: string, firmId: string) => {
+    let data = {
+      requesterId: driverId,
+      firmId,
+    };
+    console.log(data);
+    let deets = JSON.stringify(data);
+
+    axios
+      .post("/api/request", deets)
+      .then(
+        (
+          res: AxiosResponse<{
+            message: string;
+            code?: string | number;
+            theNewRequest: SafeJoinRequest;
+          }>
+        ) => {
+          console.log(res.data.theNewRequest);
+          if (res.data.code === 500 || res.data.code === 400)
+            throw new Error(res.data.message);
+          toast.success(
+            <>
+              <div className="p-4 text-bold text-green-800 flex flex-col items-center bg-green-100 rounded-lg my-4">
+                {`${res.data.message}`}
+              </div>
+            </>
+          );
+          if (res.data.theNewRequest.toFirm) {
+            setRequestedFirm(res.data.theNewRequest.toFirm);
+          }
+          return setCurrentDriver(res.data.theNewRequest.requester);
         }
-        console.log(data);
-        let deets = JSON.stringify(data);
-
-        axios
-          .post("/api/firms", deets)
-          .then((res: AxiosResponse<any>) => {
-            toast.success(
-              <>
-                <div className="p-4 text-bold text-green-800 flex flex-col items-center bg-green-100 rounded-lg my-4">
-                  {`${res.data.message}`}
-                </div>
-              </>
-            );
-            return reset();
-          })
-          .catch((error: any) => {
-            console.log(error.code);
-            switch (error.code) {
-              case "ERR_BAD_RESPONSE":
-                toast.error(`Błąd: Masz już firmę.`);
-                break;
-
-              default:
-                break;
-            }
-          })
-          .finally(() => {
-            setIsLoading(false);
-          });
-    }
+      )
+      .catch((error: any) => {
+        if (error.code) {
+          switch (error.code) {
+            case "ERR_BAD_RESPONSE":
+              return toast.error(`Błąd`);
+          }
+        } else {
+          return toast.error(error.message);
+        }
+      })
+      .finally(() => {
+        setIsLoading(false);
+      });
+  };
 
   return (
     <>
@@ -105,35 +127,60 @@ const FirmTable: React.FC<FirmTableProps> = ({allTheFirms}) => {
               </thead>
               <tbody>
                 {/* the rows */}
-                {allTheFirms &&
-                  allTheFirms.map((f: SafeFirm, index: number) => (
-                    <tr key={index} className={`border-none`}>
-                      <th
-                        className={`${
-                          index % 2 == 1 && "rounded-tl-md rounded-bl-md"
-                        }`}
-                      >
-                        {index + 1}
-                      </th>
-                      <td>{f.firmName}</td>
-                      <td>{f.firmTag}</td>
-                      <td>{f.drivers.length}</td>
-                      <td className="flex flex-row items-center gap-1">
-                        {f.firmSocials.map((link, i) => (
-                          <Link key={i} href={link} replace={false}>
-                            {whichSocial(link)}
-                          </Link>
-                        ))}
-                      </td>
-                      <td
-                        className={`${
-                          index % 2 == 1 && "rounded-tr-md rounded-br-md"
-                        }`}
-                      >
-                              <button className={`p-2 bg-green-600 rounded-md`} onClick={()=>onJoin(currentDriver?.id as string, f.id)}><MdJoinLeft {...iconOptions} color="white" /></button>
-                      </td>
-                    </tr>
-                  ))}
+                {theFirms &&
+                  theFirms.map((f: Partial<SafeFirm>, index: number) => {
+                    let userHasJoinRequest = f.joinRequests?.some(
+                      (jr) => jr.requesterId === (currentDriver?.id as string)
+                    );
+                    return (
+                      <tr key={index} className={`border-none`}>
+                        <th
+                          className={`${
+                            index % 2 == 1 && "rounded-tl-md rounded-bl-md"
+                          }`}
+                        >
+                          {index + 1}
+                        </th>
+                        <td>{f.firmName}</td>
+                        <td>{f.firmTag}</td>
+                        <td>{f.drivers?.length}</td>
+                        <td className="flex flex-row items-center gap-1">
+                          {f.firmSocials?.map((link, i) => (
+                            <Link key={i} href={link} replace={false}>
+                              {whichSocial(link)}
+                            </Link>
+                          ))}
+                        </td>
+                        <td
+                          className={`${
+                            index % 2 == 1 && "rounded-tr-md rounded-br-md"
+                          }`}
+                        >
+                          {f.joinRequests && (
+                            <button
+                              className={`p-2  ${
+                                userHasJoinRequest && "disabled"
+                              } ${
+                                userHasJoinRequest
+                                  ? "bg-[#ffaa33]"
+                                  : "bg-green-600"
+                              } rounded-md disabled:opacity-50`}
+                              disabled={isLoading}
+                              onClick={() =>
+                                onJoin(currentDriver?.id as string, f.id!)
+                              }
+                            >
+                              {userHasJoinRequest ? (
+                                <FaCheck {...iconOptions} color="white" />
+                              ) : (
+                                <MdJoinLeft {...iconOptions} color="white" />
+                              )}
+                            </button>
+                          )}
+                        </td>
+                      </tr>
+                    );
+                  })}
               </tbody>
             </table>
           </div>

@@ -13,7 +13,6 @@ const useDriver = create<State & Action>((set) => ({
   currentDriver: undefined,
   setCurrentDriver: (DriverStringToSet) =>
     set(() => {
-      console.log(DriverStringToSet)
       return { currentDriver: DriverStringToSet };
     }),
 }));

@@ -3,19 +3,18 @@ import { NextResponse } from "next/server";
 import prisma from "@/app/libs/prismadb";
 import getCurrentDriver from "@/app/actions/getCurrentDriver";
 import { SafeDriver } from "@/app/types";
-import { SafeFirm } from "@/app/types";
 
 export async function POST(request: Request) {
   const currentDriver: SafeDriver | null = await getCurrentDriver();
 
   if (!currentDriver) {
-    return NextResponse.error();
+    return NextResponse.json({ code: 500, message: "Nie jesteś zalogowany" });
   }
 
   const body = await request.json();
   let { firmId, requesterId } = body;
 
-  const firmRequested = prisma.firm.findUnique({
+  const firmRequested = await prisma.firm.findUnique({
     where: {
       id: firmId,
     },
@@ -28,19 +27,60 @@ export async function POST(request: Request) {
     },
   });
 
-  const requesterIds = firmRequested.joinRequests;
+  const requesterIds = firmRequested?.joinRequests;
+  if (requesterIds?.some((idObject) => idObject.requesterId === requesterId))
+    return NextResponse.json({
+      code: 400,
+      message: "Prośba o dołączenie została już wysłana",
+    });
 
-  if (!firmId || !requesterId) {
-    return NextResponse.error();
+  if (!firmId) {
+    return NextResponse.json({ code: 500, message: "Firma nie istnieje" });
   }
 
-  const theNewRequest = await prisma.joinRequest.create({
-    //create new firm and set the owner and put current user in driver list
-    data: {
-      firmId,
-      requesterId,
+  const persistentDriver = await prisma.driver.findFirst({
+    where: {
+      id: requesterId,
+    },
+    select: {
+      joinRequest: true,
     },
   });
 
-  return NextResponse.json(theNewRequest);
+  if (persistentDriver?.joinRequest)
+    return NextResponse.json({
+      code: 400,
+      message: "Masz oczekującą prośbę.",
+    });
+
+  try {
+    const theNewRequest = await prisma.joinRequest.create({
+      //create new request and set the requester and put requested firm in requestedFirm list
+      data: {
+        firmId,
+        requesterId,
+      },
+      include: {
+        toFirm: {
+          include: {
+            joinRequests: true,
+          },
+        },
+        requester: {
+          include: {
+            joinRequest: true,
+          },
+        },
+      },
+    });
+
+    console.log(theNewRequest);
+
+    return NextResponse.json({
+      theNewRequest,
+      message: "prośba o dołączenie została wysłana pomyślnie",
+    });
+  } catch (error) {
+    console.log(error);
+  }
 }

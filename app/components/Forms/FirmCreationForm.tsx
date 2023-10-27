@@ -66,7 +66,7 @@ const FirmCreationForm = () => {
         return reset();
       })
       .catch((error: any) => {
-        console.log(error.code);
+        console.log(error);
         switch (error.code) {
           case "ERR_BAD_RESPONSE":
             toast.error(`Błąd: Masz już firmę.`);
