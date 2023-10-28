@@ -27,11 +27,12 @@ const useAllFirms = create<State & Action>((set) => ({
       const index = state.theFirms?.findIndex(
         (item) => item.id === requestedFirm.id
       );
-      if (index && index !== -1) {
+      if (index && index > -1) {
         theFirmsAsArray[index] = requestedFirm;
-      } else {
-        theFirmsAsArray.push(requestedFirm);
       }
+      // else {
+      //   theFirmsAsArray.push(requestedFirm);
+      // }
 
       return { theFirms: theFirmsAsArray };
     }),
