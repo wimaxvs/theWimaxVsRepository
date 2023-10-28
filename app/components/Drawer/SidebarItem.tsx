@@ -3,7 +3,6 @@
 import { usePathname, useRouter } from "next/navigation";
 import React, { ReactElement, useCallback } from "react";
 import { IconType } from "react-icons";
-import Link from "next/link";
 
 interface SidebarItemProps {
   label: string;
@@ -13,9 +12,7 @@ interface SidebarItemProps {
 }
 const SidebarItem: React.FC<SidebarItemProps> = ({
   label,
-  icon,
   yerl,
-  selected,
 }) => {
     const pathname = usePathname();
     const router = useRouter();
@@ -24,9 +21,6 @@ const SidebarItem: React.FC<SidebarItemProps> = ({
       const pulpit = "/pulpit";
       const notOnPulpit = pathname?.indexOf(`${yerl}`) !== -1;
       const onPulpit = pathname === pulpit;
-      // if (yerl === "/create") {
-      //   router.push(`${pathname?.slice(0, pulpit!.length)}`);
-      // } else 
       if (!notOnPulpit && onPulpit) {
         router.push(`${pathname}/${yerl}`);
       } else if (

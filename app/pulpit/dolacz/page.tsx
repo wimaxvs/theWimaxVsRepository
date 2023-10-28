@@ -1,6 +1,6 @@
 import getAllFirms from '@/app/actions/getAllFirms';
 import { SafeFirm } from '@/app/types';
-import FirmTable from '@/app/components/firmTable/FirmTable';
+import FirmTable from '@/app/components/tables/FirmTable';
 import ClientOnly from '@/app/components/ClientOnly';
 import React from 'react'
 

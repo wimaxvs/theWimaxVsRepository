@@ -13,15 +13,14 @@ const Sidebar = () => {
     {
       h2: "Pierwsze kroki",
       links: [
-        { label: "Załóż firmę", link: "/zaloz" },
-        { label: "Dołącz do istniejącej", link: "/dolacz" },
+        { label: "Załóż firmę", link: "zaloz" },
+        { label: "Dołącz do istniejącej", link: "dolacz" },
       ],
     },
     {
       h2: "Statystyki",
       links: [
-        { label: "Lista najlepszych firm", link: "/topf" },
-        { label: "Lista najlepszych kierowców", link: "/topk" },
+        { label: "Lista najlepszych kierowców", link: "topk" },
       ],
     },
     {
