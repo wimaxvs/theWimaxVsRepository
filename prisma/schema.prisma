@@ -42,13 +42,13 @@ model Firm {
 }
 
 model Driver {
-  id                 String   @id @default(auto()) @map("_id") @db.ObjectId
+  id                 String    @id @default(auto()) @map("_id") @db.ObjectId
   name               String?
   username           String?
-  email              String?  @unique
+  email              String?   @unique
   password           String?
   image              String?
-  currentLocation    String?
+  currentLocation    Location?
   firmsWorked        String[] //convert firm user id to string and check for duplicity before pushing to array
   previousVehicles   String[]
   balance            Int?
@@ -77,6 +77,16 @@ model JoinRequest {
 
   toFirm Firm?   @relation(fields: [firmId], references: [id])
   firmId String? @unique @db.ObjectId
+}
+
+model Location {
+  id      String  @id @default(auto()) @map("_id") @db.ObjectId
+  country String?
+  city    String?
+  zipCode String?
+
+  driver   Driver? @relation(fields: [driverId], references: [id], onDelete: NoAction, onUpdate: NoAction)
+  driverId String? @unique @db.ObjectId
 }
 
 model KilometerMonth {

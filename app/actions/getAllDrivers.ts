@@ -5,7 +5,8 @@ export default async function getAllDrivers() {
     const allTheDrivers = await prisma.driver.findMany({
       include: {
         kilometerMonths: true,
-        companyKilometers: true
+        companyKilometers: true,
+        currentLocation: true
       },
     });
 

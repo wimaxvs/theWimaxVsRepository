@@ -1,6 +1,6 @@
-import { Driver, Firm, JoinRequest } from "@prisma/client";
+import { Driver, Firm, JoinRequest, Location } from "@prisma/client";
 
-export type SafeDriver = Driver & { firmOwned?: Firm[], joinRequest?: JoinRequest};
+export type SafeDriver = Driver & { firmOwned?: Firm[], joinRequest?: JoinRequest, currentLocation?: Location};
 
 export type SafeFirm = Firm & {
   drivers: Driver[];

@@ -1,16 +1,15 @@
-import getAllFirms from "@/app/actions/getAllFirms";
-import { SafeFirm } from "@/app/types";
-import FirmTable from "@/app/components/tables/FirmTable";
+import { SafeDriver } from "@/app/types";
+import DriverTable from "@/app/components/tables/DriverTable";
 import ClientOnly from "@/app/components/ClientOnly";
-import React from "react";
+import getAllDrivers from "@/app/actions/getAllDrivers";
 
 const page = async () => {
-  let allTheFirms: SafeFirm[] = await getAllFirms();
+  let allTheDrivers: Partial<SafeDriver[]> = await getAllDrivers();
 
   return (
     <>
       <ClientOnly>
-        <FirmTable allTheFirms={allTheFirms} />
+        <DriverTable allTheDrivers={allTheDrivers} />
       </ClientOnly>
     </>
   );
