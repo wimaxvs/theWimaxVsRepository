@@ -1,8 +1,8 @@
-import { Driver } from "@prisma/client";
 import { create } from "zustand";
+import { SafeDriver } from "../types";
 
 type State = {
-  currentDriver: Driver | undefined;
+  currentDriver: Partial<SafeDriver> | undefined;
 };
 
 type Action = {

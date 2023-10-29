@@ -14,10 +14,11 @@ const DriverTable: React.FC<DriverTableProps> = ({ allTheDrivers }) => {
   return (
     <>
       <div
-        className={`zalozPage bg-gradient-to-br from-gray-500 to-gray-200 w-full h-[868px] flex flex-row justify-center py-10`}
+        className={`kierowcyPage w-full h-[868px] flex flex-row justify-center py-10 bg-[url('/images/wiremeshBlue.png')] bg-no-repeat bg-cover bg-center`}
       >
+        {/* bg-gradient-to-br from-gray-500 to-gray-200 */}
         <section
-          className={`formSection rounded-md bg-gradient-to-br from-gray-800 to-gray-950 w-11/12 md:w-4/5 lg:w-2/3 md:min-h-5/6 md:h-5/6 p-2 md:p-10 flex flex-col border border-primary gap-3`}
+          className={`formSection rounded-md bg-gradient-to-br from-gray-800 to-gray-950 w-11/12 md:w-4/5 lg:w-2/3 md:min-h-5/6 md:h-5/6 p-2 md:p-10 flex flex-col gap-3 border border-primary`}
         >
           {/* Table Title */}
 
@@ -27,8 +28,8 @@ const DriverTable: React.FC<DriverTableProps> = ({ allTheDrivers }) => {
           <p className={`text-sm md:text-md lg:text-xl font-semibold mb-3`}>
             Ci ludzie byliby wcieleniami <b>Da Vinci</b>...
           </p>
-          <div className="max-w-[11/12] overflow-x-auto">
-            <table className="table table-zebra rounded-md ">
+          <div className="max-w-[11/12] overflow-x-auto pb-3">
+            <table className="table table-zebra rounded-md">
               <thead>
                 <tr>
                   <th></th>
@@ -92,7 +93,7 @@ const DriverTable: React.FC<DriverTableProps> = ({ allTheDrivers }) => {
                               <span className="font-normal badge badge-accent badge-sm">
                                 {`${driver.currentLocation?.city || "Miasto"} `}
                               </span>
-                              <span className="font-normal badge badge-accent badge-outline badge-sm">
+                              <span className="rounded-xl border border-solid border-[#1fb2a6] text-[#1fb2a6] text-xs p-0.5">
                                 {`${
                                   driver.currentLocation?.zipCode ||
                                   "kod pocztowy"

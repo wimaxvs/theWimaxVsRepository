@@ -17,7 +17,7 @@ const Drawer: React.FC<DrawerProps> = ({ children, navbar }) => {
           <div className={`mt-[95px] bg-gray-300 min-h-full`}>
             <label
               htmlFor="my-drawer"
-              className="h-[48px] w-[48px] btn btn-primary bg-base-200 hover:bg-deep-blue drawer-button rounded-full absolute top-[90%] md:top-[134px] right-8 md:left-8"
+              className="h-[48px] w-[48px] btn btn-primary bg-base-200 hover:bg-deep-blue drawer-button rounded-full absolute top-[80%] md:top-[134px] right-8 md:left-8"
             >
               <AiOutlineAlignLeft />
             </label>

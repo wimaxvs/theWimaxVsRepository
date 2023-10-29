@@ -10,7 +10,6 @@ import {
 import { MdDeleteOutline } from "react-icons/md";
 import { BiMessageSquareAdd } from "react-icons/bi";
 import axios, { AxiosResponse } from "axios";
-import { v4 as uuidv4 } from "uuid";
 import toast from "react-hot-toast";
 
 const FirmCreationForm = () => {
@@ -39,16 +38,14 @@ const FirmCreationForm = () => {
   });
 
   const onSubmit: SubmitHandler<FieldValues> = (data: FieldValues) => {
-    setIsLoading(isLoading => !isLoading)
+    setIsLoading((isLoading) => !isLoading);
     console.log(data);
     const extractedData = { ...data.firmDetails };
     let links = extractedData.firmSocials.map(
       (link: { link: string }) => link.link
     );
-    let firmId: string  = uuidv4().toString();
-    firmId = firmId.split("-").join("");
 
-    let toDb = { ...extractedData, firmSocials: links, firmId };
+    let toDb = { ...extractedData, firmSocials: links };
     console.log(toDb);
 
     let deets = JSON.stringify(toDb);

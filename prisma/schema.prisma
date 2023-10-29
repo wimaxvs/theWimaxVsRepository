@@ -72,11 +72,11 @@ model JoinRequest {
   id     String   @id @default(auto()) @map("_id") @db.ObjectId
   status Boolean?
 
-  requester   Driver? @relation(fields: [requesterId], references: [id], onDelete: NoAction, onUpdate: NoAction)
+  requester   Driver? @relation(fields: [requesterId], references: [id])
   requesterId String? @unique @db.ObjectId
 
   toFirm Firm?   @relation(fields: [firmId], references: [id])
-  firmId String? @unique @db.ObjectId
+  firmId String? @db.ObjectId
 }
 
 model Location {
@@ -85,7 +85,7 @@ model Location {
   city    String?
   zipCode String?
 
-  driver   Driver? @relation(fields: [driverId], references: [id], onDelete: NoAction, onUpdate: NoAction)
+  driver   Driver? @relation(fields: [driverId], references: [id])
   driverId String? @unique @db.ObjectId
 }
 

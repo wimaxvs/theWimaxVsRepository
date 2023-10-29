@@ -12,7 +12,7 @@ export async function POST(request: Request) {
   }
 
   const body = await request.json();
-  let { firmId, requesterId } = body;
+  let { firmId, requesterId }: { firmId: string; requesterId: string } = body;
 
   const firmRequested = await prisma.firm.findUnique({
     where: {

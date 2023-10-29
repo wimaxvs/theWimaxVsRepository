@@ -100,7 +100,8 @@ const FirmTable: React.FC<FirmTableProps> = ({ allTheFirms }) => {
   return (
     <>
       <div
-        className={`zalozPage bg-gradient-to-br from-gray-500 to-gray-200 w-full h-[868px] flex flex-row justify-center py-10`}
+        className={`firmyPage w-full h-[868px] flex flex-row justify-center py-10 bg-[url('/images/wiremeshBlue.png')] bg-no-repeat bg-cover bg-left`}
+        //  bg-gradient-to-br from-gray-500 to-gray-200
       >
         <section
           className={`formSection rounded-md bg-gradient-to-br from-gray-800 to-gray-950 w-11/12 md:w-4/5 lg:w-2/3 md:min-h-5/6 md:h-5/6 p-2 md:p-10 flex flex-col gap-3 border border-primary`}
@@ -112,8 +113,8 @@ const FirmTable: React.FC<FirmTableProps> = ({ allTheFirms }) => {
           <p
             className={`text-sm md:text-md lg:text-xl font-semibold mb-3`}
           >{`zaczyna się od dołączenia do jednej z tych firm`}</p>
-          <div className="max-w-[11/12] overflow-x-auto">
-            <table className="table table-zebra rounded-md ">
+          <div className="max-w-[11/12] overflow-x-auto pb-3">
+            <table className="table table-zebra rounded-md">
               {/* head */}
               <thead className={`bg-[rgb(25,30,36)]`}>
                 <tr>

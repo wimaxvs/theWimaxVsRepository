@@ -25,7 +25,7 @@ const Sidebar = () => {
     },
     {
       h2: "O Mnie",
-      links: [{ label: "Zarządzaj profilem", link: "/profil" }],
+      links: [{ label: "Zarządzaj profilem", link: "profil" }],
     },
   ];
 
