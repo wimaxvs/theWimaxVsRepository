@@ -1,11 +1,12 @@
 import ClientOnly from "@/app/components/ClientOnly";
 import DriverUpdateForm from "@/app/components/Forms/DriverUpdateForm";
+import PersonalDetailForm from "@/app/components/Forms/PersonalDetailForm";
 
 const page = async () => {
   return (
     <>
       <div
-        className={`profilPage w-full h-[868px] flex flex-row justify-center py-10 bg-[url('/images/faceWireMeshWBg.png')] bg-no-repeat bg-cover bg-bottom`}
+        className={`profilPage w-full h-[868px] flex flex-row justify-center py-10 bg-[url('/images/faceWireMeshWBg.png')] bg-no-repeat bg-cover bg-bottom overflow-y-scroll`}
       >
         {/* bg-gradient-to-br from-gray-500 to-gray-200 */}
         <section
@@ -23,11 +24,11 @@ const page = async () => {
             Wprowadź zmiany w swoim profilu, wypełniając formularz i klikając
             Prześlij.
           </p>
-          <div className="max-w-[11/12] p-3 bg-white gap-2 flex flex-row max-h-96 rounded-md">
+          <div className="max-w-[11/12] p-3 bg-white gap-6 flex flex-col md:flex-row md:max-h-[70%] rounded-md overflow-y-scroll">
             <ClientOnly>
               <DriverUpdateForm />
+              <PersonalDetailForm />
             </ClientOnly>
-            <div className={`w-[2/5] flex`}></div>
           </div>
         </section>
       </div>

@@ -64,12 +64,10 @@ const DriverUpdateForm = () => {
     <>
       <form
         onSubmit={handleSubmit(onSubmit)}
-        className={`max-w-[50%] min-w-[45%]`}
+        className={`md:max-w-[50%] md:min-w-[45%] w-full flex flex-col gap-2 items-start p-4 rounded-md bg-white md:max-h-[80%]`}
       >
-        <div
-          className={`w-full flex flex-col gap-2 items-start p-4 rounded-md bg-white max-h-[350px] overflow-y-scroll `}
-        >
-          <div className={`w-full p-2`}>
+        <div className={``}>
+          <div className={`w-full p-2 pl-0 md:max-h-[360px] overflow-y-scroll`}>
             <div className="relative w-full">
               <div className="absolute left-2 top-[26%] inline-block h-5 w-5">
                 <MdOutlinePermIdentity size={20} />

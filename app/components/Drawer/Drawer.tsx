@@ -12,7 +12,7 @@ const Drawer: React.FC<DrawerProps> = ({ children, navbar }) => {
       <div className="drawer">
         <input id="my-drawer" type="checkbox" className="drawer-toggle" />
 
-        <div className="drawer-content h-screen bg-white overflow-y-hidden">
+        <div className="drawer-content h-screen bg-white overflow-y-scroll lg:overflow-y-hidden">
           {navbar}
           <div className={`mt-[95px] bg-gray-300 min-h-full`}>
             <label
