@@ -3,10 +3,12 @@ import axios, { AxiosResponse } from "axios";
 import React, { useState } from "react";
 import { FieldValues, SubmitHandler, useForm } from "react-hook-form";
 import toast from "react-hot-toast";
-import { MdOutlinePermIdentity } from "react-icons/md";
 import useDriver from "@/app/hooks/useCurrentDriver";
+
+import { MdOutlinePermIdentity } from "react-icons/md";
 import { AiOutlineIdcard } from "react-icons/ai";
-import {CiMapPin } from "react-icons/ci"
+import { CiMapPin } from "react-icons/ci";
+import { BsPinMap, BsPostageHeart } from "react-icons/bs";
 
 const DriverUpdateForm = () => {
   const [isLoading, setIsLoading] = useState<boolean>(false);
@@ -40,32 +42,23 @@ const DriverUpdateForm = () => {
 
     let deets = JSON.stringify(toDb);
 
-    axios
-      .post("/api/firms", deets)
-      .then((res: AxiosResponse<any>) => {
-        toast.success(
-          <>
-            <div className="p-4 text-bold text-green-800 flex flex-col items-center bg-green-100 rounded-lg my-4">
-              {`${res.data.message}`}
-            </div>
-          </>
-        );
-        return reset();
-      })
-      .catch((error: any) => {
-        console.log(error);
-        switch (error.code) {
-          case "ERR_BAD_RESPONSE":
-            toast.error(`Błąd: Masz już firmę.`);
-            break;
-
-          default:
-            break;
-        }
-      })
-      .finally(() => {
-        setIsLoading(false);
-      });
+    // axios
+    //   .post("/api/drupdate", deets)
+    //   .then((res: AxiosResponse<any>) => {
+    //     toast.success(
+    //       <>
+    //         <div className="p-4 text-bold text-green-800 flex flex-col items-center bg-green-100 rounded-lg my-4">
+    //           {`${res.data.message}`}
+    //         </div>
+    //       </>
+    //     );
+    //     return reset();
+    //   })
+    //   .catch((error: any) => {
+    //   })
+    //   .finally(() => {
+    //     setIsLoading(false);
+    //   });
   };
   return (
     <>
@@ -74,9 +67,9 @@ const DriverUpdateForm = () => {
         className={`max-w-[50%] min-w-[45%]`}
       >
         <div
-          className={`w-full flex flex-col gap-2 items-start mt-4 p-4 rounded-md bg-white`}
+          className={`w-full flex flex-col gap-2 items-start p-4 rounded-md bg-white max-h-[350px] overflow-y-scroll `}
         >
-          <div className={`w-full max-h-[350px] overflow-y-scroll p-2`}>
+          <div className={`w-full p-2`}>
             <div className="relative w-full">
               <div className="absolute left-2 top-[26%] inline-block h-5 w-5">
                 <MdOutlinePermIdentity size={20} />
@@ -126,6 +119,40 @@ const DriverUpdateForm = () => {
                   maxLength: 256,
                 })}
               />
+            </div>
+            <div className={`w-full flex flex-row justify-between`}>
+              <div className="relative max-w-[50%]">
+                <div className="absolute left-2 top-[26%] inline-block h-5 w-5">
+                  <BsPinMap size={20} />
+                </div>
+                <input
+                  type="text"
+                  className="mb-2 md:mb-4 block w-full border border-solid border-black bg-white align-middle text-[#333333] focus:border-[#3898ec] text-sm px-3 rounded-md h-9 py-6 pl-8"
+                  placeholder={`${
+                    currentDriver?.currentLocation?.country || "Obecne kraj"
+                  }`}
+                  {...register("currentLocation.country", {
+                    required: false,
+                    maxLength: 256,
+                  })}
+                />
+              </div>
+              <div className="relative max-w-[45%]">
+                <div className="absolute left-2 top-[26%] inline-block h-5 w-5">
+                  <BsPostageHeart size={20} />
+                </div>
+                <input
+                  type="text"
+                  className="mb-2 md:mb-4 block w-full border border-solid border-black bg-white align-middle text-[#333333] focus:border-[#3898ec] text-sm px-3 rounded-md h-9 py-6 pl-8"
+                  placeholder={`${
+                    currentDriver?.currentLocation?.city || "Kod Pocztowy"
+                  }`}
+                  {...register("currentLocation.zipCode", {
+                    required: false,
+                    maxLength: 256,
+                  })}
+                />
+              </div>
             </div>
           </div>
           <button
