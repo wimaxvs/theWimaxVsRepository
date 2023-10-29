@@ -91,7 +91,7 @@ const PersonalDetailForm = () => {
               <input
                 type="password"
                 className="mb-2 md:mb-4 block w-full border border-solid border-black bg-white align-middle text-[#333333] focus:border-[#3898ec] text-sm px-3 rounded-md h-9 py-6 pl-8"
-                placeholder={`${currentDriver?.username || "Twój nick"}`}
+                placeholder={`${currentDriver?.password || "Hasło"}`}
                 {...register("password", {
                   required: false,
                   maxLength: 256,
