@@ -57,7 +57,7 @@ const UserMenu: React.FC<UserMenuProps> = ({ currentDriver }) => {
       </div>
       {isOpen && (
         <div className="absolute rounded-xl shadow-md w-[40vw] md:w-[25vw] bg-white overflow-hidden right-0 top-12 text-sm">
-          <div className="flex flex-col cursor-pointer pb-2 mb-2 md:pb-0 md:mb-0">
+          <div className="flex flex-col cursor-pointer">
             {stateCurrentDriver ? (
               <>
                 <MenuItem

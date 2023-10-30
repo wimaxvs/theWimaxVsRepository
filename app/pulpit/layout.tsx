@@ -35,10 +35,8 @@ export default async function Pulpit({ children }: DashlayoutProps) {
           <div className="fixed flex flex-col items-center w-[50%] bg-black px-10 py-6 rounded-xl drop-shadow-md text-white font-bold gap-1">
             <p>Nie jesteś zalogowany.</p>
             <p className="text-base">
-              Kliknij menu w prawym górnym rogu, aby uzyskać dostęp do całości
-              cechy.
+              Kliknij tutaj aby sie zalogowac 👇
             </p>
-            <p>Możesz też wrócić do domu tutaj:</p>
             <Link href="/">
               <button
                 className={`bg-deep-blue mt-2 py-2 px-4 rounded-lg drop-shadow-lg`}

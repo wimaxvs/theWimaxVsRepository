@@ -36,7 +36,7 @@ const LoginForm = () => {
       .post("/api/register", data)
       .then((res: AxiosResponse<{ code: string; message: string }>) => {
         if (res.data.code === "P2002") {
-          throw new Error("Email taken... 🤔 Try another one");
+          throw new Error("E-mail został odebrany... 🤔 Spróbuj innego");
         } else {
           toast.success(
             <>
@@ -72,12 +72,13 @@ const LoginForm = () => {
             />
             <input
               type="email"
+              autoComplete="email"
               className="mb-4 block w-full border border-solid border-black bg-white align-middle text-[#333333] focus:border-[#3898ec] text-sm px-3 rounded-md h-9 py-6 pl-14"
               maxLength={256}
               value={regData?.email}
               onChange={handleInputChange}
               name="email"
-              placeholder="Email Address"
+              placeholder="Adres e-mail"
               required
             />
           </div>
@@ -97,7 +98,8 @@ const LoginForm = () => {
               value={regData?.username}
               onChange={handleInputChange}
               name="username"
-              placeholder="username"
+              autoComplete="username"
+              placeholder="Nazwa użytkownika"
               required
             />
           </div>
@@ -117,7 +119,7 @@ const LoginForm = () => {
             onChange={handleInputChange}
             value={regData?.password}
             name="password"
-            placeholder="Password (min 8 characters)"
+            placeholder="Hasło (min. 8 znaków)"
             required
           />
         </div>

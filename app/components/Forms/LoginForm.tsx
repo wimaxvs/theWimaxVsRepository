@@ -55,8 +55,9 @@ const LoginForm = () => {
         />
         <input
           type="text"
+          autoComplete="email"
           className="mb-4 block w-full border border-solid border-black bg-white align-middle text-[#333333] focus:border-[#3898ec] text-sm px-3 rounded-md h-9 py-6 pl-14"
-          placeholder="Email"
+          placeholder="e-mail"
           {...register("email", {
             required: true,
             maxLength: 256,
@@ -75,7 +76,7 @@ const LoginForm = () => {
         <input
           type="password"
           maxLength={256}
-          placeholder="Password (min 8 characters)"
+          placeholder="Hasło (min. 8 znaków)"
           required
           className="mb-4 block w-full border border-solid border-black bg-white align-middle text-[#333333] focus:border-[#3898ec] text-sm px-3 rounded-md h-9 py-6 pl-14"
           {...register("password", { required: true, maxLength: 256 })}
