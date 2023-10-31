@@ -22,22 +22,24 @@ export async function POST(request: Request) {
     name,
     username,
     password: thePassword,
-    currentLocation,
+    currentLocation, image
   } = body;
+
+
 
   let password: string | undefined = "";
   if (thePassword) password = await bcrypt.hash(thePassword, 12);
   else password = undefined;
 
-  let bodyB = { email, name, username, password };
+  let bodyB = { email, name, username, password, image };
 
-  console.log(currentLocation)
 
   const driverKeysToKeep: (keyof SafeDriver)[] = [
     "name",
     "password",
     "username",
     "email",
+    "image"
   ];
   const locationKeysToKeep: (keyof Location)[] = ["country", "city", "zipCode"];
 
@@ -72,18 +74,6 @@ export async function POST(request: Request) {
   leaveOnlyChanges(driverKeysToKeep, bodyB, driverChanges);
   leaveOnlyChanges(locationKeysToKeep, currentLocation, locationChanges);
 
-  // for (const key of driverKeysToKeep) {
-  //   if (body[key] !== null && body[key] !== undefined && body[key].length > 0) {
-  //     // Use a type assertion to inform TypeScript of the type
-  //     if (key === "password") {
-  //       driverChanges[key] = password;
-  //     } else {
-  //       driverChanges[key] = body[key];
-  //     }
-  //   }
-  // }
-  console.log({ driverChanges, locationChanges });
-  console.log(Object.keys(locationChanges), Object.keys(locationChanges).length);
 
   let driverLocation: Location | null;
   let currentDriverLocationId: string | undefined =
@@ -108,7 +98,6 @@ export async function POST(request: Request) {
     driverLocation = null;
   }
 
-  console.log("hit a");
 
   let driver;
   try {

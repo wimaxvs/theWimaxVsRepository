@@ -14,7 +14,7 @@ const DriverTable: React.FC<DriverTableProps> = ({ allTheDrivers }) => {
   return (
     <>
       <div
-        className={`kierowcyPage w-full h-[868px] flex flex-row justify-center py-10 bg-[url('/images/wiremeshBlue.png')] bg-no-repeat bg-cover bg-center`}
+        className={`kierowcyPage w-full h-[871px] flex flex-row justify-center py-10 bg-[url('/images/wiremeshBlue.png')] bg-no-repeat bg-cover bg-center`}
       >
         {/* bg-gradient-to-br from-gray-500 to-gray-200 */}
         <section

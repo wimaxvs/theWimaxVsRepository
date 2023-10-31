@@ -6,7 +6,7 @@ const page = () => {
   return (
     <>
       <div
-        className={`zalozPage bg-gradient-to-br from-gray-500 to-gray-200 w-full h-[868px] flex flex-row justify-center py-10`}
+        className={`zalozPage bg-gradient-to-br from-gray-500 to-gray-200 w-full h-[871px] flex flex-row justify-center py-10`}
       >
         <section
           className={`formSection rounded-md bg-gradient-to-br from-gray-800 to-gray-900 w-11/12 md:w-4/5 lg:w-2/3 md:min-h-5/6 md:h-5/6 p-3 md:p-0 flex flex-row items-center `}

@@ -1,20 +1,22 @@
 "use client";
 import axios, { AxiosResponse } from "axios";
 import React, { useState } from "react";
+import useIA from "./ImageAddition/hooks/useIA";
 import { FieldValues, SubmitHandler, useForm } from "react-hook-form";
 import toast from "react-hot-toast";
 import useDriver from "@/app/hooks/useCurrentDriver";
+import ImageAddition from "./ImageAddition/ImageAddition";
 
 import { MdOutlinePermIdentity } from "react-icons/md";
 import { AiOutlineIdcard } from "react-icons/ai";
 import { CiMapPin } from "react-icons/ci";
 import { BsPinMap, BsPostageHeart } from "react-icons/bs";
 import { Driver } from "@prisma/client";
-import { nextResponseMessage } from "@/app/api/drupdate/route";
 
 const DriverUpdateForm = () => {
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const { currentDriver, setCurrentDriver } = useDriver();
+  const { uploadFile } = useIA();
 
   const {
     control,
@@ -31,8 +33,19 @@ const DriverUpdateForm = () => {
     },
   });
 
-  const onSubmit: SubmitHandler<FieldValues> = (data: FieldValues) => {
+  const onSubmit: SubmitHandler<FieldValues> = async (data: FieldValues) => {
     setIsLoading((isLoading) => !isLoading);
+
+    let imgData: string;
+    if (typeof data.image[0] !== "object") {
+      imgData = currentDriver?.image as string;
+    } else {
+      imgData = await uploadFile(data.image[0]);
+    }
+    data = {
+      ...data,
+      image: imgData,
+    };
 
     let toDb = JSON.stringify(data);
     console.log(toDb);
@@ -169,6 +182,7 @@ const DriverUpdateForm = () => {
               />
             </div>
           </div>
+          <ImageAddition id={"image"} register={register} />
         </div>
         <button
           disabled={isLoading}

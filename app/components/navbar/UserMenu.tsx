@@ -48,7 +48,7 @@ const UserMenu: React.FC<UserMenuProps> = ({ currentDriver }) => {
       <div className="flex flex-row items-center gap-3">
         {stateCurrentDriver && (
           <div
-            className="p-4 md:px-2 flex flex-row items-center gap-3 cursor-pointer hover:scale-100 hover:drop-shadow-mdtm transition"
+            className="object-cover flex flex-row items-center gap-3 cursor-pointer hover:scale-100 hover:drop-shadow-mdtm transition h-[50px] min-h-[50px] w-[50px] min-w-[50px]"
             onClick={toggleOpen}
           >
             <Avatar src={stateCurrentDriver?.image} />

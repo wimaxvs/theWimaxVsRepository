@@ -9,9 +9,9 @@ const Avatar: React.FC<AvatarProps> = ({src}) => {
   
   return (
       <Image
-      className="rounded-full"
-      height="30"
-      width="30"
+      className="rounded-full object-cover h-full w-full"
+      height={50}
+      width={50}
       alt="logged in user avatar"
       src={src || imgPlaceholder}
       />

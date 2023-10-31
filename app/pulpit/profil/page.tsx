@@ -6,7 +6,7 @@ const page = async () => {
   return (
     <>
       <div
-        className={`profilPage w-full h-[868px] flex flex-row justify-center py-10 bg-[url('/images/faceWireMeshWBg.png')] bg-no-repeat bg-cover bg-bottom overflow-y-scroll`}
+        className={`profilPage w-full h-[871px] flex flex-row justify-center py-10 bg-[url('/images/faceWireMeshWBg.png')] bg-no-repeat bg-cover bg-bottom overflow-y-scroll`}
       >
         {/* bg-gradient-to-br from-gray-500 to-gray-200 */}
         <section
@@ -21,8 +21,7 @@ const page = async () => {
             maluje to, czym jest. <b>-Jackson Pollock</b>
           </p>
           <p className={`text-sm font-semibold mb-3 text-white`}>
-            Wprowadź zmiany w swoim profilu, wypełniając formularz i klikając
-            Prześlij.
+            {`Wprowadź zmiany w swoim profilu, wprowadzając potrzebne zmiany i klikając Prześlij.`}
           </p>
           <div className="max-w-[11/12] p-3 bg-white gap-6 flex flex-col md:flex-row md:max-h-[70%] rounded-md overflow-y-scroll">
             <ClientOnly>
