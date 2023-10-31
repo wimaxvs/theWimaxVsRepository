@@ -2,10 +2,9 @@ import { NextResponse } from "next/server";
 
 import prisma from "@/app/libs/prismadb";
 import getCurrentDriver from "@/app/actions/getCurrentDriver";
-import { SafeDriver } from "@/app/types";
 
 export async function POST(request: Request) {
-  const currentDriver: SafeDriver | null = await getCurrentDriver();
+  const currentDriver = await getCurrentDriver();
 
   if (!currentDriver) {
     return NextResponse.error();
