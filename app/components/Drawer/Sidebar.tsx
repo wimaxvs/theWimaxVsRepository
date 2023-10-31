@@ -11,17 +11,15 @@ const Sidebar = () => {
     }[];
   }[] = [
     {
-      h2: "Pierwsze kroki",
+      h2: "Pierwsze krok",
       links: [
-        { label: "Załóż firmę", link: "zaloz" },
-        { label: "Dołącz do istniejącej", link: "dolacz" },
+        // { label: "Załóż firmę", link: "zaloz" },
+        { label: "Wyślij prośbę o dołączenie", link: "dolacz" },
       ],
     },
     {
       h2: "Statystyki",
-      links: [
-        { label: "Lista najlepszych kierowców", link: "topk" },
-      ],
+      links: [{ label: "Lista najlepszych kierowców", link: "topk" }],
     },
     {
       h2: "O Mnie",
