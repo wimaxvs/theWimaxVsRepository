@@ -19,6 +19,12 @@ export default async function getCurrentDriver() {
       where: {
         email: session.user.email as string,
       },
+      include: {
+        currentLocation: true,
+        currentFirm: true,
+        firmOwned: true,
+        joinRequest: true,
+      },
     });
 
     if (!currentDriver) {

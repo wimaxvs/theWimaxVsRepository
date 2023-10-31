@@ -31,7 +31,6 @@ const PersonalDetailForm = () => {
     setIsLoading((isLoading) => !isLoading);
 
     let toDb = JSON.stringify(data);
-    console.log(toDb);
 
     axios
       .post("/api/drupdate", toDb)
@@ -39,15 +38,21 @@ const PersonalDetailForm = () => {
         (
           res: AxiosResponse<{
             driver: Driver;
-            successMessage: nextResponseMessage;
+            code?: number;
             message?: string;
           }>
         ) => {
-          setCurrentDriver(res.data.driver);
+          if (
+            res.data.code === 500 ||
+            res.data.code === 400
+          ) {
+            throw new Error(res.data.message)
+          }
+            setCurrentDriver(res.data.driver);
           toast.success(
             <>
               <div className="p-4 text-bold text-green-800 flex flex-col items-center bg-green-100 rounded-lg my-4">
-                {`${res.data.successMessage.message}`}
+                {`${res.data.message}`}
               </div>
             </>
           );
@@ -58,7 +63,7 @@ const PersonalDetailForm = () => {
         toast.error(
           <>
             <div className="p-4 text-bold text-red-800 flex flex-col items-center bg-rose-100 rounded-lg my-4">
-              {`${"Adres email jest już zajęty"}`}
+              {`${error}`}
             </div>
           </>
         );

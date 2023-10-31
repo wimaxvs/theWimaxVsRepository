@@ -64,7 +64,7 @@ model Driver {
   joinRequest       JoinRequest?
 
   currentFirm Firm?   @relation(fields: [firmId], references: [id], name: "drivers")
-  firmId      String? @unique @db.ObjectId
+  firmId      String?  @db.ObjectId
 
   currentLocation Location? @relation(fields: [locationId], references: [id])
   locationId      String?   @db.ObjectId

@@ -2,6 +2,7 @@ import { NextResponse } from "next/server";
 import bcrypt from "bcrypt";
 
 import prisma from "@/app/libs/prismadb";
+import { Prisma, Location } from "@prisma/client";
 import getCurrentDriver from "@/app/actions/getCurrentDriver";
 import { SafeDriver } from "@/app/types";
 
@@ -16,62 +17,123 @@ export async function POST(request: Request) {
     return NextResponse.json({ code: 500, message: "Nieznany użytkownik." });
   }
   const body = await request.json();
-  const { email, name, password: thePassword, currentLocation } = body;
+  const {
+    email,
+    name,
+    username,
+    password: thePassword,
+    currentLocation,
+  } = body;
 
-  const knownEmail = await prisma.driver.findFirst({
-    where: {
-      email: email
-    }
-  })
-
-  if (knownEmail) {
-    
-  }
-  let password: string = "";
+  let password: string | undefined = "";
   if (thePassword) password = await bcrypt.hash(thePassword, 12);
+  else password = undefined;
 
-  const keysToKeep: (keyof SafeDriver)[] = [
+  let bodyB = { email, name, username, password };
+
+  console.log(currentLocation)
+
+  const driverKeysToKeep: (keyof SafeDriver)[] = [
     "name",
     "password",
     "username",
     "email",
   ];
+  const locationKeysToKeep: (keyof Location)[] = ["country", "city", "zipCode"];
 
-  const newObject: any = {};
+  const driverChanges: any = {};
+  const locationChanges: any = {};
 
-  for (const key of keysToKeep) {
-    if (body[key] !== null && body[key] !== undefined && body[key].length > 0) {
-      // Use a type assertion to inform TypeScript of the type
-      if (key === "password") {
-        newObject[key] = password;
-      } else {
-        newObject[key] = body[key];
+  let leaveOnlyChanges: <T>(
+    keysToKeep: (keyof T)[],
+    theInspected: any,
+    changeReceiver: any
+  ) => void = <T>(
+    keysToKeep: (keyof T)[],
+    theInspected: any,
+    changeReceiver: any
+  ) => {
+    for (const key of keysToKeep) {
+      if (
+        theInspected &&
+        theInspected[key] !== null &&
+        theInspected[key] !== undefined &&
+        theInspected[key].length > 0
+      ) {
+        if (key === "password") {
+          changeReceiver[key] = password as string;
+        } else {
+          changeReceiver[key] = theInspected[key];
+        }
+      }
+    }
+  };
+
+  leaveOnlyChanges(driverKeysToKeep, bodyB, driverChanges);
+  leaveOnlyChanges(locationKeysToKeep, currentLocation, locationChanges);
+
+  // for (const key of driverKeysToKeep) {
+  //   if (body[key] !== null && body[key] !== undefined && body[key].length > 0) {
+  //     // Use a type assertion to inform TypeScript of the type
+  //     if (key === "password") {
+  //       driverChanges[key] = password;
+  //     } else {
+  //       driverChanges[key] = body[key];
+  //     }
+  //   }
+  // }
+  console.log({ driverChanges, locationChanges });
+  console.log(Object.keys(locationChanges), Object.keys(locationChanges).length);
+
+  let driverLocation: Location | null;
+  let currentDriverLocationId: string | undefined =
+    currentDriver.currentLocation?.id;
+  if (Object.keys(locationChanges).length > 0) {
+    if (!currentDriverLocationId) {
+      driverLocation = await prisma.location.create({
+        data: { ...locationChanges },
+      });
+    } else {
+      driverLocation = await prisma.location.upsert({
+        where: { id: currentDriverLocationId },
+        update: {
+          ...locationChanges,
+        },
+        create: {
+          ...locationChanges,
+        },
+      });
+    }
+  } else {
+    driverLocation = null;
+  }
+
+  console.log("hit a");
+
+  let driver;
+  try {
+    driver = await prisma.driver.update({
+      where: { email: currentDriver?.email as string },
+      data: {
+        ...driverChanges,
+        locationId: driverLocation
+          ? driverLocation.id
+          : currentDriver.currentLocation?.id,
+      },
+      include: {
+        currentLocation: true,
+      },
+    });
+  } catch (error) {
+    if (error instanceof Prisma.PrismaClientKnownRequestError) {
+      if (error.code === "P2002") {
+        return NextResponse.json({
+          code: 500,
+          message: "Adres email albo nazwa uzytkownik jest już zajęty",
+        });
       }
     }
   }
-
-  console.log(newObject);
-
-  const driverLocation = await prisma.location.create({
-    data: {
-      ...currentLocation,
-    },
-  });
-
-  console.log(driverLocation);
-
-  const driver = await prisma.driver.update({
-    where: { email: currentDriver?.email as string },
-    data: {
-      //   password: password ? password : currentDriver?.password,
-      //   email: email ? email : currentDriver?.email,
-      ...newObject,
-      locationId: driverLocation.id,
-    },
-    include: {
-      currentLocation: true,
-    },
-  });
 
   let successMessage = {
     message: driver
@@ -79,5 +141,5 @@ export async function POST(request: Request) {
       : "Wystąpił błąd podczas aktualizacji.",
   };
 
-  return NextResponse.json({ driver, successMessage });
+  return NextResponse.json({ driver, ...successMessage });
 }
