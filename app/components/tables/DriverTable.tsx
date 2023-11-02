@@ -14,11 +14,11 @@ const DriverTable: React.FC<DriverTableProps> = ({ allTheDrivers }) => {
   return (
     <>
       <div
-        className={`kierowcyPage w-full h-[871px] flex flex-row justify-center py-10 bg-[url('/images/wiremeshBlue.png')] bg-no-repeat bg-cover bg-center`}
+        className={`kierowcyPage w-full min-h-screen flex flex-row justify-center py-10 bg-[url('/images/wiremeshBlue.png')] bg-no-repeat bg-cover bg-center`}
       >
         {/* bg-gradient-to-br from-gray-500 to-gray-200 */}
         <section
-          className={`formSection rounded-md bg-gradient-to-br from-gray-800 to-gray-950 w-11/12 md:w-4/5 lg:w-2/3 md:min-h-5/6 md:h-5/6 p-2 md:p-10 flex flex-col gap-3 border border-primary`}
+          className={`formSection rounded-md bg-gradient-to-br from-gray-800 to-gray-950 w-11/12 md:w-4/5 lg:w-2/3 md:min-h-5/6 md:h-5/6 md:max-h-[600px] p-2 md:p-10 flex flex-col gap-3 border border-primary`}
         >
           {/* Table Title */}
 

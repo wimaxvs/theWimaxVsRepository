@@ -12,6 +12,8 @@ import { AiOutlineIdcard } from "react-icons/ai";
 import { CiMapPin } from "react-icons/ci";
 import { BsPinMap, BsPostageHeart } from "react-icons/bs";
 import { Driver } from "@prisma/client";
+import InputDecipher from "./inputs/InputDecipher";
+import { SafeDriver } from "@/app/types";
 
 const DriverUpdateForm = () => {
   const [isLoading, setIsLoading] = useState<boolean>(false);
@@ -27,7 +29,7 @@ const DriverUpdateForm = () => {
   } = useForm<FieldValues>({
     defaultValues: {
       name: "",
-      userName: "",
+      username: "",
       image: "",
       currentLocation: { country: "", city: "", zipCode: "" },
     },
@@ -96,91 +98,53 @@ const DriverUpdateForm = () => {
         className={`md:max-w-[50%] md:min-w-[45%] w-full flex flex-col gap-2 items-start p-4 rounded-md bg-white`}
       >
         <div className={`w-full p-2 pl-0 md:max-h-[380px] overflow-y-scroll`}>
-          <div className="relative w-full">
-            <label htmlFor="email" className="mb-3 font-semibold text-black">
-              Wpisz tutaj swoje imię i nazwisko, a następnie nową nazwę
-              użytkownika:
-            </label>
-            <div className="absolute left-2 top-[65%] inline-block h-5 w-5">
-              <MdOutlinePermIdentity size={20} color={"black"} />
-            </div>
-
-            <input
-              type="text"
-              className="mb-2 md:mb-4 block w-full border border-solid border-black bg-white align-middle text-[#333333] focus:border-[#3898ec] text-sm px-3 rounded-md h-9 py-6 pl-8"
-              placeholder={`${currentDriver?.name || "Twoje imię i nazwisko"}`}
-              {...register("name", {
-                required: false,
-                maxLength: 256,
-              })}
-            />
-          </div>
-          <div className="relative w-full">
-            <div className="absolute left-2 top-[26%] inline-block h-5 w-5">
-              <AiOutlineIdcard size={20} color={"black"} />
-            </div>
-            <input
-              type="text"
-              className="mb-2 md:mb-4 block w-full border border-solid border-black bg-white align-middle text-[#333333] focus:border-[#3898ec] text-sm px-3 rounded-md h-9 py-6 pl-8"
-              placeholder={`${currentDriver?.username || "Twój nick"}`}
-              {...register("username", {
-                required: false,
-                maxLength: 256,
-              })}
-            />
-          </div>
+          <InputDecipher
+            IconPassed={<MdOutlinePermIdentity size={20} color={"black"} />}
+            register={register}
+            registerId={"name"}
+            inputType={"text"}
+            placeholder={currentDriver?.name!}
+            ifPlaceholderMissing={"Twoje imię i nazwisko"}
+          />
+          <InputDecipher
+            IconPassed={<AiOutlineIdcard size={20} color={"black"} />}
+            register={register}
+            registerId={"username"}
+            inputType={"text"}
+            placeholder={currentDriver?.username!}
+            ifPlaceholderMissing={"Twój nick"}
+          />
           <h3 className="text-md text-black font-semibold my-2 ">
             Gdzie jesteś teraz?
           </h3>
-          <div className="relative w-full">
-            <div className="absolute left-2 top-[26%] inline-block h-5 w-5">
-              <CiMapPin size={20} color={"black"} />
-            </div>
-            <input
-              type="text"
-              className="mb-2 md:mb-4 block w-full border border-solid border-black bg-white align-middle text-[#333333] focus:border-[#3898ec] text-sm px-3 rounded-md h-9 py-6 pl-8"
-              placeholder={`${
-                currentDriver?.currentLocation?.city || "Obecne miasto"
-              }`}
-              {...register("currentLocation.city", {
-                required: false,
-                maxLength: 256,
-              })}
-            />
-          </div>
+          <InputDecipher
+            IconPassed={<CiMapPin size={20} color={"black"} />}
+            register={register}
+            registerId={"currentLocation.city"}
+            inputType={"text"}
+            placeholder={currentDriver?.currentLocation?.city!}
+            ifPlaceholderMissing={"Obecne miasto"}
+          />
+
           <div className={`w-full flex flex-row justify-between`}>
-            <div className="relative max-w-[50%]">
-              <div className="absolute left-2 top-[26%] inline-block h-5 w-5">
-                <BsPinMap size={20} color={"black"} />
-              </div>
-              <input
-                type="text"
-                className="mb-2 md:mb-4 block w-full border border-solid border-black bg-white align-middle text-[#333333] focus:border-[#3898ec] text-sm px-3 rounded-md h-9 py-6 pl-8"
-                placeholder={`${
-                  currentDriver?.currentLocation?.country || "Obecne kraj"
-                }`}
-                {...register("currentLocation.country", {
-                  required: false,
-                  maxLength: 256,
-                })}
-              />
-            </div>
-            <div className="relative max-w-[45%]">
-              <div className="absolute left-2 top-[26%] inline-block h-5 w-5">
-                <BsPostageHeart size={20} color={"black"} />
-              </div>
-              <input
-                type="text"
-                className="mb-2 md:mb-4 block w-full border border-solid border-black bg-white align-middle text-[#333333] focus:border-[#3898ec] text-sm px-3 rounded-md h-9 py-6 pl-8"
-                placeholder={`${
-                  currentDriver?.currentLocation?.zipCode || "Kod Pocztowy"
-                }`}
-                {...register("currentLocation.zipCode", {
-                  required: false,
-                  maxLength: 256,
-                })}
-              />
-            </div>
+            <InputDecipher
+              widthSet="max-w-[50%]"
+              IconPassed={<BsPinMap size={20} color={"black"} />}
+              register={register}
+              registerId={"currentLocation.country"}
+              inputType={"text"}
+              placeholder={currentDriver?.currentLocation?.country!}
+              ifPlaceholderMissing={"Obecne kraj"}
+            />
+            <InputDecipher
+              widthSet="max-w-[45%]"
+              IconPassed={<BsPostageHeart size={20} color={"black"} />}
+              register={register}
+              registerId={"currentLocation.zipCode"}
+              inputType={"text"}
+              placeholder={currentDriver?.currentLocation?.zipCode!}
+              ifPlaceholderMissing={"Kod Pocztowy"}
+            />
           </div>
           <ImageAddition id={"image"} register={register} />
         </div>

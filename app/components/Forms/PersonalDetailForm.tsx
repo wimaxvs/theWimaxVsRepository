@@ -9,6 +9,7 @@ import { MdOutlineMailOutline, MdOutlinePermIdentity } from "react-icons/md";
 import { RiLockPasswordLine } from "react-icons/ri";
 import { nextResponseMessage } from "@/app/api/drupdate/route";
 import { Driver } from "@prisma/client";
+import InputDecipher from "./inputs/InputDecipher";
 
 const PersonalDetailForm = () => {
   const [isLoading, setIsLoading] = useState<boolean>(false);
@@ -42,13 +43,10 @@ const PersonalDetailForm = () => {
             message?: string;
           }>
         ) => {
-          if (
-            res.data.code === 500 ||
-            res.data.code === 400
-          ) {
-            throw new Error(res.data.message)
+          if (res.data.code === 500 || res.data.code === 400) {
+            throw new Error(res.data.message);
           }
-            setCurrentDriver(res.data.driver);
+          setCurrentDriver(res.data.driver);
           toast.success(
             <>
               <div className="p-4 text-bold text-green-800 flex flex-col items-center bg-green-100 rounded-lg my-4">
@@ -81,52 +79,29 @@ const PersonalDetailForm = () => {
         className={`md:max-w-[50%] md:min-w-[45%]`}
       >
         <div
-          className={`w-full flex flex-col gap-2 items-start rounded-md max-h-[350px] p-6 bg-rose-200`}
+          className={`w-full flex flex-col gap-2 items-start rounded-md max-h-[350px] p-6 bg-rose-200 md:overflow-y-auto`}
         >
           <h2 className="text-m md:text-lg lg:text-2xl font-bold mb-3 text-red-500">
             Strefa zagrozenia
           </h2>
           <div className={`w-full pl-0`}>
-            <div className="relative w-full">
-              <label htmlFor="email" className="mb-2 font-semibold text-black">
-                Twój nowy adres e-mail
-              </label>
-              <div className="absolute left-2 top-[50%] inline-block h-5 w-5">
-                <MdOutlineMailOutline size={20} color={"black"} />
-              </div>
-
-              <input
-                type="email"
-                autoComplete="off"
-                className="mb-2 md:mb-4 block w-full border border-solid border-black bg-white align-middle text-[#333333] focus:border-[#3898ec] text-sm px-3 rounded-md h-9 py-6 pl-8"
-                placeholder={`${currentDriver?.email || "Adres email"}`}
-                {...register("email", {
-                  required: false,
-                  maxLength: 256,
-                })}
-              />
-            </div>
-            <div className="relative w-full">
-              <label
-                htmlFor="password"
-                className="mb-2 font-semibold text-black"
-              >
-                Twoje nowe hasło
-              </label>
-              <div className="absolute left-2 top-[50%] inline-block h-5 w-5">
-                <RiLockPasswordLine size={20} color={"black"} />
-              </div>
-              <input
-                type="password"
-                className="mb-2 md:mb-4 block w-full border border-solid border-black bg-white align-middle text-[#333333] focus:border-[#3898ec] text-sm px-3 rounded-md h-9 py-6 pl-8"
-                placeholder={`Hasło`}
-                autoComplete="off"
-                {...register("password", {
-                  required: false,
-                  maxLength: 256,
-                })}
-              />
-            </div>
+            <InputDecipher
+              labelProvided={"Twój nowy adres e-mail"}
+              IconPassed={<MdOutlineMailOutline size={20} color={"black"} />}
+              register={register}
+              registerId={"email"}
+              inputType={"text"}
+              placeholder={currentDriver?.email!}
+              ifPlaceholderMissing={"Adres email"}
+            />
+            <InputDecipher
+              labelProvided={"Twoje nowe hasło"}
+              IconPassed={<RiLockPasswordLine size={20} color={"black"} />}
+              register={register}
+              registerId={"password"}
+              inputType={"password"}
+              placeholder={`Hasło`}
+            />
           </div>
           <button
             disabled={isLoading}
@@ -137,7 +112,7 @@ const PersonalDetailForm = () => {
           >
             Prześlij
           </button>
-          <p className="text-sm text-black font-medium">
+          <p className="text-xs text-black font-medium max-w-11/12">
             {`*Po zmianie adresu e-mail konieczne będzie ponowne zalogowanie się.`}
           </p>
         </div>
