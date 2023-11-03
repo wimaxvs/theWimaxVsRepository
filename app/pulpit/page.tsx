@@ -2,7 +2,6 @@ import React from "react";
 import ClientOnly from "../components/ClientOnly";
 import StatPad from "../components/statPad/StatPad";
 import getCurrentDriver from "../actions/getCurrentDriver";
-import TbSum from "react-icons/tb"
 
 const page = async () => {
   let currentDriver = await getCurrentDriver();
@@ -42,9 +41,9 @@ const page = async () => {
   });
 
   //a propos distance covered under Wimax
-  let companyKms = currentDriver?.companyKilometers?.kms
+  let companyKms = currentDriver?.companyKilometers?.kms;
 
-  let deetsForPad: {
+  let deetsForKmPad: {
     title: string;
     value: string | number;
     subtitle?: string;
@@ -52,29 +51,51 @@ const page = async () => {
   }[] = [
     {
       title: "W tym miesiącu",
-      value: currentKmMonth?.kms ? currentKmMonth.kms : 0,
+      value: currentKmMonth?.kms ? `${currentKmMonth.kms} km` : `${0} km`,
       subtitle: "Przejechane",
     },
     {
       title: "Pod firmą Wimax",
-      value: companyKms ? companyKms : 0,
+      value: companyKms ? `${companyKms} km` : `${0} km`,
       subtitle: "Przejechane",
     },
     {
       title: "Łącznie",
-      value: currentDriver?.totKms ? currentDriver.totKms : 0,
+      value: currentDriver?.totKms ? `${currentDriver.totKms} km` : `${0} km`,
       subtitle: "Przejechane",
     },
   ];
 
+  let deetsForOtherPad: typeof deetsForKmPad = [
+    {
+      title: "Wykonany dostawy",
+      value: currentDriver?.deliveries ? currentDriver.deliveries : 0,
+      subtitle: "Wszyscy",
+    },
+    {
+      title: "Srednie spalanie",
+      value: currentDriver?.avgFuelConsumption
+        ? `${currentDriver.avgFuelConsumption} km/l`
+        : `${0} km/l`,
+    },
+  ];
+
   return (
-    <div className="bg-[url('/images/pulpitBkg.png')] bg-no-repeat bg-cover bg-center h-screen w-full min-h-screen flex flex-row items-start justify-start flex-wrap p-6">
-      <ClientOnly>
-        <StatPad
-          itemArray={deetsForPad}
-          padTitle={"Podgląd przebytego dystansu"}
-        />
-      </ClientOnly>
+    <div className="bg-[url('/images/pulpitBkg.png')] bg-no-repeat bg-cover bg-center h-screen w-full min-h-screen">
+      <span
+        className={` flex flex-row gap-6 items-start justify-start flex-wrap p-6`}
+      >
+        <ClientOnly>
+          <StatPad
+            itemArray={deetsForKmPad}
+            padTitle={"Podgląd przebytego dystansu"}
+          />
+          <StatPad
+            itemArray={deetsForOtherPad}
+            padTitle={"Kluczowych wskaźników wydajności (KPI)."}
+          />
+        </ClientOnly>
+      </span>
     </div>
   );
 };
