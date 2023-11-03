@@ -11,6 +11,7 @@ const DriverTable: React.FC<DriverTableProps> = ({ allTheDrivers }) => {
   let [stateDrivers, setStateDrivers] =
     useState<Partial<SafeDriver>[]>(allTheDrivers);
   useEffect(() => setStateDrivers(allTheDrivers), [allTheDrivers]);
+  
   return (
     <>
       <div

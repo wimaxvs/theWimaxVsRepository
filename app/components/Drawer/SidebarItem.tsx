@@ -1,41 +1,60 @@
 "use client";
 
 import { usePathname, useRouter } from "next/navigation";
-import React, { ReactElement, useCallback } from "react";
-import { IconType } from "react-icons";
+import React, { useCallback } from "react";
 
 interface SidebarItemProps {
   label: string;
-  icon?: ReactElement<IconType>;
+  isPulpit?: boolean;
   yerl?: string;
-  selected?: boolean;
+  color?: string;
 }
 const SidebarItem: React.FC<SidebarItemProps> = ({
   label,
   yerl,
+  isPulpit,
+  color,
 }) => {
-    const pathname = usePathname();
-    const router = useRouter();
+  const pathname = usePathname();
+  const router = useRouter();
 
-    const toggleYerl = useCallback(() => {
-      const pulpit = "/pulpit";
-      const notOnPulpit = pathname?.indexOf(`${yerl}`) !== -1;
-      const onPulpit = pathname === pulpit;
-      if (!notOnPulpit && onPulpit) {
-        router.push(`${pathname}/${yerl}`);
-      } else if (
-        pathname &&
-        yerl &&
-        pathname.indexOf(`${yerl}`) === pathname.length - yerl.length
-      ) {
-        router.push(`${pathname?.slice(0, -yerl!.length)}`);
-      } else {
-        router.push(`${pulpit}/${yerl}`);
-      }
+  const toggleYerl = useCallback(() => {
+    const pulpit = "/pulpit";
+    const notOnPulpit = pathname?.indexOf(`${yerl}`) !== -1;
+    const onPulpit = pathname === pulpit;
+    if (yerl === "pulpit" && onPulpit) {
       return;
-    }, [router, pathname, yerl]);
+    } else if (
+      !onPulpit &&
+      pathname &&
+      pathname.length > pulpit.length &&
+      yerl === "pulpit"
+    ) {
+      router.push(`${pathname?.slice(0, pulpit.length)}`);
+    } else if (!notOnPulpit && onPulpit) {
+      router.push(`${pathname}/${yerl}`);
+    } else if (
+      pathname &&
+      yerl &&
+      pathname.indexOf(`${yerl}`) === pathname.length - yerl.length
+    ) {
+      router.push(`${pathname?.slice(0, -yerl!.length)}`);
+    } else {
+      router.push(`${pulpit}/${yerl}`);
+    }
+    return;
+  }, [router, pathname, yerl]);
 
-  return <button onClick={toggleYerl} className={`w-full flex flex-row justify-start`}>{label}</button>;
+  return (
+    <button
+      onClick={toggleYerl}
+      className={`w-full flex flex-row justify-start ${
+        isPulpit && "mb-8 font-bold"
+      } ${color && `text-[${color}]`}`}
+    >
+      {label}
+    </button>
+  );
 };
 
 export default SidebarItem;

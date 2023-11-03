@@ -23,7 +23,7 @@ export default async function Pulpit({ children }: DashlayoutProps) {
     <>
       {currentDriver && (
         <>
-          <Drawer navbar={<Navbar currentDriver={currentDriver} />}>
+          <Drawer currentDriver={currentDriver} navbar={<Navbar currentDriver={currentDriver} />}>
             {children}
           </Drawer>
         </>

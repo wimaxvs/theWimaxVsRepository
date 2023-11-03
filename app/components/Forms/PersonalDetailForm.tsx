@@ -103,6 +103,9 @@ const PersonalDetailForm = () => {
               placeholder={`Hasło`}
             />
           </div>
+          <p className="text-xs text-black font-medium max-w-11/12 p-2">
+            {`*Po zmianie adresu e-mail konieczne będzie ponowne zalogowanie się.`}
+          </p>
           <button
             disabled={isLoading}
             type="submit"
@@ -112,9 +115,6 @@ const PersonalDetailForm = () => {
           >
             Prześlij
           </button>
-          <p className="text-xs text-black font-medium max-w-11/12">
-            {`*Po zmianie adresu e-mail konieczne będzie ponowne zalogowanie się.`}
-          </p>
         </div>
       </form>
     </>

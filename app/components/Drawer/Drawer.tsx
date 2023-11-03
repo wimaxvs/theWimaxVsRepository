@@ -1,12 +1,14 @@
 import React from "react";
 import { AiOutlineAlignLeft } from "react-icons/ai";
 import Sidebar from "./Sidebar";
+import { SafeDriver } from "@/app/types";
 
 interface DrawerProps {
   children: React.ReactNode;
   navbar: React.ReactElement;
+  currentDriver: Partial<SafeDriver>
 }
-const Drawer: React.FC<DrawerProps> = ({ children, navbar }) => {
+const Drawer: React.FC<DrawerProps> = ({ children, navbar, currentDriver }) => {
   return (
     <>
       {navbar}
@@ -24,7 +26,7 @@ const Drawer: React.FC<DrawerProps> = ({ children, navbar }) => {
             {children}
           </div>
         </div>
-        <Sidebar />
+        <Sidebar currentDriver={currentDriver}/>
       </div>
     </>
   );

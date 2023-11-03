@@ -56,15 +56,17 @@ model Driver {
   avgFuelConsumption Int?
   seniority          String?
 
+  role Role @default(DRIVER)
+
   vehicle           Vehicle?
   kilometerMonths   KilometerMonth[]
-  companyKilometers CompanyKilometers[]
+  companyKilometers CompanyKilometers?
   settlements       Settlement[]
   firmOwned         Firm?
   joinRequest       JoinRequest?
 
   currentFirm Firm?   @relation(fields: [firmId], references: [id], name: "drivers")
-  firmId      String?  @db.ObjectId
+  firmId      String? @db.ObjectId
 
   currentLocation Location? @relation(fields: [locationId], references: [id])
   locationId      String?   @db.ObjectId
@@ -103,7 +105,7 @@ model CompanyKilometers {
   id       String  @id @default(auto()) @map("_id") @db.ObjectId
   kms      Int?
   driver   Driver? @relation(fields: [driverId], references: [id], onDelete: Cascade)
-  driverId String? @db.ObjectId
+  driverId String? @unique @db.ObjectId
   firm     Firm?   @relation(fields: [firmId], references: [id], onDelete: Cascade)
   firmId   String? @db.ObjectId
 }
@@ -129,6 +131,12 @@ model Settlement {
   driverId String? @db.ObjectId
   Firm     Firm?   @relation(fields: [firmId], references: [id], onDelete: Cascade)
   firmId   String? @db.ObjectId
+}
+
+enum Role {
+  DRIVER
+  SPEDYTOR
+  ZARZAD
 }
 
 //npx prisma generate

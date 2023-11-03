@@ -24,18 +24,14 @@ const NotFound = () => {
             className="mb-8 mx-auto inline-block h-56 w-56 flex-none object-contain"
           />
           <div className="text-center">
-            <h1 className="font-bold mb-4 text-4xl md:text-6xl">404 Error</h1>
+            <h1 className="font-bold mb-4 text-4xl md:text-6xl">Bląd 404</h1>
             <div className="mx-auto max-w-[528px] mb-5 md:mb-6 lg:mb-8 flex flex-col gap-4">
-              <p>The page you&apos;re looking for cannot be found.</p>
-              <p className="text-base">
-                Click on the menu in the top-right to get access to the full
-                features.
-              </p>
-              <p>Or head home here:</p>{" "}
+              <p>{`Strona, której szukasz, nie została znaleziona`}.</p>
+              <p>{`Przejdź do pulpitu nawigacyjnego tutaj:`}</p>{" "}
             </div>
-            <Link href="/">
+            <Link href="/pulpit">
               <button className="inline-block items-center bg-velvet-blue rounded-md px-8 py-4 text-center font-bold text-white">
-                Home
+                Pulpit
               </button>
             </Link>
           </div>

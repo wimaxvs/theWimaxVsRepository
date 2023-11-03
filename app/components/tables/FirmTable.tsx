@@ -111,8 +111,8 @@ const FirmTable: React.FC<FirmTableProps> = ({ allTheFirms }) => {
             className={`text-m md:text-xl lg:text-4xl font-bold text-white`}
           >{`Podróż tysiąca kilometrów...`}</h2>
           <p
-            className={`text-sm md:text-md lg:text-xl font-semibold mb-3`}
-          >{`zaczyna się od dołączenia do jednej z tych firm`}</p>
+            className={`text-sm md:text-md lg:text-xl font-semibold mb-3 text-white`}
+          >{`zaczyna się od dołączenia do Wimax`}</p>
           <div className="max-w-[11/12] overflow-x-auto pb-3">
             <table className="table table-zebra rounded-md">
               {/* head */}
@@ -145,7 +145,7 @@ const FirmTable: React.FC<FirmTableProps> = ({ allTheFirms }) => {
                         <td>{f.firmName}</td>
                         <td>{f.firmTag}</td>
                         <td>{f.drivers?.length}</td>
-                        <td className="flex flex-row items-center gap-1">
+                        <td className="flex flex-row gap-3 md:min-h-[64.5px] items-center">
                           {f.firmSocials?.map((link, i) => (
                             <Link key={i} href={link} replace={false}>
                               {whichSocial(link)}
@@ -154,7 +154,7 @@ const FirmTable: React.FC<FirmTableProps> = ({ allTheFirms }) => {
                         </td>
                         <td
                           className={`${
-                            index % 2 == 1 && "rounded-tr-md rounded-br-md"
+                            index % 2 == 1 && "rounded-r-md"
                           }`}
                         >
                           {f.joinRequests && (
