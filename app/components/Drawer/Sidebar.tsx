@@ -1,16 +1,15 @@
 import React from "react";
 import ClientOnly from "../ClientOnly";
 import SidebarItem from "./SidebarItem";
-import { SafeDriver } from "@/app/types";
 
 interface SideBarAttributes {
-  currentDriver: Partial<SafeDriver>;
+  role?: string;
+  firmName?: string | null;
 }
 
-const Sidebar: React.FC<SideBarAttributes> = ({ currentDriver }) => {
-  let isInside =
-    currentDriver?.currentFirm?.firmName?.toLowerCase() === "wimax";
-    let isZarzad = currentDriver?.role === "ZARZAD"
+const Sidebar: React.FC<SideBarAttributes> = ({ role, firmName }) => {
+  let isInside = firmName?.toLowerCase() === "wimax";
+  let isZarzad = role === "ZARZAD";
 
   let segmentContent: {
     h2?: string;
@@ -89,7 +88,7 @@ const Sidebar: React.FC<SideBarAttributes> = ({ currentDriver }) => {
     segmentContent.unshift(...insiderSegmentContent);
     if (isZarzad) {
       segmentContent.splice(-2, 0, ...zarzadClearanceContent);
-     }
+    }
   }
 
   let segments = segmentContent.map((seg, ind) => {

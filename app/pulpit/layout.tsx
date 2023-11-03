@@ -19,11 +19,14 @@ const font = Inter({
 
 export default async function Pulpit({ children }: DashlayoutProps) {
   const currentDriver = await getCurrentDriver();
+
+  let firmName = currentDriver?.currentFirm?.firmName
+  let role = currentDriver?.role
   return (
     <>
       {currentDriver && (
         <>
-          <Drawer currentDriver={currentDriver} navbar={<Navbar currentDriver={currentDriver} />}>
+          <Drawer role={role} firmName={firmName} navbar={<Navbar currentDriver={currentDriver} />}>
             {children}
           </Drawer>
         </>
