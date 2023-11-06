@@ -28,12 +28,11 @@ const LoginForm = () => {
       ...data,
       redirect: false,
     }).then((callback: SignInResponse | undefined) => {
-      console.log(callback);
 
       setIsLoading(false);
 
       if (callback?.ok) {
-        toast.success("Logged in");
+        toast.success("Zalogowany");
         router.refresh();
         router.push("/pulpit");
       }

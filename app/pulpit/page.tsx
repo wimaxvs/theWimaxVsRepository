@@ -5,13 +5,11 @@ import getCurrentDriver from "../actions/getCurrentDriver";
 
 const page = async () => {
   let currentDriver = await getCurrentDriver();
-  console.log(currentDriver);
 
   // a propos the date object
   let theDate = new Date();
   let currentMonth = theDate.getMonth();
   let currentYear = theDate.getFullYear();
-  console.log(currentYear);
 
   function getMonthName(monthValue: number): string | undefined {
     const months = [

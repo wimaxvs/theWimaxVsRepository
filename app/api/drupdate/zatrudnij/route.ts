@@ -1,0 +1,70 @@
+import { NextResponse } from "next/server";
+import bcrypt from "bcrypt";
+
+import prisma from "@/app/libs/prismadb";
+import { Prisma, Location, JoinRequest } from "@prisma/client";
+import getCurrentDriver from "@/app/actions/getCurrentDriver";
+import { SafeDriver } from "@/app/types";
+
+export type nextResponseMessage = {
+  code: number;
+  message: string;
+};
+
+export async function POST(request: Request) {
+  let currentDriver = await getCurrentDriver();
+  if (!currentDriver) {
+    return NextResponse.json({ code: 500, message: "Nieznany użytkownik." });
+  }
+  if (currentDriver?.role !== "ZARZAD") {
+    return NextResponse.json({ code: 400, message: "Nie jestes Zarżądem" });
+  }
+  const body = await request.json();
+  const { requestId: id } = body;
+
+  let newRequest: JoinRequest;
+  try {
+    newRequest = await prisma.joinRequest.update({
+      where: { id: id },
+      data: {
+        status: true,
+      },
+    });
+  } catch (error) {
+    if (error instanceof Prisma.PrismaClientKnownRequestError) {
+      console.log(error.code);
+    }
+  }
+
+  try {
+    await prisma.driver.update({
+      where: {
+        id: newRequest!.requesterId as string,
+      },
+      data: {
+        firmId: newRequest!.firmId,
+      },
+    });
+  } catch (error) {
+    if (error instanceof Prisma.PrismaClientKnownRequestError) {
+      console.log(error.code);
+    }
+  }
+
+  let allTheDrivers = await prisma.driver.findMany({
+    include: {
+      joinRequest: true,
+    },
+  });
+
+  let successMessage =
+    allTheDrivers.length > 0
+      ? "Kierowca został zatrudniony"
+      : "Wystąpił błąd podczas procesu rekrutacji. Spróbuj ponownie.";
+
+  return NextResponse.json({
+    allTheDrivers,
+    message: successMessage,
+    code: 200,
+  });
+}

@@ -118,7 +118,7 @@ const Sidebar: React.FC<SideBarAttributes> = ({ role, firmName }) => {
 
   return (
     <>
-      <div className="drawer-side">
+      <div className="drawer-side z-20">
         <label
           htmlFor="my-drawer"
           aria-label="close sidebar"
