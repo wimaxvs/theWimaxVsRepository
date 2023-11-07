@@ -62,7 +62,7 @@ const Sidebar: React.FC<SideBarAttributes> = ({ role, firmName }) => {
       h2: "Rozliczenia",
       links: [
         {
-          label: "Rozlicz wykonany trasę",
+          label: "Rozlicz wykonaną trasę",
           link: "rozliczenia",
           color: "#1fb2a6",
         },

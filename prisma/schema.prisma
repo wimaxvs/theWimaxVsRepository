@@ -140,3 +140,6 @@ enum Role {
 }
 
 //npx prisma generate
+//npx prisma studio
+//npx prisma db push
+//npx prisma format

@@ -7,7 +7,8 @@ export default async function getAllDrivers() {
         kilometerMonths: true,
         companyKilometers: true,
         currentLocation: true, 
-        joinRequest: true
+        joinRequest: true,
+        currentFirm: true
       },
     });
 

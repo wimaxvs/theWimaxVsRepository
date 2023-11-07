@@ -5,7 +5,7 @@ import PracNavItem from "./PracNavItem";
 
 const PracNav = () => {
   let { theLocation, setTheLocation } = usePracNav();
-  let PracNavItems = ["Zatrudnij", "Zwolnij"];
+  let PracNavItems = ["Zatrudnij", "Zwolnij lub Awansuj"];
   return (
     <div
       className={`rounded-tr-xl flex flex-row w-full z-0`}

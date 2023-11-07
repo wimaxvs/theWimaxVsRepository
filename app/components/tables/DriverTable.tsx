@@ -34,10 +34,10 @@ const DriverTable: React.FC<DriverTableProps> = ({ allTheDrivers }) => {
               <thead>
                 <tr>
                   <th></th>
-                  <th>Przezwisko</th>
+                  <th>Nick</th>
                   <th>Aktualna lokalizacja</th>
                   <th>Całkowita liczba kilometrów</th>
-                  <th>Zyski</th>
+                  <th>Zysk</th>
                   <th>Stanowisko</th>
                   <th></th>
                 </tr>

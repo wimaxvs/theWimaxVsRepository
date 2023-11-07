@@ -20,45 +20,73 @@ export async function POST(request: Request) {
     return NextResponse.json({ code: 400, message: "Nie jestes Zarżądem" });
   }
   const body = await request.json();
-  const { requestId: id } = body;
+  const { requestId: id, option } = body;
 
   let newRequest: JoinRequest;
-  try {
-    newRequest = await prisma.joinRequest.update({
-      where: { id: id },
-      data: {
-        status: true,
-      },
-    });
-  } catch (error) {
-    if (error instanceof Prisma.PrismaClientKnownRequestError) {
-      console.log(error.code);
+  if (option === true || option === undefined) {
+    try {
+      newRequest = await prisma.joinRequest.update({
+        where: { id: id },
+        data: {
+          status: true,
+        },
+      });
+    } catch (error) {
+      if (error instanceof Prisma.PrismaClientKnownRequestError) {
+        console.log(error.code);
+      }
     }
-  }
 
-  try {
-    await prisma.driver.update({
-      where: {
-        id: newRequest!.requesterId as string,
-      },
-      data: {
-        firmId: newRequest!.firmId,
-      },
-    });
-  } catch (error) {
-    if (error instanceof Prisma.PrismaClientKnownRequestError) {
-      console.log(error.code);
+    try {
+      await prisma.driver.update({
+        where: {
+          id: newRequest!.requesterId as string,
+        },
+        data: {
+          firmId: newRequest!.firmId,
+        },
+      });
+    } catch (error) {
+      if (error instanceof Prisma.PrismaClientKnownRequestError) {
+        console.log(error.code);
+      }
+    }
+  } else {
+    try {
+      await prisma.joinRequest.delete({
+        where: {
+          id: id,
+        },
+      });
+      await prisma.driver.update({
+        where: {
+          id: newRequest!.requesterId as string,
+        },
+        data: {
+          firmId: null,
+        },
+      });
+    } catch (error) {
+      if (error instanceof Prisma.PrismaClientKnownRequestError) {
+        console.log(error.code);
+      }
     }
   }
 
   let allTheDrivers = await prisma.driver.findMany({
     include: {
+      kilometerMonths: true,
+      companyKilometers: true,
+      currentLocation: true,
       joinRequest: true,
+      currentFirm: true,
     },
   });
 
   let successMessage =
-    allTheDrivers.length > 0
+    option || option === false
+      ? "Prośba o dołączenie została odrzucona"
+      : allTheDrivers.length > 0
       ? "Kierowca został zatrudniony"
       : "Wystąpił błąd podczas procesu rekrutacji. Spróbuj ponownie.";
 

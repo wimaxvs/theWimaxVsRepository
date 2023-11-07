@@ -13,7 +13,6 @@ import { CiMapPin } from "react-icons/ci";
 import { BsPinMap, BsPostageHeart } from "react-icons/bs";
 import { Driver } from "@prisma/client";
 import InputDecipher from "./inputs/InputDecipher";
-import { SafeDriver } from "@/app/types";
 
 const DriverUpdateForm = () => {
   const [isLoading, setIsLoading] = useState<boolean>(false);

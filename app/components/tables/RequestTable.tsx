@@ -14,9 +14,7 @@ const RequestTable: React.FC<RequestTableProps> = ({
   allTheDrivers,
   firmId,
 }) => {
-  let [stateDrivers, setStateDrivers] = useState<
-    Partial<SafeDriver>[] | undefined
-  >(undefined);
+  const [isLoading, setIsLoading] = useState<boolean>(false);
 
   let returnEligibleDrivers = useCallback(
     (drivers: Partial<SafeDriver>[]): Partial<SafeDriver>[] => {
@@ -30,24 +28,19 @@ const RequestTable: React.FC<RequestTableProps> = ({
     [firmId]
   );
 
-  useEffect(() => {
-    let eligibleDrivers = returnEligibleDrivers(allTheDrivers);
-    console.log(eligibleDrivers);
-    setStateDrivers(eligibleDrivers);
-  }, [allTheDrivers, firmId, returnEligibleDrivers]);
+  let [stateDrivers, setStateDrivers] = useState<
+    Partial<SafeDriver>[] | undefined
+  >(returnEligibleDrivers(allTheDrivers));
 
-  const [isLoading, setIsLoading] = useState<boolean>(false);
+  useEffect(() => {}, [allTheDrivers]);
 
-  let iconOptions: { size: number; color: string } = {
-    size: 18,
-    color: "rgb(166, 173, 186)",
-  };
+  let sDLength = stateDrivers?.length;
 
-  let onZatrudnij = (requestId: string) => {
+  let onZatrudnij = (requestId: string, option?: boolean) => {
     let data = {
       requestId,
+      option,
     };
-    console.log(data);
     let deets = JSON.stringify(data);
 
     axios
@@ -57,10 +50,10 @@ const RequestTable: React.FC<RequestTableProps> = ({
           res: AxiosResponse<{
             message: string;
             code?: string | number;
-            theNewDrivers: Partial<SafeDriver>[];
+            allTheDrivers: Partial<SafeDriver>[];
           }>
         ) => {
-          console.log(res.data.theNewDrivers);
+          console.log(res.data.allTheDrivers);
           if (res.data.code === 500 || res.data.code === 400)
             throw new Error(res.data.message);
           toast.success(
@@ -70,7 +63,9 @@ const RequestTable: React.FC<RequestTableProps> = ({
               </div>
             </>
           );
-          return setStateDrivers(res.data.theNewDrivers);
+          let eligibleDrivers = returnEligibleDrivers(res.data.allTheDrivers);
+          console.log(eligibleDrivers);
+          return setStateDrivers(eligibleDrivers);
         }
       )
       .catch((error: any) => {
@@ -91,7 +86,7 @@ const RequestTable: React.FC<RequestTableProps> = ({
   return (
     <>
       <section
-        className={`formSection rounded-md bg-gradient-to-br from-gray-800 to-gray-950 w-full f-full p-2 md:p-10 flex flex-col`}
+        className={`tableSection rounded-md bg-gradient-to-br from-gray-800 to-gray-950 w-full h-full p-2 md:p-10 flex flex-col overflow-y-scroll`}
       >
         {/* Table Title */}
         <h2
@@ -106,17 +101,40 @@ const RequestTable: React.FC<RequestTableProps> = ({
           <i className={`text-red-600 font-extrabold`}>„Anuluj”</i>, aby
           odrzucić wniosek
         </p>
+        <p
+          className={`text-xs md:text-sm lg:text-md font-semibold mb-3 text-gray-500`}
+        >
+          {`Obecnie 
+          ${sDLength && sDLength > 1 ? "mamy" : "jest"} 
+          ${sDLength ? sDLength : 0} 
+          ${
+            sDLength && sDLength == 1
+              ? "nowa"
+              : sDLength && sDLength > 1
+              ? "nowe"
+              : "nowych"
+          } 
+          ${
+            sDLength && sDLength == 1
+              ? "prośba"
+              : sDLength && sDLength > 1
+              ? "prośby"
+              : "próśb"
+          }             o dołączenie`}
+        </p>
         <div className="max-w-[11/12] overflow-x-auto pb-3">
-          <table className="table table-zebra rounded-md">
+          <table className="table rounded-md">
             {/* head */}
             <thead>
               <tr>
                 <th></th>
-                <th>Przezwisko</th>
-                <th>Aktualna lokalizacja</th>
-                <th>Całkowita liczba kilometrów</th>
+                <th>Nick</th>
+                <th className={`hidden lg:table-cell`}>Aktualna lokalizacja</th>
+                <th className={`hidden lg:table-cell`}>
+                  Całkowita liczba kilometrów
+                </th>
                 <th>Zatrudnij</th>
-                <th>Anuluj</th>
+                <th>Odrzuć</th>
                 <th></th>
               </tr>
             </thead>
@@ -158,12 +176,14 @@ const RequestTable: React.FC<RequestTableProps> = ({
                             </div>
                           </div>
                         </td>
-                        <td className={`font-semibold flex flex-col gap-1`}>
+                        <td
+                          className={`font-semibold hidden lg:table-cell lg:flex-col lg:gap-1 grow`}
+                        >
                           {driver.currentLocation?.country
                             ? driver.currentLocation?.country
                             : "Kraj"}
                           <br />
-                          <span className={`flex flex-row items-center gap-1`}>
+                          <span className={`flex flex-col items-start gap-2`}>
                             <span className="font-normal badge badge-accent badge-sm">
                               {`${driver.currentLocation?.city || "Miasto"} `}
                             </span>
@@ -175,10 +195,14 @@ const RequestTable: React.FC<RequestTableProps> = ({
                             </span>
                           </span>
                         </td>
-                        <td>{`${driver.totKms || 0} `}</td>
+                        <td className={`hidden lg:table-cell`}>{`${
+                          driver.totKms || 0
+                        } `}</td>
                         <td>
                           <button
-                            onClick={()=>onZatrudnij(driver?.joinRequest?.id as string)}
+                            onClick={() =>
+                              onZatrudnij(driver?.joinRequest?.id as string)
+                            }
                             disabled={isLoading}
                             className="p-2 rounded-md bg-green-400 disabled:bg-green-300 font-bold text-white"
                           >
@@ -187,9 +211,12 @@ const RequestTable: React.FC<RequestTableProps> = ({
                         </td>
                         <td className={`${index % 2 == 1 && "rounded-r-md"}`}>
                           <button
-                            onClick={() => {
-                              console.log(driver.id);
-                            }}
+                            onClick={() =>
+                              onZatrudnij(
+                                driver?.joinRequest?.id as string,
+                                false
+                              )
+                            }
                             disabled={isLoading}
                             className="p-2 rounded-md bg-red-400 disabled:bg-red-300 font-bold text-white"
                           >
