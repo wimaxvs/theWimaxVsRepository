@@ -25,15 +25,20 @@ const FirmTable: React.FC<FirmTableProps> = ({ allTheFirms }) => {
   const { theFirms, setRequestedFirm, setTheFirms } = useAllFirms();
 
   const [isLoading, setIsLoading] = useState<boolean>(false);
-
-  useEffect(() => {
-    allTheFirms && setTheFirms(allTheFirms as Partial<SafeFirm>[]);
-  }, [allTheFirms, setTheFirms]);
+  let [requestSent, setRequestSent] = useState<string | undefined>(undefined);
 
   let iconOptions: { size: number; color: string } = {
     size: 18,
     color: "rgb(166, 173, 186)",
   };
+
+  useEffect(() => {
+    if (theFirms?.length === 0 || theFirms === undefined) {
+      return allTheFirms && setTheFirms(allTheFirms as Partial<SafeFirm>[]);
+    } else {
+      return
+    }
+  }, [allTheFirms, setTheFirms, theFirms]);
 
   let whichSocial: (socialLink: string) => JSX.Element | null = (socialLink) =>
     socialLink.includes("facebook") ? (
@@ -49,11 +54,12 @@ const FirmTable: React.FC<FirmTableProps> = ({ allTheFirms }) => {
     );
 
   let onJoin = (driverId: string, firmId: string) => {
+    setIsLoading(!isLoading);
+    setRequestSent(firmId);
     let data = {
       requesterId: driverId,
       firmId,
     };
-    console.log(data);
     let deets = JSON.stringify(data);
 
     axios
@@ -66,7 +72,6 @@ const FirmTable: React.FC<FirmTableProps> = ({ allTheFirms }) => {
             theNewRequest: SafeJoinRequest;
           }>
         ) => {
-          console.log(res.data.theNewRequest);
           if (res.data.code === 500 || res.data.code === 400)
             throw new Error(res.data.message);
           toast.success(
@@ -130,9 +135,10 @@ const FirmTable: React.FC<FirmTableProps> = ({ allTheFirms }) => {
                 {/* the rows */}
                 {theFirms &&
                   theFirms.map((f: Partial<SafeFirm>, index: number) => {
-                    let userHasJoinRequest = f.joinRequests?.some(
-                      (jr) => jr.requesterId === (currentDriver?.id as string)
-                    );
+                    let userHasJoinRequest =
+                      f.joinRequests?.some(
+                        (jr) => jr.requesterId === (currentDriver?.id as string)
+                      ) || requestSent === f.id;
                     return (
                       <tr key={index} className={`border-none`}>
                         <th
@@ -152,11 +158,7 @@ const FirmTable: React.FC<FirmTableProps> = ({ allTheFirms }) => {
                             </Link>
                           ))}
                         </td>
-                        <td
-                          className={`${
-                            index % 2 == 1 && "rounded-r-md"
-                          }`}
-                        >
+                        <td className={`${index % 2 == 1 && "rounded-r-md"}`}>
                           {f.joinRequests && (
                             <button
                               className={`p-2  ${

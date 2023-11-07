@@ -20,21 +20,27 @@ const useAllFirms = create<State & Action>((set) => ({
 
   setRequestedFirm: (requestedFirm: Firm) =>
     set((state) => {
-      const theFirmsAsArray = Array.isArray(state.theFirms)
-        ? [...state.theFirms]
-        : [];
+      // const theFirmsAsArray = Array.isArray(state.theFirms)
+      //   ? [...state.theFirms]
+      //   : [];
 
-      const index = state.theFirms?.findIndex(
-        (item) => item.id === requestedFirm.id
-      );
-      if (index && index > -1) {
-        theFirmsAsArray[index] = requestedFirm;
-      }
-      // else {
-      //   theFirmsAsArray.push(requestedFirm);
+      // const index = state.theFirms?.findIndex(
+      //   (item) => item.id === requestedFirm.id
+      // );
+      // if (index && index > -1) {
+      //   theFirmsAsArray.splice(index, 1, requestedFirm);
       // }
+      // // else {
+      // //   theFirmsAsArray.push(requestedFirm);
+      // // }
 
-      return { theFirms: theFirmsAsArray };
+      // return { theFirms: theFirmsAsArray };
+
+      return {
+        theFirms: state.theFirms?.map((firm) =>
+          firm.id === requestedFirm.id ? { ...firm, ...requestedFirm } : firm
+        ),
+      };
     }),
 }));
 
