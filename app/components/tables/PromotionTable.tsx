@@ -58,19 +58,24 @@ const PromotionTable: React.FC<PromotionTableProps> = ({
             allTheDrivers: Partial<SafeDriver>[];
           }>
         ) => {
-          if (res.data.code === 500 || res.data.code === 400)
+          if (res.data.code === 500 || res.data.code === 400) {
             throw new Error(res.data.message);
-          toast.success(
+          }
+          if (optionChosen !== "Zwolnij") {
+            setDriver(
+              res.data.allTheDrivers.find(
+                (driver) => driver.id == driverId
+              ) as Partial<SafeDriver>
+            );
+          } else {
+            setAllDrivers(returnEligibleDrivers(res.data.allTheDrivers));
+          }
+          return toast.success(
             <>
               <div className="p-4 text-bold text-green-800 flex flex-col items-center bg-green-100 rounded-lg my-4">
                 {`${res.data.message}`}
               </div>
             </>
-          );
-          return setDriver(
-            res.data.allTheDrivers.find(
-              (driver) => driver.id == driverId
-            ) as Partial<SafeDriver>
           );
         }
       )

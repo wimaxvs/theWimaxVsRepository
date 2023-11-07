@@ -22,6 +22,8 @@ const useDriver = create<State & Action>((set) => ({
     }),
   setAllDrivers: (driversToSet: Partial<SafeDriver>[]) => {
     set(() => {
+            console.log("setAllDrivers hit");
+
       return { allDrivers: driversToSet };
     });
   },
