@@ -1,10 +1,10 @@
-import bcrypt from "bcrypt"
-import NextAuth, { AuthOptions } from "next-auth"
-import CredentialsProvider from "next-auth/providers/credentials"
-import GoogleProvider from "next-auth/providers/google"
-import { PrismaAdapter } from "@next-auth/prisma-adapter"
+import bcrypt from "bcrypt";
+import NextAuth, { AuthOptions } from "next-auth";
+import CredentialsProvider from "next-auth/providers/credentials";
+import GoogleProvider from "next-auth/providers/google";
+import { PrismaAdapter } from "@next-auth/prisma-adapter";
 
-import prisma from "@/app/libs/prismadb"
+import prisma from "@/app/libs/prismadb";
 
 export const authOptions: AuthOptions = {
   adapter: PrismaAdapter(prisma),
@@ -21,7 +21,7 @@ export const authOptions: AuthOptions = {
       },
       async authorize(credentials) {
         if (!credentials?.email || !credentials?.password) {
-          throw new Error("Invalid credentials");
+          throw new Error("Nieprawidłowe poświadczenia użytkownika");
         }
 
         const driver = await prisma.driver.findUnique({
@@ -31,7 +31,7 @@ export const authOptions: AuthOptions = {
         });
 
         if (!driver || !driver?.password) {
-          throw new Error("Invalid credentials");
+          throw new Error("Nieprawidłowe poświadczenia użytkownika");
         }
 
         const isCorrectPassword = await bcrypt.compare(
@@ -39,9 +39,8 @@ export const authOptions: AuthOptions = {
           driver.password
         );
 
-
         if (!isCorrectPassword) {
-          throw new Error("Invalid credentials");
+          throw new Error("Nieprawidłowe poświadczenia użytkownika");
         }
 
         return driver;

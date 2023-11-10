@@ -38,7 +38,7 @@ const FirmTable: React.FC<FirmTableProps> = ({ allTheFirms }) => {
     } else {
       return
     }
-  }, [allTheFirms, setTheFirms, theFirms]);
+  });
 
   let whichSocial: (socialLink: string) => JSX.Element | null = (socialLink) =>
     socialLink.includes("facebook") ? (

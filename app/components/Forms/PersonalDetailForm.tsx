@@ -79,7 +79,7 @@ const PersonalDetailForm = () => {
         className={`md:max-w-[50%] md:min-w-[45%]`}
       >
         <div
-          className={`w-full flex flex-col gap-2 items-start rounded-md max-h-[350px] p-6 bg-rose-200 md:overflow-y-auto`}
+          className={`w-full flex flex-col gap-1 items-start rounded-md max-h-[350px] p-6 bg-rose-200 md:overflow-y-auto`}
         >
           <h2 className="text-m md:text-lg lg:text-2xl font-bold mb-3 text-red-500">
             Strefa zagrozenia
@@ -103,7 +103,7 @@ const PersonalDetailForm = () => {
               placeholder={`Hasło`}
             />
           </div>
-          <p className="text-xs text-black font-medium max-w-11/12 p-2">
+          <p className="text-xs text-black font-medium max-w-11/12 px-2">
             {`*Po zmianie adresu e-mail konieczne będzie ponowne zalogowanie się.`}
           </p>
           <button

@@ -31,13 +31,6 @@ export async function POST(request: Request) {
           status: true,
         },
       });
-    } catch (error) {
-      if (error instanceof Prisma.PrismaClientKnownRequestError) {
-        console.log(error.code);
-      }
-    }
-
-    try {
       await prisma.driver.update({
         where: {
           id: newRequest!.requesterId as string,
@@ -49,6 +42,8 @@ export async function POST(request: Request) {
     } catch (error) {
       if (error instanceof Prisma.PrismaClientKnownRequestError) {
         console.log(error.code);
+      } else{
+        NextResponse.json({code: 500, message: error})
       }
     }
   } else {
@@ -69,6 +64,8 @@ export async function POST(request: Request) {
     } catch (error) {
       if (error instanceof Prisma.PrismaClientKnownRequestError) {
         console.log(error.code);
+      } else{
+        NextResponse.json({code: 500, message: error})
       }
     }
   }

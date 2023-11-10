@@ -22,8 +22,6 @@ const useDriver = create<State & Action>((set) => ({
     }),
   setAllDrivers: (driversToSet: Partial<SafeDriver>[]) => {
     set(() => {
-            console.log("setAllDrivers hit");
-
       return { allDrivers: driversToSet };
     });
   },
@@ -36,7 +34,7 @@ const useDriver = create<State & Action>((set) => ({
                 ...driver,
                 role: driverToSet.role,
                 joinRequest: {
-                  ...driverToSet.joinRequest as JoinRequest,
+                  ...(driverToSet.joinRequest as JoinRequest),
                 },
               }
             : driver

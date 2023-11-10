@@ -91,7 +91,7 @@ const DriverTable: React.FC<DriverTableProps> = ({ allTheDrivers }) => {
                             <span
                               className={`flex flex-row items-center gap-1`}
                             >
-                              <span className="font-normal badge badge-accent badge-sm">
+                              <span className="rounded-xl bg-[#1fb2a6] text-white text-xs p-1">
                                 {`${driver.currentLocation?.city || "Miasto"} `}
                               </span>
                               <span className="rounded-xl border border-solid border-[#1fb2a6] text-[#1fb2a6] text-xs p-0.5">

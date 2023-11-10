@@ -41,7 +41,7 @@ const InputDecipher: React.FC<InputDecipherProps> = ({
         </div>
         <input
           type={inputType}
-          className="mb-2 md:mb-4 block w-full border border-solid border-black bg-white align-middle text-[#333333] focus:border-[#3898ec] text-sm px-3 rounded-md h-9 py-6 pl-8"
+          className="mb-1 md:mb-2 block w-full border border-solid border-black bg-white align-middle text-[#333333] focus:border-[#3898ec] text-sm px-3 rounded-md h-9 py-6 pl-8"
           placeholder={`${placeholder || ifPlaceholderMissing}`}
           {...register(registerId, {
             required: false,

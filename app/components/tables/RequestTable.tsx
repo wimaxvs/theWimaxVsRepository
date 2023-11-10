@@ -4,6 +4,7 @@ import Image from "next/image";
 import React, { useCallback, useEffect, useState } from "react";
 import axios, { AxiosResponse } from "axios";
 import toast from "react-hot-toast";
+import useDriver from "@/app/hooks/useCurrentDriver";
 
 interface RequestTableProps {
   allTheDrivers: Partial<SafeDriver>[];
@@ -15,6 +16,10 @@ const RequestTable: React.FC<RequestTableProps> = ({
   firmId,
 }) => {
   const [isLoading, setIsLoading] = useState<boolean>(false);
+
+  let setDriver = useDriver((state) => state.setDriver);
+  let drivers = useDriver((state) => state.allDrivers);
+  let setAllDrivers = useDriver((state) => state.setAllDrivers);
 
   let returnEligibleDrivers = useCallback(
     (drivers: Partial<SafeDriver>[]): Partial<SafeDriver>[] => {
@@ -28,15 +33,16 @@ const RequestTable: React.FC<RequestTableProps> = ({
     [firmId]
   );
 
-  let [stateDrivers, setStateDrivers] = useState<
-    Partial<SafeDriver>[] | undefined
-  >(returnEligibleDrivers(allTheDrivers));
+  useEffect(() => {
+    //if the user is deleted from the db, this still won't run because drivers.length !== 0. Because the ui is rendering drivers, the only way to get it to work as expected is by making the value of drivers change even though useEffect isn't running. UseEffect in this instance is being used to instantiate the value of an empty drivers array.
+    if (allTheDrivers && drivers.length == 0) {
+      setAllDrivers(allTheDrivers);
+    }
+  }, [allTheDrivers, drivers, setAllDrivers]);
 
-  useEffect(() => {}, [allTheDrivers]);
+  let sDLength = returnEligibleDrivers(drivers)?.length;
 
-  let sDLength = stateDrivers?.length;
-
-  let onZatrudnij = (requestId: string, option?: boolean) => {
+  let onZatrudnij = (requestId: string, driverId: string, option?: boolean) => {
     let data = {
       requestId,
       option,
@@ -50,22 +56,28 @@ const RequestTable: React.FC<RequestTableProps> = ({
           res: AxiosResponse<{
             message: string;
             code?: string | number;
-            allTheDrivers: Partial<SafeDriver>[];
+            allTheDrivers?: Partial<SafeDriver>[];
           }>
         ) => {
-          console.log(res.data.allTheDrivers);
           if (res.data.code === 500 || res.data.code === 400)
             throw new Error(res.data.message);
-          toast.success(
+          if (option === true || option === undefined) {
+            setAllDrivers(res.data.allTheDrivers as Partial<SafeDriver>[]);
+          }else{
+            setDriver(
+              res.data.allTheDrivers?.find(
+                (driver) => driver.id == driverId
+              ) as Partial<SafeDriver>
+            );
+          }
+
+          return toast.success(
             <>
               <div className="p-4 text-bold text-green-800 flex flex-col items-center bg-green-100 rounded-lg my-4">
                 {`${res.data.message}`}
               </div>
             </>
           );
-          let eligibleDrivers = returnEligibleDrivers(res.data.allTheDrivers);
-          console.log(eligibleDrivers);
-          return setStateDrivers(eligibleDrivers);
         }
       )
       .catch((error: any) => {
@@ -140,91 +152,92 @@ const RequestTable: React.FC<RequestTableProps> = ({
             </thead>
             <tbody>
               {/* the rows */}
-              {stateDrivers &&
-                stateDrivers.map((driver, index) => {
+              {drivers &&
+                returnEligibleDrivers(drivers).map((driver, index) => {
                   return (
-                    <>
-                      <tr key={index} className={`border-none`}>
-                        <th
-                          className={`${
-                            index % 2 == 1 && "rounded-tl-md rounded-bl-md"
-                          }`}
-                        >
-                          {index + 1}
-                        </th>
-                        <td>
-                          <div className="flex items-center space-x-3">
-                            <div className="avatar">
-                              <div className="mask mask-squircle w-12 h-12">
-                                <Image
-                                  height={50}
-                                  width={50}
-                                  src={`${
-                                    driver.image
-                                      ? driver.image
-                                      : "/images/placeholder.jpg"
-                                  }`}
-                                  alt="Avatar Tailwind CSS Component"
-                                />
-                              </div>
-                            </div>
-                            <div>
-                              <div className="font-bold">{driver.username}</div>
-                              <div className="text-sm opacity-50">
-                                {driver.name ? driver.name : "Imię zastrzeżone"}
-                              </div>
+                    <tr key={index} className={`border-none`}>
+                      <th
+                        className={`${
+                          index % 2 == 1 && "rounded-tl-md rounded-bl-md"
+                        }`}
+                      >
+                        {index + 1}
+                      </th>
+                      <td>
+                        <div className="flex items-center space-x-3">
+                          <div className="avatar">
+                            <div className="mask mask-squircle w-12 h-12">
+                              <Image
+                                height={50}
+                                width={50}
+                                src={`${
+                                  driver.image
+                                    ? driver.image
+                                    : "/images/placeholder.jpg"
+                                }`}
+                                alt="Avatar Tailwind CSS Component"
+                              />
                             </div>
                           </div>
-                        </td>
-                        <td
-                          className={`font-semibold hidden lg:table-cell lg:flex-col lg:gap-1 grow`}
-                        >
-                          {driver.currentLocation?.country
-                            ? driver.currentLocation?.country
-                            : "Kraj"}
-                          <br />
-                          <span className={`flex flex-col items-start gap-2`}>
-                            <span className="font-normal badge badge-accent badge-sm">
-                              {`${driver.currentLocation?.city || "Miasto"} `}
-                            </span>
-                            <span className="rounded-xl border border-solid border-[#1fb2a6] text-[#1fb2a6] text-xs p-0.5">
-                              {`${
-                                driver.currentLocation?.zipCode ||
-                                "kod pocztowy"
-                              } `}
-                            </span>
+                          <div>
+                            <div className="font-bold">{driver.username}</div>
+                            <div className="text-sm opacity-50">
+                              {driver.name ? driver.name : "Imię zastrzeżone"}
+                            </div>
+                          </div>
+                        </div>
+                      </td>
+                      <td
+                        className={`font-semibold hidden lg:table-cell lg:flex-col lg:gap-1 grow`}
+                      >
+                        {driver.currentLocation?.country
+                          ? driver.currentLocation?.country
+                          : "Kraj"}
+                        <br />
+                        <span className={`flex flex-col items-start gap-2`}>
+                          <span className="font-normal badge badge-accent badge-sm">
+                            {`${driver.currentLocation?.city || "Miasto"} `}
                           </span>
-                        </td>
-                        <td className={`hidden lg:table-cell`}>{`${
-                          driver.totKms || 0
-                        } `}</td>
-                        <td>
-                          <button
-                            onClick={() =>
-                              onZatrudnij(driver?.joinRequest?.id as string)
-                            }
-                            disabled={isLoading}
-                            className="p-2 rounded-md bg-green-400 disabled:bg-green-300 font-bold text-white"
-                          >
-                            Zatrudnij
-                          </button>
-                        </td>
-                        <td className={`${index % 2 == 1 && "rounded-r-md"}`}>
-                          <button
-                            onClick={() =>
-                              onZatrudnij(
-                                driver?.joinRequest?.id as string,
-                                false
-                              )
-                            }
-                            disabled={isLoading}
-                            className="p-2 rounded-md bg-red-400 disabled:bg-red-300 font-bold text-white"
-                          >
-                            Anuluj
-                          </button>
-                        </td>
-                      </tr>
-                    </>
+                          <span className="rounded-xl border border-solid border-[#1fb2a6] text-[#1fb2a6] text-xs p-0.5">
+                            {`${
+                              driver.currentLocation?.zipCode || "kod pocztowy"
+                            } `}
+                          </span>
+                        </span>
+                      </td>
+                      <td className={`hidden lg:table-cell`}>{`${
+                        driver.totKms || 0
+                      } `}</td>
+                      <td>
+                        <button
+                          onClick={() =>
+                            onZatrudnij(
+                              driver?.joinRequest?.id as string,
+                              driver?.id as string
+                            )
+                          }
+                          disabled={isLoading}
+                          className="p-2 rounded-md bg-green-400 disabled:bg-green-300 font-bold text-white"
+                        >
+                          Zatrudnij
+                        </button>
+                      </td>
+                      <td className={`${index % 2 == 1 && "rounded-r-md"}`}>
+                        <button
+                          onClick={() =>
+                            onZatrudnij(
+                              driver?.joinRequest?.id as string,
+                              driver?.id as string,
+                              false
+                            )
+                          }
+                          disabled={isLoading}
+                          className="p-2 rounded-md bg-red-400 disabled:bg-red-300 font-bold text-white"
+                        >
+                          Anuluj
+                        </button>
+                      </td>
+                    </tr>
                   );
                 })}
             </tbody>

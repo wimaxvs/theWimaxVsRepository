@@ -1,5 +1,3 @@
-import Link from "next/link";
-import { Inter } from "next/font/google";
 import getCurrentDriver from "@/app/actions/getCurrentDriver";
 import { notFound } from "next/navigation";
 
@@ -8,13 +6,10 @@ interface PracownicylayoutProps {
 }
 
 export const metadata = {
-  title: "Wimax: Pulpit",
-  description: "Pulpit systemu zarządzania firmą",
+  title: "Wimax: Pracownicy",
+  description: "Zarządzaj swoimi zasobami ludzkimi",
 };
 
-const font = Inter({
-  subsets: ["latin"],
-});
 
 export default async function Pracownicy({ children }: PracownicylayoutProps) {
   let currentDriver = await getCurrentDriver();

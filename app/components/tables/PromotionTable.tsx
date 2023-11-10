@@ -22,7 +22,7 @@ const PromotionTable: React.FC<PromotionTableProps> = ({
 
   const [isLoading, setIsLoading] = useState<boolean>(false);
 
-  let returnEligibleDrivers = useCallback(
+  let gimmeEligibleDrivers = useCallback(
     (drivers: Partial<SafeDriver>[]): Partial<SafeDriver>[] => {
       return drivers?.filter(
         (driver) =>
@@ -35,10 +35,11 @@ const PromotionTable: React.FC<PromotionTableProps> = ({
   );
 
   useEffect(() => {
+    //if the user is deleted from the db, this still won't run because drivers.length !== 0. Because the ui is rendering drivers, the only way to get it to work as expected is by making the value of drivers change even though useEffect isn't running. UseEffect in this instance is being used to instantiate the value of an empty drivers array.
     if (allTheDrivers && drivers.length == 0) {
-      setAllDrivers(returnEligibleDrivers(allTheDrivers));
+      setAllDrivers(allTheDrivers);
     }
-  });
+  }, [allTheDrivers, drivers, setAllDrivers]);
 
   const onButtonClick = (driverId: string, optionChosen: string) => {
     setIsLoading(true);
@@ -55,7 +56,7 @@ const PromotionTable: React.FC<PromotionTableProps> = ({
           res: AxiosResponse<{
             message: string;
             code?: string | number;
-            allTheDrivers: Partial<SafeDriver>[];
+            allTheDrivers?: Partial<SafeDriver>[];
           }>
         ) => {
           if (res.data.code === 500 || res.data.code === 400) {
@@ -63,12 +64,12 @@ const PromotionTable: React.FC<PromotionTableProps> = ({
           }
           if (optionChosen !== "Zwolnij") {
             setDriver(
-              res.data.allTheDrivers.find(
+              res.data.allTheDrivers?.find(
                 (driver) => driver.id == driverId
               ) as Partial<SafeDriver>
             );
           } else {
-            setAllDrivers(returnEligibleDrivers(res.data.allTheDrivers));
+            setAllDrivers(res.data.allTheDrivers as Partial<SafeDriver>[]);
           }
           return toast.success(
             <>
@@ -132,92 +133,86 @@ const PromotionTable: React.FC<PromotionTableProps> = ({
               <tbody>
                 {/* the rows */}
                 {drivers &&
-                  drivers.map((driver, index) => {
+                  gimmeEligibleDrivers(drivers).map((driver, index) => {
                     return (
-                      <>
-                        <tr key={index} className={`border-none hover`}>
-                          <td className={`rounded-l-md`}>{index + 1}</td>
-                          <td>
-                            <div className="flex items-center space-x-3">
-                              <div className="avatar">
-                                <div className="mask mask-squircle w-12 h-12">
-                                  <Image
-                                    height={50}
-                                    width={50}
-                                    src={`${
-                                      driver.image
-                                        ? driver.image
-                                        : "/images/placeholder.jpg"
-                                    }`}
-                                    alt="Avatar Tailwind CSS Component"
-                                  />
-                                </div>
-                              </div>
-                              <div>
-                                <div className="font-bold">
-                                  {driver.username}
-                                </div>
-                                <div className="text-sm opacity-50">
-                                  {driver.name
-                                    ? driver.name
-                                    : "Imię zastrzeżone"}
-                                </div>
+                      <tr key={index} className={`border-none hover`}>
+                        <td className={`rounded-l-md`}>{index + 1}</td>
+                        <td>
+                          <div className="flex items-center space-x-3">
+                            <div className="avatar">
+                              <div className="mask mask-squircle w-12 h-12">
+                                <Image
+                                  height={50}
+                                  width={50}
+                                  src={`${
+                                    driver.image
+                                      ? driver.image
+                                      : "/images/placeholder.jpg"
+                                  }`}
+                                  alt="Avatar Tailwind CSS Component"
+                                />
                               </div>
                             </div>
-                          </td>
-                          <td>
-                            {driver?.role == "DRIVER"
-                              ? "Kierowca".toUpperCase()
-                              : driver.role == "SPEDYTOR" ||
-                                driver?.role === "ZARZAD"
-                              ? driver?.role
-                              : "Kierowca".toUpperCase()}
-                          </td>
+                            <div>
+                              <div className="font-bold">{driver.username}</div>
+                              <div className="text-sm opacity-50">
+                                {driver.name ? driver.name : "Imię zastrzeżone"}
+                              </div>
+                            </div>
+                          </div>
+                        </td>
+                        <td>
+                          {driver?.role == "DRIVER"
+                            ? "Kierowca".toUpperCase()
+                            : driver.role == "SPEDYTOR" ||
+                              driver?.role === "ZARZAD"
+                            ? driver?.role
+                            : "Kierowca".toUpperCase()}
+                        </td>
 
-                          {[
-                            {
-                              label: "Zarzad",
-                              color: "from-amber-500 to-yellow-200",
-                              textColor: "text-white",
-                            },
-                            {
-                              label: "Spedytor",
-                              color: "from-gray-500 to-blue-100",
-                              textColor: "text-blue-950",
-                            },
-                            {
-                              label: "Kierowca",
-                              color: "from-yellow-600 to-amber-900",
-                              textColor: "text-white",
-                            },
-                            {
-                              label: "Zwolnij",
-                              color: "from-red-400 to-red-600",
-                              textColor: "text-white",
-                            },
-                          ].map((button, index) => (
-                            <td
-                              className={`${index == 3 ? "rounded-r-md" : ""}`}
-                              key={index}
+                        {[
+                          {
+                            label: "Zarzad",
+                            color: "from-amber-500 to-yellow-200",
+                            textColor: "text-white",
+                          },
+                          {
+                            label: "Spedytor",
+                            color: "from-gray-500 to-blue-100",
+                            textColor: "text-blue-950",
+                          },
+                          {
+                            label: "Kierowca",
+                            color: "from-yellow-600 to-amber-900",
+                            textColor: "text-white",
+                          },
+                          {
+                            label: "Zwolnij",
+                            color: "from-red-400 to-red-600",
+                            textColor: "text-white",
+                          },
+                        ].map((button, index) => (
+                          <td
+                            className={`${index == 3 ? "rounded-r-md" : ""}`}
+                            key={index}
+                          >
+                            <button
+                              onClick={() =>
+                                onButtonClick(
+                                  driver?.id as string,
+                                  button.label == "Kierowca"
+                                    ? "Driver"
+                                    : button.label
+                                )
+                              }
+                              disabled={isLoading}
+                              className={`p-2 rounded-md bg-gradient-to-br disabled:opacity-50 font-bold ${button.color} ${button.textColor}`}
                             >
-                              <button
-                                onClick={() =>
-                                  onButtonClick(
-                                    driver?.id as string,
-                                    button.label == "Kierowca"
-                                      ? "Driver"
-                                      : button.label
-                                  )
-                                }
-                                disabled={isLoading}
-                                className={`p-2 rounded-md bg-gradient-to-br disabled:opacity-50 font-bold ${button.color} ${button.textColor}`}
-                              >
-                                {button.label}
-                              </button>
-                            </td>
-                          ))}
-                        </tr>
-                      </>
+                              {button.label}
+                            </button>
+                          </td>
+                        ))}
+                      </tr>
                     );
                   })}
               </tbody>
