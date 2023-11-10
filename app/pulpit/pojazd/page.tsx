@@ -7,7 +7,7 @@ const Pojazd = () => {
       <section
         className={`navAndBody rounded-xl w-11/12 md:w-4/5 lg:w-2/3 md:min-h-5/6 md:h-5/6 flex flex-col max-h-[600px]`}
       >
-        <ClientOnly></ClientOnly>
+        <ClientOnly><></></ClientOnly>
       </section>
     </div>
   );
