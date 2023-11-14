@@ -14,8 +14,7 @@ const usePracNav = create<State & Action>((set) => ({
   isFirstTab: true,
   theLocation: "Zatrudnij",
   setIsFirstTab: (value) =>
-    set((state) => {
-      console.log(state.isFirstTab);
+    set(() => {
       return { isFirstTab: value };
     }),
   setTheLocation: (locationToSet) =>

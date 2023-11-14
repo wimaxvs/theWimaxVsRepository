@@ -15,6 +15,7 @@ model Vehicle {
   registration String?
   carMark      String?
   carModel     String?
+  carImage     String?
   prevDrivers  String[] //convert driver user id to string and check for duplicity before pushing to array
 
   currentDriver Driver? @relation(fields: [driverId], references: [id])

@@ -7,8 +7,8 @@ import PromotionTable from "../../tables/PromotionTable";
 import useDriver from "@/app/hooks/useCurrentDriver";
 
 interface PracBodyProps {
-  allTheDrivers: Partial<SafeDriver>[];
-  firmId: string;
+  allTheDrivers?: Partial<SafeDriver>[];
+  firmId?: string;
   children?: React.ReactNode;
 }
 
@@ -29,10 +29,16 @@ const PracBody: React.FC<PracBodyProps> = ({
       {!children && (
         <>
           {theLocation === "Zatrudnij" && (
-            <RequestTable allTheDrivers={allTheDrivers} firmId={firmId} />
+            <RequestTable
+              allTheDrivers={allTheDrivers as Partial<SafeDriver>[]}
+              firmId={firmId as string}
+            />
           )}
           {theLocation === "Zwolnij lub Awansuj" && (
-            <PromotionTable allTheDrivers={allTheDrivers} firmId={firmId} />
+            <PromotionTable
+              allTheDrivers={allTheDrivers as Partial<SafeDriver>[]}
+              firmId={firmId as string}
+            />
           )}
         </>
       )}

@@ -9,7 +9,7 @@ module.exports = {
     extend: {
       colors: {
         "actual-white": "#eff8ff",
-        "navy-blue": "#161f64",
+        "navy-blue": "#050830",
         "deep-blue": "#343e83",
         "velvet-blue": "#4283ad",
         "off-white": "#efe0e3",

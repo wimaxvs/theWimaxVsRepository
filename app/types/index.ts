@@ -1,4 +1,4 @@
-import { CompanyKilometers, Driver, Firm, JoinRequest, KilometerMonth, Location, Settlement } from "@prisma/client";
+import { CompanyKilometers, Driver, Firm, JoinRequest, KilometerMonth, Location, Settlement, Vehicle } from "@prisma/client";
 
 export type SafeDriver = Driver & {
   firmOwned?: Firm | null;
@@ -8,6 +8,7 @@ export type SafeDriver = Driver & {
   settlements?: Settlement[] | null
   companyKilometers?: CompanyKilometers[] | null
   kilometerMonths?: KilometerMonth[] | null
+  vehicle?: Vehicle | null
 };
 
 export type SafeFirm = Firm & {
@@ -19,3 +20,13 @@ export type SafeJoinRequest = JoinRequest & {
   toFirm?: Firm;
   requester?: Driver;
 };
+
+export type allTheDrivers = (Driver & {
+  vehicle: Vehicle | null;
+  joinRequest: JoinRequest | null;
+  companyKilometers: CompanyKilometers | null;
+  kilometerMonths: KilometerMonth[];
+  currentFirm: Firm | null;
+  currentLocation: Location | null;
+})[];
+

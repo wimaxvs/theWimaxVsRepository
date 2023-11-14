@@ -1,5 +1,6 @@
 "use client";
 
+import usePracNav from "@/app/hooks/usePracNav";
 import { usePathname, useRouter } from "next/navigation";
 import React, { useCallback } from "react";
 
@@ -15,10 +16,22 @@ const SidebarItem: React.FC<SidebarItemProps> = ({
   isPulpit,
   color,
 }) => {
+  const { setTheLocation } = usePracNav();
   const pathname = usePathname();
   const router = useRouter();
 
   const toggleYerl = useCallback(() => {
+    switch (yerl) {
+      case "pojazd":
+        setTheLocation("Podgląd pojazdu");
+        break;
+      case "pracownicy":
+        setTheLocation("Zatrudnij");
+        break;
+      default:
+        break;
+    }
+
     const pulpit = "/pulpit";
     const notOnPulpit = pathname?.indexOf(`${yerl}`) !== -1;
     const onPulpit = pathname === pulpit;

@@ -4,11 +4,14 @@ export default async function getAllDrivers() {
   try {
     const allTheDrivers = await prisma.driver.findMany({
       include: {
+        firmOwned: true,
+        settlements:true,
         kilometerMonths: true,
         companyKilometers: true,
-        currentLocation: true, 
+        currentLocation: true,
         joinRequest: true,
-        currentFirm: true
+        currentFirm: true,
+        vehicle: true,
       },
     });
 

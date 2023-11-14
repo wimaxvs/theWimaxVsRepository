@@ -23,8 +23,8 @@ const PracNavItem: React.FC<PracNavItemProps> = ({
   return (
     <button
       onClick={() => onClickFunc(label)}
-      className={`p-4 rounded-t-xl relative text-[#1fb2a6] 
-        ${isActive ? "font-extrabold" : "font-semibold"}
+      className={` rounded-t-xl relative text-[#1fb2a6] 
+        ${isActive ? "p-4 font-extrabold mr-2" : "font-semibold bg-gray-900 px-2 py-0 text-gray-500 mb-2 mr-2 rounded-xl hover:bg-gray-800"}
         ${
           isActive &&
           "bg-gray-700 after:h-4 after:w-4 after:rounded-full after:right-[-16px] after:bottom-0 after:content-[''] after:bg-transparent after:absolute after:shadow-[-8px_10px_rgb(55,65,81)] "
