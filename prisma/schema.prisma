@@ -12,16 +12,16 @@ datasource db {
 
 model Vehicle {
   id           String   @id @default(auto()) @map("_id") @db.ObjectId
-  registration String?
+  registration String?  @unique
   carMark      String?
   carModel     String?
   carImage     String?
   prevDrivers  String[] //convert driver user id to string and check for duplicity before pushing to array
 
   currentDriver Driver? @relation(fields: [driverId], references: [id])
-  driverId      String? @unique @db.ObjectId
+  driverId      String? @db.ObjectId
   currentFirm   Firm?   @relation(fields: [firmId], references: [id])
-  firmId        String? @unique @db.ObjectId
+  firmId        String? @db.ObjectId
 }
 
 model Firm {
@@ -59,7 +59,7 @@ model Driver {
 
   role Role @default(DRIVER)
 
-  vehicle           Vehicle?
+  vehicle           Vehicle[]
   kilometerMonths   KilometerMonth[]
   companyKilometers CompanyKilometers?
   settlements       Settlement[]

@@ -15,19 +15,20 @@ const VehicleView: React.FC<VehicleViewProps> = ({ allTheDrivers }) => {
     if (allTheDrivers && allDrivers.length < 1) {
       setAllDrivers(allTheDrivers);
     }
-  }, [allDrivers.length, allTheDrivers, setAllDrivers]);
+  }, [allDrivers.length, allTheDrivers, setAllDrivers, currentDriver]);
 
   let gimmeRelevantDrivers = useCallback(
     (allDrivers: Partial<SafeDriver>[]) => {
       return allDrivers.filter((d) =>
-        currentDriver?.vehicle?.prevDrivers?.includes(d.id as string)
-      )},
-    [currentDriver?.vehicle?.prevDrivers]
+        currentDriver?.vehicle?.[0]?.prevDrivers?.includes(d.id as string)
+      );
+    },
+    [currentDriver?.vehicle]
   );
 
   return (
     <div
-      className={`mainContainer w-full flex flex-col md:flex-row justify-center gap-3 max-w-full`}
+      className={`mainContainer w-full flex flex-col md:flex-row gap-3 max-w-full`}
     >
       <div className="leftPartition md:max-w-[1/2] md:min-w-[1/2] md:h-full md:min-h-full md:max-h-full rounded-xl flex gap-2 flex-col items-center w-full h-[346px] min-h-[265.5px] max-h-[265.5px] overflow-y-scroll">
         <div className="divWithCarsImage h-1/2 w-full max-w-full overflow-x-hidden rounded-xl flex flex-col gap-1 relative">
@@ -35,15 +36,15 @@ const VehicleView: React.FC<VehicleViewProps> = ({ allTheDrivers }) => {
             <h3 className="text-white font-extrabold md:text-xl text-sm">
               {`Zdjęcia pojazdu`}
             </h3>
-            {!currentDriver?.vehicle?.carImage && (
+            {!currentDriver?.vehicle?.[0]?.carImage && (
               <p className="text-gray-500 font-semibold md:text-sm text-xs">
-                {`Obecnie nie ma przypisanego do Ciebie żadnego pojazdu. Poczekaj na przydział od Zarządu.`}
+                {`Obecnie nie ma  żadnego zdjęcia przypisanego do Ciebie pojazdu.`}
               </p>
             )}
           </div>
           <Image
             src={
-              (currentDriver?.vehicle?.carImage as string) ||
+              (currentDriver?.vehicle?.[0]?.carImage as string) ||
               "/images/noCarB.png"
             }
             alt="Image of the current driver's vehicle"
@@ -58,22 +59,24 @@ const VehicleView: React.FC<VehicleViewProps> = ({ allTheDrivers }) => {
               image: "bentoPlate",
               title: "Numer Rejestracyjne",
               subTitle:
-                currentDriver?.vehicle?.registration || "Numer Rejestracyjne",
+                currentDriver?.vehicle?.[0]?.registration ||
+                "Numer Rejestracyjne",
             },
             {
               image: "bentoMark",
               title: "Marka pojazdu",
-              subTitle: currentDriver?.vehicle?.carMark || "Marka Pojazdu",
+              subTitle: currentDriver?.vehicle?.[0]?.carMark || "Marka Pojazdu",
             },
             {
               image: "bentoModel",
               title: "Model pojazdu",
-              subTitle: currentDriver?.vehicle?.carModel || "Model Pojazdu",
+              subTitle:
+                currentDriver?.vehicle?.[0]?.carModel || "Model Pojazdu",
             },
           ].map((deets, index) => (
             <div
               key={index}
-              className={`max-w-[2/3] min-h-[5/6] h-5/6 rounded-xl bg-cover bg-no-repeat inline-flex flex-col gap-1 pl-2 pr-3 pt-2 mr-4
+              className={`max-w-[2/3] min-h-[95%] h-[95%] rounded-xl bg-cover bg-no-repeat inline-flex flex-col gap-1 pl-2 pr-3 pt-2 mr-4 mb-2
                   ${
                     deets.image === "bentoPlate"
                       ? "bg-[url('/images/bentoPlate.png')]"
@@ -99,13 +102,13 @@ const VehicleView: React.FC<VehicleViewProps> = ({ allTheDrivers }) => {
         <h3 className="text-white font-extrabold md:text-xl text-sm">
           {"Poprzedni kierowcy tego pojazdu"}
         </h3>
-        {!currentDriver?.vehicle?.prevDrivers && (
+        {!currentDriver?.vehicle?.[0]?.prevDrivers && (
           <p className="text-gray-500 font-semibold md:text-sm text-xs">
             {"Nie można jeszcze wyświetlić poprzednich kierowców tego pojazdu."}
           </p>
         )}
-        {!currentDriver?.vehicle?.prevDrivers ||
-          (currentDriver?.vehicle?.prevDrivers?.length > 0 &&
+        {!currentDriver?.vehicle?.[0]?.prevDrivers ||
+          (currentDriver?.vehicle?.[0]?.prevDrivers?.length > 0 &&
             gimmeRelevantDrivers(allDrivers).map((driver, index) => (
               <div
                 key={index}

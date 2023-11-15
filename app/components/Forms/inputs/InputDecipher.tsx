@@ -12,6 +12,7 @@ interface InputDecipherProps {
   ifPlaceholderMissing?: string;
   widthSet?: string;
   labelProvided?: string;
+  autocomplete?: boolean;
 }
 
 const InputDecipher: React.FC<InputDecipherProps> = ({
@@ -23,6 +24,7 @@ const InputDecipher: React.FC<InputDecipherProps> = ({
   inputType,
   widthSet,
   labelProvided,
+  autocomplete
 }) => {
   return (
     <>
@@ -41,6 +43,7 @@ const InputDecipher: React.FC<InputDecipherProps> = ({
         </div>
         <input
           type={inputType}
+          autoComplete={autocomplete? `${autocomplete.toString()}`:"false"}
           className="mb-1 md:mb-2 block w-full border border-solid border-black bg-white align-middle text-[#333333] focus:border-[#3898ec] text-sm px-3 rounded-md h-9 py-6 pl-8"
           placeholder={`${placeholder || ifPlaceholderMissing}`}
           {...register(registerId, {

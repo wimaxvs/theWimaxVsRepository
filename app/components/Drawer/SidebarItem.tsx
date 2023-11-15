@@ -16,7 +16,7 @@ const SidebarItem: React.FC<SidebarItemProps> = ({
   isPulpit,
   color,
 }) => {
-  const { setTheLocation } = usePracNav();
+  const { setTheLocation, setIsFirstTab } = usePracNav();
   const pathname = usePathname();
   const router = useRouter();
 
@@ -24,9 +24,11 @@ const SidebarItem: React.FC<SidebarItemProps> = ({
     switch (yerl) {
       case "pojazd":
         setTheLocation("Podgląd pojazdu");
+        setIsFirstTab(true);
         break;
       case "pracownicy":
         setTheLocation("Zatrudnij");
+        setIsFirstTab(true);
         break;
       default:
         break;

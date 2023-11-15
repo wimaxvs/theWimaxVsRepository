@@ -5,19 +5,22 @@ import React, { useEffect } from "react";
 import VehicleView from "./VehicleView";
 import AddOrDeleteCar from "./AddOrDeleteCar";
 import AssignCar from "./AssignCar";
-import { SafeDriver } from "@/app/types";
+import { SafeDriver, SafeVehicle } from "@/app/types";
 
 
 interface VehiclePageContainerProps {
   allTheDrivers: SafeDriver[]
+  allTheVehicles: SafeVehicle[] | null
 }
 
-const VehiclePageContainer:React.FC<VehiclePageContainerProps> = ({allTheDrivers}) => {
+const VehiclePageContainer: React.FC<VehiclePageContainerProps> = ({
+  allTheDrivers,
+  allTheVehicles,
+}) => {
   let { theLocation, setTheLocation } = usePracNav();
   let pathname = usePathname();
 
   useEffect(() => {
-    console.log(pathname);
     if (pathname?.includes("pojazd")) {
       setTheLocation("Podgląd pojazdu");
     }
@@ -25,8 +28,12 @@ const VehiclePageContainer:React.FC<VehiclePageContainerProps> = ({allTheDrivers
 
   return (
     <div className={`w-full h-full flex flex-row p-3`}>
-      {theLocation == "Podgląd pojazdu" && <VehicleView allTheDrivers={allTheDrivers} />}
-      {theLocation == "Zarządzanie pojazdami" && <AddOrDeleteCar />}
+      {theLocation == "Podgląd pojazdu" && (
+        <VehicleView allTheDrivers={allTheDrivers} />
+      )}
+      {theLocation == "Zarządzanie pojazdami" && (
+        <AddOrDeleteCar allTheVehicles={allTheVehicles} />
+      )}
       {theLocation == "Przypisz pojazd kierowcy" && <AssignCar />}
     </div>
   );

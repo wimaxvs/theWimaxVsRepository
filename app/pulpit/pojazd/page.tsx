@@ -1,12 +1,12 @@
 import getAllDrivers from "@/app/actions/getAllDrivers";
+import getAllVehicles from "@/app/actions/getAllVehicles";
 import getCurrentDriver from "@/app/actions/getCurrentDriver";
 import ClientOnly from "@/app/components/ClientOnly";
 import VehiclePageContainer from "@/app/components/ForVehiclePage/VehiclePageContainer";
 import PracBody from "@/app/components/navbar/pracNav/PracBody";
 import PracNav from "@/app/components/navbar/pracNav/PracNav";
-import { SafeDriver } from "@/app/types";
+import { SafeDriver, SafeVehicle } from "@/app/types";
 import React from "react";
-
 
 const Pojazd = async () => {
   const theCurrentDriver = await getCurrentDriver();
@@ -17,6 +17,7 @@ const Pojazd = async () => {
   }
 
   let allTheDrivers: SafeDriver[] = await getAllDrivers();
+  let allTheVehicles: SafeVehicle[] | null = await getAllVehicles();
   return (
     <div className="bg-[url('/images/truckWireMesh.png')] bg-no-repeat bg-cover bg-right-bottom h-screen w-full min-h-full flex flex-row justify-center pt-6">
       <section
@@ -25,7 +26,10 @@ const Pojazd = async () => {
         <ClientOnly>
           <PracNav PracNavItems={PracNavItems} />
           <PracBody>
-            <VehiclePageContainer allTheDrivers={allTheDrivers} />
+            <VehiclePageContainer
+              allTheVehicles={allTheVehicles}
+              allTheDrivers={allTheDrivers}
+            />
           </PracBody>
         </ClientOnly>
       </section>

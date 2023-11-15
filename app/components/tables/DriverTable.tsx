@@ -11,7 +11,7 @@ const DriverTable: React.FC<DriverTableProps> = ({ allTheDrivers }) => {
   let [stateDrivers, setStateDrivers] =
     useState<Partial<SafeDriver>[]>(allTheDrivers);
   useEffect(() => setStateDrivers(allTheDrivers), [allTheDrivers]);
-  
+
   return (
     <>
       <div
@@ -46,73 +46,65 @@ const DriverTable: React.FC<DriverTableProps> = ({ allTheDrivers }) => {
                 {stateDrivers &&
                   stateDrivers.map((driver, index) => {
                     return (
-                      <>
-                        <tr key={index} className={`border-none`}>
-                          <th
-                            className={`${
-                              index % 2 == 1 && "rounded-tl-md rounded-bl-md"
-                            }`}
-                          >
-                            {index + 1}
-                          </th>
-                          <td>
-                            <div className="flex items-center space-x-3">
-                              <div className="avatar">
-                                <div className="mask mask-squircle w-12 h-12">
-                                  <Image
-                                    height={50}
-                                    width={50}
-                                    src={`${
-                                      driver.image
-                                        ? driver.image
-                                        : "/images/placeholder.jpg"
-                                    }`}
-                                    alt="Avatar Tailwind CSS Component"
-                                  />
-                                </div>
-                              </div>
-                              <div>
-                                <div className="font-bold">
-                                  {driver.username}
-                                </div>
-                                <div className="text-sm opacity-50">
-                                  {driver.name
-                                    ? driver.name
-                                    : "Imię zastrzeżone"}
-                                </div>
+                      <tr key={index} className={`border-none`}>
+                        <th
+                          className={`${
+                            index % 2 == 1 && "rounded-tl-md rounded-bl-md"
+                          }`}
+                        >
+                          {index + 1}
+                        </th>
+                        <td>
+                          <div className="flex items-center space-x-3">
+                            <div className="avatar">
+                              <div className="mask mask-squircle w-12 h-12">
+                                <Image
+                                  height={50}
+                                  width={50}
+                                  src={`${
+                                    driver.image
+                                      ? driver.image
+                                      : "/images/placeholder.jpg"
+                                  }`}
+                                  alt="Avatar Tailwind CSS Component"
+                                />
                               </div>
                             </div>
-                          </td>
-                          <td className={`font-semibold flex flex-col gap-1`}>
-                            {driver.currentLocation?.country
-                              ? driver.currentLocation?.country
-                              : "Kraj"}
-                            <br />
-                            <span
-                              className={`flex flex-row items-center gap-1`}
-                            >
-                              <span className="rounded-xl bg-[#1fb2a6] text-white text-xs p-1">
-                                {`${driver.currentLocation?.city || "Miasto"} `}
-                              </span>
-                              <span className="rounded-xl border border-solid border-[#1fb2a6] text-[#1fb2a6] text-xs p-0.5">
-                                {`${
-                                  driver.currentLocation?.zipCode ||
-                                  "kod pocztowy"
-                                } `}
-                              </span>
+                            <div>
+                              <div className="font-bold">{driver.username}</div>
+                              <div className="text-sm opacity-50">
+                                {driver.name ? driver.name : "Imię zastrzeżone"}
+                              </div>
+                            </div>
+                          </div>
+                        </td>
+                        <td className={`font-semibold flex flex-col gap-1`}>
+                          {driver.currentLocation?.country
+                            ? driver.currentLocation?.country
+                            : "Kraj"}
+                          <br />
+                          <span className={`flex flex-row items-center gap-1`}>
+                            <span className="rounded-xl bg-[#1fb2a6] text-white text-xs p-1">
+                              {`${driver.currentLocation?.city || "Miasto"} `}
                             </span>
-                          </td>
-                          <td>{`${driver.totKms || 0} `}</td>
-                          <td>{`${driver.balance || 0} `}</td>
-                          <td
-                            className={`${
-                              index % 2 == 1 && "rounded-tr-md rounded-br-md"
-                            }`}
-                          >
-                            {driver.seniority || "Kierowca"}
-                          </td>
-                        </tr>
-                      </>
+                            <span className="rounded-xl border border-solid border-[#1fb2a6] text-[#1fb2a6] text-xs p-0.5">
+                              {`${
+                                driver.currentLocation?.zipCode ||
+                                "kod pocztowy"
+                              } `}
+                            </span>
+                          </span>
+                        </td>
+                        <td>{`${driver.totKms || 0} `}</td>
+                        <td>{`${driver.balance || 0} `}</td>
+                        <td
+                          className={`${
+                            index % 2 == 1 && "rounded-tr-md rounded-br-md"
+                          }`}
+                        >
+                          {driver.seniority || "Kierowca"}
+                        </td>
+                      </tr>
                     );
                   })}
               </tbody>

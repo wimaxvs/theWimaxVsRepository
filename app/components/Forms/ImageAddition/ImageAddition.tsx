@@ -1,6 +1,5 @@
 "use client";
 import { FieldValues, UseFormRegister } from "react-hook-form";
-import useCurrentDriver from "@/app/hooks/useCurrentDriver";
 import React from "react";
 import { BsCameraFill } from "react-icons/bs";
 import toast from "react-hot-toast";
@@ -12,12 +11,8 @@ interface ImageAdditionProps {
 }
 
 const ImageAddition: React.FC<ImageAdditionProps> = ({ register, id }) => {
-  const { currentDriver } = useCurrentDriver();
 
-  let userImg = currentDriver?.image;
-
-  const [imagePreview, setImagePreview] = React.useState(userImg as string);
-  const placeholderPic = "/images/placeholder.jpg";
+  const [imagePreview, setImagePreview] = React.useState("/images/placeholderB.jpg");
 
   function validateImg(event: React.ChangeEvent<HTMLInputElement>) {
     if (!event?.target.files) {
@@ -47,18 +42,18 @@ const ImageAddition: React.FC<ImageAdditionProps> = ({ register, id }) => {
         <p className=" avatarAdditionPrompt mt-2 text-black font-bold text-base">
           {`Dodaj zdjęcie`}
         </p>
-        <div className="avatarAdditionSpace mt-2 mb-8 relative rounded-full bg-neutral-300 h-[110px] w-[110px] flex flex-col items-center content-center border-1 border-black">
+        <div className="avatarAdditionSpace mt-2 mb-8 relative rounded-full bg-neutral-300 h-[110px] w-[110px] flex flex-col items-center content-center">
           <label htmlFor="image" className="">
             <Image
               height={360}
               width={360}
-              src={imagePreview || placeholderPic}
+              src={imagePreview}
               alt="avatar placeholder"
               className="signup-profile-pic object-cover rounded-full h-[109px] w-[109px]"
             />
-            <span className={`absolute right-0 top-1`}>
+            {/* <span className={`absolute right-0 top-1`}>
               <BsCameraFill size={26} style={{ color: "black" }} />
-            </span>
+            </span> */}
           </label>
           <input
             type="file"

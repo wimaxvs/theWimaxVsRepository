@@ -1,5 +1,5 @@
 "use client";
-import { SafeDriver, SafeJoinRequest } from "@/app/types";
+import { SafeDriver } from "@/app/types";
 import Image from "next/image";
 import React, { useCallback, useEffect, useState } from "react";
 import axios, { AxiosResponse } from "axios";
