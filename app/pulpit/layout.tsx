@@ -3,6 +3,8 @@ import getCurrentDriver from "../actions/getCurrentDriver";
 import Link from "next/link";
 import { Inter } from "next/font/google";
 import Navbar from "../components/navbar/Navbar";
+import ClientOnly from "../components/ClientOnly";
+import NotLoggedInButton from "../components/NotLoggedInButton";
 
 interface DashlayoutProps {
   children: React.ReactNode;
@@ -20,13 +22,17 @@ const font = Inter({
 export default async function Pulpit({ children }: DashlayoutProps) {
   const currentDriver = await getCurrentDriver();
 
-  let firmName = currentDriver?.currentFirm?.firmName
-  let role = currentDriver?.role
+  let firmName = currentDriver?.currentFirm?.firmName;
+  let role = currentDriver?.role;
   return (
     <>
       {currentDriver && (
         <>
-          <Drawer role={role} firmName={firmName} navbar={<Navbar currentDriver={currentDriver} />}>
+          <Drawer
+            role={role}
+            firmName={firmName}
+            navbar={<Navbar currentDriver={currentDriver} />}
+          >
             {children}
           </Drawer>
         </>
@@ -37,16 +43,10 @@ export default async function Pulpit({ children }: DashlayoutProps) {
         >
           <div className="fixed flex flex-col items-center w-[50%] bg-black px-10 py-6 rounded-xl drop-shadow-md text-white font-bold gap-1">
             <p>Nie jesteś zalogowany.</p>
-            <p className="text-base">
-              Kliknij tutaj aby sie zalogowac 👇
-            </p>
-            <Link href="/">
-              <button
-                className={`bg-deep-blue mt-2 py-2 px-4 rounded-lg drop-shadow-lg`}
-              >
-                Home
-              </button>
-            </Link>
+            <p className="text-base">Kliknij tutaj aby sie zalogowac 👇</p>
+            <ClientOnly>
+              <NotLoggedInButton />{" "}
+            </ClientOnly>
           </div>
         </div>
       )}

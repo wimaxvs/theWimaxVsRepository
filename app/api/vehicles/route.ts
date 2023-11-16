@@ -31,6 +31,7 @@ export async function POST(req: Request) {
         carMark,
         carModel,
         carImage,
+        mileage: 0,
         currentDriver: undefined,
         currentFirm: {
           connect: {

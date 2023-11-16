@@ -9,13 +9,15 @@ import { SafeDriver, SafeVehicle } from "@/app/types";
 
 
 interface VehiclePageContainerProps {
-  allTheDrivers: SafeDriver[]
-  allTheVehicles: SafeVehicle[] | null
+  allTheDrivers: SafeDriver[];
+  allTheVehicles: SafeVehicle[] | null;
+  firmId: string | undefined;
 }
 
 const VehiclePageContainer: React.FC<VehiclePageContainerProps> = ({
   allTheDrivers,
   allTheVehicles,
+  firmId
 }) => {
   let { theLocation, setTheLocation } = usePracNav();
   let pathname = usePathname();
@@ -34,7 +36,9 @@ const VehiclePageContainer: React.FC<VehiclePageContainerProps> = ({
       {theLocation == "Zarządzanie pojazdami" && (
         <AddOrDeleteCar allTheVehicles={allTheVehicles} />
       )}
-      {theLocation == "Przypisz pojazd kierowcy" && <AssignCar />}
+      {theLocation == "Przypisz pojazd kierowcy" && (
+        <AssignCar allTheVehicles={allTheVehicles} allTheDrivers={allTheDrivers} firmId={firmId} />
+      )}
     </div>
   );
 };

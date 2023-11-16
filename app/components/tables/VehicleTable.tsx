@@ -14,7 +14,7 @@ interface VehicleTableProps {
 const VehicleTable: React.FC<VehicleTableProps> = ({ allTheVehicles }) => {
   let [isLoading, setIsLoading] = useState<boolean>(false);
   let { theVehicles, setTheVehicles } = useAllVehicles();
-  let { setDriver } = useDriver();
+  let { setDriver, currentDriver, setCurrentDriver } = useDriver();
 
   useEffect(() => {
     if (theVehicles?.length < 1 && allTheVehicles) {
@@ -44,6 +44,10 @@ const VehicleTable: React.FC<VehicleTableProps> = ({ allTheVehicles }) => {
           console.log(res.data.allTheVehicles);
           setTheVehicles(res.data.allTheVehicles as Partial<SafeVehicle>[]);
           if (res.data.affectedDriver) {
+            if (res.data.affectedDriver.id == currentDriver?.id) {
+              setCurrentDriver(res.data.affectedDriver);
+              setCurrentDriver(res.data.affectedDriver);
+            }
             setDriver(res.data.affectedDriver);
           }
           return toast.success(

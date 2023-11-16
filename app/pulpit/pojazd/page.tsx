@@ -29,6 +29,7 @@ const Pojazd = async () => {
             <VehiclePageContainer
               allTheVehicles={allTheVehicles}
               allTheDrivers={allTheDrivers}
+              firmId={theCurrentDriver?.currentFirm?.id}
             />
           </PracBody>
         </ClientOnly>

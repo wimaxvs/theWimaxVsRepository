@@ -17,6 +17,7 @@ model Vehicle {
   carModel     String?
   carImage     String?
   prevDrivers  String[] //convert driver user id to string and check for duplicity before pushing to array
+  mileage      Int?
 
   currentDriver Driver? @relation(fields: [driverId], references: [id])
   driverId      String? @db.ObjectId
