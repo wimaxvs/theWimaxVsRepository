@@ -61,7 +61,7 @@ export async function POST(req: Request) {
       }
     } else {
       console.log(error);
-      return NextResponse.json({ code: 500, message: error });
+      return NextResponse.json({ code: 500, message: "Nieznany błąd Prisma.", error });
     }
   }
 }
