@@ -6,7 +6,6 @@ import { NextResponse } from "next/server";
 export async function POST(req: Request) {
   const currentDriver: Partial<SafeDriver> | null = await getCurrentDriver();
 
-  console.log("hit a");
   if (!currentDriver) {
     return NextResponse.json({ code: 500, message: "Nieznany użytkownik." });
   }
@@ -17,7 +16,6 @@ export async function POST(req: Request) {
 
   const body = await req.json();
   let { carImage, registration, carMark, carModel} = body;
-  console.log(carImage)
 
   try {
     let theFirm = await prisma?.firm.findUnique({
@@ -32,7 +30,6 @@ export async function POST(req: Request) {
         carModel,
         carImage,
         mileage: 0,
-        currentDriver: undefined,
         currentFirm: {
           connect: {
             id: theFirm?.id,
