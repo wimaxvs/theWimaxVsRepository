@@ -108,7 +108,6 @@ const DriverTableAssignVehicle: React.FC<DriverTableAssignVehicleProps> = ({
   };
 
   let goBack = () => {
-    console.log("hit", vehicleBeingAssigned);
     setVehicleBeingAssigned({}, true);
   };
 
@@ -208,7 +207,10 @@ const DriverTableAssignVehicle: React.FC<DriverTableAssignVehicleProps> = ({
                                   : "bg-green-600"
                               } text-white`}
                             >
-                              Wybieram
+                              {driver?.vehicle?.[0] !== null &&
+                              driver?.vehicle?.[0] !== undefined
+                                ? "Przydzielono"
+                                : "Wybieram"}
                             </button>
                           </td>
                         </tr>

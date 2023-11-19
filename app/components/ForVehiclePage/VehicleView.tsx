@@ -76,7 +76,7 @@ const VehicleView: React.FC<VehicleViewProps> = ({ allTheDrivers }) => {
           ].map((deets, index) => (
             <div
               key={index}
-              className={`max-w-[2/3] min-h-[95%] h-[95%] rounded-xl bg-cover bg-no-repeat inline-flex flex-col gap-1 pl-2 pr-3 pt-2 mr-4 mb-2
+              className={`max-w-[2/3] min-w-[2/3] min-h-[95%] h-[95%] rounded-xl bg-cover bg-no-repeat inline-flex flex-col gap-1 pl-2 pr-3 pt-2 mr-4 mb-2
                   ${
                     deets.image === "bentoPlate"
                       ? "bg-[url('/images/bentoPlate.png')]"

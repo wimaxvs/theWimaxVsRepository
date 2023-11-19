@@ -161,12 +161,12 @@ const VehicleTableAssign: React.FC<VehicleTableAssignProps> = ({
                           Przypisz
                         </button>
                       </td>
-                      {vehicle.currentDriver && (
-                        <td
-                          className={`${
-                            index % 2 == 1 && "rounded-tr-md rounded-br-md"
-                          }`}
-                        >
+                      <td
+                        className={`${
+                          index % 2 == 1 && "rounded-tr-md rounded-br-md"
+                        }`}
+                      >
+                        {vehicle.currentDriver && (
                           <button
                             onClick={() => onPrzypisz(vehicle, "disconnect")}
                             disabled={isLoading}
@@ -174,8 +174,8 @@ const VehicleTableAssign: React.FC<VehicleTableAssignProps> = ({
                           >
                             Anuluj Przypisania
                           </button>
-                        </td>
-                      )}
+                        )}
+                      </td>
                     </tr>
                   );
                 })}
