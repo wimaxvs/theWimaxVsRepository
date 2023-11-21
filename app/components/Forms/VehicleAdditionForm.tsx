@@ -62,7 +62,7 @@ const VehicleAdditionForm = () => {
         ) => {
           if (res.data.code === 500 || res.data.code === 400) {
             console.log(
-              Object.values(res.data.hitPoints as { [key: string]: string })
+              res.data
             );
             throw new Error(res.data.message);
           }
