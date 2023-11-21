@@ -57,9 +57,11 @@ const VehicleAdditionForm = () => {
             allTheVehicles: Partial<SafeVehicle>[];
             code?: number;
             message?: string;
+            hitPoints?:{[key: string]: string}
           }>
         ) => {
           if (res.data.code === 500 || res.data.code === 400) {
+            console.log(res.data.hitPoints)
             throw new Error(res.data.message);
           }
           setTheVehicles(res.data.allTheVehicles);

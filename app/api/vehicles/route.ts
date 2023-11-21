@@ -15,7 +15,10 @@ export async function POST(req: Request) {
   }
 
   const body = await req.json();
-  let { carImage, registration, carMark, carModel} = body;
+  let { carImage, registration, carMark, carModel } = body;
+  let hitPointA;
+  let hitPointB;
+  let hitPointC;
 
   try {
     let theFirm = await prisma?.firm.findUnique({
@@ -23,6 +26,7 @@ export async function POST(req: Request) {
         id: currentDriver?.currentFirm?.id,
       },
     });
+    hitPointA = "HitPointA";
     await prisma?.vehicle.create({
       data: {
         registration,
@@ -37,12 +41,14 @@ export async function POST(req: Request) {
         },
       },
     });
+    hitPointB = "hitPointB";
     let allTheVehicles = await prisma?.vehicle.findMany({
       include: {
         currentDriver: true,
         currentFirm: true,
       },
     });
+    hitPointC = "hitPointC";
     return NextResponse.json({
       code: 200,
       message: "Pomyślnie dodano nowy pojazd",
@@ -58,7 +64,12 @@ export async function POST(req: Request) {
       }
     } else {
       console.log(error);
-      return NextResponse.json({ code: 500, message: "Nieznany błąd Prisma.", error });
+      return NextResponse.json({
+        code: 500,
+        message: "Nieznany błąd Prisma.",
+        error,
+        hitPoints: { hitPointA, hitPointB, hitPointC },
+      });
     }
   }
 }
