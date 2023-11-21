@@ -68,7 +68,9 @@ export async function POST(req: Request) {
         code: 500,
         message: "Nieznany błąd Prisma.",
         error,
-        hitPoints: { hitPointA, hitPointB, hitPointC },
+        hitPointA,
+        hitPointB,
+        hitPointC,
       });
     }
   }
