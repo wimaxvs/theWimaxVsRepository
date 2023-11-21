@@ -1,5 +1,6 @@
 import getCurrentDriver from "@/app/actions/getCurrentDriver";
 import { SafeDriver } from "@/app/types";
+import prisma from "@/app/libs/prismadb";
 import { Prisma } from "@prisma/client";
 import { NextResponse } from "next/server";
 
@@ -18,12 +19,12 @@ export async function POST(req: Request) {
   let { carImage, registration, carMark, carModel } = body;
 
   try {
-    let theFirm = await prisma?.firm.findUnique({
+    let theFirm = await prisma.firm.findUnique({
       where: {
         id: currentDriver?.currentFirm?.id,
       },
     });
-    let newCar = await prisma?.vehicle.create({
+    let newCar = await prisma.vehicle.create({
       data: {
         registration,
         carMark,
@@ -33,7 +34,7 @@ export async function POST(req: Request) {
       },
     });
 
-    await prisma?.vehicle.update({
+    await prisma.vehicle.update({
       where: {
         id: newCar?.id,
       },
@@ -45,7 +46,7 @@ export async function POST(req: Request) {
         },
       },
     });
-    let allTheVehicles = await prisma?.vehicle.findMany({
+    let allTheVehicles = await prisma.vehicle.findMany({
       include: {
         currentDriver: true,
         currentFirm: true,
