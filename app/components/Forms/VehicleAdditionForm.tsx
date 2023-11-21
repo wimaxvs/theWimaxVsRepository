@@ -57,11 +57,11 @@ const VehicleAdditionForm = () => {
             allTheVehicles: Partial<SafeVehicle>[];
             code?: number;
             message?: string;
-            hitPoints?:{[key: string]: string}
+            hitPoints?: { [key: string]: string };
           }>
         ) => {
           if (res.data.code === 500 || res.data.code === 400) {
-            console.log(res.data.hitPoints)
+            console.log(...res.data.hitPoints);
             throw new Error(res.data.message);
           }
           setTheVehicles(res.data.allTheVehicles);
@@ -76,7 +76,7 @@ const VehicleAdditionForm = () => {
         }
       )
       .catch((error: any) => {
-        console.log(error)
+        console.log(error);
         toast.error(
           <>
             <div className="p-4 text-bold text-red-800 flex flex-col items-center bg-rose-100 rounded-lg my-4">
@@ -84,7 +84,7 @@ const VehicleAdditionForm = () => {
             </div>
           </>
         );
-        return
+        return;
       })
       .finally(() => {
         setIsLoading(false);
