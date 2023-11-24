@@ -18,15 +18,15 @@ export async function POST(request: Request) {
     return NextResponse.json({ code: 400, message: "Nie jestes Zarżądem" });
   }
   const body = await request.json();
-  const { driverId, vehicleId } = body;
+  const { driverId, taskId } = body;
 
   try {
-    await prisma.vehicle.update({
+    await prisma.settlement.update({
       where: {
-        id: vehicleId,
+        id: taskId,
       },
       data: {
-        currentDriver: {
+        driver: {
           connect: { id: driverId },
         },
       },
@@ -70,19 +70,21 @@ export async function POST(request: Request) {
     affectedDriver = null;
     allTheDrivers = null;
   }
-  let allTheVehicles = await prisma.vehicle.findMany({
+  let allTheTasks = await prisma.settlement.findMany({
     include: {
-      currentDriver: true,
-      currentFirm: true,
+      driver: true,
+      Firm: true,
+      startLocation: true,
+      endLocation: true
     },
   });
 
-  let successMessage = "Pojazd został pomyślnie przypisany do kierowcy";
+  let successMessage = "Trasa została pomyślnie przypisana do kierowcy.";
 
   return NextResponse.json({
     affectedDriver: affectedDriver ? affectedDriver : null,
     allTheDrivers: allTheDrivers ? allTheDrivers : null,
-    allTheVehicles,
+    allTheTasks,
     message: successMessage,
     code: 200,
   });

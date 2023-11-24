@@ -52,6 +52,7 @@ export async function POST(request: Request) {
         currentLocation: true,
         joinRequest: true,
         currentFirm: true,
+        settlements: true
       },
     });
     allTheDrivers = await prisma.driver.findMany({
@@ -62,6 +63,7 @@ export async function POST(request: Request) {
         currentLocation: true,
         joinRequest: true,
         currentFirm: true,
+        settlements: true
       },
     });
   } else {

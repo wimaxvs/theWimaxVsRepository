@@ -1,7 +1,7 @@
 import { NextResponse } from "next/server";
 
 import prisma from "@/app/libs/prismadb";
-import { Prisma, Vehicle } from "@prisma/client";
+import { Prisma, Settlement } from "@prisma/client";
 import getCurrentDriver from "@/app/actions/getCurrentDriver";
 
 export type nextResponseMessage = {
@@ -18,71 +18,56 @@ export async function POST(request: Request) {
     return NextResponse.json({ code: 400, message: "Nie jestes Zarżądem" });
   }
   const body = await request.json();
-  const { driverId, vehicleId } = body;
+  const { driverId, taskId: settlementId } = body;
 
   try {
-    await prisma.vehicle.update({
+    await prisma.settlement.delete({
       where: {
-        id: vehicleId,
-      },
-      data: {
-        currentDriver: {
-          connect: { id: driverId },
-        },
+        id: settlementId,
       },
     });
   } catch (error) {
     if (error instanceof Prisma.PrismaClientKnownRequestError) {
       console.log(error.code);
+      NextResponse.json({ code: 500, message: error.message });
     } else {
       NextResponse.json({ code: 500, message: error });
     }
   }
+
   let affectedDriver;
-  let allTheDrivers;
   if (driverId) {
     affectedDriver = await prisma.driver.findFirst({
       where: {
         id: driverId,
       },
       include: {
+        settlements: true,
         vehicle: true,
         kilometerMonths: true,
         companyKilometers: true,
         currentLocation: true,
         joinRequest: true,
         currentFirm: true,
-        settlements: true,
-      },
-    });
-    allTheDrivers = await prisma.driver.findMany({
-      include: {
-        vehicle: true,
-        kilometerMonths: true,
-        companyKilometers: true,
-        currentLocation: true,
-        joinRequest: true,
-        currentFirm: true,
-        settlements: true,
       },
     });
   } else {
     affectedDriver = null;
-    allTheDrivers = null;
   }
-  let allTheVehicles = await prisma.vehicle.findMany({
+  let allTheTasks = await prisma.settlement.findMany({
     include: {
-      currentDriver: true,
-      currentFirm: true,
+      endLocation: true,
+      startLocation: true,
+      Firm: true,
+      driver: true,
     },
   });
 
-  let successMessage = "Pojazd został pomyślnie przypisany do kierowcy";
+  let successMessage = "Tras został wykreślony z rejestru";
 
   return NextResponse.json({
     affectedDriver: affectedDriver ? affectedDriver : null,
-    allTheDrivers: allTheDrivers ? allTheDrivers : null,
-    allTheVehicles,
+    allTheTasks,
     message: successMessage,
     code: 200,
   });

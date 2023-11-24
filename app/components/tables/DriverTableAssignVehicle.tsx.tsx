@@ -1,6 +1,6 @@
 "use client";
 
-import { SafeDriver, SafeVehicle } from "@/app/types";
+import { SafeDriver, SafeSettlement, SafeVehicle } from "@/app/types";
 import React, { useCallback, useEffect, useState } from "react";
 import Image from "next/image";
 import axios, { AxiosResponse } from "axios";
@@ -8,15 +8,18 @@ import toast from "react-hot-toast";
 import useDriver from "@/app/hooks/useCurrentDriver";
 import useAllVehicles from "@/app/hooks/useAllVehicles";
 import { IoArrowBackOutline } from "react-icons/io5";
+import useAllTasks from "@/app/hooks/useAllTasks";
 
 interface DriverTableAssignVehicleProps {
-  allTheDrivers: Partial<SafeDriver>[];
-  firmId: string | undefined;
+  allTheDrivers?: Partial<SafeDriver>[];
+  firmId?: string | undefined;
+  isTras?: boolean;
 }
 
 const DriverTableAssignVehicle: React.FC<DriverTableAssignVehicleProps> = ({
   allTheDrivers,
   firmId,
+  isTras,
 }) => {
   let currentDriver = useDriver((state) => state.currentDriver);
   let setCurrentDriver = useDriver((state) => state.setCurrentDriver);
@@ -25,6 +28,7 @@ const DriverTableAssignVehicle: React.FC<DriverTableAssignVehicleProps> = ({
   let setAllDrivers = useDriver((state) => state.setAllDrivers);
   let { vehicleBeingAssigned, setVehicleBeingAssigned, setTheVehicles } =
     useAllVehicles();
+  let { taskBeingAssigned, setTaskBeingAssigned, setTheTasks } = useAllTasks();
 
   const [isLoading, setIsLoading] = useState<boolean>(false);
 
@@ -47,7 +51,7 @@ const DriverTableAssignVehicle: React.FC<DriverTableAssignVehicleProps> = ({
     }
   }, [allTheDrivers, drivers, setAllDrivers]);
 
-  const onButtonClick = (vehicle: Partial<SafeVehicle>, driverId?: string) => {
+  const onButtonClick = (object: Partial<SafeVehicle> | Partial<SafeSettlement>, driverId?: string) => {
     setIsLoading(true);
     if (!driverId) {
       return toast.error(
@@ -58,21 +62,28 @@ const DriverTableAssignVehicle: React.FC<DriverTableAssignVehicleProps> = ({
     }
     let data = JSON.stringify({
       driverId: driverId,
-      vehicleId: vehicle.id,
+      vehicleId: object.id,
+      taskId: object.id
     });
+
+    let route = isTras ? "/api/rozpiski/assign" : "/api/vehicles/assign";
     axios
-      .post("/api/vehicles/assign", data)
+      .post(route, data)
       .then(
         (
           res: AxiosResponse<{
             message: string;
             code?: string | number;
             allTheVehicles?: Partial<SafeVehicle>[];
+            allTheTasks?: Partial<SafeSettlement>[];
             affectedDriver: Partial<SafeDriver> | null;
             allTheDrivers: Partial<SafeDriver>[] | null;
           }>
         ) => {
-          setTheVehicles(res.data.allTheVehicles as Partial<SafeVehicle>[]);
+          isTras
+            ? setTheTasks(res.data.allTheTasks as Partial<SafeSettlement>[])
+            : setTheVehicles(res.data.allTheVehicles as Partial<SafeVehicle>[]);
+
           if (res.data.affectedDriver) {
             if (res.data.affectedDriver.id == currentDriver?.id) {
               setCurrentDriver(res.data.affectedDriver);
@@ -104,11 +115,16 @@ const DriverTableAssignVehicle: React.FC<DriverTableAssignVehicleProps> = ({
       })
       .finally(() => {
         setIsLoading(false);
+        goBack()
       });
   };
 
   let goBack = () => {
-    setVehicleBeingAssigned({}, true);
+    if (isTras) {
+      setTaskBeingAssigned({}, true);
+    } else {
+      setVehicleBeingAssigned({}, true);
+    }
   };
 
   return (
@@ -123,15 +139,23 @@ const DriverTableAssignVehicle: React.FC<DriverTableAssignVehicleProps> = ({
           <div className={`w-full p-2 pl-0 overflow-y-auto`}>
             {/* Table Title */}
             <h3 className="text-white font-extrabold md:text-xl text-sm mb-1">
-              Wybierz kierowcę pojazdu:
+              {isTras
+                ? "Wybierz, komu chcesz przypisać trasę"
+                : "Wybierz kierowcę pojazdu:"}
             </h3>
             <p
               className={`text-xs md:text-sm lg:text-md font-semibold mb-3 text-gray-500`}
             >
-              <b>
-                {vehicleBeingAssigned.carMark} {vehicleBeingAssigned.carModel}
-              </b>{" "}
-              o rejestracji <b>{vehicleBeingAssigned.registration}</b>
+              {!isTras && (
+                <>
+                  <b>
+                    {vehicleBeingAssigned.carMark}{" "}
+                    {vehicleBeingAssigned.carModel}
+                  </b>{" "}
+                  o rejestracji <b>{vehicleBeingAssigned.registration}</b>
+                </>
+              )}
+              {isTras && "Do kierowcy można przypisać maksymalnie 6 tras"}
             </p>
             <div className="max-w-[11/12] overflow-x-auto pb-3">
               <table className="table rounded-md">
@@ -148,6 +172,13 @@ const DriverTableAssignVehicle: React.FC<DriverTableAssignVehicleProps> = ({
                   {/* the rows */}
                   {drivers &&
                     gimmeEligibleDrivers(drivers).map((driver, index) => {
+                      let driverIncompleteRouteAmount =
+                        driver?.settlements?.filter(
+                          (sett) => !sett.approvalStatus
+                        ).length;
+                      let hasSix = driverIncompleteRouteAmount
+                        ? driverIncompleteRouteAmount > 5
+                        : false;
                       return (
                         <tr key={index} className={`border-none hover`}>
                           <td className={`rounded-l-md`}>{index + 1}</td>
@@ -193,22 +224,23 @@ const DriverTableAssignVehicle: React.FC<DriverTableAssignVehicleProps> = ({
                           >
                             <button
                               onClick={() =>
-                                onButtonClick(vehicleBeingAssigned, driver.id)
+                                onButtonClick(!isTras ? vehicleBeingAssigned: taskBeingAssigned, driver.id)
                               }
                               disabled={
-                                isLoading ||
-                                (driver?.vehicle?.[0] !== null &&
-                                  driver?.vehicle?.[0] !== undefined)
+                                isLoading || !isTras
+                                  ? driver?.vehicle?.[0] !== null &&
+                                    driver?.vehicle?.[0] !== undefined
+                                  : hasSix
                               }
                               className={`p-2 rounded-md disabled:opacity-50 font-bold ${
-                                driver?.vehicle?.[0] !== null &&
-                                driver?.vehicle?.[0] !== undefined
+                                !isTras && (driver?.vehicle?.[0] !== null &&
+                                driver?.vehicle?.[0] !== undefined)
                                   ? "bg-red-400"
                                   : "bg-green-600"
                               } text-white`}
                             >
-                              {driver?.vehicle?.[0] !== null &&
-                              driver?.vehicle?.[0] !== undefined
+                              {(!isTras && driver?.vehicle?.[0] !== null &&
+                              driver?.vehicle?.[0] !== undefined) || (isTras && hasSix)
                                 ? "Przydzielono"
                                 : "Wybieram"}
                             </button>

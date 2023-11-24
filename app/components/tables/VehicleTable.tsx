@@ -46,7 +46,6 @@ const VehicleTable: React.FC<VehicleTableProps> = ({ allTheVehicles }) => {
           if (res.data.affectedDriver) {
             if (res.data.affectedDriver.id == currentDriver?.id) {
               setCurrentDriver(res.data.affectedDriver);
-              setCurrentDriver(res.data.affectedDriver);
             }
             setDriver(res.data.affectedDriver);
           }

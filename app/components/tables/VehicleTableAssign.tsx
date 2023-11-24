@@ -158,7 +158,7 @@ const VehicleTableAssign: React.FC<VehicleTableAssignProps> = ({
                           }
                           className="p-2 rounded-md bg-green-600 disabled:opacity-50 font-bold text-white"
                         >
-                          Przypisz
+                          {vehicle.currentDriver ? vehicle.currentDriver.username : "Przypisz"}
                         </button>
                       </td>
                       <td

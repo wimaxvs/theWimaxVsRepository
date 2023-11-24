@@ -92,6 +92,15 @@ model Location {
   zipCode String?
 
   drivers Driver[]
+  settlements Settlement[]
+}
+model StartLocation {
+  id      String  @id @default(auto()) @map("_id") @db.ObjectId
+  country String?
+  city    String?
+  zipCode String?
+
+  settlements Settlement[]
 }
 
 model KilometerMonth {
@@ -128,6 +137,11 @@ model Settlement {
   products                  String[]
   approvalStatus            Boolean
   misc                      String[]
+
+  startLocation StartLocation? @relation(fields: [startLocationId], references: [id], onDelete: Cascade)
+  startLocationId String? @db.ObjectId 
+  endLocation Location? @relation(fields: [locationId], references: [id], onDelete: Cascade)
+  locationId String? @db.ObjectId 
 
   driver   Driver? @relation(fields: [driverId], references: [id], onDelete: Cascade)
   driverId String? @db.ObjectId

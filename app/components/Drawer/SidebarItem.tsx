@@ -30,6 +30,10 @@ const SidebarItem: React.FC<SidebarItemProps> = ({
         setTheLocation("Zatrudnij");
         setIsFirstTab(true);
         break;
+      case "rozpiski":
+        setTheLocation("Niewykonanych Trasy");
+        setIsFirstTab(true);
+        break;
       default:
         break;
     }

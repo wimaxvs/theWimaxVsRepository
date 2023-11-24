@@ -47,6 +47,7 @@ export async function POST(request: Request) {
         currentLocation: true,
         joinRequest: true,
         currentFirm: true,
+        settlements: true
       },
     });
   } else {

@@ -6,6 +6,7 @@ import {
   KilometerMonth,
   Location,
   Settlement,
+  StartLocation,
   Vehicle,
 } from "@prisma/client";
 
@@ -25,8 +26,14 @@ export type SafeFirm = Firm & {
   joinRequests: JoinRequest[];
 };
 export type SafeVehicle = Vehicle & {
-  currentDriver: Driver | null,
-  currentFirm: Firm | null
+  currentDriver: Driver | null;
+  currentFirm: Firm | null;
+};
+export type SafeSettlement = Settlement & {
+  startLocation: StartLocation | null;
+  endLocation: Location | null;
+  driver: Driver | null;
+  Firm: Firm | null;
 };
 
 export type SafeJoinRequest = JoinRequest & {
