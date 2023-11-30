@@ -91,7 +91,7 @@ const ModalButton: React.FC<ModalButtonProps> = ({ task, buttonId }) => {
         disabled={isLoading }
         className="btn p-2 rounded-md bg-green-600 disabled:opacity-50 font-bold text-white"
         onClick={() =>
-          document.getElementById(`my_modal_2_${buttonId}`)?.showModal()
+          (document.getElementById(`my_modal_2_${buttonId}`) as HTMLFormElement).showModal()
         }
       >
         Pogląd
