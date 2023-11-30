@@ -1,21 +1,17 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import InputDecipher from "./inputs/InputDecipher";
 import { FieldValues, SubmitHandler, useForm } from "react-hook-form";
-import useIA from "./ImageAddition/hooks/useIA";
-import ImageAddition from "./ImageAddition/ImageAddition";
-import useDriver from "@/app/hooks/useCurrentDriver";
-
-import { ImInsertTemplate } from "react-icons/im";
 import { GiTireTracks } from "react-icons/gi";
 import { GiFinishLine } from "react-icons/gi";
 import axios, { AxiosResponse } from "axios";
 import toast from "react-hot-toast";
-import { SafeSettlement, SafeVehicle } from "@/app/types";
+import { SafeSettlement } from "@/app/types";
 import useAllTasks from "@/app/hooks/useAllTasks";
 
 const TaskAdditionForm = () => {
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const { setTheTasks } = useAllTasks();
+  
 
   const {
     control,

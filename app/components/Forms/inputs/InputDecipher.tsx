@@ -4,14 +4,15 @@ import { FieldValues, UseFormRegister } from "react-hook-form";
 import { IconType } from "react-icons";
 
 interface InputDecipherProps {
-  IconPassed: ReactElement<IconType>;
   register: UseFormRegister<FieldValues>;
   registerId: string;
   placeholder: string;
   inputType: string;
   ifPlaceholderMissing?: string;
+  IconPassed?: ReactElement<IconType>;
   widthSet?: string;
   labelProvided?: string;
+  labelColor?: string;
   autocomplete?: boolean;
 }
 
@@ -24,13 +25,14 @@ const InputDecipher: React.FC<InputDecipherProps> = ({
   inputType,
   widthSet,
   labelProvided,
+  labelColor,
   autocomplete
 }) => {
   return (
     <>
       <div className={`relative ${widthSet ? widthSet : "w-full"}`}>
         {labelProvided && (
-          <label htmlFor={registerId} className="mb-2 font-semibold text-black">
+          <label htmlFor={registerId} className={`mb-2 font-semibold ${labelColor? labelColor : "text-black"}`}>
             {labelProvided}
           </label>
         )}

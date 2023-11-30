@@ -8,9 +8,10 @@ import Image from "next/image";
 interface ImageAdditionProps {
   id: string;
   register: UseFormRegister<FieldValues>;
+  label?: string
 }
 
-const ImageAddition: React.FC<ImageAdditionProps> = ({ register, id }) => {
+const ImageAddition: React.FC<ImageAdditionProps> = ({ register, id, label }) => {
 
   const [imagePreview, setImagePreview] = React.useState("/images/placeholderB.jpg");
 
@@ -40,10 +41,10 @@ const ImageAddition: React.FC<ImageAdditionProps> = ({ register, id }) => {
     >
       <div className="flex flex-col px-20">
         <p className=" avatarAdditionPrompt mt-2 text-black font-bold text-base">
-          {`Dodaj zdjęcie`}
+          {label || `Dodaj zdjęcie`}
         </p>
         <div className="avatarAdditionSpace mt-2 mb-8 relative rounded-full bg-neutral-300 h-[110px] w-[110px] flex flex-col items-center content-center">
-          <label htmlFor="image" className="">
+          <label htmlFor={id ||"image"} className="">
             <Image
               height={360}
               width={360}

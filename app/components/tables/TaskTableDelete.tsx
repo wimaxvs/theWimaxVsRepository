@@ -8,8 +8,7 @@ import toast from "react-hot-toast";
 const TaskTableDelete = () => {
   let [isLoading, setIsLoading] = useState<boolean>();
   const { theTasks, setTheTasks } = useAllTasks();
-    let { setDriver, currentDriver, setCurrentDriver } = useDriver();
-
+  let { setDriver, currentDriver, setCurrentDriver } = useDriver();
 
   let onUsun = (taskId: string, driverId: string) => {
     setIsLoading(true);
@@ -102,8 +101,14 @@ const TaskTableDelete = () => {
                         onClick={() =>
                           onUsun(task?.id as string, task?.driver?.id as string)
                         }
-                        disabled={isLoading}
-                        className="p-2 rounded-md bg-red-400 disabled:bg-red-300 font-bold text-white"
+                        disabled={
+                          isLoading ||
+                          (Boolean(task?.beginImage) &&
+                            (task?.approvalStatus === null ||
+                              task?.approvalStatus === undefined ||
+                              task?.approvalStatus === true))
+                        }
+                        className="p-2 rounded-md bg-red-400 disabled:opacity-50 font-bold text-white"
                       >
                         Usuń
                       </button>

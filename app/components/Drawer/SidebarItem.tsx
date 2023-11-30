@@ -31,7 +31,11 @@ const SidebarItem: React.FC<SidebarItemProps> = ({
         setIsFirstTab(true);
         break;
       case "rozpiski":
-        setTheLocation("Niewykonanych Trasy");
+        setTheLocation("Niewykonanych trasy");
+        setIsFirstTab(true);
+        break;
+      case "rozliczenia":
+        setTheLocation("Ustal trasy");
         setIsFirstTab(true);
         break;
       default:
@@ -62,7 +66,7 @@ const SidebarItem: React.FC<SidebarItemProps> = ({
       router.push(`${pulpit}/${yerl}`);
     }
     return;
-  }, [router, pathname, yerl]);
+  }, [yerl, pathname, setTheLocation, setIsFirstTab, router]);
 
   return (
     <button

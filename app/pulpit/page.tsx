@@ -5,6 +5,7 @@ import getCurrentDriver from "../actions/getCurrentDriver";
 
 const page = async () => {
   let currentDriver = await getCurrentDriver();
+  console.log(currentDriver)
 
   // a propos the date object
   let theDate = new Date();
@@ -34,9 +35,10 @@ const page = async () => {
     }
   }
   let currentKmMonth = currentDriver?.kilometerMonths?.find((kmm) => {
-    kmm.month === getMonthName(currentMonth) &&
-      kmm.year === currentYear.toString();
+    return kmm.month == currentMonth.toString() &&
+      kmm.year == currentYear.toString();
   });
+
 
   //a propos distance covered under Wimax
   let companyKms = currentDriver?.companyKilometers?.kms;

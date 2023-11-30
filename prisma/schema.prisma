@@ -53,6 +53,7 @@ model Driver {
   firmsWorked        String[] //convert firm user id to string and check for duplicity before pushing to array
   previousVehicles   String[]
   balance            Int?
+  totFuel            Int?
   totKms             Int?
   deliveries         Int?
   avgFuelConsumption Int?
@@ -91,9 +92,10 @@ model Location {
   city    String?
   zipCode String?
 
-  drivers Driver[]
+  drivers     Driver[]
   settlements Settlement[]
 }
+
 model StartLocation {
   id      String  @id @default(auto()) @map("_id") @db.ObjectId
   country String?
@@ -128,6 +130,7 @@ model Settlement {
   endImage                  String?
   distanceCoveredSettlement Int?
   fuelUsed                  Int?
+  avgFuelConsumption        Float?
   litersRefueled            Int?
   deliveryTime              Int? //mins
   expensesSpent             Int?
@@ -138,10 +141,10 @@ model Settlement {
   approvalStatus            Boolean
   misc                      String[]
 
-  startLocation StartLocation? @relation(fields: [startLocationId], references: [id], onDelete: Cascade)
-  startLocationId String? @db.ObjectId 
-  endLocation Location? @relation(fields: [locationId], references: [id], onDelete: Cascade)
-  locationId String? @db.ObjectId 
+  startLocation   StartLocation? @relation(fields: [startLocationId], references: [id], onDelete: Cascade)
+  startLocationId String?        @db.ObjectId
+  endLocation     Location?      @relation(fields: [locationId], references: [id], onDelete: Cascade)
+  locationId      String?        @db.ObjectId
 
   driver   Driver? @relation(fields: [driverId], references: [id], onDelete: Cascade)
   driverId String? @db.ObjectId
