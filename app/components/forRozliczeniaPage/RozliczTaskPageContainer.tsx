@@ -6,13 +6,14 @@ import { SafeDriver, SafeSettlement } from "@/app/types";
 import TaskSettlementView from "./TaskSettlementView";
 import TaskTableAcceptDeny from "../tables/TaskTableAcceptDeny";
 
-interface TaskPageContainerProps {
+interface RozliczTaskPageContainerProps {
   allTheTasks: SafeSettlement[] | null;
   theCurrentDriver: SafeDriver | null;
 }
 
-const TaskPageContainer: React.FC<TaskPageContainerProps> = ({
+const RozliczTaskPageContainer: React.FC<RozliczTaskPageContainerProps> = ({
   allTheTasks,
+  theCurrentDriver,
 }) => {
   let { theLocation, setTheLocation } = usePracNav();
   let pathname = usePathname();
@@ -28,16 +29,15 @@ const TaskPageContainer: React.FC<TaskPageContainerProps> = ({
       {theLocation === "Ustal trasy" && (
         <TaskSettlementView
           allTheTasks={allTheTasks}
+          theCurrentDriver={theCurrentDriver}
         />
       )}
 
       {theLocation == "Akceptuj lub anuluj ukończone trasy" && (
-        <TaskTableAcceptDeny
-          allTheTasks={allTheTasks}
-        />
+        <TaskTableAcceptDeny allTheTasks={allTheTasks} />
       )}
     </div>
   );
 };
 
-export default TaskPageContainer;
+export default RozliczTaskPageContainer;

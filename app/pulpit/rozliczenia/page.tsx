@@ -5,7 +5,7 @@ import PracBody from "@/app/components/navbar/pracNav/PracBody";
 import PracNav from "@/app/components/navbar/pracNav/PracNav";
 import {  SafeSettlement } from "@/app/types";
 import React from "react";
-import TaskPageContainer from "@/app/components/forRozliczeniaPage/TaskPageContainer";
+import RozliczTaskPageContainer from "@/app/components/forRozliczeniaPage/RozliczTaskPageContainer";
 
 
 const page = async () => {
@@ -26,7 +26,7 @@ const page = async () => {
         <ClientOnly>
           <PracNav PracNavItems={PracNavItems} />
           <PracBody>
-            <TaskPageContainer
+            <RozliczTaskPageContainer
               theCurrentDriver={theCurrentDriver}
               allTheTasks={allTheTasks}
             />

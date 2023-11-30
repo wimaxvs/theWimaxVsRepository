@@ -2,10 +2,11 @@ import React from "react";
 import ClientOnly from "../components/ClientOnly";
 import StatPad from "../components/statPad/StatPad";
 import getCurrentDriver from "../actions/getCurrentDriver";
+import PulpitGraph from "../components/graph/PulpitGraph";
 
 const page = async () => {
   let currentDriver = await getCurrentDriver();
-  console.log(currentDriver)
+  console.log(currentDriver);
 
   // a propos the date object
   let theDate = new Date();
@@ -35,10 +36,19 @@ const page = async () => {
     }
   }
   let currentKmMonth = currentDriver?.kilometerMonths?.find((kmm) => {
-    return kmm.month == currentMonth.toString() &&
-      kmm.year == currentYear.toString();
+    return (
+      kmm.month == currentMonth.toString() && kmm.year == currentYear.toString()
+    );
   });
 
+  const kilometersArray = Array.from({ length: 12 }, (_, index) => {
+    const matchingMonth = currentDriver?.kilometerMonths.find(
+      (obj) =>
+        Number(obj.month) === index &&
+        obj.year === new Date().getFullYear().toString()
+    );
+    return matchingMonth ? matchingMonth.kms : 0;
+  });
 
   //a propos distance covered under Wimax
   let companyKms = currentDriver?.companyKilometers?.kms;
@@ -94,6 +104,7 @@ const page = async () => {
             itemArray={deetsForOtherPad}
             padTitle={"Kluczowych wskaźników wydajności (KPI)."}
           />
+          <PulpitGraph kilometersArray={kilometersArray} />
         </ClientOnly>
       </span>
     </div>

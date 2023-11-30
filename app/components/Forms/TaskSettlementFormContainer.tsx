@@ -1,5 +1,5 @@
-"use client"
-import React, { useState } from "react";
+"use client";
+import React, { useState, useEffect } from "react";
 import useTaskBeingSent from "@/app/hooks/useTaskBeingSent";
 import useAllTasks from "@/app/hooks/useAllTasks";
 import TaskSettlementForm from "./TaskSettlementForm";
@@ -11,7 +11,13 @@ import toast from "react-hot-toast";
 import useIA from "./ImageAddition/hooks/useIA";
 import useDriver from "@/app/hooks/useCurrentDriver";
 
-const TaskSettlementFormContainer = () => {
+interface TaskSettlementFormContainerProps {
+  theCurrentDriver: SafeDriver | null;
+}
+
+const TaskSettlementFormContainer: React.FC<
+  TaskSettlementFormContainerProps
+> = ({ theCurrentDriver }) => {
   let { pageNumber, setPageNumber } = useTaskBeingSent();
   let { uploadFile } = useIA();
   let { taskBeingAssigned, setTheTasks, setTaskBeingAssigned } = useAllTasks();
@@ -40,10 +46,10 @@ const TaskSettlementFormContainer = () => {
       litersRefueled: taskBeingAssigned?.litersRefueled || 0,
       expensesSpent: taskBeingAssigned?.expensesSpent || 0,
       weight: taskBeingAssigned?.weight || 0,
-      ferries: taskBeingAssigned?.ferries ||0,
-      highways: taskBeingAssigned?.highways ||"",
-      products: taskBeingAssigned?.products ||"",
-      misc: taskBeingAssigned?.misc ||"",
+      ferries: taskBeingAssigned?.ferries || 0,
+      highways: taskBeingAssigned?.highways || "",
+      products: taskBeingAssigned?.products || "",
+      misc: taskBeingAssigned?.misc || "",
       endLocation: taskBeingAssigned.endLocation?.city,
       startLocation: taskBeingAssigned.startLocation?.city,
     },
@@ -51,7 +57,8 @@ const TaskSettlementFormContainer = () => {
 
   const onSubmit: SubmitHandler<FieldValues> = async (data: FieldValues) => {
     setIsLoading((isLoading) => !isLoading);
-    if (!currentDriver?.vehicle) {
+    console.log(currentDriver);
+    if (!currentDriver?.vehicle?.[0]) {
       toast.error(
         <>
           <div className="p-4 text-bold text-red-800 flex flex-col items-center bg-rose-100 rounded-lg my-4">
@@ -61,9 +68,8 @@ const TaskSettlementFormContainer = () => {
       );
       reset();
       goAllTheWayBack();
-      return setIsLoading(false)
+      return setIsLoading(false);
     }
-    console.log(data);
 
     let taskId = taskBeingAssigned?.id;
     let bgnImg: string;

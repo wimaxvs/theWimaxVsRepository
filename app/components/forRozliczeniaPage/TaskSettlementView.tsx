@@ -4,13 +4,14 @@ import React, { useEffect } from "react";
 import usePracNav from "@/app/hooks/usePracNav";
 import useAllTasks from "@/app/hooks/useAllTasks";
 import TaskTableRozlicz from "../tables/TaskTableRozlicz";
-import TaskSettlementForm from "../Forms/TaskSettlementFormContainer";
+import TaskSettlementFormContainer from "../Forms/TaskSettlementFormContainer";
 
 interface TaskSettlementViewProps {
   allTheTasks: SafeSettlement[] | null;
+  theCurrentDriver: SafeDriver | null;
 }
 
-const TaskSettlementView: React.FC<TaskSettlementViewProps> = ({ allTheTasks }) => {
+const TaskSettlementView: React.FC<TaskSettlementViewProps> = ({ allTheTasks, theCurrentDriver }) => {
   let { setIsFirstTab } = usePracNav();
   useEffect(() => {
     setIsFirstTab(true);
@@ -26,7 +27,7 @@ const TaskSettlementView: React.FC<TaskSettlementViewProps> = ({ allTheTasks }) 
     >
       <div className="rightPartition md:max-w-[1/2] md:min-w-[1/2] md:max-h-full rounded-xl flex flex-col w-full min-h-[265.5px] max-h-[265.5px] overflow-y-scroll gap-1 pl-2 pr-3 pt-2 mr-4 bg-gray-950">
         {tbaKeys.length < 1 && <TaskTableRozlicz allTheTasks={allTheTasks} />}
-        {tbaKeys.length >= 1 && <TaskSettlementForm />}
+        {tbaKeys.length >= 1 && <TaskSettlementFormContainer theCurrentDriver={theCurrentDriver} />}
       </div>
     </div>
   );
