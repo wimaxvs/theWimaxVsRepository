@@ -16,7 +16,7 @@ const StatPad: React.FC<StatPadProps> = ({ itemArray, padTitle }) => {
   return (
     <>
       <section
-        className={`flex flex-col gap-3 bg-gradient-to-br from-gray-800 to-gray-950 rounded-2xl p-4`}
+        className={`flex flex-col gap-3 bg-gradient-to-br from-gray-800 to-gray-950 rounded-2xl p-4 max-w-full`}
       >
         <h2 className="font-extrabold text-white text-xl pl-3">{padTitle}</h2>
         <div className="statPad flex flex-row">

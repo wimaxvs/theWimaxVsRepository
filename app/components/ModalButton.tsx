@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import { SafeDriver, SafeSettlement } from "../types";
 import Carousel from "./Carousel";
 import axios, { AxiosResponse } from "axios";
@@ -23,10 +23,6 @@ const ModalButton: React.FC<ModalButtonProps> = ({ task, buttonId }) => {
       <p className="text-sm font-thin text-white">{value}</p>
     </div>
   );
-
-  useEffect(() => {
-    console.log(task);
-  }, []);
 
   let onAction = (task: Partial<SafeSettlement>, approvalStatus: boolean) => {
     let data = JSON.stringify({

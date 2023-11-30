@@ -6,7 +6,7 @@ interface PulpitGraphProps {
   kilometersArray: (number | null)[];
 }
 
-const PulpitGraph: React.FC<PulpitGraphProps> = ({kilometersArray}) => {
+const PulpitGraph: React.FC<PulpitGraphProps> = ({ kilometersArray }) => {
   return (
     <div
       className={`bg-gradient-to-br from-gray-800 to-gray-950 rounded-2xl p-4`}
@@ -43,7 +43,6 @@ const PulpitGraph: React.FC<PulpitGraphProps> = ({kilometersArray}) => {
             borderRadius: "50%",
           },
         }}
-        
         xAxis={[
           {
             scaleType: "band",
@@ -69,7 +68,7 @@ const PulpitGraph: React.FC<PulpitGraphProps> = ({kilometersArray}) => {
             label: "Dystans pokonywany miesięcznie",
           },
         ]}
-        width={500}
+        width={300}
         height={300}
       />
     </div>
