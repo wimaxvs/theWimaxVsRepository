@@ -158,15 +158,15 @@ const DriverTableAssignVehicle: React.FC<DriverTableAssignVehicleProps> = ({
             )}
             {isTras && "Do kierowcy można przypisać maksymalnie 6 tras"}
           </p>
-          <div className="max-w-[11/12] overflow-x-auto pb-3">
+          <div className="max-w-[11/12] overflow-x-auto pb-3 ">
             <table className="table rounded-md">
               {/* head */}
               <thead>
                 <tr>
                   <th></th>
-                  <th>Nick</th>
-                  <th>Aktualna stanowisko</th>
-                  <th>Wybieram</th>
+                  <th className={`text-gray-100`}>Nick</th>
+                  <th className={`text-gray-100`}>Aktualna stanowisko</th>
+                  <th className={`text-gray-100`}>Wybieram</th>
                 </tr>
               </thead>
               <tbody>
@@ -182,7 +182,9 @@ const DriverTableAssignVehicle: React.FC<DriverTableAssignVehicleProps> = ({
                       : false;
                     return (
                       <tr key={index} className={`border-none hover`}>
-                        <td className={`rounded-l-md`}>{index + 1}</td>
+                        <td className={`rounded-l-md text-gray-100`}>
+                          {index + 1}
+                        </td>
                         <td>
                           <div className="flex items-center space-x-3">
                             <div className="avatar">
@@ -200,23 +202,16 @@ const DriverTableAssignVehicle: React.FC<DriverTableAssignVehicleProps> = ({
                               </div>
                             </div>
                             <div>
-                              <div className="font-bold">{driver.username}</div>
-                              <div className="text-sm opacity-50">
+                              <div className="font-bold text-gray-100">{driver.username}</div>
+                              <div className="text-sm opacity-50 text-gray-100">
                                 {driver.name ? driver.name : "Imię zastrzeżone"}
                               </div>
                             </div>
                           </div>
                         </td>
-                        <td>
-                          {driver?.role == "DRIVER"
-                            ? "Kierowca".toUpperCase()
-                            : driver.role == "SPEDYTOR" ||
-                              driver?.role === "ZARZAD"
-                            ? driver?.role
-                            : "Kierowca".toUpperCase()}
-                        </td>
+                        <td className={`text-gray-100`}>{driver?.role}</td>
                         <td
-                          className={`${index == 3 ? "rounded-r-md" : ""}`}
+                          className={`${index == 3 ? "rounded-r-md " : ""}`}
                           key={index}
                         >
                           <button

@@ -9,7 +9,7 @@ const page = async () => {
   return (
     <>
       <ClientOnly>
-        <DriverTable allTheDrivers={allTheDrivers} />
+        <DriverTable initialDrivers={allTheDrivers} />
       </ClientOnly>
     </>
   );

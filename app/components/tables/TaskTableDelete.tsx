@@ -73,9 +73,9 @@ const TaskTableDelete = () => {
           <thead>
             <tr>
               <th></th>
-              <th>Miasto Start</th>
-              <th>Miasto Konieć</th>
-              <th>Usuñ</th>
+              <th className={`text-gray-100`}>Miasto Start</th>
+              <th className={`text-gray-100`}>Miasto Konieć</th>
+              <th className={`text-gray-100`}>Usuñ</th>
             </tr>
           </thead>
           <tbody>
@@ -84,14 +84,14 @@ const TaskTableDelete = () => {
                 return (
                   <tr key={index} className={`border-none hover`}>
                     <th
-                      className={`${
+                      className={`text-gray-100 ${
                         index % 2 == 1 && "rounded-tl-md rounded-bl-md"
                       }`}
                     >
                       {index + 1}
                     </th>
-                    <td>{task.startLocation?.city}</td>
-                    <td> {task.endLocation?.city}</td>
+                    <td className={`text-gray-100`}>{task.startLocation?.city}</td>
+                    <td className={`text-gray-100`}> {task.endLocation?.city}</td>
                     <td
                       className={`${
                         index % 2 == 1 && "rounded-tr-md rounded-br-md"

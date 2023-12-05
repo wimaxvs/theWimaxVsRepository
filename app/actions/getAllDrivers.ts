@@ -21,6 +21,6 @@ export default async function getAllDrivers() {
 
     return allTheDrivers;
   } catch (error: any) {
-    return error;
+    return error.message;
   }
 }

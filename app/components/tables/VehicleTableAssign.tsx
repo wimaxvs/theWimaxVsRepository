@@ -101,10 +101,10 @@ const VehicleTableAssign: React.FC<VehicleTableAssignProps> = ({
             <thead>
               <tr>
                 <th></th>
-                <th>Szczegóły pojazdu</th>
-                <th>Przebieg</th>
-                <th>Przypisz</th>
-                <th>Anuluj przypisanie</th>
+                <th className={`text-gray-100`}>Szczegóły pojazdu</th>
+                <th className={`text-gray-100`}>Przebieg</th>
+                <th className={`text-gray-100`}>Przypisz</th>
+                <th className={`text-gray-100`}>Anuluj przypisanie</th>
               </tr>
             </thead>
             <tbody>
@@ -113,7 +113,7 @@ const VehicleTableAssign: React.FC<VehicleTableAssignProps> = ({
                   return (
                     <tr key={index} className={`border-none hover`}>
                       <th
-                        className={`${
+                        className={`text-gray-100 ${
                           index % 2 == 1 && "rounded-tl-md rounded-bl-md"
                         }`}
                       >
@@ -136,17 +136,22 @@ const VehicleTableAssign: React.FC<VehicleTableAssignProps> = ({
                             </div>
                           </div>
                           <div>
-                            <div className="text-sm opacity-50">
+                            <div className="text-gray-100 text-sm opacity-50">
                               {vehicle.registration}
                             </div>
-                            <div className="font-bold">{vehicle.carMark}</div>
-                            <div className="text-sm opacity-50">
+                            <div className="text-gray-100 font-bold">
+                              {vehicle.carMark}
+                            </div>
+                            <div className="text-gray-100 text-sm opacity-50">
                               {vehicle.carModel}
                             </div>
                           </div>
                         </div>
                       </td>
-                      <td> {Number(vehicle.mileage)}</td>
+                      <td className={`text-gray-100`}>
+                        {" "}
+                        {`${Number(vehicle.mileage)} km`}
+                      </td>
                       <td>
                         {" "}
                         <button
@@ -158,7 +163,9 @@ const VehicleTableAssign: React.FC<VehicleTableAssignProps> = ({
                           }
                           className="p-2 rounded-md bg-green-600 disabled:opacity-50 font-bold text-white"
                         >
-                          {vehicle.currentDriver ? vehicle.currentDriver.username : "Przypisz"}
+                          {vehicle.currentDriver
+                            ? vehicle.currentDriver.username
+                            : "Przypisz"}
                         </button>
                       </td>
                       <td

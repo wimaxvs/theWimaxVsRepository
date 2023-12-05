@@ -29,7 +29,7 @@ const Sidebar: React.FC<SideBarAttributes> = ({ role, firmName }) => {
     },
     {
       h2: "Statystyki firmy",
-      links: [{ label: "Najlepsi kierowcy w Wimax", link: "topk" }],
+      links: [{ label: "Kierowcy w Wimax", link: "topk" }],
     },
     {
       h2: "O Mnie",
@@ -74,6 +74,11 @@ const Sidebar: React.FC<SideBarAttributes> = ({ role, firmName }) => {
     {
       h2: "Pracownicy",
       links: [
+        {
+          label: "Utwórz nowy profil pracownika",
+          link: "dodaj",
+          color: "#1fb2a6",
+        },
         {
           label: "Zatrudnij lub zwolnij pracownika",
           link: "pracownicy",

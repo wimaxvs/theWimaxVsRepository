@@ -15,7 +15,7 @@ const TaskTableAssign: React.FC<TaskTableAssignProps> = ({ allTheTasks }) => {
   let { currentDriver } = useDriver();
 
   let tasksToMap =
-    currentDriver?.role === "DRIVER"
+    currentDriver?.role === "KIEROWCA" || currentDriver?.role === "PROBNY"
       ? theTasks.filter((task) => task?.driver?.id === currentDriver?.id)
       : theTasks;
 
@@ -47,10 +47,10 @@ const TaskTableAssign: React.FC<TaskTableAssignProps> = ({ allTheTasks }) => {
             <thead>
               <tr>
                 <th></th>
-                <th>Miasto Start</th>
-                <th>Miasto Koniec</th>
-                <th>Status</th>
-                <th>Rozlicz tras</th>
+                <th className={`text-gray-100`}>Miasto Start</th>
+                <th className={`text-gray-100`}>Miasto Koniec</th>
+                <th className={`text-gray-100`}>Status</th>
+                <th className={`text-gray-100`}>Rozlicz tras</th>
               </tr>
             </thead>
             <tbody>

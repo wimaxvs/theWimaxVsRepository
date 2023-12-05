@@ -123,11 +123,11 @@ const PromotionTable: React.FC<PromotionTableProps> = ({
               {/* head */}
               <thead>
                 <tr>
-                  <th></th>
-                  <th>Nick</th>
-                  <th>Aktualna stanowisko</th>
-                  <th colSpan={3}>Nowe stanowisko</th>
-                  <th>Zwolnij</th>
+                  <th className={`text-gray-100`}></th>
+                  <th className={`text-gray-100`}>Nick</th>
+                  <th className={`text-gray-100`}>Aktualna stanowisko</th>
+                  <th className={`text-gray-100`} colSpan={4}>Nowe stanowisko</th>
+                  <th className={`text-gray-100`}>Zwolnij</th>
                 </tr>
               </thead>
               <tbody>
@@ -154,20 +154,17 @@ const PromotionTable: React.FC<PromotionTableProps> = ({
                               </div>
                             </div>
                             <div>
-                              <div className="font-bold">{driver.username}</div>
-                              <div className="text-sm opacity-50">
+                              <div className="font-bold text-gray-100">
+                                {driver.username}
+                              </div>
+                              <div className="text-sm text-gray-100 opacity-50">
                                 {driver.name ? driver.name : "Imię zastrzeżone"}
                               </div>
                             </div>
                           </div>
                         </td>
                         <td>
-                          {driver?.role == "DRIVER"
-                            ? "Kierowca".toUpperCase()
-                            : driver.role == "SPEDYTOR" ||
-                              driver?.role === "ZARZAD"
-                            ? driver?.role
-                            : "Kierowca".toUpperCase()}
+                          <p className={`text-gray-100`}>{driver?.role}</p>
                         </td>
 
                         {[
@@ -184,6 +181,11 @@ const PromotionTable: React.FC<PromotionTableProps> = ({
                           {
                             label: "Kierowca",
                             color: "from-yellow-600 to-amber-900",
+                            textColor: "text-white",
+                          },
+                          {
+                            label: "Probny",
+                            color: "from-blue-600 to-gray-900",
                             textColor: "text-white",
                           },
                           {

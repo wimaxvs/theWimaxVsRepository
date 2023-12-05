@@ -59,7 +59,7 @@ model Driver {
   avgFuelConsumption Int?
   seniority          String?
 
-  role Role @default(DRIVER)
+  role Role @default(KIEROWCA)
 
   vehicle           Vehicle[]
   kilometerMonths   KilometerMonth[]
@@ -153,9 +153,10 @@ model Settlement {
 }
 
 enum Role {
-  DRIVER
+  KIEROWCA
   SPEDYTOR
   ZARZAD
+  PROBNY
 }
 
 //npx prisma generate

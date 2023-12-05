@@ -2,15 +2,79 @@
 import { SafeDriver } from "@/app/types";
 import React, { useEffect, useState } from "react";
 import Image from "next/image";
+import useDriver from "@/app/hooks/useCurrentDriver";
+import axios, { AxiosResponse } from "axios";
+import toast from "react-hot-toast";
 
 interface DriverTableProps {
-  allTheDrivers: Partial<SafeDriver>[];
+  initialDrivers: Partial<SafeDriver>[];
 }
 
-const DriverTable: React.FC<DriverTableProps> = ({ allTheDrivers }) => {
-  let [stateDrivers, setStateDrivers] =
-    useState<Partial<SafeDriver>[]>(allTheDrivers);
-  useEffect(() => setStateDrivers(allTheDrivers), [allTheDrivers]);
+const DriverTable: React.FC<DriverTableProps> = ({ initialDrivers }) => {
+  let [isLoading, setIsLoading] = useState<boolean>(false);
+  let {
+    currentDriver,
+    setAllDrivers,
+    setDriver,
+    allDrivers: drivers,
+  } = useDriver();
+
+  useEffect(() => {
+    //if the user is deleted from the db, this still won't run because drivers.length !== 0. Because the ui is rendering drivers, the only way to get it to work as expected is by making the value of drivers change even though useEffect isn't running. UseEffect in this instance is being used to instantiate the value of an empty drivers array.
+    if (initialDrivers && drivers.length == 0) {
+      setAllDrivers(initialDrivers);
+    }
+  }, [initialDrivers, drivers, setAllDrivers]);
+
+  let onUsun = (driverId: string) => {
+    setIsLoading(true);
+    let deets = {
+      driverId,
+    };
+    let toDb = JSON.stringify(deets);
+
+    axios
+      .post("/api/drupdate/delete", toDb)
+      .then(
+        (
+          res: AxiosResponse<{
+            message: string;
+            code?: string | number;
+            allTheDrivers?: Partial<SafeDriver>[];
+            affectedDriver: Partial<SafeDriver> | null;
+          }>
+        ) => {
+          if (res.data.code === 500 || res.data.code === 400) {
+            throw new Error(res.data.message);
+          }
+          console.log(res.data.allTheDrivers);
+          setAllDrivers(res.data.allTheDrivers as Partial<SafeDriver>[]);
+          if (res.data.affectedDriver) {
+            setDriver(res.data.affectedDriver);
+          }
+          return toast.success(
+            <>
+              <div className="p-4 text-bold text-green-800 flex flex-col items-center bg-green-100 rounded-lg my-4">
+                {`${res.data.message}`}
+              </div>
+            </>
+          );
+        }
+      )
+      .catch((error: any) => {
+        if (error.code) {
+          switch (error.code) {
+            case "ERR_BAD_RESPONSE":
+              return toast.error(`Błąd`);
+          }
+        } else {
+          return toast.error(error.message);
+        }
+      })
+      .finally(() => {
+        setIsLoading(false);
+      });
+  };
 
   return (
     <>
@@ -26,30 +90,31 @@ const DriverTable: React.FC<DriverTableProps> = ({ allTheDrivers }) => {
           <h2
             className={`text-m md:text-xl lg:text-4xl font-bold text-white`}
           >{`Gdyby Europa była płótnem...`}</h2>
-          <p className={`text-sm md:text-md lg:text-xl font-semibold mb-3`}>
+          <p className={`text-sm md:text-md lg:text-xl font-semibold mb-3 text-gray-500`}>
             Ci ludzie byliby wcieleniami <b>Da Vinci</b>...
           </p>
           <div className="max-w-[11/12] overflow-x-auto pb-3">
             <table className="table table-zebra rounded-md">
               <thead>
                 <tr>
-                  <th></th>
-                  <th>Nick</th>
-                  <th>Aktualna lokalizacja</th>
-                  <th>Całkowita liczba kilometrów</th>
-                  <th>Zysk</th>
-                  <th>Stanowisko</th>
+                  <th className={`text-gray-100`}></th>
+                  <th className={`text-gray-100`}>Nick</th>
+                  <th className={`text-gray-100`}>Aktualna lokalizacja</th>
+                  <th className={`text-gray-100`}>Całkowita liczba kilometrów</th>
+                  <th className={`text-gray-100`}>Stanowisko</th>
+                  {currentDriver?.role !== "KIEROWCA" &&
+                    currentDriver?.role !== "PROBNY" && <th>Usuń Kierowca</th>}
                   <th></th>
                 </tr>
               </thead>
               <tbody>
-                {stateDrivers &&
-                  stateDrivers.map((driver, index) => {
+                {drivers &&
+                  drivers.map((driver, index) => {
                     return (
                       <tr key={index} className={`border-none`}>
                         <th
                           className={`${
-                            index % 2 == 1 && "rounded-tl-md rounded-bl-md"
+                            index % 2 == 1 && "rounded-tl-md rounded-bl-md text-gray-100"
                           }`}
                         >
                           {index + 1}
@@ -71,14 +136,14 @@ const DriverTable: React.FC<DriverTableProps> = ({ allTheDrivers }) => {
                               </div>
                             </div>
                             <div>
-                              <div className="font-bold">{driver.username}</div>
-                              <div className="text-sm opacity-50">
+                              <div className="font-bold text-gray-100">{driver.username}</div>
+                              <div className="text-sm text-gray-100 opacity-50">
                                 {driver.name ? driver.name : "Imię zastrzeżone"}
                               </div>
                             </div>
                           </div>
                         </td>
-                        <td className={`font-semibold flex flex-col gap-1`}>
+                        <td className={`font-semibold text-gray-100 flex flex-col gap-1`}>
                           {driver.currentLocation?.country
                             ? driver.currentLocation?.country
                             : "Kraj"}
@@ -95,15 +160,24 @@ const DriverTable: React.FC<DriverTableProps> = ({ allTheDrivers }) => {
                             </span>
                           </span>
                         </td>
-                        <td>{`${driver.totKms || 0} `}</td>
-                        <td>{`${driver.balance || 0} `}</td>
-                        <td
-                          className={`${
-                            index % 2 == 1 && "rounded-tr-md rounded-br-md"
-                          }`}
-                        >
-                          {driver.seniority || "Kierowca"}
-                        </td>
+                        <td className={`text-gray-100`}>{`${driver.totKms || 0} `}</td>
+                        <td className={`text-gray-100`}>{driver.role || "Kierowca"}</td>
+                        {currentDriver?.role !== "KIEROWCA" &&
+                          currentDriver?.role !== "PROBNY" && (
+                            <td
+                              className={`${
+                                index % 2 == 1 && "rounded-tr-md rounded-br-md"
+                              }`}
+                            >
+                              <button
+                                disabled={isLoading}
+                                onClick={() => onUsun(driver?.id!)}
+                                className="bg-red-500 p-2 text-white disabled:opacity-50 font-extrabold rounded-md"
+                              >
+                                Usuń
+                              </button>
+                            </td>
+                          )}
                       </tr>
                     );
                   })}

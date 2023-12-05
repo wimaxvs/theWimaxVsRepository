@@ -89,9 +89,9 @@ const VehicleTable: React.FC<VehicleTableProps> = ({ allTheVehicles }) => {
             <thead>
               <tr>
                 <th></th>
-                <th>Szczegóły pojazdu</th>
-                <th>Kierowca</th>
-                <th>Usuñ</th>
+                <th className={`text-gray-100`}>Szczegóły pojazdu</th>
+                <th className={`text-gray-100`}>Kierowca</th>
+                <th className={`text-gray-100`}>Usuñ</th>
                 <th></th>
               </tr>
             </thead>
@@ -101,7 +101,7 @@ const VehicleTable: React.FC<VehicleTableProps> = ({ allTheVehicles }) => {
                   return (
                     <tr key={index} className={`border-none hover`}>
                       <th
-                        className={`${
+                        className={`text-gray-100 ${
                           index % 2 == 1 && "rounded-tl-md rounded-bl-md"
                         }`}
                       >
@@ -124,17 +124,22 @@ const VehicleTable: React.FC<VehicleTableProps> = ({ allTheVehicles }) => {
                             </div>
                           </div>
                           <div>
-                            <div className="text-sm opacity-50">
+                            <div className="text-gray-100 text-sm opacity-50">
                               {vehicle.registration}
                             </div>
-                            <div className="font-bold">{vehicle.carMark}</div>
-                            <div className="text-sm opacity-50">
+                            <div className="text-gray-100 font-bold">
+                              {vehicle.carMark}
+                            </div>
+                            <div className="text-gray-100 text-sm opacity-50">
                               {vehicle.carModel}
                             </div>
                           </div>
                         </div>
                       </td>
-                      <td> {vehicle.currentDriver?.username || "Kierowca"}</td>
+                      <td className={`text-gray-100`}>
+                        {" "}
+                        {vehicle.currentDriver?.username || "Kierowca"}
+                      </td>
                       <td
                         className={`${
                           index % 2 == 1 && "rounded-tr-md rounded-br-md"

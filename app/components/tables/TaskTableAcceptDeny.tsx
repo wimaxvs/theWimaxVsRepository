@@ -41,14 +41,15 @@ const TaskTableAcceptDeny: React.FC<TaskTableAcceptDenyProps> = ({
             <thead>
               <tr>
                 <th></th>
-                <th>Miasto Start</th>
-                <th>Miasto Koniec</th>
-                <th>Status</th>
-                {currentDriver?.role !== "DRIVER" && (
-                  <>
-                    <th>Pogląd</th>
-                  </>
-                )}
+                <th className={`text-gray-100`}>Miasto Start</th>
+                <th className={`text-gray-100`}>Miasto Koniec</th>
+                <th className={`text-gray-100`}>Status</th>
+                {currentDriver?.role !== "KIEROWCA" &&
+                  currentDriver?.role !== "PROBNY" && (
+                    <>
+                      <th>Pogląd</th>
+                    </>
+                  )}
               </tr>
             </thead>
             <tbody>
@@ -97,13 +98,14 @@ const TaskTableAcceptDeny: React.FC<TaskTableAcceptDenyProps> = ({
                             : "Nie zaakceptowany"}
                         </p>
                       </td>
-                      {currentDriver?.role !== "DRIVER" && (
-                        <>
-                          <td>
-                            <ModalButton task={task} buttonId={task.id!} />
-                          </td>
-                        </>
-                      )}
+                      {currentDriver?.role !== "KIEROWCA" &&
+                        currentDriver?.role !== "PROBNY" && (
+                          <>
+                            <td>
+                              <ModalButton task={task} buttonId={task.id!} />
+                            </td>
+                          </>
+                        )}
                     </tr>
                   );
                 })}

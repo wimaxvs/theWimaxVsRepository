@@ -141,12 +141,12 @@ const RequestTable: React.FC<RequestTableProps> = ({
               <tr>
                 <th></th>
                 <th>Nick</th>
-                <th className={`hidden lg:table-cell`}>Aktualna lokalizacja</th>
-                <th className={`hidden lg:table-cell`}>
+                <th className={`hidden lg:table-cell text-gray-100`}>Aktualna lokalizacja</th>
+                <th className={`hidden lg:table-cell text-gray-100`}>
                   Całkowita liczba kilometrów
                 </th>
-                <th>Zatrudnij</th>
-                <th>Odrzuć</th>
+                <th className={`text-gray-100`}>Zatrudnij</th>
+                <th className={`text-gray-100`}>Odrzuć</th>
                 <th></th>
               </tr>
             </thead>
@@ -157,7 +157,7 @@ const RequestTable: React.FC<RequestTableProps> = ({
                   return (
                     <tr key={index} className={`border-none`}>
                       <th
-                        className={`${
+                        className={`text-gray-100 ${
                           index % 2 == 1 && "rounded-tl-md rounded-bl-md"
                         }`}
                       >
@@ -180,15 +180,17 @@ const RequestTable: React.FC<RequestTableProps> = ({
                             </div>
                           </div>
                           <div>
-                            <div className="font-bold">{driver.username}</div>
-                            <div className="text-sm opacity-50">
+                            <div className="font-bold text-gray-100">
+                              {driver.username}
+                            </div>
+                            <div className="text-sm opacity-50 text-gray-100">
                               {driver.name ? driver.name : "Imię zastrzeżone"}
                             </div>
                           </div>
                         </div>
                       </td>
                       <td
-                        className={`font-semibold hidden lg:table-cell lg:flex-col lg:gap-1 grow`}
+                        className={`font-semibold hidden text-gray-100 lg:table-cell lg:flex-col lg:gap-1 grow`}
                       >
                         {driver.currentLocation?.country
                           ? driver.currentLocation?.country
@@ -205,7 +207,7 @@ const RequestTable: React.FC<RequestTableProps> = ({
                           </span>
                         </span>
                       </td>
-                      <td className={`hidden lg:table-cell`}>{`${
+                      <td className={`hidden text-gray-100 lg:table-cell`}>{`${
                         driver.totKms || 0
                       } `}</td>
                       <td>

@@ -1,10 +1,20 @@
-"use client"
+"use client";
 import React, { useState } from "react";
 import Image from "next/image";
 import axios, { AxiosResponse } from "axios";
 import toast from "react-hot-toast";
 
-const LoginForm = () => {
+interface RegFormProps {
+  buttonLabel?: string;
+  buttonColor?: string;
+  justifyState?: string;
+}
+
+const RegForm: React.FC<RegFormProps> = ({
+  buttonLabel,
+  buttonColor,
+  justifyState,
+}) => {
   const [isLoading, setIsLoading] = useState(false);
   const [regData, setRegData] = useState<{
     username: string;
@@ -34,24 +44,28 @@ const LoginForm = () => {
 
     axios
       .post("/api/register", data)
-      .then((res: AxiosResponse<{ code: string; message: string }>) => {
-        if (res.data.code === "P2002") {
-          throw new Error("E-mail został odebrany... 🤔 Spróbuj innego");
-        } else {
-          toast.success(
-            <>
-              <div className="p-4 text-bold text-green-800 flex flex-col items-center bg-green-100 rounded-lg my-4">
-                {`${res.data.message}`}
-              </div>
-            </>
-          );
-          return setRegData((chunk) => {
-            return { ...chunk, username: "", email: "", password: "" };
-          });
+      .then(
+        (res: AxiosResponse<{ code: string | number; message: string }>) => {
+          if (res.data.code === "P2002") {
+            throw new Error("E-mail został odebrany... 🤔 Spróbuj innego");
+          } else if (res.data.code === 400 || res.data.code === 500) {
+            throw new Error(res.data.message);
+          } else {
+            toast.success(
+              <>
+                <div className="p-4 text-bold text-green-800 flex flex-col items-center bg-green-100 rounded-lg my-4">
+                  {`${res.data.message}`}
+                </div>
+              </>
+            );
+            return setRegData((chunk) => {
+              return { ...chunk, username: "", email: "", password: "" };
+            });
+          }
         }
-      })
+      )
       .catch((error: any) => {
-        toast.error(`Error: ${error}`);
+        toast.error(`Błąd: ${error.message}`);
       })
       .finally(() => {
         setIsLoading(false);
@@ -61,8 +75,8 @@ const LoginForm = () => {
   return (
     <>
       <form name="wf-form-password" onSubmit={handleSubmit}>
-        <div className={`flex flex-row w-full gap-2`}>
-          <div className="relative max-w-[60%]">
+        <div className={`flex flex-row w-full gap-2 ${justifyState || ""}`}>
+          <div className="relative w-[50%]">
             <Image
               height={20}
               width={20}
@@ -83,7 +97,7 @@ const LoginForm = () => {
             />
           </div>
 
-          <div className="relative max-w-[40%]">
+          <div className="relative w-[50%]">
             <Image
               height={981}
               width={888}
@@ -98,7 +112,7 @@ const LoginForm = () => {
               value={regData?.username}
               onChange={handleInputChange}
               name="username"
-              autoComplete="username"
+              autoComplete="off"
               placeholder="Nazwa użytkownika"
               required
             />
@@ -120,21 +134,28 @@ const LoginForm = () => {
             value={regData?.password}
             name="password"
             placeholder="Hasło (min. 8 znaków)"
+            autoComplete="off"
             required
           />
         </div>
         <button
           disabled={isLoading}
           type="submit"
-          className="inline-block w-full cursor-pointer items-center bg-black px-6 py-3 text-center font-semibold text-white disabled:cursor-not-allowed"
+          className={`inline-block w-full cursor-pointer items-center ${
+            buttonColor || "bg-black"
+          } px-6 py-3 text-center font-semibold text-white disabled:cursor-not-allowed`}
         >
-          {"Zarejestruj sie"}
+          {buttonLabel || "Zarejestruj sie"}
         </button>
       </form>
     </>
   );
 };
 
-export default LoginForm;
+interface RegFormProps {
+  buttonLabel?: string;
+}
+
+export default RegForm;
 
 //Dołącz do Wimax

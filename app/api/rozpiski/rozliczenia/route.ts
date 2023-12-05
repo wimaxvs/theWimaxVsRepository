@@ -43,17 +43,16 @@ export async function POST(req: Request) {
 
   let existentSettlement = await prisma.settlement.findFirst({
     where: {
-      id: taskId
-    }
-  })
+      id: taskId,
+    },
+  });
   if (existentSettlement?.beginImage || existentSettlement?.endImage) {
-        return NextResponse.json({
-          code: 400,
-          message: "Rozliczenie zostało już dokonane. Odśwież stronę.",
-        });
-
+    return NextResponse.json({
+      code: 400,
+      message: "Rozliczenie zostało już dokonane. Odśwież stronę.",
+    });
   }
-  
+
   try {
     await prisma.settlement.update({
       where: {
@@ -139,6 +138,17 @@ export async function POST(req: Request) {
       });
     }
 
+    await prisma.vehicle.update({
+      where: {
+        id: currentDriver?.vehicle?.[0].id,
+      },
+      data: {
+        mileage: {
+          increment: +distanceCoveredSettlement,
+        },
+      },
+    });
+
     let allTheTasks = await prisma.settlement.findMany({
       include: {
         startLocation: true,
@@ -151,9 +161,7 @@ export async function POST(req: Request) {
         id: currentDriver.id,
       },
       data: {
-        totFuel: currentDriver?.totFuel
-          ? { increment: +fuelUsed }
-          : +fuelUsed,
+        totFuel: currentDriver?.totFuel ? { increment: +fuelUsed } : +fuelUsed,
         totKms: currentDriver?.totKms
           ? { increment: +distanceCoveredSettlement }
           : +distanceCoveredSettlement,

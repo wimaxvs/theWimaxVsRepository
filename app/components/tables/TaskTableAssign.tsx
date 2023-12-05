@@ -17,7 +17,7 @@ const TaskTableAssign: React.FC<TaskTableAssignProps> = ({ allTheTasks }) => {
     useDriver();
 
   let tasksToMap =
-    currentDriver?.role === "DRIVER"
+    currentDriver?.role === "KIEROWCA" || currentDriver?.role === "PROBNY"
       ? theTasks.filter((task) => task?.driver?.id === currentDriver?.id)
       : theTasks;
 
@@ -104,7 +104,7 @@ const TaskTableAssign: React.FC<TaskTableAssignProps> = ({ allTheTasks }) => {
                 <th>Miasto Start</th>
                 <th>Miasto Koniec</th>
                 <th>Status</th>
-                {currentDriver?.role !== "DRIVER" && (
+                {currentDriver?.role !== "KIEROWCA" && (
                   <>
                     <th>Wyznacz tras</th>
                     <th>Anuluj przypisanie</th>
@@ -158,42 +158,43 @@ const TaskTableAssign: React.FC<TaskTableAssignProps> = ({ allTheTasks }) => {
                             : "Nie zaakceptowany"}
                         </p>
                       </td>
-                      {currentDriver?.role !== "DRIVER" && (
-                        <>
-                          <td>
-                            {" "}
-                            <button
-                              onClick={() => onPrzypisz(task)}
-                              disabled={
-                                (Boolean(task.beginImage) &&
-                                  Boolean(task.endImage)) ||
-                                isLoading ||
-                                Boolean(task.driver)
-                              }
-                              className="p-2 rounded-md bg-green-600 disabled:opacity-50 font-bold text-white"
-                            >
-                              {Boolean(task.driver)
-                                ? task?.driver?.username
-                                : "Przypisz tras"}
-                            </button>
-                          </td>
-                          <td>
-                            {Boolean(task?.driver) && (
+                      {currentDriver?.role !== "KIEROWCA" &&
+                        currentDriver?.role !== "PROBNY" && (
+                          <>
+                            <td>
+                              {" "}
                               <button
-                                onClick={() => onAnnul(task)}
+                                onClick={() => onPrzypisz(task)}
                                 disabled={
                                   (Boolean(task.beginImage) &&
                                     Boolean(task.endImage)) ||
-                                  isLoading
+                                  isLoading ||
+                                  Boolean(task.driver)
                                 }
-                                className="p-2 rounded-md bg-red-400 disabled:opacity-50 font-bold text-white"
+                                className="p-2 rounded-md bg-green-600 disabled:opacity-50 font-bold text-white"
                               >
-                                Anuluj przypisanie
+                                {Boolean(task.driver)
+                                  ? task?.driver?.username
+                                  : "Przypisz tras"}
                               </button>
-                            )}
-                          </td>
-                        </>
-                      )}
+                            </td>
+                            <td>
+                              {Boolean(task?.driver) && (
+                                <button
+                                  onClick={() => onAnnul(task)}
+                                  disabled={
+                                    (Boolean(task.beginImage) &&
+                                      Boolean(task.endImage)) ||
+                                    isLoading
+                                  }
+                                  className="p-2 rounded-md bg-red-400 disabled:opacity-50 font-bold text-white"
+                                >
+                                  Anuluj przypisanie
+                                </button>
+                              )}
+                            </td>
+                          </>
+                        )}
                     </tr>
                   );
                 })}
