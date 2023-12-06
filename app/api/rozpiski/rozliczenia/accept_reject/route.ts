@@ -15,7 +15,10 @@ export async function POST(req: Request) {
     return NextResponse.json({ code: 500, message: "Nieznany użytkownik." });
   }
 
-  if (currentDriver?.role === "DRIVER") {
+  if (
+    currentDriver?.role === "KIEROWCA" ||
+    currentDriver?.role === "PROBNY"
+  ) {
     return NextResponse.json({
       code: 500,
       message: "Niedozwolony. Działanie dozwolone Zarzadowi lub Spedytorowi",
