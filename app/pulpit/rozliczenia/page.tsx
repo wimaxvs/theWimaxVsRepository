@@ -12,7 +12,10 @@ const page = async () => {
   const theCurrentDriver = await getCurrentDriver();
   let PracNavItems = ["Ustal trasy"];
 
-  if (theCurrentDriver?.role !== "DRIVER") {
+  if (
+    theCurrentDriver?.role !== "KIEROWCA" &&
+    theCurrentDriver?.role !== "PROBNY"
+  ) {
     PracNavItems.push(...["Akceptuj lub anuluj ukończone trasy"]);
   }
 
