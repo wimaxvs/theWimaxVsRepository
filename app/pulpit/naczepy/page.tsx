@@ -2,25 +2,27 @@ import getAllDrivers from "@/app/actions/getAllDrivers";
 import getAllVehicles from "@/app/actions/getAllVehicles";
 import getCurrentDriver from "@/app/actions/getCurrentDriver";
 import ClientOnly from "@/app/components/ClientOnly";
-import VehiclePageContainer from "@/app/components/ForVehiclePage/VehiclePageContainer";
+import NaczepyPageContainer from "@/app/components/forNaczepyPage/NaczepyPageContainer";
 import PracBody from "@/app/components/navbar/pracNav/PracBody";
 import PracNav from "@/app/components/navbar/pracNav/PracNav";
 import { SafeDriver, SafeVehicle } from "@/app/types";
 import React from "react";
 
-const Pojazd = async () => {
+const page = async () => {
   const theCurrentDriver = await getCurrentDriver();
-  let PracNavItems = ["Podgląd pojazdu"];
+  let PracNavItems = ["Podgląd naczepy/przyczepy"];
 
   if (
     theCurrentDriver?.role === "ZARZAD" ||
     theCurrentDriver?.role === "SPEDYTOR"
   ) {
-    PracNavItems.push(...["Zarządzanie pojazdami", "Przypisz pojazd kierowcy"]);
+    PracNavItems.push(
+      ...["Zarządzanie naczepy", "Przypisz przyczepę kierowcy"]
+    );
   }
 
   let allTheDrivers: SafeDriver[] = await getAllDrivers();
-  let allTheVehicles: SafeVehicle[] | null = await getAllVehicles();
+  let allTheVehicles: Partial<SafeVehicle>[] | null = await getAllVehicles();
   return (
     <div className="bg-[url('/images/truckWireMesh.png')] bg-no-repeat bg-cover bg-right-bottom h-screen w-full min-h-full flex flex-row justify-center pt-6">
       <section
@@ -29,9 +31,10 @@ const Pojazd = async () => {
         <ClientOnly>
           <PracNav PracNavItems={PracNavItems} />
           <PracBody>
-            <VehiclePageContainer
-              allTheVehicles={allTheVehicles}
+            <NaczepyPageContainer
+              currentDriver={theCurrentDriver}
               allTheDrivers={allTheDrivers}
+              allTheVehicles={allTheVehicles as SafeVehicle[]}
               firmId={theCurrentDriver?.currentFirm?.id}
             />
           </PracBody>
@@ -41,4 +44,4 @@ const Pojazd = async () => {
   );
 };
 
-export default Pojazd;
+export default page;

@@ -38,6 +38,10 @@ const SidebarItem: React.FC<SidebarItemProps> = ({
         setTheLocation("Ustal trasy");
         setIsFirstTab(true);
         break;
+      case "naczepy":
+        setTheLocation("Podgląd naczepy/przyczepy");
+        setIsFirstTab(true);
+        break;
       default:
         break;
     }

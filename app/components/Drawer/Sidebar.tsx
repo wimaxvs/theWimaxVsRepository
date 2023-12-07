@@ -39,11 +39,16 @@ const Sidebar: React.FC<SideBarAttributes> = ({ role, firmName }) => {
 
   let insiderSegmentContent: typeof segmentContent = [
     {
-      h2: "Twoj Pojazd",
+      h2: "Pojazdy i przyczepy",
       links: [
         {
-          label: "Szczegóły Twojego pojazdu",
+          label: "Pojazd",
           link: "pojazd",
+          color: "#1fb2a6",
+        },
+        {
+          label: "Naczepy i przyczepy",
+          link: "naczepy",
           color: "#1fb2a6",
         },
       ],

@@ -16,7 +16,17 @@ export async function POST(req: Request) {
   }
 
   const body = await req.json();
-  let { carImage, registration, carMark, carModel } = body;
+  let {
+    carImage,
+    registration,
+    carMark,
+    carModel,
+    isTrailer,
+    height,
+    width,
+    length,
+    maxWeight,
+  } = body;
 
   try {
     let theFirm = await prisma.firm.findUnique({
@@ -31,6 +41,11 @@ export async function POST(req: Request) {
         carModel,
         carImage,
         mileage: 0,
+        isTrailer,
+        height: +height || 0,
+        width: +width || 0,
+        length: +length || 0,
+        maxWeight: +maxWeight || 0,
       },
     });
 

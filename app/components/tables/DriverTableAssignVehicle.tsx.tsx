@@ -202,7 +202,9 @@ const DriverTableAssignVehicle: React.FC<DriverTableAssignVehicleProps> = ({
                               </div>
                             </div>
                             <div>
-                              <div className="font-bold text-gray-100">{driver.username}</div>
+                              <div className="font-bold text-gray-100">
+                                {driver.username}
+                              </div>
                               <div className="text-sm opacity-50 text-gray-100">
                                 {driver.name ? driver.name : "Imię zastrzeżone"}
                               </div>
@@ -225,21 +227,22 @@ const DriverTableAssignVehicle: React.FC<DriverTableAssignVehicleProps> = ({
                             }
                             disabled={
                               isLoading || !isTras
-                                ? driver?.vehicle?.[0] !== null &&
-                                  driver?.vehicle?.[0] !== undefined
+                                ? driver.vehicle?.length
+                                  ? driver.vehicle.length >= 2
+                                  : false
                                 : hasSix
                             }
                             className={`p-2 rounded-md disabled:opacity-50 font-bold ${
-                              !isTras &&
-                              driver?.vehicle?.[0] !== null &&
-                              driver?.vehicle?.[0] !== undefined
+                              !isTras && (driver.vehicle?.length
+                                ? driver.vehicle.length >= 2
+                                : false)
                                 ? "bg-red-400"
                                 : "bg-green-600"
                             } text-white`}
                           >
-                            {(!isTras &&
-                              driver?.vehicle?.[0] !== null &&
-                              driver?.vehicle?.[0] !== undefined) ||
+                            {(!isTras && driver.vehicle?.length
+                              ? driver.vehicle.length >= 2
+                              : false) ||
                             (isTras && hasSix)
                               ? "Przydzielono"
                               : "Wybieram"}

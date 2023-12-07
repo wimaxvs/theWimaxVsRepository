@@ -1,4 +1,4 @@
-"use client"
+"use client";
 import React, { useEffect, useState } from "react";
 import InputDecipher from "./inputs/InputDecipher";
 import { FieldValues, SubmitHandler, useForm } from "react-hook-form";
@@ -7,21 +7,29 @@ import ImageAddition from "./ImageAddition/ImageAddition";
 import useDriver from "@/app/hooks/useCurrentDriver";
 
 import { ImInsertTemplate } from "react-icons/im";
-import { TbBrandCodesandbox } from "react-icons/tb";
-import { IoLogoModelS } from "react-icons/io";
 import axios, { AxiosResponse } from "axios";
 import toast from "react-hot-toast";
 import { SafeVehicle } from "@/app/types";
 import useAllVehicles from "@/app/hooks/useAllVehicles";
+import { TbBrandCodesandbox } from "react-icons/tb";
+import { IoLogoModelS } from "react-icons/io";
+import { CiLineHeight } from "react-icons/ci";
+import { AiOutlineColumnWidth } from "react-icons/ai";
+import { CgArrowLongRightC } from "react-icons/cg";
+import { FaWeight } from "react-icons/fa";
 
-const VehicleAdditionForm = () => {
+interface VehicleAdditionFormProps {
+  isTrailer?: boolean;
+}
+
+const VehicleAdditionForm: React.FC<VehicleAdditionFormProps> = ({
+  isTrailer,
+}) => {
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const { uploadFile } = useIA();
-  const { currentDriver } = useDriver();
   const { setTheVehicles } = useAllVehicles();
 
   const {
-    control,
     register,
     reset,
     handleSubmit,
@@ -32,6 +40,10 @@ const VehicleAdditionForm = () => {
       carMark: "",
       carModel: "",
       image: "",
+      height: 0,
+      width: 0,
+      length: 0,
+      maxWeight: 0,
     },
   });
 
@@ -46,6 +58,7 @@ const VehicleAdditionForm = () => {
     data = {
       ...data,
       carImage: imgData,
+      isTrailer: isTrailer
     };
 
     let toDb = JSON.stringify(data);
@@ -61,9 +74,7 @@ const VehicleAdditionForm = () => {
           }>
         ) => {
           if (res.data.code === 500 || res.data.code === 400) {
-            console.log(
-              res.data
-            );
+            // console.log(res.data);
             throw new Error(res.data.message);
           }
           setTheVehicles(res.data.allTheVehicles);
@@ -78,7 +89,6 @@ const VehicleAdditionForm = () => {
         }
       )
       .catch((error: any) => {
-        console.log(error);
         toast.error(
           <>
             <div className="p-4 text-bold text-red-800 flex flex-col items-center bg-rose-100 rounded-lg my-4">
@@ -98,12 +108,12 @@ const VehicleAdditionForm = () => {
       onSubmit={handleSubmit(onSubmit)}
       className={`md:max-w-full md:min-w-[45%] w-full flex flex-col gap-2 items-start p-4 rounded-md bg-gray-950`}
     >
-      <div className={`w-full p-2 pl-0 overflow-y-auto`}>
+      <div className={`w-full p-2 pl-0 overflow-y-scroll md:max-h-[92%]`}>
         <h3 className="text-white font-extrabold md:text-xl text-sm mb-1">
-          Dodaj pojazd
+          {isTrailer ? "Dodaj przyczepę ":"Dodaj pojazd"}
         </h3>
         <p className="text-gray-500 font-semibold md:text-sm text-xs mb-3">
-          {`Dodaj szczegóły pojazdu i kliknij przycisk Prześlij.`}
+          {`Dodaj szczegóły ${isTrailer? "przyczepę":"pojazdu"} i kliknij przycisk Prześlij.`}
         </p>
         <InputDecipher
           IconPassed={<ImInsertTemplate size={20} color={"black"} />}
@@ -114,25 +124,71 @@ const VehicleAdditionForm = () => {
           autocomplete={false}
         />
 
-        <div className={`w-full flex flex-row justify-between`}>
-          <InputDecipher
-            widthSet="max-w-[50%]"
-            IconPassed={<TbBrandCodesandbox size={20} color={"black"} />}
-            register={register}
-            registerId={"carMark"}
-            inputType={"text"}
-            placeholder={"Marka Pojazdu"}
-            autocomplete={false}
-          />
-          <InputDecipher
-            widthSet="max-w-[45%]"
-            IconPassed={<IoLogoModelS size={20} color={"black"} />}
-            register={register}
-            registerId={"carModel"}
-            inputType={"text"}
-            placeholder={"Model Pojazdu"}
-            autocomplete={false}
-          />
+        <div className={`w-full flex flex-row justify-between flex-wrap`}>
+          {[
+            {
+              widthSet: "max-w-[50%] min-w-[50%]",
+              registerId: "carMark",
+              inputType: "text",
+              placeholder: "Marka Pojazdu",
+              IconPassed: <TbBrandCodesandbox size={20} color={"black"} />,
+            },
+            {
+              widthSet: "max-w-[45%] min-w-[45%]",
+              registerId: "carModel",
+              inputType: "text",
+              placeholder: "Model Pojazdu",
+              IconPassed: <IoLogoModelS size={20} color={"black"} />,
+            },
+            {
+              widthSet: "max-w-[45%] min-w-[45%]",
+              registerId: "height",
+              inputType: "number",
+              placeholder: "Wysokość (M)",
+              isTrailer: true,
+              IconPassed: <CiLineHeight size={20} color={"black"} />,
+            },
+            {
+              widthSet: "max-w-[50%] min-w-[50%]",
+              registerId: "width",
+              inputType: "number",
+              placeholder: "Szerokość (M)",
+              isTrailer: true,
+              IconPassed: <AiOutlineColumnWidth size={20} color={"black"} />,
+            },
+            {
+              widthSet: "max-w-[50%] min-w-[50%]",
+              registerId: "length",
+              inputType: "number",
+              placeholder: "Długość (M)",
+              isTrailer: true,
+              IconPassed: <CgArrowLongRightC size={20} color={"black"} />,
+            },
+            {
+              widthSet: "max-w-[45%] min-w-[45%]",
+              registerId: "maxWeight",
+              inputType: "number",
+              placeholder: "Pojemność (kg)",
+              isTrailer: true,
+              IconPassed: <FaWeight size={20} color={"black"} />,
+            },
+          ]
+            .filter((item) => (!isTrailer ? !item.isTrailer : item.isTrailer))
+            .map((item, index) => {
+              return (
+                <React.Fragment key={index}>
+                  <InputDecipher
+                    widthSet={item.widthSet}
+                    IconPassed={item.IconPassed}
+                    register={register}
+                    registerId={item.registerId}
+                    inputType={item.inputType}
+                    placeholder={item.placeholder}
+                    autocomplete={false}
+                  />
+                </React.Fragment>
+              );
+            })}
         </div>
         <ImageAddition id={"image"} register={register} />
       </div>

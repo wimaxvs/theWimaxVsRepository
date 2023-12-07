@@ -7,11 +7,13 @@ import useCurrentDriver from "@/app/hooks/useCurrentDriver";
 import toast from "react-hot-toast";
 
 interface VehicleTableAssignProps {
-  allTheVehicles: SafeVehicle[] | null;
+  allTheVehicles: SafeVehicle[] | null | undefined;
+  isTrailer?: boolean;
 }
 
 const VehicleTableAssign: React.FC<VehicleTableAssignProps> = ({
   allTheVehicles,
+  isTrailer,
 }) => {
   let [isLoading, setIsLoading] = useState<boolean>(false);
   let { theVehicles, setTheVehicles, setVehicleBeingAssigned } =
@@ -24,6 +26,19 @@ const VehicleTableAssign: React.FC<VehicleTableAssignProps> = ({
       setTheVehicles(allTheVehicles);
     }
   }, [allTheVehicles, setTheVehicles, theVehicles]);
+
+  let gimmeEligibleVehicles = useCallback(
+    (vehicles: Partial<SafeVehicle>[]) => {
+      return vehicles.filter((vehicle) => {
+        if (isTrailer) {
+          return vehicle.isTrailer == true;
+        } else {
+          return vehicle.isTrailer !== true;
+        }
+      });
+    },
+    [isTrailer]
+  );
 
   let onPrzypisz = (
     vehicle: Partial<SafeVehicle>,
@@ -101,7 +116,9 @@ const VehicleTableAssign: React.FC<VehicleTableAssignProps> = ({
             <thead>
               <tr>
                 <th></th>
-                <th className={`text-gray-100`}>Szczegóły pojazdu</th>
+                <th className={`text-gray-100`}>{`Szczegóły ${
+                  isTrailer ? "przyczepę" : "pojazdu"
+                }`}</th>
                 <th className={`text-gray-100`}>Przebieg</th>
                 <th className={`text-gray-100`}>Przypisz</th>
                 <th className={`text-gray-100`}>Anuluj przypisanie</th>
@@ -109,7 +126,7 @@ const VehicleTableAssign: React.FC<VehicleTableAssignProps> = ({
             </thead>
             <tbody>
               {theVehicles &&
-                theVehicles.map((vehicle, index) => {
+                gimmeEligibleVehicles(theVehicles).map((vehicle, index) => {
                   return (
                     <tr key={index} className={`border-none hover`}>
                       <th

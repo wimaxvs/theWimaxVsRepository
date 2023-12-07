@@ -1,17 +1,21 @@
-import React, { useEffect, useState } from "react";
+"use client";
+import React, { useCallback, useEffect, useState } from "react";
 import useAllVehicles from "@/app/hooks/useAllVehicles";
 import Image from "next/image";
 import { SafeDriver, SafeVehicle } from "@/app/types";
 import axios, { AxiosResponse } from "axios";
 import toast from "react-hot-toast";
-import { Vehicle } from "@prisma/client";
 import useDriver from "@/app/hooks/useCurrentDriver";
 
 interface VehicleTableProps {
   allTheVehicles: SafeVehicle[] | null;
+  isTrailer?: boolean;
 }
 
-const VehicleTable: React.FC<VehicleTableProps> = ({ allTheVehicles }) => {
+const VehicleTable: React.FC<VehicleTableProps> = ({
+  allTheVehicles,
+  isTrailer,
+}) => {
   let [isLoading, setIsLoading] = useState<boolean>(false);
   let { theVehicles, setTheVehicles } = useAllVehicles();
   let { setDriver, currentDriver, setCurrentDriver } = useDriver();
@@ -21,6 +25,18 @@ const VehicleTable: React.FC<VehicleTableProps> = ({ allTheVehicles }) => {
       setTheVehicles(allTheVehicles);
     }
   }, [allTheVehicles, setTheVehicles, theVehicles]);
+
+  let gimmeEligibleVehicles = useCallback(
+    (vehicles: Partial<SafeVehicle>[]) =>
+      vehicles.filter((v) => {
+        if (isTrailer) {
+          return v.isTrailer == true;
+        } else {
+          return v.isTrailer !== true;
+        }
+      }),
+    [isTrailer]
+  );
 
   let onUsun = (driverId: string, vehicleId: string) => {
     setIsLoading(true);
@@ -41,7 +57,6 @@ const VehicleTable: React.FC<VehicleTableProps> = ({ allTheVehicles }) => {
             affectedDriver: Partial<SafeDriver> | null;
           }>
         ) => {
-          console.log(res.data.allTheVehicles);
           setTheVehicles(res.data.allTheVehicles as Partial<SafeVehicle>[]);
           if (res.data.affectedDriver) {
             if (res.data.affectedDriver.id == currentDriver?.id) {
@@ -79,17 +94,21 @@ const VehicleTable: React.FC<VehicleTableProps> = ({ allTheVehicles }) => {
     >
       <div className={`w-full p-2 pl-0 overflow-y-auto`}>
         <h3 className="text-white font-extrabold md:text-xl text-sm mb-1">
-          Usuń pojazd
+          {`Usuń ${isTrailer ? "przyczepę" : `pojazd`}`}
         </h3>
         <p className="text-gray-500 font-semibold md:text-sm text-xs mb-3">
-          {`Kliknij przycisk Usuń, aby usunąć pojazd z rejestru`}
+          {`Kliknij przycisk Usuń, aby usunąć ${
+            isTrailer ? "przyczepę" : `pojazd`
+          } z rejestru`}
         </p>
         <div className="max-w-[11/12] overflow-x-auto pb-3">
           <table className="table table-zebra rounded-md">
             <thead>
               <tr>
                 <th></th>
-                <th className={`text-gray-100`}>Szczegóły pojazdu</th>
+                <th className={`text-gray-100`}>{`Szczegóły ${
+                  isTrailer ? "przyczepę" : `pojazd`
+                }`}</th>
                 <th className={`text-gray-100`}>Kierowca</th>
                 <th className={`text-gray-100`}>Usuñ</th>
                 <th></th>
@@ -97,7 +116,7 @@ const VehicleTable: React.FC<VehicleTableProps> = ({ allTheVehicles }) => {
             </thead>
             <tbody>
               {theVehicles &&
-                theVehicles.map((vehicle, index) => {
+                gimmeEligibleVehicles(theVehicles).map((vehicle, index) => {
                   return (
                     <tr key={index} className={`border-none hover`}>
                       <th

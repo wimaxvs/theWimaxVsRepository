@@ -19,7 +19,6 @@ const usePracNav = create<State & Action>((set) => ({
     }),
   setTheLocation: (locationToSet) =>
     set((state) => {
-      console.log(state.theLocation)
       return { theLocation: locationToSet };
     }),
 }));
