@@ -61,32 +61,36 @@ const page = async () => {
   }[] = [
     {
       title: "W tym miesiącu",
-      value: currentKmMonth?.kms ? `${currentKmMonth.kms} km` : `${0} km`,
+      value: currentKmMonth?.kms
+        ? `${currentKmMonth.kms.toFixed(2)} km`
+        : `${0} km`,
       subtitle: "Przejechane",
     },
     {
       title: "Pod firmą Wimax",
-      value: companyKms ? `${companyKms} km` : `${0} km`,
+      value: companyKms ? `${companyKms.toFixed(2)} km` : `${0} km`,
       subtitle: "Przejechane",
     },
     {
       title: "Łącznie",
-      value: currentDriver?.totKms ? `${currentDriver.totKms} km` : `${0} km`,
+      value: currentDriver?.totKms
+        ? `${currentDriver.totKms.toFixed(2)} km`
+        : `${0} km`,
       subtitle: "Przejechane",
     },
   ];
 
   let deetsForOtherPad: typeof deetsForKmPad = [
     {
-      title: "Wykonany dostawy",
+      title: "Wykonane dostawy",
       value: currentDriver?.deliveries ? currentDriver.deliveries : 0,
       subtitle: "Wszyscy",
     },
     {
-      title: "Srednie spalanie",
+      title: "Średnie spalanie",
       value: currentDriver?.avgFuelConsumption
-        ? `${currentDriver.avgFuelConsumption} km/l`
-        : `${0} km/l`,
+        ? `${currentDriver.avgFuelConsumption.toFixed(2)} l/km`
+        : `${0} l/km`,
     },
   ];
 

@@ -28,12 +28,12 @@ const PracBody: React.FC<PracBodyProps> = ({
       {children && children}
       {!children && (
         <>
-          {theLocation === "Zatrudnij" && (
+          {/* {theLocation === "Zatrudnij" && (
             <RequestTable
               allTheDrivers={allTheDrivers as Partial<SafeDriver>[]}
               firmId={firmId as string}
             />
-          )}
+          )} */}
           {theLocation === "Zwolnij lub Awansuj" && (
             <PromotionTable
               allTheDrivers={allTheDrivers as Partial<SafeDriver>[]}

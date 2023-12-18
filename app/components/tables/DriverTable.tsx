@@ -90,7 +90,9 @@ const DriverTable: React.FC<DriverTableProps> = ({ initialDrivers }) => {
           <h2
             className={`text-m md:text-xl lg:text-4xl font-bold text-white`}
           >{`Gdyby Europa była płótnem...`}</h2>
-          <p className={`text-sm md:text-md lg:text-xl font-semibold mb-3 text-gray-500`}>
+          <p
+            className={`text-sm md:text-md lg:text-xl font-semibold mb-3 text-gray-500`}
+          >
             Ci ludzie byliby wcieleniami <b>Da Vinci</b>...
           </p>
           <div className="max-w-[11/12] overflow-x-auto pb-3">
@@ -99,8 +101,10 @@ const DriverTable: React.FC<DriverTableProps> = ({ initialDrivers }) => {
                 <tr>
                   <th className={`text-gray-100`}></th>
                   <th className={`text-gray-100`}>Nick</th>
-                  <th className={`text-gray-100`}>Aktualna lokalizacja</th>
-                  <th className={`text-gray-100`}>Całkowita liczba kilometrów</th>
+                  <th className={`text-gray-100`}>Pojazd</th>
+                  <th className={`text-gray-100`}>
+                    Całkowita liczba kilometrów
+                  </th>
                   <th className={`text-gray-100`}>Stanowisko</th>
                   {currentDriver?.role !== "KIEROWCA" &&
                     currentDriver?.role !== "PROBNY" && <th>Usuń Kierowca</th>}
@@ -114,7 +118,8 @@ const DriverTable: React.FC<DriverTableProps> = ({ initialDrivers }) => {
                       <tr key={index} className={`border-none`}>
                         <th
                           className={`${
-                            index % 2 == 1 && "rounded-tl-md rounded-bl-md text-gray-100"
+                            index % 2 == 1 &&
+                            "rounded-tl-md rounded-bl-md text-gray-100"
                           }`}
                         >
                           {index + 1}
@@ -136,32 +141,40 @@ const DriverTable: React.FC<DriverTableProps> = ({ initialDrivers }) => {
                               </div>
                             </div>
                             <div>
-                              <div className="font-bold text-gray-100">{driver.username}</div>
+                              <div className="font-bold text-gray-100">
+                                {driver.username}
+                              </div>
                               <div className="text-sm text-gray-100 opacity-50">
                                 {driver.name ? driver.name : "Imię zastrzeżone"}
                               </div>
                             </div>
                           </div>
                         </td>
-                        <td className={`font-semibold text-gray-100 flex flex-col gap-1`}>
-                          {driver.currentLocation?.country
-                            ? driver.currentLocation?.country
-                            : "Kraj"}
+                        <td
+                          className={`font-semibold text-gray-100 flex flex-col gap-1`}
+                        >
+                          {driver.vehicle?.[0]
+                            ? driver.vehicle?.[0]?.carMark
+                            : "Brak pojazdu"}
                           <br />
-                          <span className={`flex flex-row items-center gap-1`}>
-                            <span className="rounded-xl bg-[#1fb2a6] text-white text-xs p-1">
+                          {driver?.vehicle?.[0] && <span className={`flex flex-row items-center gap-1`}>
+                            {/* <span className="rounded-xl bg-[#1fb2a6] text-white text-xs p-1">
                               {`${driver.currentLocation?.city || "Miasto"} `}
-                            </span>
-                            <span className="rounded-xl border border-solid border-[#1fb2a6] text-[#1fb2a6] text-xs p-0.5">
+                            </span> */}
+                            <span className="rounded-xl border border-solid border-[#1fb2a6] text-[#1fb2a6] text-xs p-0.5 px-1">
                               {`${
-                                driver.currentLocation?.zipCode ||
-                                "kod pocztowy"
+                                driver?.vehicle?.[0]?.registration ||
+                                "Tablicę rejestracyjną"
                               } `}
                             </span>
-                          </span>
+                          </span>}
                         </td>
-                        <td className={`text-gray-100`}>{`${driver.totKms || 0} `}</td>
-                        <td className={`text-gray-100`}>{driver.role || "Kierowca"}</td>
+                        <td className={`text-gray-100`}>{`${
+                          driver.totKms || 0
+                        } `}</td>
+                        <td className={`text-gray-100`}>
+                          {driver.role || "Kierowca"}
+                        </td>
                         {currentDriver?.role !== "KIEROWCA" &&
                           currentDriver?.role !== "PROBNY" && (
                             <td

@@ -19,7 +19,8 @@ const page = async () => {
         className={`navAndBody rounded-xl w-11/12 md:w-4/5 lg:w-2/3 md:min-h-5/6 md:h-5/6 flex flex-col max-h-[600px]`}
       >
         <ClientOnly>
-          <PracNav PracNavItems={["Zatrudnij", "Zwolnij lub Awansuj"]} />
+          <PracNav PracNavItems={["Zwolnij lub Awansuj"]} />
+          {/* //"Zatrudnij", */}
           <PracBody allTheDrivers={allTheDrivers} firmId={firmId} />
         </ClientOnly>
       </section>

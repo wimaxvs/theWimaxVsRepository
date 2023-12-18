@@ -27,7 +27,7 @@ const SidebarItem: React.FC<SidebarItemProps> = ({
         setIsFirstTab(true);
         break;
       case "pracownicy":
-        setTheLocation("Zatrudnij");
+        setTheLocation("Zwolnij lub Awansuj");
         setIsFirstTab(true);
         break;
       case "rozpiski":

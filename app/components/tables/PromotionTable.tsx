@@ -6,6 +6,8 @@ import Image from "next/image";
 import axios, { AxiosResponse } from "axios";
 import toast from "react-hot-toast";
 import useDriver from "@/app/hooks/useCurrentDriver";
+import usePracNav from "@/app/hooks/usePracNav";
+import { usePathname } from "next/navigation";
 
 interface PromotionTableProps {
   allTheDrivers: Partial<SafeDriver>[];
@@ -19,6 +21,8 @@ const PromotionTable: React.FC<PromotionTableProps> = ({
   let setDriver = useDriver((state) => state.setDriver);
   let drivers = useDriver((state) => state.allDrivers);
   let setAllDrivers = useDriver((state) => state.setAllDrivers);
+  let { setTheLocation } = usePracNav();
+  let pathname = usePathname();
 
   const [isLoading, setIsLoading] = useState<boolean>(false);
 
@@ -26,9 +30,9 @@ const PromotionTable: React.FC<PromotionTableProps> = ({
     (drivers: Partial<SafeDriver>[]): Partial<SafeDriver>[] => {
       return drivers?.filter(
         (driver) =>
-          driver?.joinRequest &&
-          driver?.currentFirm?.id === firmId &&
-          driver?.joinRequest?.status
+          // driver?.joinRequest &&
+          driver?.currentFirm?.id === firmId
+        // driver?.joinRequest?.status
       );
     },
     [firmId]
@@ -39,7 +43,10 @@ const PromotionTable: React.FC<PromotionTableProps> = ({
     if (allTheDrivers && drivers.length == 0) {
       setAllDrivers(allTheDrivers);
     }
-  }, [allTheDrivers, drivers, setAllDrivers]);
+    if (pathname?.includes("pracownicy")) {
+      setTheLocation("Zwolnij lub Awansuj");
+    }
+  }, [allTheDrivers, drivers, pathname, setAllDrivers, setTheLocation]);
 
   const onButtonClick = (driverId: string, optionChosen: string) => {
     setIsLoading(true);
@@ -126,7 +133,9 @@ const PromotionTable: React.FC<PromotionTableProps> = ({
                   <th className={`text-gray-100`}></th>
                   <th className={`text-gray-100`}>Nick</th>
                   <th className={`text-gray-100`}>Aktualna stanowisko</th>
-                  <th className={`text-gray-100`} colSpan={4}>Nowe stanowisko</th>
+                  <th className={`text-gray-100`} colSpan={4}>
+                    Nowe stanowisko
+                  </th>
                   <th className={`text-gray-100`}>Zwolnij</th>
                 </tr>
               </thead>

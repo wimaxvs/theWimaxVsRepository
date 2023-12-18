@@ -35,9 +35,9 @@ export async function POST(req: Request) {
   let driversTotalFuelUsed = currentDriver.totFuel
     ? currentDriver.totFuel + +fuelUsed
     : +fuelUsed;
-  let newAvgFuelConsumption =
-    driversTotalDistanceCovered / driversTotalFuelUsed;
-  newAvgFuelConsumption = Math.floor(newAvgFuelConsumption);
+  let newAvgFuelConsumption: number =
+    driversTotalFuelUsed / driversTotalDistanceCovered;
+  newAvgFuelConsumption = parseFloat(newAvgFuelConsumption.toFixed(2));
 
   let settlementAvgFuelConsumption = distanceCoveredSettlement / fuelUsed;
 
@@ -53,6 +53,8 @@ export async function POST(req: Request) {
     });
   }
 
+  let returnFloat = (value: number) => parseFloat(Number(value).toFixed(2));
+
   try {
     await prisma.settlement.update({
       where: {
@@ -61,13 +63,13 @@ export async function POST(req: Request) {
       data: {
         beginImage,
         endImage,
-        distanceCoveredSettlement: +distanceCoveredSettlement,
-        fuelUsed: +fuelUsed,
-        avgFuelConsumption: +settlementAvgFuelConsumption,
-        litersRefueled: +litersRefueled,
-        expensesSpent: +expensesSpent,
-        weight: +weight,
-        ferries: +ferries,
+        distanceCoveredSettlement: returnFloat(distanceCoveredSettlement),
+        fuelUsed: returnFloat(fuelUsed),
+        avgFuelConsumption: returnFloat(settlementAvgFuelConsumption),
+        litersRefueled: returnFloat(litersRefueled),
+        expensesSpent: returnFloat(expensesSpent),
+        weight: returnFloat(weight),
+        ferries: returnFloat(ferries),
         highways,
         products,
         misc,
@@ -87,7 +89,7 @@ export async function POST(req: Request) {
         data: {
           month: dzienRozliczenie.getMonth().toString(),
           year: dzienRozliczenie.getFullYear().toString(),
-          kms: +distanceCoveredSettlement,
+          kms: returnFloat(distanceCoveredSettlement),
           driver: {
             connect: {
               id: currentDriver.id,
@@ -144,7 +146,7 @@ export async function POST(req: Request) {
       },
       data: {
         mileage: {
-          increment: +distanceCoveredSettlement,
+          increment: returnFloat(distanceCoveredSettlement),
         },
       },
     });
@@ -161,12 +163,12 @@ export async function POST(req: Request) {
         id: currentDriver.id,
       },
       data: {
-        totFuel: currentDriver?.totFuel ? { increment: +fuelUsed } : +fuelUsed,
+        totFuel: currentDriver?.totFuel ? { increment: returnFloat(fuelUsed) } : returnFloat(fuelUsed),
         totKms: currentDriver?.totKms
-          ? { increment: +distanceCoveredSettlement }
-          : +distanceCoveredSettlement,
+          ? { increment: returnFloat(distanceCoveredSettlement) }
+          : returnFloat(distanceCoveredSettlement),
         deliveries: currentDriver?.deliveries ? { increment: 1 } : 1,
-        avgFuelConsumption: +newAvgFuelConsumption,
+        avgFuelConsumption: newAvgFuelConsumption,
       },
       include: {
         settlements: true,

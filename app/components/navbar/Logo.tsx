@@ -12,7 +12,7 @@ const Logo = () => {
   return (
     <Link href="/">
       <Image
-        onClick={() => router.push("/")}
+        onClick={() => router.push("/pulpit")}
         alt="logo"
         className="sm:block md:block cursor-pointer max-h-6 max-w-[133px]"
         height={64}

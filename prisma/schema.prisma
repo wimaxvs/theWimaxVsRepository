@@ -17,12 +17,12 @@ model Vehicle {
   carModel     String?
   carImage     String?
   prevDrivers  String[] //convert driver user id to string and check for duplicity before pushing to array
-  mileage      Int?
+  mileage      Float?
   isTrailer Boolean?
-  height Int?
-  width Int?
-  length Int?
-  maxWeight Int?
+  height Float?
+  width Float?
+  length Float?
+  maxWeight Float?
 
   currentDriver Driver? @relation(fields: [driverId], references: [id])
   driverId      String? @db.ObjectId
@@ -36,7 +36,7 @@ model Firm {
   firmTag     String?  @default(" 'Kamień, który się toczy, mech nie zbiera' -  Przysłowie")
   aboutFirm   String?  @default(" 'Sztuka nie polega na robieniu czegoś szybko, ale na robieniu czegoś na czas.' -  Jean Tinguely")
   firmSocials String[]
-  balance     Int?     @default(0)
+  balance     Float?     @default(0)
 
   owner   Driver? @relation(fields: [ownerId], references: [id], onDelete: NoAction, onUpdate: NoAction)
   ownerId String? @unique @db.ObjectId
@@ -57,11 +57,11 @@ model Driver {
   image              String?
   firmsWorked        String[] //convert firm user id to string and check for duplicity before pushing to array
   previousVehicles   String[]
-  balance            Int?
-  totFuel            Int?
-  totKms             Int?
+  balance            Float?
+  totFuel            Float?
+  totKms             Float?
   deliveries         Int?
-  avgFuelConsumption Int?
+  avgFuelConsumption Float?
   seniority          String?
 
   role Role @default(KIEROWCA)
@@ -114,14 +114,14 @@ model KilometerMonth {
   id       String  @id @default(auto()) @map("_id") @db.ObjectId
   month    String?
   year     String?
-  kms      Int?
+  kms      Float?
   driver   Driver? @relation(fields: [driverId], references: [id], onDelete: Cascade)
   driverId String? @db.ObjectId
 }
 
 model CompanyKilometers {
   id       String  @id @default(auto()) @map("_id") @db.ObjectId
-  kms      Int?
+  kms      Float?
   driver   Driver? @relation(fields: [driverId], references: [id], onDelete: Cascade)
   driverId String? @unique @db.ObjectId
   firm     Firm?   @relation(fields: [firmId], references: [id], onDelete: Cascade)
@@ -133,14 +133,14 @@ model Settlement {
 
   beginImage                String?
   endImage                  String?
-  distanceCoveredSettlement Int?
-  fuelUsed                  Int?
+  distanceCoveredSettlement Float?
+  fuelUsed                  Float?
   avgFuelConsumption        Float?
-  litersRefueled            Int?
+  litersRefueled            Float?
   deliveryTime              Int? //mins
-  expensesSpent             Int?
-  weight                    Int?
-  ferries                   Int?
+  expensesSpent             Float?
+  weight                    Float?
+  ferries                   Float?
   highways                  String[]
   products                  String[]
   approvalStatus            Boolean
