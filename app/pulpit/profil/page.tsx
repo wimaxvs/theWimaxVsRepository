@@ -22,7 +22,8 @@ const page = async () => {
           <p className={`text-sm font-semibold mb-3 text-white`}>
             {`Wprowadź zmiany w swoim profilu, wprowadzając potrzebne zmiany i klikając Prześlij.`}
           </p>
-          <div className="max-w-[11/12] p-3 bg-white gap-6 flex flex-col md:flex-row md:max-h-[70%] rounded-md overflow-y-scroll">
+          <div className="max-w-[11/12] p-3 gap-6 flex flex-col md:flex-row md:max-h-[70%] rounded-md overflow-y-scroll">
+            {/*  bg-white */}
             <ClientOnly>
               <DriverUpdateForm />
               <PersonalDetailForm />

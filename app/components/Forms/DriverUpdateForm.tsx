@@ -94,9 +94,12 @@ const DriverUpdateForm = () => {
     <>
       <form
         onSubmit={handleSubmit(onSubmit)}
-        className={`md:max-w-[50%] md:min-w-[45%] w-full flex flex-col gap-2 items-start p-4 rounded-md bg-white`}
+        className={`md:max-w-[50%] md:min-w-[45%] w-full flex flex-col gap-2 items-start p-4 rounded-md `} //bg-white
       >
         <div className={`w-full p-2 pl-0 md:max-h-[380px] overflow-y-scroll`}>
+          <h3 className="text-md text-white font-semibold my-2 ">
+            Twoje prawdziwe imię i nazwisko, a następnie nazwa użytkownika...{" "}
+          </h3>
           <InputDecipher
             IconPassed={<MdOutlinePermIdentity size={20} color={"black"} />}
             register={register}
@@ -113,7 +116,7 @@ const DriverUpdateForm = () => {
             placeholder={currentDriver?.username!}
             ifPlaceholderMissing={"Twój nick"}
           />
-          <h3 className="text-md text-black font-semibold my-2 ">
+          <h3 className="text-md text-white font-semibold my-2 ">
             Gdzie jesteś teraz?
           </h3>
           <InputDecipher

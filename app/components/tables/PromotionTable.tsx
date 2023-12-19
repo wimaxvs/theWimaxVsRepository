@@ -21,19 +21,11 @@ const PromotionTable: React.FC<PromotionTableProps> = ({
   let setDriver = useDriver((state) => state.setDriver);
   let drivers = useDriver((state) => state.allDrivers);
   let setAllDrivers = useDriver((state) => state.setAllDrivers);
-  let { setTheLocation } = usePracNav();
-  let pathname = usePathname();
-
   const [isLoading, setIsLoading] = useState<boolean>(false);
 
   let gimmeEligibleDrivers = useCallback(
     (drivers: Partial<SafeDriver>[]): Partial<SafeDriver>[] => {
-      return drivers?.filter(
-        (driver) =>
-          // driver?.joinRequest &&
-          driver?.currentFirm?.id === firmId
-        // driver?.joinRequest?.status
-      );
+      return drivers?.filter((driver) => driver?.currentFirm?.id === firmId);
     },
     [firmId]
   );
@@ -43,10 +35,7 @@ const PromotionTable: React.FC<PromotionTableProps> = ({
     if (allTheDrivers && drivers.length == 0) {
       setAllDrivers(allTheDrivers);
     }
-    if (pathname?.includes("pracownicy")) {
-      setTheLocation("Zwolnij lub Awansuj");
-    }
-  }, [allTheDrivers, drivers, pathname, setAllDrivers, setTheLocation]);
+  }, [allTheDrivers, drivers, setAllDrivers]);
 
   const onButtonClick = (driverId: string, optionChosen: string) => {
     setIsLoading(true);

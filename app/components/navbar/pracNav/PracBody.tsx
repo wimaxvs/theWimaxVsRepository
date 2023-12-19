@@ -1,10 +1,9 @@
 "use client";
 import React, { useEffect } from "react";
 import usePracNav from "@/app/hooks/usePracNav";
-import RequestTable from "../../tables/RequestTable";
 import { SafeDriver } from "@/app/types";
 import PromotionTable from "../../tables/PromotionTable";
-import useDriver from "@/app/hooks/useCurrentDriver";
+import { usePathname } from "next/navigation";
 
 interface PracBodyProps {
   allTheDrivers?: Partial<SafeDriver>[];
@@ -17,7 +16,17 @@ const PracBody: React.FC<PracBodyProps> = ({
   firmId,
   children,
 }) => {
-  let { theLocation, isFirstTab } = usePracNav();
+  let { theLocation, isFirstTab, setTheLocation } = usePracNav();
+
+  let pathname = usePathname();
+
+  useEffect(() => {
+    if (pathname?.includes("pracownicy")) {
+      console.log("hit");
+      setTheLocation("Zwolnij lub Awansuj");
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   return (
     <div
@@ -28,12 +37,6 @@ const PracBody: React.FC<PracBodyProps> = ({
       {children && children}
       {!children && (
         <>
-          {/* {theLocation === "Zatrudnij" && (
-            <RequestTable
-              allTheDrivers={allTheDrivers as Partial<SafeDriver>[]}
-              firmId={firmId as string}
-            />
-          )} */}
           {theLocation === "Zwolnij lub Awansuj" && (
             <PromotionTable
               allTheDrivers={allTheDrivers as Partial<SafeDriver>[]}
