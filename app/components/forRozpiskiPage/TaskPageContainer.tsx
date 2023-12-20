@@ -33,7 +33,6 @@ const TaskPageContainer: React.FC<TaskPageContainerProps> = ({
     <div className={`w-full h-full flex flex-row p-3`}>
       {theLocation == "Niewykonanych trasy" && (
         <TaskView
-          theCurrentDriver={theCurrentDriver}
           allTheTasks={allTheTasks}
           allTheDrivers={allTheDrivers}
           firmId={firmId}
