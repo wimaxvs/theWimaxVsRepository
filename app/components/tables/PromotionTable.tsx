@@ -46,7 +46,7 @@ const PromotionTable: React.FC<PromotionTableProps> = ({
 
     let deets = JSON.stringify(data);
     axios
-      .post("/api/drupdate/awansuj", deets)
+      .post(`/api/drupdate/${optionChosen == "Zwolnij"? "delete":"awansuj"}`, deets)
       .then(
         (
           res: AxiosResponse<{
@@ -59,6 +59,7 @@ const PromotionTable: React.FC<PromotionTableProps> = ({
             throw new Error(res.data.message);
           }
           if (optionChosen !== "Zwolnij") {
+            console.log("hit")
             setDriver(
               res.data.allTheDrivers?.find(
                 (driver) => driver.id == driverId

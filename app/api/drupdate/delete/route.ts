@@ -1,7 +1,7 @@
 import { NextResponse } from "next/server";
 
 import prisma from "@/app/libs/prismadb";
-import { Prisma, Vehicle } from "@prisma/client";
+import { Prisma } from "@prisma/client";
 import getCurrentDriver from "@/app/actions/getCurrentDriver";
 
 export type nextResponseMessage = {
@@ -35,7 +35,7 @@ export async function POST(request: Request) {
   if (!theDriver) {
     return NextResponse.json({
       code: 500,
-      message: "Nie udało się znaleźć usuwanego sterownika.",
+      message: "Nie udało się znaleźć kierowca do usuwania.",
     });
   }
   try {
