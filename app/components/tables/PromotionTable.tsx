@@ -200,9 +200,7 @@ const PromotionTable: React.FC<PromotionTableProps> = ({
                               onClick={() =>
                                 onButtonClick(
                                   driver?.id as string,
-                                  button.label == "Kierowca"
-                                    ? "Driver"
-                                    : button.label
+                                  button.label
                                 )
                               }
                               disabled={isLoading}

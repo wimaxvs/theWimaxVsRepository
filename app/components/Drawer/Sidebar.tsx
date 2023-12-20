@@ -85,7 +85,7 @@ const Sidebar: React.FC<SideBarAttributes> = ({ role, firmName }) => {
           color: "#1fb2a6",
         },
         {
-          label: "Zatrudnij lub zwolnij pracownika",
+          label: "Zaawansuj lub zwolnij pracownika",
           link: "pracownicy",
           color: "#1fb2a6",
         },
