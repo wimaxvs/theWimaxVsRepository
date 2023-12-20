@@ -2,17 +2,14 @@
 
 import Image from "next/image"
 import Link from "next/link"
-import { useRouter } from 'next/navigation'
 
 
 const Logo = () => {
-    const router = useRouter()
 
 
   return (
-    <Link href="/">
+    <Link href="/pulpit">
       <Image
-        onClick={() => router.push("/pulpit")}
         alt="logo"
         className="sm:block md:block cursor-pointer max-h-6 max-w-[133px]"
         height={64}
