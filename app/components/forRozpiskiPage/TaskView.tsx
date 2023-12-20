@@ -7,14 +7,12 @@ import DriverTableAssignVehicle from "../tables/DriverTableAssignVehicle.tsx";
 
 interface TaskViewProps {
   allTheTasks: SafeSettlement[] | null;
-  theCurrentDriver: SafeDriver | null;
   allTheDrivers: Partial<SafeDriver>[];
   firmId: string | undefined;
 }
 
 const TaskView: React.FC<TaskViewProps> = ({
   allTheTasks,
-  theCurrentDriver,
   allTheDrivers,
   firmId,
 }) => {

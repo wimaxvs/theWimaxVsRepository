@@ -36,9 +36,7 @@ const DriverTableAssignVehicle: React.FC<DriverTableAssignVehicleProps> = ({
     (drivers: Partial<SafeDriver>[]): Partial<SafeDriver>[] => {
       return drivers?.filter(
         (driver) =>
-          driver?.joinRequest &&
-          driver?.currentFirm?.id === firmId &&
-          driver?.joinRequest?.status
+          driver?.currentFirm?.id === firmId
       );
     },
     [firmId]
