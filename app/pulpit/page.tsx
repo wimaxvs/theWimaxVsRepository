@@ -95,7 +95,7 @@ const page = async () => {
   ];
 
   return (
-    <div className="bg-[url('/images/pulpitBkg.png')] bg-no-repeat bg-cover bg-center h-screen w-full min-h-screen">
+    <div className="bg-[url('/images/bkg_1.jpg')] bg-no-repeat bg-cover bg-center h-screen w-full min-h-screen">
       <span
         className={` flex flex-row gap-6 items-start justify-start flex-wrap p-6`}
       >

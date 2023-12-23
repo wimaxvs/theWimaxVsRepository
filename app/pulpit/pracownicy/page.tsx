@@ -9,12 +9,12 @@ import { Firm } from "@prisma/client";
 const page = async () => {
   let allTheDrivers = await getAllDrivers();
 
-  let allTheFirms = await getAllFirms()
-  let wimaxFirm: Firm = allTheFirms.find((f: Firm) => f.firmName === "Wimax")
-  let firmId = wimaxFirm.id
-  
+  let allTheFirms = await getAllFirms();
+  let wimaxFirm: Firm = allTheFirms.find((f: Firm) => f.firmName === "Wimax");
+  let firmId = wimaxFirm.id;
+
   return (
-    <div className="bg-[url('/images/handsWireMesh.png')] bg-no-repeat bg-cover bg-center h-screen w-full min-h-full flex flex-row justify-center pt-6">
+    <div className="bg-[url('/images/bkg_6.jpg')] bg-no-repeat bg-cover bg-left-bottom h-screen w-full min-h-full flex flex-row justify-center pt-6">
       <section
         className={`navAndBody rounded-xl w-11/12 md:w-4/5 lg:w-2/3 md:min-h-5/6 md:h-5/6 flex flex-col max-h-[600px]`}
       >

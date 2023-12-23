@@ -79,7 +79,7 @@ const DriverTable: React.FC<DriverTableProps> = ({ initialDrivers }) => {
   return (
     <>
       <div
-        className={`kierowcyPage w-full min-h-screen flex flex-row justify-center py-10 bg-[url('/images/wiremeshBlue.png')] bg-no-repeat bg-cover bg-center`}
+        className={`kierowcyPage w-full min-h-screen flex flex-row justify-center py-10 bg-[url('/images/bkg_7.jpg')] bg-no-repeat bg-cover bg-left-bottom`}
       >
         {/* bg-gradient-to-br from-gray-500 to-gray-200 */}
         <section
@@ -106,8 +106,6 @@ const DriverTable: React.FC<DriverTableProps> = ({ initialDrivers }) => {
                     Całkowita liczba kilometrów
                   </th>
                   <th className={`text-gray-100`}>Stanowisko</th>
-                  {currentDriver?.role !== "KIEROWCA" &&
-                    currentDriver?.role !== "PROBNY" && <th>Usuń Kierowca</th>}
                   <th></th>
                 </tr>
               </thead>
@@ -157,17 +155,21 @@ const DriverTable: React.FC<DriverTableProps> = ({ initialDrivers }) => {
                             ? driver.vehicle?.[0]?.carMark
                             : "Brak pojazdu"}
                           <br />
-                          {driver?.vehicle?.[0] && <span className={`flex flex-row items-center gap-1`}>
-                            {/* <span className="rounded-xl bg-[#1fb2a6] text-white text-xs p-1">
+                          {driver?.vehicle?.[0] && (
+                            <span
+                              className={`flex flex-row items-center gap-1`}
+                            >
+                              {/* <span className="rounded-xl bg-[#1fb2a6] text-white text-xs p-1">
                               {`${driver.currentLocation?.city || "Miasto"} `}
                             </span> */}
-                            <span className="rounded-xl border border-solid border-[#1fb2a6] text-[#1fb2a6] text-xs p-0.5 px-1">
-                              {`${
-                                driver?.vehicle?.[0]?.registration ||
-                                "Tablicę rejestracyjną"
-                              } `}
+                              <span className="rounded-xl border border-solid border-[#1fb2a6] text-[#1fb2a6] text-xs p-0.5 px-1">
+                                {`${
+                                  driver?.vehicle?.[0]?.registration ||
+                                  "Tablicę rejestracyjną"
+                                } `}
+                              </span>
                             </span>
-                          </span>}
+                          )}
                         </td>
                         <td className={`text-gray-100`}>{`${
                           driver.totKms || 0
@@ -175,22 +177,6 @@ const DriverTable: React.FC<DriverTableProps> = ({ initialDrivers }) => {
                         <td className={`text-gray-100`}>
                           {driver.role || "Kierowca"}
                         </td>
-                        {currentDriver?.role !== "KIEROWCA" &&
-                          currentDriver?.role !== "PROBNY" && (
-                            <td
-                              className={`${
-                                index % 2 == 1 && "rounded-tr-md rounded-br-md"
-                              }`}
-                            >
-                              <button
-                                disabled={isLoading}
-                                onClick={() => onUsun(driver?.id!)}
-                                className="bg-red-500 p-2 text-white disabled:opacity-50 font-extrabold rounded-md"
-                              >
-                                Usuń
-                              </button>
-                            </td>
-                          )}
                       </tr>
                     );
                   })}

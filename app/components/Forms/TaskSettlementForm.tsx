@@ -37,11 +37,9 @@ const TaskSettlementForm: React.FC<TaskSettlementFormProps> = ({
   };
 
   let goForward = () => {
-    console.log("hit")
+    console.log("hit");
     setPageNumber(2);
   };
-
- 
 
   return (
     <>
@@ -85,24 +83,28 @@ const TaskSettlementForm: React.FC<TaskSettlementFormProps> = ({
                     registerId: "distanceCoveredSettlement",
                     placeholder: "Przejechany dystans (KM)",
                     inputType: "number",
+                    step: "0,01",
                     IconPassed: <RiPinDistanceLine size={20} color={"black"} />,
                   },
                   {
                     registerId: "fuelUsed",
                     placeholder: "Zużyte paliwo (L)",
                     inputType: "number",
+                    step: "0,01",
                     IconPassed: <IoMdSpeedometer size={20} color={"black"} />,
                   },
                   {
                     registerId: "expensesSpent",
                     placeholder: "Wydatki (EUR)",
                     inputType: "number",
+                    step: "0,01",
                     IconPassed: <GiPayMoney size={20} color={"black"} />,
                   },
                   {
                     registerId: "ferries",
                     placeholder: "Promy (EUR)",
                     inputType: "number",
+                    step: "0,01",
                     IconPassed: <MdDirectionsBoat size={20} color={"black"} />,
                   },
                   {
@@ -115,6 +117,7 @@ const TaskSettlementForm: React.FC<TaskSettlementFormProps> = ({
                     registerId: "litersRefueled",
                     placeholder: "Zatankowany litry (L)",
                     inputType: "number",
+                    step: "0,01",
                     IconPassed: <BsFuelPumpDiesel size={20} color={"black"} />,
                   },
                   {
@@ -128,6 +131,7 @@ const TaskSettlementForm: React.FC<TaskSettlementFormProps> = ({
                 ].map((deet, index) => (
                   <React.Fragment key={index}>
                     <InputDecipher
+                      step={deet.step}
                       widthSet="md:max-w-[45%] min-w-[35%]"
                       IconPassed={deet.IconPassed ? deet.IconPassed : undefined}
                       register={register}

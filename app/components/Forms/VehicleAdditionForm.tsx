@@ -58,10 +58,11 @@ const VehicleAdditionForm: React.FC<VehicleAdditionFormProps> = ({
     data = {
       ...data,
       carImage: imgData,
-      isTrailer: isTrailer
+      isTrailer: isTrailer,
     };
 
     let toDb = JSON.stringify(data);
+    console.log(toDb);
 
     axios
       .post("/api/vehicles", toDb)
@@ -101,6 +102,7 @@ const VehicleAdditionForm: React.FC<VehicleAdditionFormProps> = ({
       .finally(() => {
         setIsLoading(false);
       });
+    setIsLoading(false);
   };
 
   return (
@@ -110,10 +112,12 @@ const VehicleAdditionForm: React.FC<VehicleAdditionFormProps> = ({
     >
       <div className={`w-full p-2 pl-0 overflow-y-scroll md:max-h-[92%]`}>
         <h3 className="text-white font-extrabold md:text-xl text-sm mb-1">
-          {isTrailer ? "Dodaj przyczepę ":"Dodaj pojazd"}
+          {isTrailer ? "Dodaj przyczepę " : "Dodaj pojazd"}
         </h3>
         <p className="text-gray-500 font-semibold md:text-sm text-xs mb-3">
-          {`Dodaj szczegóły ${isTrailer? "przyczepę":"pojazdu"} i kliknij przycisk Prześlij.`}
+          {`Dodaj szczegóły ${
+            isTrailer ? "przyczepę" : "pojazdu"
+          } i kliknij przycisk Prześlij.`}
         </p>
         <InputDecipher
           IconPassed={<ImInsertTemplate size={20} color={"black"} />}
@@ -144,6 +148,7 @@ const VehicleAdditionForm: React.FC<VehicleAdditionFormProps> = ({
               widthSet: "max-w-[45%] min-w-[45%]",
               registerId: "height",
               inputType: "number",
+              step: "0.01",
               placeholder: "Wysokość (M)",
               isTrailer: true,
               IconPassed: <CiLineHeight size={20} color={"black"} />,
@@ -152,6 +157,7 @@ const VehicleAdditionForm: React.FC<VehicleAdditionFormProps> = ({
               widthSet: "max-w-[50%] min-w-[50%]",
               registerId: "width",
               inputType: "number",
+              step: "0.01",
               placeholder: "Szerokość (M)",
               isTrailer: true,
               IconPassed: <AiOutlineColumnWidth size={20} color={"black"} />,
@@ -160,6 +166,7 @@ const VehicleAdditionForm: React.FC<VehicleAdditionFormProps> = ({
               widthSet: "max-w-[50%] min-w-[50%]",
               registerId: "length",
               inputType: "number",
+              step: "0.01",
               placeholder: "Długość (M)",
               isTrailer: true,
               IconPassed: <CgArrowLongRightC size={20} color={"black"} />,
@@ -168,6 +175,7 @@ const VehicleAdditionForm: React.FC<VehicleAdditionFormProps> = ({
               widthSet: "max-w-[45%] min-w-[45%]",
               registerId: "maxWeight",
               inputType: "number",
+              step: "0.01",
               placeholder: "Pojemność (kg)",
               isTrailer: true,
               IconPassed: <FaWeight size={20} color={"black"} />,
@@ -178,6 +186,7 @@ const VehicleAdditionForm: React.FC<VehicleAdditionFormProps> = ({
               return (
                 <React.Fragment key={index}>
                   <InputDecipher
+                    step={item.step}
                     widthSet={item.widthSet}
                     IconPassed={item.IconPassed}
                     register={register}

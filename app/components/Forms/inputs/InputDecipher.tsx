@@ -14,6 +14,7 @@ interface InputDecipherProps {
   labelProvided?: string;
   labelColor?: string;
   autocomplete?: boolean;
+  step?: string | number;
 }
 
 const InputDecipher: React.FC<InputDecipherProps> = ({
@@ -26,13 +27,19 @@ const InputDecipher: React.FC<InputDecipherProps> = ({
   widthSet,
   labelProvided,
   labelColor,
-  autocomplete
+  autocomplete,
+  step,
 }) => {
   return (
     <>
       <div className={`relative ${widthSet ? widthSet : "w-full"}`}>
         {labelProvided && (
-          <label htmlFor={registerId} className={`mb-2 font-semibold ${labelColor? labelColor : "text-black"}`}>
+          <label
+            htmlFor={registerId}
+            className={`mb-2 font-semibold ${
+              labelColor ? labelColor : "text-black"
+            }`}
+          >
             {labelProvided}
           </label>
         )}
@@ -45,7 +52,8 @@ const InputDecipher: React.FC<InputDecipherProps> = ({
         </div>
         <input
           type={inputType}
-          autoComplete={autocomplete? `${autocomplete.toString()}`:"false"}
+          step={step ? step : 1}
+          autoComplete={autocomplete ? `${autocomplete.toString()}` : "false"}
           className="mb-1 md:mb-2 block w-full border border-solid border-black bg-white align-middle text-[#333333] focus:border-[#3898ec] text-sm px-3 rounded-md h-9 py-6 pl-8"
           placeholder={`${placeholder || ifPlaceholderMissing}`}
           {...register(registerId, {
