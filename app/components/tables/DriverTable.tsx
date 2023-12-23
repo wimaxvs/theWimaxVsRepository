@@ -1,23 +1,15 @@
 "use client";
 import { SafeDriver } from "@/app/types";
-import React, { useEffect, useState } from "react";
+import React, { useEffect } from "react";
 import Image from "next/image";
 import useDriver from "@/app/hooks/useCurrentDriver";
-import axios, { AxiosResponse } from "axios";
-import toast from "react-hot-toast";
 
 interface DriverTableProps {
   initialDrivers: Partial<SafeDriver>[];
 }
 
 const DriverTable: React.FC<DriverTableProps> = ({ initialDrivers }) => {
-  let [isLoading, setIsLoading] = useState<boolean>(false);
-  let {
-    currentDriver,
-    setAllDrivers,
-    setDriver,
-    allDrivers: drivers,
-  } = useDriver();
+  let { setAllDrivers, allDrivers: drivers } = useDriver();
 
   useEffect(() => {
     //if the user is deleted from the db, this still won't run because drivers.length !== 0. Because the ui is rendering drivers, the only way to get it to work as expected is by making the value of drivers change even though useEffect isn't running. UseEffect in this instance is being used to instantiate the value of an empty drivers array.
@@ -25,56 +17,6 @@ const DriverTable: React.FC<DriverTableProps> = ({ initialDrivers }) => {
       setAllDrivers(initialDrivers);
     }
   }, [initialDrivers, drivers, setAllDrivers]);
-
-  let onUsun = (driverId: string) => {
-    setIsLoading(true);
-    let deets = {
-      driverId,
-    };
-    let toDb = JSON.stringify(deets);
-
-    axios
-      .post("/api/drupdate/delete", toDb)
-      .then(
-        (
-          res: AxiosResponse<{
-            message: string;
-            code?: string | number;
-            allTheDrivers?: Partial<SafeDriver>[];
-            affectedDriver: Partial<SafeDriver> | null;
-          }>
-        ) => {
-          if (res.data.code === 500 || res.data.code === 400) {
-            throw new Error(res.data.message);
-          }
-          console.log(res.data.allTheDrivers);
-          setAllDrivers(res.data.allTheDrivers as Partial<SafeDriver>[]);
-          if (res.data.affectedDriver) {
-            setDriver(res.data.affectedDriver);
-          }
-          return toast.success(
-            <>
-              <div className="p-4 text-bold text-green-800 flex flex-col items-center bg-green-100 rounded-lg my-4">
-                {`${res.data.message}`}
-              </div>
-            </>
-          );
-        }
-      )
-      .catch((error: any) => {
-        if (error.code) {
-          switch (error.code) {
-            case "ERR_BAD_RESPONSE":
-              return toast.error(`Błąd`);
-          }
-        } else {
-          return toast.error(error.message);
-        }
-      })
-      .finally(() => {
-        setIsLoading(false);
-      });
-  };
 
   return (
     <>
