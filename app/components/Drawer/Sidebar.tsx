@@ -53,16 +53,7 @@ const Sidebar: React.FC<SideBarAttributes> = ({ role, firmName }) => {
         },
       ],
     },
-    {
-      h2: "Rozpiski",
-      links: [
-        {
-          label: "Trasy do ukończenia",
-          link: "rozpiski",
-          color: "#1fb2a6",
-        },
-      ],
-    },
+    
     {
       h2: "Rozliczenia",
       links: [
@@ -76,6 +67,16 @@ const Sidebar: React.FC<SideBarAttributes> = ({ role, firmName }) => {
   ];
 
   let zarzadClearanceContent: typeof segmentContent = [
+    {
+      h2: "Rozpiski",
+      links: [
+        {
+          label: "Trasy do ukończenia",
+          link: "rozpiski",
+          color: "#1fb2a6",
+        },
+      ],
+    },
     {
       h2: "Pracownicy",
       links: [
