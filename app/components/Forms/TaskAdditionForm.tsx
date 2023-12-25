@@ -79,7 +79,7 @@ const TaskAdditionForm = () => {
       className={`md:min-w-[50%] md:max-w-[50%] w-full flex flex-col gap-2 items-start p-4 rounded-md bg-gray-950`}
     >
         <h3 className="text-white font-extrabold md:text-xl text-sm mb-2">
-          Dodaj tras
+          Dodaj trasę
         </h3>
       <div className={`w-full p-2 pl-0 overflow-y-auto`}>
         <div className={`w-full flex flex-row justify-between`}>

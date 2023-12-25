@@ -116,7 +116,7 @@ const VehicleAdditionForm: React.FC<VehicleAdditionFormProps> = ({
         </h3>
         <p className="text-gray-500 font-semibold md:text-sm text-xs mb-3">
           {`Dodaj szczegóły ${
-            isTrailer ? "przyczepę" : "pojazdu"
+            isTrailer ? "przyczepy" : "pojazdu"
           } i kliknij przycisk Prześlij.`}
         </p>
         <InputDecipher
@@ -124,7 +124,7 @@ const VehicleAdditionForm: React.FC<VehicleAdditionFormProps> = ({
           register={register}
           registerId={"registration"}
           inputType={"text"}
-          placeholder={"Numer Rejestracyjne"}
+          placeholder={"Numer Rejestracyjny"}
           autocomplete={false}
         />
 

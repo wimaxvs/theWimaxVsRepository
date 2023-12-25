@@ -6,8 +6,6 @@ import Image from "next/image";
 import axios, { AxiosResponse } from "axios";
 import toast from "react-hot-toast";
 import useDriver from "@/app/hooks/useCurrentDriver";
-import usePracNav from "@/app/hooks/usePracNav";
-import { usePathname } from "next/navigation";
 
 interface PromotionTableProps {
   allTheDrivers: Partial<SafeDriver>[];
@@ -183,7 +181,7 @@ const PromotionTable: React.FC<PromotionTableProps> = ({
                             textColor: "text-white",
                           },
                           {
-                            label: "Probny",
+                            label: "Próbny",
                             color: "from-blue-600 to-gray-900",
                             textColor: "text-white",
                           },

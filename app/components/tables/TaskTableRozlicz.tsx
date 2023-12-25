@@ -40,7 +40,7 @@ const TaskTableAssign: React.FC<TaskTableAssignProps> = ({ allTheTasks }) => {
           Trasy do ustalenia{" "}
         </h3>
         <p className="text-gray-500 font-semibold md:text-sm text-xs mb-3">
-          {`Kliknij Rozlicz tras”, aby ustalić trasę`}
+          {`Kliknij "Rozlicz trasę”, aby ustalić trasę`}
         </p>
         <div className="max-w-[11/12] overflow-x-auto pb-3">
           <table className="table table-zebra rounded-md">
@@ -50,7 +50,7 @@ const TaskTableAssign: React.FC<TaskTableAssignProps> = ({ allTheTasks }) => {
                 <th className={`text-gray-100`}>Miasto Start</th>
                 <th className={`text-gray-100`}>Miasto Koniec</th>
                 <th className={`text-gray-100`}>Status</th>
-                <th className={`text-gray-100`}>Rozlicz tras</th>
+                <th className={`text-gray-100`}>Rozlicz trasę</th>
               </tr>
             </thead>
             <tbody>

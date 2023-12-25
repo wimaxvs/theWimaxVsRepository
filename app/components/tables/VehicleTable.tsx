@@ -107,10 +107,10 @@ const VehicleTable: React.FC<VehicleTableProps> = ({
               <tr>
                 <th></th>
                 <th className={`text-gray-100`}>{`Szczegóły ${
-                  isTrailer ? "przyczepę" : `pojazd`
+                  isTrailer ? "przyczepy/naczepy" : `pojazdu`
                 }`}</th>
                 <th className={`text-gray-100`}>Kierowca</th>
-                <th className={`text-gray-100`}>Usuñ</th>
+                <th className={`text-gray-100`}>Usuń</th>
                 <th></th>
               </tr>
             </thead>

@@ -22,7 +22,7 @@ const page = () => {
           {`Pamiętaj, aby przesłać im dane do logowania`}
         </p>
         <ClientOnly>
-          <RegForm buttonLabel={"Dodaj sterownik"} buttonColor={"bg-green-600"} justifyState="justify-around" />
+          <RegForm buttonLabel={"Dodaj kierowcę"} buttonColor={"bg-green-600"} justifyState="justify-around" />
         </ClientOnly>
       </section>
     </div>

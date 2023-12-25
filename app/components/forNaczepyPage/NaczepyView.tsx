@@ -13,11 +13,11 @@ const NaczepyView: React.FC<NaczepyViewProps> = ({ vehicle }) => {
       <div className="w-full md:w-1/2 flex flex-col relative">
         <div className={`absolute pl-2 pr-3 pt-2 mr-4`}>
           <h3 className="text-white font-extrabold md:text-xl text-sm">
-            {`Zdjęcia przyczepę`}
+            {`Zdjęcia przyczepy/Naczepy`}
           </h3>
           {!vehicle?.carImage && (
             <p className="text-gray-500 font-semibold md:text-sm text-xs">
-              {`Obecnie nie ma żadnego zdjęcia przypisanego do Ciebie przyczepę.`}
+              {`Obecnie nie ma żadnego zdjęcia przypisanego do Ciebie przyczepy/Naczepy.`}
             </p>
           )}
         </div>

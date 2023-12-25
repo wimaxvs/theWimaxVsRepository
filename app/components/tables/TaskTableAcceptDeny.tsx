@@ -3,7 +3,7 @@ import React, { useEffect } from "react";
 import useAllTasks from "@/app/hooks/useAllTasks";
 import { SafeSettlement } from "@/app/types";
 import useDriver from "@/app/hooks/useCurrentDriver";
-import ModalButton from "../ModalButton";
+import RozliczenieModalButton from "../forRozliczeniaPage/RozliczenieModalButton";
 
 interface TaskTableAcceptDenyProps {
   allTheTasks: SafeSettlement[] | null;
@@ -102,7 +102,7 @@ const TaskTableAcceptDeny: React.FC<TaskTableAcceptDenyProps> = ({
                         currentDriver?.role !== "PROBNY" && (
                           <>
                             <td>
-                              <ModalButton task={task} buttonId={task.id!} />
+                              <RozliczenieModalButton task={task} buttonId={task.id!} />
                             </td>
                           </>
                         )}

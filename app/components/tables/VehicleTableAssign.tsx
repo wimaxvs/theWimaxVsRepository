@@ -106,10 +106,14 @@ const VehicleTableAssign: React.FC<VehicleTableAssignProps> = ({
     >
       <div className={`w-full p-2 pl-0 overflow-y-auto`}>
         <h3 className="text-white font-extrabold md:text-xl text-sm mb-1">
-          Przypisz lub anuluj przypisanie pojazd
+          {`Przypisz lub anuluj przypisanie ${
+            isTrailer ? "Przyczepy/Naczepy" : "pojazd"
+          }`}{" "}
         </h3>
         <p className="text-gray-500 font-semibold md:text-sm text-xs mb-3">
-          {`Wybierz pojazd, w związku z którym chcesz podjąć działania`}
+          {`Wybierz ${
+            isTrailer ? "Przyczepy/Naczepy" : "pojazd"
+          }, w związku z którym chcesz podjąć działania`}
         </p>
         <div className="max-w-[11/12] overflow-x-auto pb-3">
           <table className="table table-zebra rounded-md">
@@ -117,7 +121,7 @@ const VehicleTableAssign: React.FC<VehicleTableAssignProps> = ({
               <tr>
                 <th></th>
                 <th className={`text-gray-100`}>{`Szczegóły ${
-                  isTrailer ? "przyczepę" : "pojazdu"
+                  isTrailer ? "Przyczepy/Naczepy" : "pojazdu"
                 }`}</th>
                 <th className={`text-gray-100`}>Przebieg</th>
                 <th className={`text-gray-100`}>Przypisz</th>

@@ -1,11 +1,15 @@
 import React from "react";
 import ClientOnly from "../components/ClientOnly";
 import StatPad from "../components/statPad/StatPad";
+import BalanceStatPad from "../components/statPad/BalanceStatPad";
 import getCurrentDriver from "../actions/getCurrentDriver";
 import PulpitGraph from "../components/graph/PulpitGraph";
+import { FaRegMoneyBillAlt } from "react-icons/fa";
+import getFirmBalance from "../actions/getFirmBalance";
 
 const page = async () => {
   let currentDriver = await getCurrentDriver();
+  let firmBalance = await getFirmBalance();
   console.log(currentDriver);
 
   // a propos the date object
@@ -50,6 +54,19 @@ const page = async () => {
     return matchingMonth ? matchingMonth.kms : 0;
   });
 
+  let firmBalanceAmount = (amount: number) => {
+    // Split the number into integer and decimal parts
+    const parts = amount.toString().split(".");
+    let integerPart = parts[0];
+    const decimalPart = parts[1] ? "." + parts[1] : "";
+
+    // Add commas to the integer part
+    integerPart = integerPart.replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+
+    // Combine the integer and decimal parts
+    return integerPart + decimalPart;
+  };
+
   //a propos distance covered under Wimax
   let companyKms = currentDriver?.companyKilometers?.kms;
 
@@ -62,19 +79,19 @@ const page = async () => {
     {
       title: "W tym miesiącu",
       value: currentKmMonth?.kms
-        ? `${currentKmMonth.kms.toFixed(2)} km`
+        ? `${currentKmMonth.kms} km`
         : `${0} km`,
       subtitle: "Przejechane",
     },
     {
       title: "Pod firmą Wimax",
-      value: companyKms ? `${companyKms.toFixed(2)} km` : `${0} km`,
+      value: companyKms ? `${companyKms} km` : `${0} km`,
       subtitle: "Przejechane",
     },
     {
       title: "Łącznie",
       value: currentDriver?.totKms
-        ? `${currentDriver.totKms.toFixed(2)} km`
+        ? `${currentDriver.totKms} km`
         : `${0} km`,
       subtitle: "Przejechane",
     },
@@ -84,13 +101,21 @@ const page = async () => {
     {
       title: "Wykonane dostawy",
       value: currentDriver?.deliveries ? currentDriver.deliveries : 0,
-      subtitle: "Wszyscy",
+      subtitle: "Twoje dostawy",
     },
     {
       title: "Średnie spalanie",
       value: currentDriver?.avgFuelConsumption
         ? `${currentDriver.avgFuelConsumption.toFixed(2)} l/km`
         : `${0} l/km`,
+    },
+  ];
+
+  let deetsForBalanceStatPad: typeof deetsForKmPad = [
+    {
+      title: "w złotych polskich",
+      value: firmBalanceAmount(firmBalance?.amount as number) || 0,
+      icon: <FaRegMoneyBillAlt size={28} color={"white"} />,
     },
   ];
 
@@ -106,8 +131,17 @@ const page = async () => {
           />
           <StatPad
             itemArray={deetsForOtherPad}
-            padTitle={"Kluczowych wskaźników wydajności (KPI)."}
+            padTitle={"Kluczowych wskaźnik wydajności (KPI)."}
           />
+          <ClientOnly>
+            <BalanceStatPad
+              itemArray={deetsForBalanceStatPad}
+              padTitle={"Salda Firmy"}
+              role={
+                currentDriver?.role == "ZARZAD" ? currentDriver.role : undefined
+              }
+            />
+          </ClientOnly>
           <PulpitGraph kilometersArray={kilometersArray} />
         </ClientOnly>
       </span>

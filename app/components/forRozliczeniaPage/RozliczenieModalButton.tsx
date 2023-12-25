@@ -1,17 +1,18 @@
+"use client"
 import React, { useState } from "react";
-import { SafeDriver, SafeSettlement } from "../types";
-import Carousel from "./Carousel";
+import { SafeDriver, SafeSettlement } from "../../types";
+import Carousel from "../Carousel";
 import axios, { AxiosResponse } from "axios";
 import toast from "react-hot-toast";
-import useDriver from "../hooks/useCurrentDriver";
-import useAllTasks from "../hooks/useAllTasks";
+import useDriver from "../../hooks/useCurrentDriver";
+import useAllTasks from "../../hooks/useAllTasks";
 
 interface ModalButtonProps {
   task: Partial<SafeSettlement>;
   buttonId: string;
 }
 
-const ModalButton: React.FC<ModalButtonProps> = ({ task, buttonId }) => {
+const RozliczenieModalButton: React.FC<ModalButtonProps> = ({ task, buttonId }) => {
   let [isLoading, setIsLoading] = useState<boolean>(false);
   let { currentDriver, setCurrentDriver, setDriver, setAllDrivers } =
     useDriver();
@@ -84,10 +85,12 @@ const ModalButton: React.FC<ModalButtonProps> = ({ task, buttonId }) => {
     <>
       {/* Open the modal using document.getElementById('ID').showModal() method */}
       <button
-        disabled={isLoading }
+        disabled={isLoading}
         className="btn p-2 rounded-md bg-green-600 disabled:opacity-50 font-bold text-white"
         onClick={() =>
-          (document.getElementById(`my_modal_2_${buttonId}`) as HTMLFormElement).showModal()
+          (
+            document.getElementById(`my_modal_2_${buttonId}`) as HTMLFormElement
+          ).showModal()
         }
       >
         Pogląd
@@ -104,14 +107,14 @@ const ModalButton: React.FC<ModalButtonProps> = ({ task, buttonId }) => {
           <div className="w-full flex flex-row justify-between px-3 mt-5">
             <button
               disabled={isLoading || task?.approvalStatus}
-              onClick={()=>onAction(task, true)}
+              onClick={() => onAction(task, true)}
               className="p-2 text-white font-bold rounded-md bg-green-600  disabled:opacity-50"
             >
               Akceptuj
             </button>
             <button
               disabled={isLoading || !task?.approvalStatus}
-              onClick={()=>onAction(task, false)}
+              onClick={() => onAction(task, false)}
               className="p-2 text-white font-bold rounded-md bg-red-400 disabled:opacity-50"
             >
               Odrzuć
@@ -126,7 +129,7 @@ const ModalButton: React.FC<ModalButtonProps> = ({ task, buttonId }) => {
   );
 };
 
-export default ModalButton;
+export default RozliczenieModalButton;
 
 //beginImage: "",
 //endImage: "",

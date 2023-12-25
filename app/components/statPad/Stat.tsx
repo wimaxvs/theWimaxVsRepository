@@ -33,9 +33,9 @@ const Stat: React.FC<OneStatProps> = ({
             <h3 className="text-xs font-light text-slate-400">{subtitle}</h3>
           )}
         </div>
-        {/* <div className={`flex flex-col justify-center items-center p-3`}>
+        {icon && <div className={`flex flex-col justify-center items-center p-3 self-center`}>
           {icon}
-        </div> */}
+        </div> }
       </div>
     </>
   );

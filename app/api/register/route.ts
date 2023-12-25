@@ -32,7 +32,7 @@ export async function POST(request: Request) {
       },
     });
 
-    let successMessage = "Sterownik zarejestrowany/a pomyślnie.";
+    let successMessage = "Kierowca zarejestrowany/a pomyślnie.";
     return NextResponse.json({ driver, message: successMessage });
   } catch (error) {
     if (error instanceof Prisma.PrismaClientKnownRequestError) {

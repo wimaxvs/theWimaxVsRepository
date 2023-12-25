@@ -18,11 +18,11 @@ model Vehicle {
   carImage     String?
   prevDrivers  String[] //convert driver user id to string and check for duplicity before pushing to array
   mileage      Float?
-  isTrailer Boolean?
-  height Float?
-  width Float?
-  length Float?
-  maxWeight Float?
+  isTrailer    Boolean?
+  height       Float?
+  width        Float?
+  length       Float?
+  maxWeight    Float?
 
   currentDriver Driver? @relation(fields: [driverId], references: [id])
   driverId      String? @db.ObjectId
@@ -36,7 +36,8 @@ model Firm {
   firmTag     String?  @default(" 'Kamień, który się toczy, mech nie zbiera' -  Przysłowie")
   aboutFirm   String?  @default(" 'Sztuka nie polega na robieniu czegoś szybko, ale na robieniu czegoś na czas.' -  Jean Tinguely")
   firmSocials String[]
-  balance     Float?     @default(0)
+  balance     Float?   @default(0)
+  firmKms     Float?   @default(0)
 
   owner   Driver? @relation(fields: [ownerId], references: [id], onDelete: NoAction, onUpdate: NoAction)
   ownerId String? @unique @db.ObjectId
@@ -155,6 +156,11 @@ model Settlement {
   driverId String? @db.ObjectId
   Firm     Firm?   @relation(fields: [firmId], references: [id], onDelete: Cascade)
   firmId   String? @db.ObjectId
+}
+
+model FirmBalance {
+  id     String @id @default(auto()) @map("_id") @db.ObjectId
+  amount Float? @default(0)
 }
 
 enum Role {

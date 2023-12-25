@@ -94,7 +94,7 @@ const TaskTableAssign: React.FC<TaskTableAssignProps> = ({ allTheTasks }) => {
           Poniżej znajdują się niekompletne trasy{" "}
         </h3>
         <p className="text-gray-500 font-semibold md:text-sm text-xs mb-3">
-          {`Kliknij „Przypisz tras”, aby przypisać trasę kierowcy`}
+          {`Kliknij „Przypisz trasę”, aby przypisać trasę kierowcy`}
         </p>
         <div className="max-w-[11/12] overflow-x-auto pb-3">
           <table className="table table-zebra rounded-md">
@@ -175,7 +175,7 @@ const TaskTableAssign: React.FC<TaskTableAssignProps> = ({ allTheTasks }) => {
                               >
                                 {Boolean(task.driver)
                                   ? task?.driver?.username
-                                  : "Przypisz tras"}
+                                  : "Przypisz trasę"}
                               </button>
                             </td>
                             <td>
