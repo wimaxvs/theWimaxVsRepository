@@ -78,9 +78,7 @@ const page = async () => {
   }[] = [
     {
       title: "W tym miesiącu",
-      value: currentKmMonth?.kms
-        ? `${currentKmMonth.kms} km`
-        : `${0} km`,
+      value: currentKmMonth?.kms ? `${currentKmMonth.kms} km` : `${0} km`,
       subtitle: "Przejechane",
     },
     {
@@ -90,9 +88,7 @@ const page = async () => {
     },
     {
       title: "Łącznie",
-      value: currentDriver?.totKms
-        ? `${currentDriver.totKms} km`
-        : `${0} km`,
+      value: currentDriver?.totKms ? `${currentDriver.totKms} km` : `${0} km`,
       subtitle: "Przejechane",
     },
   ];
@@ -114,7 +110,8 @@ const page = async () => {
   let deetsForBalanceStatPad: typeof deetsForKmPad = [
     {
       title: "w złotych polskich",
-      value: firmBalanceAmount(firmBalance?.amount as number) || 0,
+      value:
+        firmBalanceAmount(firmBalance?.amount ? firmBalance.amount : 0) || 0,
       icon: <FaRegMoneyBillAlt size={28} color={"white"} />,
     },
   ];
@@ -136,7 +133,7 @@ const page = async () => {
           <ClientOnly>
             <BalanceStatPad
               itemArray={deetsForBalanceStatPad}
-              padTitle={"Salda Firmy"}
+              padTitle={"Saldo Firmy"}
               role={
                 currentDriver?.role == "ZARZAD" ? currentDriver.role : undefined
               }

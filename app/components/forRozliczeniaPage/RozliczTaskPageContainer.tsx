@@ -34,7 +34,7 @@ const RozliczTaskPageContainer: React.FC<RozliczTaskPageContainerProps> = ({
       )}
 
       {theLocation == "Akceptuj lub anuluj ukończone trasy" && (
-        <TaskTableAcceptDeny allTheTasks={allTheTasks} />
+        <TaskTableAcceptDeny isRozliczenie allTheTasks={allTheTasks} />
       )}
     </div>
   );

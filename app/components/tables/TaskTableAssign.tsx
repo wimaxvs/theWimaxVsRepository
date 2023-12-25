@@ -106,7 +106,7 @@ const TaskTableAssign: React.FC<TaskTableAssignProps> = ({ allTheTasks }) => {
                 <th>Status</th>
                 {currentDriver?.role !== "KIEROWCA" && (
                   <>
-                    <th>Wyznacz tras</th>
+                    <th>Wyznacz trasę</th>
                     <th>Anuluj przypisanie</th>
                   </>
                 )}

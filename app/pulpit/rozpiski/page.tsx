@@ -10,10 +10,10 @@ import React from "react";
 
 const page = async () => {
   const theCurrentDriver = await getCurrentDriver();
-  let PracNavItems = ["Niewykonanych trasy"];
+  let PracNavItems = ["Niewykonane trasy"];
 
   if (theCurrentDriver?.role === "ZARZAD") {
-    PracNavItems.push(...["Dodaj lub usuń tras"]);
+    PracNavItems.push(...["Dodaj lub usuń trasę"]);
   }
 
   let allTheTasks: SafeSettlement[] | null = await getAllTasks();

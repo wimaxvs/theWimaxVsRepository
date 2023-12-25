@@ -7,10 +7,12 @@ import RozliczenieModalButton from "../forRozliczeniaPage/RozliczenieModalButton
 
 interface TaskTableAcceptDenyProps {
   allTheTasks: SafeSettlement[] | null;
+  isRozliczenie?: boolean
 }
 
 const TaskTableAcceptDeny: React.FC<TaskTableAcceptDenyProps> = ({
   allTheTasks,
+  isRozliczenie
 }) => {
   let { theTasks, setTheTasks } = useAllTasks();
   let { currentDriver } = useDriver();
@@ -31,10 +33,11 @@ const TaskTableAcceptDeny: React.FC<TaskTableAcceptDenyProps> = ({
     >
       <div className={`w-full p-2 pl-0 overflow-y-auto`}>
         <h3 className="text-white font-extrabold md:text-xl text-sm mb-1">
-          Poniżej znajdują się niekompletne trasy{" "}
-        </h3>
+{`Poniżej znajdują się wszystkie trasy`}        </h3>
         <p className="text-gray-500 font-semibold md:text-sm text-xs mb-3">
-          {`Kliknij „Przypisz tras”, aby przypisać trasę kierowcy`}
+          {isRozliczenie
+            ? `Kliknij „Pogląd”, aby wyświetlić i zaakceptować/odrzucić rozliczenie`
+            : `Kliknij „Przypisz trasę”, aby przypisać trasę kierowcy`}
         </p>
         <div className="max-w-[11/12] overflow-x-auto pb-3">
           <table className="table table-zebra rounded-md">
@@ -102,7 +105,10 @@ const TaskTableAcceptDeny: React.FC<TaskTableAcceptDenyProps> = ({
                         currentDriver?.role !== "PROBNY" && (
                           <>
                             <td>
-                              <RozliczenieModalButton task={task} buttonId={task.id!} />
+                              <RozliczenieModalButton
+                                task={task}
+                                buttonId={task.id!}
+                              />
                             </td>
                           </>
                         )}

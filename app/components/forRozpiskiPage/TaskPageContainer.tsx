@@ -25,13 +25,13 @@ const TaskPageContainer: React.FC<TaskPageContainerProps> = ({
 
   useEffect(() => {
     if (pathname?.includes("rozpiski")) {
-      setTheLocation("Niewykonanych trasy");
+      setTheLocation("Niewykonane trasy");
     }
   }, [pathname, setTheLocation]);
 
   return (
     <div className={`w-full h-full flex flex-row p-3`}>
-      {theLocation == "Niewykonanych trasy" && (
+      {theLocation == "Niewykonane trasy" && (
         <TaskView
           allTheTasks={allTheTasks}
           allTheDrivers={allTheDrivers}

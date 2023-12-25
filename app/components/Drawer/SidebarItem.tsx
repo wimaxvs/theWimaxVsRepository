@@ -31,7 +31,7 @@ const SidebarItem: React.FC<SidebarItemProps> = ({
         setIsFirstTab(true);
         break;
       case "rozpiski":
-        setTheLocation("Niewykonanych trasy");
+        setTheLocation("Niewykonane trasy");
         setIsFirstTab(true);
         break;
       case "rozliczenia":

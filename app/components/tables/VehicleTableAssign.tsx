@@ -107,7 +107,7 @@ const VehicleTableAssign: React.FC<VehicleTableAssignProps> = ({
       <div className={`w-full p-2 pl-0 overflow-y-auto`}>
         <h3 className="text-white font-extrabold md:text-xl text-sm mb-1">
           {`Przypisz lub anuluj przypisanie ${
-            isTrailer ? "Przyczepy/Naczepy" : "pojazd"
+            isTrailer ? "Przyczepy/Naczepy" : "pojazdu"
           }`}{" "}
         </h3>
         <p className="text-gray-500 font-semibold md:text-sm text-xs mb-3">
