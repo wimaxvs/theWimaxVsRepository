@@ -36,15 +36,19 @@ const PromotionTable: React.FC<PromotionTableProps> = ({
   }, [allTheDrivers, drivers, setAllDrivers]);
 
   const onButtonClick = (driverId: string, optionChosen: string) => {
+    let role = optionChosen === "Próbny" ? "Probny" : optionChosen;
     setIsLoading(true);
     let data = {
       driverId,
-      role: optionChosen.toUpperCase(),
+      role: role.toUpperCase(),
     };
 
     let deets = JSON.stringify(data);
     axios
-      .post(`/api/drupdate/${optionChosen == "Zwolnij"? "delete":"awansuj"}`, deets)
+      .post(
+        `/api/drupdate/${optionChosen == "Zwolnij" ? "delete" : "awansuj"}`,
+        deets
+      )
       .then(
         (
           res: AxiosResponse<{
@@ -57,7 +61,7 @@ const PromotionTable: React.FC<PromotionTableProps> = ({
             throw new Error(res.data.message);
           }
           if (optionChosen !== "Zwolnij") {
-            console.log("hit")
+            console.log("hit");
             setDriver(
               res.data.allTheDrivers?.find(
                 (driver) => driver.id == driverId
@@ -161,7 +165,11 @@ const PromotionTable: React.FC<PromotionTableProps> = ({
                           </div>
                         </td>
                         <td>
-                          <p className={`text-gray-100`}>{driver?.role}</p>
+                          <p className={`text-gray-100`}>
+                            {driver?.role === "PROBNY"
+                              ? "PRÓBNY"
+                              : driver?.role}
+                          </p>
                         </td>
 
                         {[
