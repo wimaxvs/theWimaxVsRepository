@@ -1,4 +1,4 @@
-"use client"
+"use client";
 import React, { useEffect, useState } from "react";
 import useAllTasks from "@/app/hooks/useAllTasks";
 import { SafeSettlement } from "@/app/types";
@@ -16,8 +16,15 @@ const TaskTableAssign: React.FC<TaskTableAssignProps> = ({ allTheTasks }) => {
 
   let tasksToMap =
     currentDriver?.role === "KIEROWCA" || currentDriver?.role === "PROBNY"
-      ? theTasks.filter((task) => task?.driver?.id === currentDriver?.id)
-      : theTasks;
+      ? theTasks.filter(
+          (task) =>
+            task?.driver?.id === currentDriver?.id &&
+            !task?.approvalStatus &&
+            task.isSettled === false
+        )
+      : theTasks.filter(
+          (task) => !task?.approvalStatus && task.isSettled === false
+        );
 
   useEffect(() => {
     if (theTasks?.length < 1 && allTheTasks) {
@@ -103,16 +110,10 @@ const TaskTableAssign: React.FC<TaskTableAssignProps> = ({ allTheTasks }) => {
                         {" "}
                         <button
                           onClick={() => onRozlicz(task)}
-                          disabled={
-                            (Boolean(task.beginImage) &&
-                              Boolean(task.endImage)) ||
-                            isLoading
-                          }
+                          disabled={task.approvalStatus || isLoading}
                           className="p-2 rounded-md bg-green-600 disabled:opacity-50 font-bold text-white"
                         >
-                          {Boolean(task.beginImage) && Boolean(task.endImage)
-                            ? "Tras rozliczony"
-                            : "Rozlicz"}
+                          {task.isSettled ? "Tras rozliczony" : "Rozlicz"}
                         </button>
                       </td>
                     </tr>

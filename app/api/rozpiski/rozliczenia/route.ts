@@ -107,6 +107,7 @@ export async function POST(req: Request) {
         },
       });
     }
+    
     let currentDriverCompanyKms = await prisma.companyKilometers.findFirst({
       where: {
         id: currentDriver?.companyKilometers?.id,

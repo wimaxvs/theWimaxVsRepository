@@ -39,12 +39,7 @@ const TaskPageContainer: React.FC<TaskPageContainerProps> = ({
         />
       )}
 
-      {theLocation == "Dodaj lub usuń trasę" && (
-        <AddDeleteTasks
-          allTheTasks={allTheTasks}
-          driverId={theCurrentDriver?.id}
-        />
-      )}
+      {theLocation == "Dodaj lub usuń trasę" && <AddDeleteTasks />}
     </div>
   );
 };

@@ -17,6 +17,7 @@ const page = async () => {
   }
 
   let allTheTasks: SafeSettlement[] | null = await getAllTasks();
+  allTheTasks = allTheTasks?.filter(t => !t.driver) || null
   let allTheDrivers: SafeDriver[] = await getAllDrivers();
 
   return (

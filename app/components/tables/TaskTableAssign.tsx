@@ -21,6 +21,8 @@ const TaskTableAssign: React.FC<TaskTableAssignProps> = ({ allTheTasks }) => {
       ? theTasks.filter((task) => task?.driver?.id === currentDriver?.id)
       : theTasks;
 
+  tasksToMap = tasksToMap.filter((task) => !task.driver);
+
   useEffect(() => {
     if (theTasks?.length < 1 && allTheTasks) {
       setTheTasks(allTheTasks);
@@ -91,7 +93,7 @@ const TaskTableAssign: React.FC<TaskTableAssignProps> = ({ allTheTasks }) => {
     >
       <div className={`w-full p-2 pl-0 overflow-y-auto`}>
         <h3 className="text-white font-extrabold md:text-xl text-sm mb-1">
-          Poniżej znajdują się niekompletne trasy{" "}
+          Poniżej znajdują się nieprzypisane trasy
         </h3>
         <p className="text-gray-500 font-semibold md:text-sm text-xs mb-3">
           {`Kliknij „Przypisz trasę”, aby przypisać trasę kierowcy`}
@@ -166,8 +168,7 @@ const TaskTableAssign: React.FC<TaskTableAssignProps> = ({ allTheTasks }) => {
                               <button
                                 onClick={() => onPrzypisz(task)}
                                 disabled={
-                                  (Boolean(task.beginImage) &&
-                                    Boolean(task.endImage)) ||
+                                  task.isSettled ||
                                   isLoading ||
                                   Boolean(task.driver)
                                 }
@@ -182,11 +183,7 @@ const TaskTableAssign: React.FC<TaskTableAssignProps> = ({ allTheTasks }) => {
                               {Boolean(task?.driver) && (
                                 <button
                                   onClick={() => onAnnul(task)}
-                                  disabled={
-                                    (Boolean(task.beginImage) &&
-                                      Boolean(task.endImage)) ||
-                                    isLoading
-                                  }
+                                  disabled={task.isSettled || isLoading}
                                   className="p-2 rounded-md bg-red-400 disabled:opacity-50 font-bold text-white"
                                 >
                                   Anuluj przypisanie

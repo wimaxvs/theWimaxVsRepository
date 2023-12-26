@@ -14,6 +14,7 @@ interface TaskSettlementViewProps {
 const TaskSettlementView: React.FC<TaskSettlementViewProps> = ({ allTheTasks, theCurrentDriver }) => {
   let { setIsFirstTab } = usePracNav();
   useEffect(() => {
+    
     setIsFirstTab(true);
   }, [setIsFirstTab]);
 

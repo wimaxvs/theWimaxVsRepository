@@ -20,6 +20,7 @@ const page = async () => {
   }
 
   let allTheTasks: SafeSettlement[] | null = await getAllTasks();
+  allTheTasks = allTheTasks?.filter(task => !task.approvalStatus)|| null
 
   return (
     <div className="bg-[url('/images/bkg_5.jpg')] bg-no-repeat bg-cover bg-left-bottom h-screen w-full min-h-full flex flex-row justify-center pt-6">

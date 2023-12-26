@@ -99,7 +99,7 @@ const TaskSettlementFormContainer: React.FC<
     setIsLoading((isLoading) => !isLoading);
 
     axios
-      .post("/api/rozpiski/rozliczenia", toDb)
+      .post("/api/rozpiski/rozliczenieUpdated", toDb)
       .then(
         (
           res: AxiosResponse<{
@@ -153,8 +153,6 @@ const TaskSettlementFormContainer: React.FC<
       {tbaVals > 0 && pageNumber <= 1 && (
         <TaskSettlementForm
           register={register}
-          reset={reset}
-          handleSubmit={handleSubmit}
         />
       )}
       {tbaVals > 0 && pageNumber > 1 && (

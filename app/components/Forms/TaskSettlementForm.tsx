@@ -4,9 +4,7 @@ import useTaskBeingSent from "@/app/hooks/useTaskBeingSent";
 import React, { useState } from "react";
 import {
   FieldValues,
-  UseFormHandleSubmit,
   UseFormRegister,
-  UseFormReset,
 } from "react-hook-form";
 import { IoArrowBackOutline } from "react-icons/io5";
 import InputDecipher from "./inputs/InputDecipher";
@@ -19,9 +17,7 @@ import { GiPayMoney } from "react-icons/gi";
 import { BsFuelPumpDiesel } from "react-icons/bs";
 
 interface TaskSettlementFormProps {
-  reset: UseFormReset<FieldValues>;
   register: UseFormRegister<FieldValues>;
-  handleSubmit: UseFormHandleSubmit<FieldValues>;
 }
 
 const TaskSettlementForm: React.FC<TaskSettlementFormProps> = ({

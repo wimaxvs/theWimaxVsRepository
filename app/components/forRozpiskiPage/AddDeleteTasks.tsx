@@ -4,13 +4,10 @@ import TaskAdditionForm from "../Forms/TaskAdditionForm";
 import TaskTableDelete from "../tables/TaskTableDelete";
 
 interface AddDeleteTasks {
-  driverId: string | null | undefined;
-  allTheTasks: SafeSettlement[] | null;
+  //
 }
 
 const AddDeleteTasks: React.FC<AddDeleteTasks> = ({
-  driverId,
-  allTheTasks,
 }) => {
   return (
     <div

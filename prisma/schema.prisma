@@ -145,6 +145,7 @@ model Settlement {
   highways                  String[]
   products                  String[]
   approvalStatus            Boolean
+  isSettled                 Boolean? @default(false)
   misc                      String[]
 
   startLocation   StartLocation? @relation(fields: [startLocationId], references: [id], onDelete: Cascade)

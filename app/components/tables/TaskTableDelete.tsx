@@ -80,42 +80,52 @@ const TaskTableDelete = () => {
           </thead>
           <tbody>
             {theTasks &&
-              theTasks.map((task, index) => {
-                return (
-                  <tr key={index} className={`border-none hover`}>
-                    <th
-                      className={`text-gray-100 ${
-                        index % 2 == 1 && "rounded-tl-md rounded-bl-md"
-                      }`}
-                    >
-                      {index + 1}
-                    </th>
-                    <td className={`text-gray-100`}>{task.startLocation?.city}</td>
-                    <td className={`text-gray-100`}> {task.endLocation?.city}</td>
-                    <td
-                      className={`${
-                        index % 2 == 1 && "rounded-tr-md rounded-br-md"
-                      }`}
-                    >
-                      <button
-                        onClick={() =>
-                          onUsun(task?.id as string, task?.driver?.id as string)
-                        }
-                        disabled={
-                          isLoading ||
-                          (Boolean(task?.beginImage) &&
-                            (task?.approvalStatus === null ||
-                              task?.approvalStatus === undefined ||
-                              task?.approvalStatus === true))
-                        }
-                        className="p-2 rounded-md bg-red-400 disabled:opacity-50 font-bold text-white"
+              theTasks
+                .filter((t) => !t.driver)
+                .map((task, index) => {
+                  return (
+                    <tr key={index} className={`border-none hover`}>
+                      <th
+                        className={`text-gray-100 ${
+                          index % 2 == 1 && "rounded-tl-md rounded-bl-md"
+                        }`}
                       >
-                        Usuń
-                      </button>
-                    </td>
-                  </tr>
-                );
-              })}
+                        {index + 1}
+                      </th>
+                      <td className={`text-gray-100`}>
+                        {task.startLocation?.city}
+                      </td>
+                      <td className={`text-gray-100`}>
+                        {" "}
+                        {task.endLocation?.city}
+                      </td>
+                      <td
+                        className={`${
+                          index % 2 == 1 && "rounded-tr-md rounded-br-md"
+                        }`}
+                      >
+                        <button
+                          onClick={() =>
+                            onUsun(
+                              task?.id as string,
+                              task?.driver?.id as string
+                            )
+                          }
+                          disabled={
+                            isLoading ||
+                            (Boolean(task?.beginImage) &&
+                              (task?.approvalStatus === null ||
+                                task?.approvalStatus === undefined ||
+                                task?.approvalStatus === true))
+                          }
+                          className="p-2 rounded-md bg-red-400 disabled:opacity-50 font-bold text-white"
+                        >
+                          Usuń
+                        </button>
+                      </td>
+                    </tr>
+                  );
+                })}
           </tbody>
         </table>
       </div>

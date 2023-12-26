@@ -31,7 +31,7 @@ const RozliczenieModalButton: React.FC<ModalButtonProps> = ({ task, buttonId }) 
       taskId: task.id,
     });
     axios
-      .post("/api/rozpiski/rozliczenia/accept_reject", data)
+      .post("/api/rozpiski/rozliczenieUpdated/accept_reject", data)
       .then(
         (
           res: AxiosResponse<{
@@ -113,7 +113,7 @@ const RozliczenieModalButton: React.FC<ModalButtonProps> = ({ task, buttonId }) 
               Akceptuj
             </button>
             <button
-              disabled={isLoading || !task?.approvalStatus}
+              disabled={isLoading}
               onClick={() => onAction(task, false)}
               className="p-2 text-white font-bold rounded-md bg-red-400 disabled:opacity-50"
             >
