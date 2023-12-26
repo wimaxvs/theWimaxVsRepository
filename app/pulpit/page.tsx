@@ -6,6 +6,7 @@ import getCurrentDriver from "../actions/getCurrentDriver";
 import PulpitGraph from "../components/graph/PulpitGraph";
 import { FaRegMoneyBillAlt } from "react-icons/fa";
 import getFirmBalance from "../actions/getFirmBalance";
+import getAllKmms from "../actions/getAllKmms";
 
 const page = async () => {
   let currentDriver = await getCurrentDriver();
@@ -16,6 +17,10 @@ const page = async () => {
   let theDate = new Date();
   let currentMonth = theDate.getMonth();
   let currentYear = theDate.getFullYear();
+
+  let everyonesKms = await getAllKmms();
+
+  console.log(everyonesKms);
 
   function getMonthName(monthValue: number): string | undefined {
     const months = [
@@ -88,8 +93,8 @@ const page = async () => {
     },
     {
       title: "Łącznie",
-      value: currentDriver?.totKms ? `${currentDriver.totKms} km` : `${0} km`,
-      subtitle: "Przejechane",
+      value: `${firmBalanceAmount(everyonesKms) || 0} km`,
+      subtitle: "Wszyscy",
     },
   ];
 
@@ -117,9 +122,9 @@ const page = async () => {
   ];
 
   return (
-    <div className="bg-[url('/images/bkg_1.jpg')] bg-no-repeat bg-cover bg-center h-screen w-full min-h-screen">
+    <div className="bg-[url('/images/bkg_1.jpg')] bg-no-repeat bg-cover bg-center md:h-screen w-full md:min-h-screen md:max-h-screen oveflow-y-hidden">
       <span
-        className={` flex flex-row gap-6 items-start justify-start flex-wrap p-6`}
+        className={` flex flex-row gap-6 items-start justify-start flex-wrap p-6 max-h-[90%] md:min-h-full overflow-y-scroll`}
       >
         <ClientOnly>
           <StatPad
@@ -130,15 +135,13 @@ const page = async () => {
             itemArray={deetsForOtherPad}
             padTitle={"Kluczowych wskaźnik wydajności (KPI)."}
           />
-          <ClientOnly>
-            <BalanceStatPad
-              itemArray={deetsForBalanceStatPad}
-              padTitle={"Saldo Firmy"}
-              role={
-                currentDriver?.role == "ZARZAD" ? currentDriver.role : undefined
-              }
-            />
-          </ClientOnly>
+          <BalanceStatPad
+            itemArray={deetsForBalanceStatPad}
+            padTitle={"Saldo Firmy"}
+            role={
+              currentDriver?.role == "ZARZAD" ? currentDriver.role : undefined
+            }
+          />
           <PulpitGraph kilometersArray={kilometersArray} />
         </ClientOnly>
       </span>

@@ -33,10 +33,10 @@ export default function Home() {
                 className={`bg-red w-full h-full flex flex-col items-center gap-4 mb-4 md:mb-6 lg:mb-8`}
               >
                 <Image
-                  height={64}
-                  width={275}
+                  height={451}
+                  width={1600}
                   alt="Vimax logo"
-                  src={"/images/logo.png"}
+                  src={"/images/Logo.jpg"}
                 />
                 <h2 className="font-bold text-md md:text-md">
                   Euro Truck Simulator 2 Company Management
