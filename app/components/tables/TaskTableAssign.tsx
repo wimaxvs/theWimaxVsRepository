@@ -16,12 +16,18 @@ const TaskTableAssign: React.FC<TaskTableAssignProps> = ({ allTheTasks }) => {
   let { currentDriver, setCurrentDriver, setDriver, setAllDrivers } =
     useDriver();
 
-  let tasksToMap = theTasks.filter((task) => task.isSettled == null || task.isSettled == undefined);
+  let tasksToMap = theTasks.filter(
+    (task) =>
+      (task.isSettled == null || task.isSettled == undefined) &&
+      (!task.approvalStatus)
+      
+  );
 
   useEffect(() => {
     if (theTasks?.length < 1 && allTheTasks) {
       setTheTasks(allTheTasks);
     }
+    console.log(tasksToMap)
   }, [allTheTasks, setTheTasks, theTasks?.length]);
 
   let onPrzypisz = (task: Partial<SafeSettlement>) => {
