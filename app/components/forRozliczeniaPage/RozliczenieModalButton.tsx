@@ -106,7 +106,7 @@ const RozliczenieModalButton: React.FC<ModalButtonProps> = ({ task, buttonId }) 
           <Carousel task={task} detailComponent={detailComponent} />
           <div className="w-full flex flex-row justify-between px-3 mt-5">
             <button
-              disabled={isLoading || task?.approvalStatus}
+              disabled={isLoading || Boolean(task?.approvalStatus)}
               onClick={() => onAction(task, true)}
               className="p-2 text-white font-bold rounded-md bg-green-600  disabled:opacity-50"
             >
