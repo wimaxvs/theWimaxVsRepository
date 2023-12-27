@@ -3,11 +3,11 @@ import React from "react";
 import TaskAdditionForm from "../Forms/TaskAdditionForm";
 import TaskTableDelete from "../tables/TaskTableDelete";
 
-interface AddDeleteTasks {
+interface AddDeleteTasksProps {
   //
 }
 
-const AddDeleteTasks: React.FC<AddDeleteTasks> = ({
+const AddDeleteTasks: React.FC<AddDeleteTasksProps> = ({
 }) => {
   return (
     <div

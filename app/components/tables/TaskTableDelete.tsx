@@ -81,7 +81,7 @@ const TaskTableDelete = () => {
           <tbody>
             {theTasks &&
               theTasks
-                .filter((t) => !t.driver)
+                .filter((t) => !t.approvalStatus)
                 .map((task, index) => {
                   return (
                     <tr key={index} className={`border-none hover`}>
@@ -111,13 +111,7 @@ const TaskTableDelete = () => {
                               task?.driver?.id as string
                             )
                           }
-                          disabled={
-                            isLoading ||
-                            (Boolean(task?.beginImage) &&
-                              (task?.approvalStatus === null ||
-                                task?.approvalStatus === undefined ||
-                                task?.approvalStatus === true))
-                          }
+                          disabled={isLoading || Boolean(task?.isSettled)}
                           className="p-2 rounded-md bg-red-400 disabled:opacity-50 font-bold text-white"
                         >
                           Usuń

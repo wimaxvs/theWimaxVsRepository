@@ -22,9 +22,21 @@ const TaskTableAssign: React.FC<TaskTableAssignProps> = ({ allTheTasks }) => {
             !task?.approvalStatus &&
             !task.isSettled
         )
-      : theTasks.filter(
-          (task) => task?.driver && !task?.approvalStatus && !task.isSettled
-        );
+      : theTasks
+          .filter(
+            (task) =>
+              task?.driver &&
+              task?.approvalStatus === false &&
+              task.isSettled === false
+          )
+          .concat(
+            theTasks.filter(
+              (task) =>
+                task?.driver?.id === currentDriver?.id &&
+                !task?.approvalStatus &&
+                !task.isSettled
+            )
+          );
 
   useEffect(() => {
     if (theTasks?.length < 1 && allTheTasks) {
@@ -56,7 +68,9 @@ const TaskTableAssign: React.FC<TaskTableAssignProps> = ({ allTheTasks }) => {
                 <th></th>
                 <th className={`text-gray-100`}>Miasto Start</th>
                 <th className={`text-gray-100`}>Miasto Koniec</th>
-                <th className={`text-gray-100`} colSpan={2}>Status</th>
+                <th className={`text-gray-100`} colSpan={2}>
+                  Status
+                </th>
                 <th className={`text-gray-100`}>Rozlicz trasę</th>
               </tr>
             </thead>
@@ -120,7 +134,9 @@ const TaskTableAssign: React.FC<TaskTableAssignProps> = ({ allTheTasks }) => {
                           disabled={task.approvalStatus || isLoading}
                           className="p-2 rounded-md bg-green-600 disabled:opacity-50 font-bold text-white"
                         >
-                          {task.isSettled ? "Tras rozliczony" : "Rozlicz"}
+                          {task.isSettled
+                            ? "Tras rozliczony"
+                            : `Rozlicz`}
                         </button>
                       </td>
                     </tr>

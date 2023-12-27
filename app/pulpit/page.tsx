@@ -20,7 +20,6 @@ const page = async () => {
 
   let everyonesKms = await getAllKmms();
 
-  console.log(everyonesKms);
 
   function getMonthName(monthValue: number): string | undefined {
     const months = [
