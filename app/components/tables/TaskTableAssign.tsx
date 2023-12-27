@@ -16,12 +16,7 @@ const TaskTableAssign: React.FC<TaskTableAssignProps> = ({ allTheTasks }) => {
   let { currentDriver, setCurrentDriver, setDriver, setAllDrivers } =
     useDriver();
 
-  let tasksToMap =
-    currentDriver?.role === "KIEROWCA" || currentDriver?.role === "PROBNY"
-      ? theTasks.filter((task) => task?.driver?.id === currentDriver?.id)
-      : theTasks;
-
-  tasksToMap = tasksToMap.filter((task) => !task.driver);
+  let tasksToMap = theTasks.filter((task) => !task.driver);
 
   useEffect(() => {
     if (theTasks?.length < 1 && allTheTasks) {

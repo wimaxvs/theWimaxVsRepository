@@ -1,6 +1,6 @@
 import prisma from "@/app/libs/prismadb";
 
-export default async function getAllVehicles() {
+export default async function getAllTasks() {
   try {
     const allTheTasks = await prisma.settlement.findMany({
       include: {
@@ -15,8 +15,10 @@ export default async function getAllVehicles() {
       return null;
     }
 
+
     return allTheTasks;
   } catch (error: any) {
+    console.log(error)
     return null;
   }
 }

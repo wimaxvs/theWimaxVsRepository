@@ -20,10 +20,10 @@ const TaskTableAssign: React.FC<TaskTableAssignProps> = ({ allTheTasks }) => {
           (task) =>
             task?.driver?.id === currentDriver?.id &&
             !task?.approvalStatus &&
-            task.isSettled === false
+            !task.isSettled
         )
       : theTasks.filter(
-          (task) => !task?.approvalStatus && task.isSettled === false
+          (task) => task?.driver && !task?.approvalStatus && !task.isSettled
         );
 
   useEffect(() => {
@@ -56,7 +56,7 @@ const TaskTableAssign: React.FC<TaskTableAssignProps> = ({ allTheTasks }) => {
                 <th></th>
                 <th className={`text-gray-100`}>Miasto Start</th>
                 <th className={`text-gray-100`}>Miasto Koniec</th>
-                <th className={`text-gray-100`}>Status</th>
+                <th className={`text-gray-100`} colSpan={2}>Status</th>
                 <th className={`text-gray-100`}>Rozlicz trasę</th>
               </tr>
             </thead>
@@ -98,6 +98,13 @@ const TaskTableAssign: React.FC<TaskTableAssignProps> = ({ allTheTasks }) => {
                             {task?.endLocation?.zipCode}
                           </p>
                         </div>
+                      </td>
+                      <td>
+                        <p className="text-sm text-gray-300 font-semibold">
+                          {task?.isSettled == true
+                            ? "Ustalona"
+                            : "Nie Ustalona"}
+                        </p>
                       </td>
                       <td>
                         <p className="text-sm text-gray-300 font-semibold">

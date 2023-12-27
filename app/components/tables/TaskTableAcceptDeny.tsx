@@ -17,16 +17,16 @@ const TaskTableAcceptDeny: React.FC<TaskTableAcceptDenyProps> = ({
   let { theTasks, setTheTasks } = useAllTasks();
   let { currentDriver } = useDriver();
 
-  useEffect(() => {
-    if (theTasks?.length < 1 && allTheTasks) {
-      setTheTasks(allTheTasks);
-    }
-    console.log(tasksToMap);
-  }, [allTheTasks, setTheTasks, theTasks?.length]);
-
   let tasksToMap = theTasks.filter(
     (task) => task.isSettled && !task?.approvalStatus
   );
+
+  useEffect(() => {
+    console.log(tasksToMap);
+    if (theTasks?.length < 1 && allTheTasks) {
+      setTheTasks(allTheTasks);
+    }
+  }, [allTheTasks, setTheTasks, theTasks?.length]);
 
   return (
     <div
@@ -48,7 +48,9 @@ const TaskTableAcceptDeny: React.FC<TaskTableAcceptDenyProps> = ({
                 <th></th>
                 <th className={`text-gray-100`}>Miasto Start</th>
                 <th className={`text-gray-100`}>Miasto Koniec</th>
-                <th className={`text-gray-100`}>Status</th>
+                <th className={`text-gray-100`} colSpan={2}>
+                  Status
+                </th>
                 {currentDriver?.role !== "KIEROWCA" &&
                   currentDriver?.role !== "PROBNY" && (
                     <>
@@ -95,6 +97,13 @@ const TaskTableAcceptDeny: React.FC<TaskTableAcceptDenyProps> = ({
                             {task?.endLocation?.zipCode}
                           </p>
                         </div>
+                      </td>
+                      <td>
+                        <p className="text-sm text-gray-300 font-semibold">
+                          {task?.isSettled == true
+                            ? "Ustalona"
+                            : "Nie ustalona"}
+                        </p>
                       </td>
                       <td>
                         <p className="text-sm text-gray-300 font-semibold">
