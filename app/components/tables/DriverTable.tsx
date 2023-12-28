@@ -38,7 +38,7 @@ const DriverTable: React.FC<DriverTableProps> = ({ initialDrivers }) => {
             Ci ludzie byliby wcieleniami <b>Da Vinci</b>...
           </p>
           <div className="max-w-[11/12] overflow-x-auto pb-3">
-            <table className="table table-zebra rounded-md">
+            <table className="table rounded-md ">
               <thead>
                 <tr>
                   <th className={`text-gray-100`}></th>
@@ -55,7 +55,10 @@ const DriverTable: React.FC<DriverTableProps> = ({ initialDrivers }) => {
                 {drivers &&
                   drivers.map((driver, index) => {
                     return (
-                      <tr key={index} className={`border-none`}>
+                      <tr
+                        key={index}
+                        className={`border-none ${"even:bg-gray-800"}`}
+                      >
                         <th
                           className={`${
                             index % 2 == 1 &&

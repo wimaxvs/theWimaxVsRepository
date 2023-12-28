@@ -11,7 +11,6 @@ import getAllKmms from "../actions/getAllKmms";
 const page = async () => {
   let currentDriver = await getCurrentDriver();
   let firmBalance = await getFirmBalance();
-  console.log(currentDriver);
 
   // a propos the date object
   let theDate = new Date();
@@ -19,7 +18,7 @@ const page = async () => {
   let currentYear = theDate.getFullYear();
 
   let everyonesKms = await getAllKmms();
-
+  everyonesKms = Math.ceil(everyonesKms)
 
   function getMonthName(monthValue: number): string | undefined {
     const months = [

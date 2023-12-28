@@ -69,7 +69,7 @@ const TaskTableDelete = () => {
         Usuń trasę
       </h3>
       <div className={`w-full p-2 pl-0 overflow-y-auto`}>
-        <table className="table table-zebra rounded-md">
+        <table className="table rounded-md">
           <thead>
             <tr>
               <th></th>
@@ -84,7 +84,10 @@ const TaskTableDelete = () => {
                 .filter((t) => !t.approvalStatus)
                 .map((task, index) => {
                   return (
-                    <tr key={index} className={`border-none hover`}>
+                    <tr
+                      key={index}
+                      className={`border-none hover even:bg-gray-800`}
+                    >
                       <th
                         className={`text-gray-100 ${
                           index % 2 == 1 && "rounded-tl-md rounded-bl-md"

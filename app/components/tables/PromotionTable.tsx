@@ -136,7 +136,10 @@ const PromotionTable: React.FC<PromotionTableProps> = ({
                 {drivers &&
                   gimmeEligibleDrivers(drivers).map((driver, index) => {
                     return (
-                      <tr key={index} className={`border-none hover`}>
+                      <tr
+                        key={index}
+                        className={`border-none hover`}
+                      >
                         <td className={`rounded-l-md`}>{index + 1}</td>
                         <td>
                           <div className="flex items-center space-x-3">

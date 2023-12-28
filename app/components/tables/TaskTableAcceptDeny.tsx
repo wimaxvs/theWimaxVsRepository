@@ -42,7 +42,7 @@ const TaskTableAcceptDeny: React.FC<TaskTableAcceptDenyProps> = ({
             : `Kliknij „Przypisz trasę”, aby przypisać trasę kierowcy`}
         </p>
         <div className="max-w-[11/12] overflow-x-auto pb-3">
-          <table className="table table-zebra rounded-md">
+          <table className="table rounded-md">
             <thead>
               <tr>
                 <th></th>
@@ -63,7 +63,10 @@ const TaskTableAcceptDeny: React.FC<TaskTableAcceptDenyProps> = ({
               {tasksToMap &&
                 tasksToMap.map((task, index) => {
                   return (
-                    <tr key={index} className={`border-none hover`}>
+                    <tr
+                      key={index}
+                      className={`border-none hover even:bg-gray-800`}
+                    >
                       <th
                         className={`${
                           index % 2 == 1 && "rounded-tl-md rounded-bl-md"

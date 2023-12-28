@@ -62,7 +62,7 @@ const TaskTableAssign: React.FC<TaskTableAssignProps> = ({ allTheTasks }) => {
           {`Kliknij "Rozlicz trasę”, aby ustalić trasę`}
         </p>
         <div className="max-w-[11/12] overflow-x-auto pb-3">
-          <table className="table table-zebra rounded-md">
+          <table className="table rounded-md">
             <thead>
               <tr>
                 <th></th>
@@ -78,7 +78,10 @@ const TaskTableAssign: React.FC<TaskTableAssignProps> = ({ allTheTasks }) => {
               {tasksToMap &&
                 tasksToMap.map((task, index) => {
                   return (
-                    <tr key={index} className={`border-none hover`}>
+                    <tr
+                      key={index}
+                      className={`border-none hover even:bg-gray-800`}
+                    >
                       <th
                         className={`${
                           index % 2 == 1 && "rounded-tl-md rounded-bl-md"
@@ -134,9 +137,7 @@ const TaskTableAssign: React.FC<TaskTableAssignProps> = ({ allTheTasks }) => {
                           disabled={task.approvalStatus || isLoading}
                           className="p-2 rounded-md bg-green-600 disabled:opacity-50 font-bold text-white"
                         >
-                          {task.isSettled
-                            ? "Tras rozliczony"
-                            : `Rozlicz`}
+                          {task.isSettled ? "Tras rozliczony" : `Rozlicz`}
                         </button>
                       </td>
                     </tr>

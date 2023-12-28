@@ -116,7 +116,7 @@ const VehicleTableAssign: React.FC<VehicleTableAssignProps> = ({
           }, w związku z którym chcesz podjąć działania`}
         </p>
         <div className="max-w-[11/12] overflow-x-auto pb-3">
-          <table className="table table-zebra rounded-md">
+          <table className="table rounded-md">
             <thead>
               <tr>
                 <th></th>
@@ -132,7 +132,10 @@ const VehicleTableAssign: React.FC<VehicleTableAssignProps> = ({
               {theVehicles &&
                 gimmeEligibleVehicles(theVehicles).map((vehicle, index) => {
                   return (
-                    <tr key={index} className={`border-none hover`}>
+                    <tr
+                      key={index}
+                      className={`border-none hover even:bg-gray-800`}
+                    >
                       <th
                         className={`text-gray-100 ${
                           index % 2 == 1 && "rounded-tl-md rounded-bl-md"

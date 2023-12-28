@@ -179,7 +179,10 @@ const DriverTableAssignVehicle: React.FC<DriverTableAssignVehicleProps> = ({
                       ? driverIncompleteRouteAmount > 5
                       : false;
                     return (
-                      <tr key={index} className={`border-none hover`}>
+                      <tr
+                        key={index}
+                        className={`border-none hover even:bg-gray-800`}
+                      >
                         <td className={`rounded-l-md text-gray-100`}>
                           {index + 1}
                         </td>
@@ -231,7 +234,8 @@ const DriverTableAssignVehicle: React.FC<DriverTableAssignVehicleProps> = ({
                                 : hasSix
                             }
                             className={`p-2 rounded-md disabled:opacity-50 font-bold ${
-                              !isTras && (driver.vehicle?.length
+                              !isTras &&
+                              (driver.vehicle?.length
                                 ? driver.vehicle.length >= 2
                                 : false)
                                 ? "bg-red-400"
