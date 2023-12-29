@@ -22,7 +22,6 @@ const TaskTableAcceptDeny: React.FC<TaskTableAcceptDenyProps> = ({
   );
 
   useEffect(() => {
-    console.log(tasksToMap);
     if (theTasks?.length < 1 && allTheTasks) {
       setTheTasks(allTheTasks);
     }

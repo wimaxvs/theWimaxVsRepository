@@ -27,7 +27,6 @@ const TaskTableAssign: React.FC<TaskTableAssignProps> = ({ allTheTasks }) => {
     if (theTasks?.length < 1 && allTheTasks) {
       setTheTasks(allTheTasks);
     }
-    console.log(tasksToMap)
   }, [allTheTasks, setTheTasks, theTasks?.length]);
 
   let onPrzypisz = (task: Partial<SafeSettlement>) => {

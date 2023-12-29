@@ -175,8 +175,8 @@ const DriverTableAssignVehicle: React.FC<DriverTableAssignVehicleProps> = ({
                       driver?.settlements?.filter(
                         (sett) => !sett.approvalStatus
                       ).length;
-                    let hasSix = driverIncompleteRouteAmount
-                      ? driverIncompleteRouteAmount > 5
+                    let hasTwelve = driverIncompleteRouteAmount
+                      ? driverIncompleteRouteAmount > 11
                       : false;
                     return (
                       <tr
@@ -231,7 +231,7 @@ const DriverTableAssignVehicle: React.FC<DriverTableAssignVehicleProps> = ({
                                 ? driver.vehicle?.length
                                   ? driver.vehicle.length >= 2
                                   : false
-                                : hasSix
+                                : hasTwelve
                             }
                             className={`p-2 rounded-md disabled:opacity-50 font-bold ${
                               !isTras &&
@@ -245,7 +245,7 @@ const DriverTableAssignVehicle: React.FC<DriverTableAssignVehicleProps> = ({
                             {(!isTras && driver.vehicle?.length
                               ? driver.vehicle.length >= 2
                               : false) ||
-                            (isTras && hasSix)
+                            (isTras && hasTwelve)
                               ? "Przydzielono"
                               : "Wybieram"}
                           </button>

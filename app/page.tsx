@@ -36,7 +36,7 @@ export default function Home() {
                   height={451}
                   width={1600}
                   alt="Vimax logo"
-                  src={"/images/Logo.jpg"}
+                  src={"/images/logo.png"}
                 />
                 <h2 className="font-bold text-md md:text-md">
                   Euro Truck Simulator 2 Company Management

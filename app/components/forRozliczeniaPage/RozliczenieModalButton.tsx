@@ -1,4 +1,4 @@
-"use client"
+"use client";
 import React, { useState } from "react";
 import { SafeDriver, SafeSettlement } from "../../types";
 import Carousel from "../Carousel";
@@ -6,14 +6,22 @@ import axios, { AxiosResponse } from "axios";
 import toast from "react-hot-toast";
 import useDriver from "../../hooks/useCurrentDriver";
 import useAllTasks from "../../hooks/useAllTasks";
+import Lightbox from "yet-another-react-lightbox";
+import "yet-another-react-lightbox/styles.css";
+
 
 interface ModalButtonProps {
   task: Partial<SafeSettlement>;
   buttonId: string;
 }
 
-const RozliczenieModalButton: React.FC<ModalButtonProps> = ({ task, buttonId }) => {
+const RozliczenieModalButton: React.FC<ModalButtonProps> = ({
+  task,
+  buttonId,
+}) => {
   let [isLoading, setIsLoading] = useState<boolean>(false);
+  const [open, setOpen] = useState<boolean>(false);
+
   let { currentDriver, setCurrentDriver, setDriver, setAllDrivers } =
     useDriver();
   let { setTheTasks } = useAllTasks();
@@ -104,7 +112,16 @@ const RozliczenieModalButton: React.FC<ModalButtonProps> = ({ task, buttonId }) 
             {`Naciśnij „Akceptuj” lub „Odrzuć”, aby wykonać odpowiednie czynności`}
           </p>
           <Carousel task={task} detailComponent={detailComponent} />
-          <div className="w-full flex flex-row justify-between px-3 mt-5">
+          <div className="w-full flex flex-row justify-between gap-2 px-3 mt-5">
+            <form method="dialog">
+              <button
+                onClick={() => setOpen(true)}
+                className="p-2 text-white font-bold rounded-md bg-blue-600  disabled:opacity-50 max-w-[1/6]"
+              >
+                Zrzuty ekranu
+              </button>
+            </form>
+
             <button
               disabled={isLoading || Boolean(task?.approvalStatus)}
               onClick={() => onAction(task, true)}
@@ -124,6 +141,14 @@ const RozliczenieModalButton: React.FC<ModalButtonProps> = ({ task, buttonId }) 
         <form method="dialog" className="modal-backdrop">
           <button>close</button>
         </form>
+        <Lightbox
+          open={open}
+          close={() => setOpen(false)}
+          slides={[
+            { src: task?.beginImage || "" },
+            { src: task?.endImage || "" },
+          ]}
+        />
       </dialog>
     </>
   );

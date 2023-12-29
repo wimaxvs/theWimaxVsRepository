@@ -203,7 +203,7 @@ const VehicleTableAssign: React.FC<VehicleTableAssignProps> = ({
                             disabled={isLoading}
                             className="p-2 rounded-md bg-red-400 disabled:opacity-50 font-bold text-white"
                           >
-                            Anuluj Przypisania
+                            Anuluj Przypisanie
                           </button>
                         )}
                       </td>

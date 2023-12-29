@@ -21,7 +21,7 @@ export async function POST(request: Request) {
   const { driverId, vehicleId } = body;
 
   try {
-    await prisma.vehicle.update({
+    let theCar = await prisma.vehicle.update({
       where: {
         id: vehicleId,
       },
@@ -31,6 +31,13 @@ export async function POST(request: Request) {
         },
       },
     });
+    let prevDrivers = theCar.prevDrivers;
+    if (prevDrivers.indexOf(driverId) === -1) {
+      await prisma.vehicle.update({
+        where: { id: theCar.id },
+        data: { prevDrivers: [...theCar.prevDrivers, driverId] },
+      });
+    }
   } catch (error) {
     if (error instanceof Prisma.PrismaClientKnownRequestError) {
       console.log(error.code);

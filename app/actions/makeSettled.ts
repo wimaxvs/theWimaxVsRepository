@@ -1,27 +1,46 @@
-// import prisma from "@/app/libs/prismadb";
+import prisma from "@/app/libs/prismadb";
 
-// export default async function getAllSettlements() {
-//   try {
-//     const allTheSettlements = await prisma.settlement.findMany({});
+export default async function makeSettled() {
+  try {
+    let newPeople = await prisma.driver.findMany({
+      include: {
+        kilometerMonths: true,
+      },
+    });
 
-//     for (const settlement of allTheSettlements) {
-//       await prisma.settlement.update({
-//         where: {
-//           id: settlement.id,
-//         },
-//         data: {
-//           createdAt: new Date(),
-//           updatedAt: new Date(),
-//         },
-//       });
-//     }
+    let theDate = new Date();
+    let currentMonth = theDate.getMonth();
+    let currentYear = theDate.getFullYear();
 
-//     if (!allTheSettlements) {
-//       return null;
-//     }
+    for (const currentDriver of newPeople) {
+      let currentKmMonth = currentDriver?.kilometerMonths?.find((kmm) => {
+        return (
+          kmm.month == currentMonth.toString() &&
+          kmm.year == currentYear.toString()
+        );
+      });
+      await prisma.driver.update({
+        where: {
+          id: currentDriver.id,
+        },
+        data: {
+          totKms: currentKmMonth?.kms,
+        },
+      });
+    }
 
-//     return allTheSettlements.filter((sett) => sett.beginImage && sett.endImage);
-//   } catch (error: any) {
-//     return error.message;
-//   }
-// }
+    let newNewPeople = await prisma.driver.findMany({
+      select: {
+        totKms: true,
+      },
+    });
+
+    if (!newNewPeople) {
+      return null;
+    }
+
+    return newNewPeople;
+  } catch (error: any) {
+    return error.message;
+  }
+}

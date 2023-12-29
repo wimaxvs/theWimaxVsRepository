@@ -98,7 +98,7 @@ const TaskAdditionForm = () => {
             register={register}
             registerId={"endLocation"}
             inputType={"text"}
-            placeholder={"Miasto konieć"}
+            placeholder={"Miasto koniec"}
             autocomplete={false}
           />
         </div>

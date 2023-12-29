@@ -40,7 +40,7 @@ export async function POST(req: Request) {
   }
 
   //check to see if settlement was already approved/disapproved
-  if(existentSettlement?.approvalStatus === true && approvalStatus === true) {
+  if (existentSettlement?.approvalStatus === true && approvalStatus === true) {
     return NextResponse.json({
       code: 400,
       message: "Rozliczenie zostało już zaakceptowany. Odśwież stronę.",
@@ -88,7 +88,7 @@ export async function POST(req: Request) {
 
   try {
     if (approvalStatus === true) {
-      await prisma.settlement.update({
+      let theSettlement = await prisma.settlement.update({
         where: {
           id: taskId,
         },
@@ -192,7 +192,7 @@ export async function POST(req: Request) {
             ? { increment: returnFloat(distanceCoveredSettlement) }
             : returnFloat(distanceCoveredSettlement),
           deliveries: currentDriver?.deliveries ? { increment: 1 } : 1,
-          avgFuelConsumption: newAvgFuelConsumption,
+          avgFuelConsumption: theSettlement.avgFuelConsumption,
         },
         include: {
           settlements: true,

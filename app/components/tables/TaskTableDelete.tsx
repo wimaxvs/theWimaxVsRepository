@@ -74,8 +74,8 @@ const TaskTableDelete = () => {
             <tr>
               <th></th>
               <th className={`text-gray-100`}>Miasto Start</th>
-              <th className={`text-gray-100`}>Miasto Konieć</th>
-              <th className={`text-gray-100`}>Usuñ</th>
+              <th className={`text-gray-100`}>Miasto Koniec</th>
+              <th className={`text-gray-100`}>Usuń</th>
             </tr>
           </thead>
           <tbody>

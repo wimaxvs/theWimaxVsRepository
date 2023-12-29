@@ -18,30 +18,31 @@ const page = async () => {
   let currentYear = theDate.getFullYear();
 
   let everyonesKms = await getAllKmms();
-  everyonesKms = Math.ceil(everyonesKms)
+  everyonesKms = Math.ceil(everyonesKms);
 
-  function getMonthName(monthValue: number): string | undefined {
-    const months = [
-      "January",
-      "February",
-      "March",
-      "April",
-      "May",
-      "June",
-      "July",
-      "August",
-      "September",
-      "October",
-      "November",
-      "December",
-    ];
+  // function getMonthName(monthValue: number): string | undefined {
+  //   const months = [
+  //     "January",
+  //     "February",
+  //     "March",
+  //     "April",
+  //     "May",
+  //     "June",
+  //     "July",
+  //     "August",
+  //     "September",
+  //     "October",
+  //     "November",
+  //     "December",
+  //   ];
 
-    if (monthValue >= 0 && monthValue < 12) {
-      return months[monthValue];
-    } else {
-      return undefined;
-    }
-  }
+  //   if (monthValue >= 0 && monthValue < 12) {
+  //     return months[monthValue];
+  //   } else {
+  //     return undefined;
+  //   }
+  // }
+
   let currentKmMonth = currentDriver?.kilometerMonths?.find((kmm) => {
     return (
       kmm.month == currentMonth.toString() && kmm.year == currentYear.toString()
@@ -64,7 +65,7 @@ const page = async () => {
     const decimalPart = parts[1] ? "." + parts[1] : "";
 
     // Add commas to the integer part
-    integerPart = integerPart.replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+    integerPart = integerPart.replace(/\B(?=(\d{3})+(?!\d))/g, " ");
 
     // Combine the integer and decimal parts
     return integerPart + decimalPart;
@@ -81,12 +82,14 @@ const page = async () => {
   }[] = [
     {
       title: "W tym miesiącu",
-      value: currentKmMonth?.kms ? `${currentKmMonth.kms} km` : `${0} km`,
+      value: currentKmMonth?.kms
+        ? `${firmBalanceAmount(currentKmMonth.kms)} km`
+        : `${0} km`,
       subtitle: "Przejechane",
     },
     {
       title: "Pod firmą Wimax",
-      value: companyKms ? `${companyKms} km` : `${0} km`,
+      value: companyKms ? `${firmBalanceAmount(companyKms)} km` : `${0} km`,
       subtitle: "Przejechane",
     },
     {
@@ -122,7 +125,7 @@ const page = async () => {
   return (
     <div className="bg-[url('/images/bkg_1.jpg')] bg-no-repeat bg-cover bg-center md:h-screen w-full md:min-h-screen md:max-h-screen oveflow-y-hidden">
       <span
-        className={` flex flex-row gap-6 items-start justify-start flex-wrap p-6 max-h-[90%] md:min-h-full overflow-y-scroll`}
+        className={` flex flex-row gap-6 items-start justify-start p-6 max-h-[90%]  overflow-y-scroll flex-wrap`}
       >
         <ClientOnly>
           <StatPad
