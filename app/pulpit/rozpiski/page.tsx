@@ -12,7 +12,10 @@ const page = async () => {
   const theCurrentDriver = await getCurrentDriver();
   let PracNavItems = ["Niewykonane trasy"];
 
-  if (theCurrentDriver?.role === "ZARZAD") {
+  if (
+    theCurrentDriver?.role === "ZARZAD" ||
+    theCurrentDriver?.role === "SPEDYTOR"
+  ) {
     PracNavItems.push(...["Dodaj lub usuń trasę"]);
   }
 

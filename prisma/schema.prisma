@@ -30,6 +30,29 @@ model Vehicle {
   firmId        String? @db.ObjectId
 }
 
+//✅beta version
+model VehicleBeta {
+  id           String   @id @default(auto()) @map("_id") @db.ObjectId
+  registration String?  @unique
+  carMark      String?
+  carModel     String?
+  carImage     String?
+  prevDrivers  String[] //convert driver user id to string and check for duplicity before pushing to array
+  mileage      Float?
+  isTrailer    Boolean?
+  height       Float?
+  width        Float?
+  length       Float?
+  maxWeight    Float?
+  createdAt    DateTime @default(now()) @db.Timestamp
+  updatedAt    DateTime @updatedAt @db.Timestamp
+
+  currentDriver DriverBeta? @relation(fields: [driverId], references: [id])
+  driverId      String?     @db.ObjectId
+  currentFirm   FirmBeta?   @relation(fields: [firmId], references: [id])
+  firmId        String?     @db.ObjectId
+}
+
 model Firm {
   id          String   @id @default(auto()) @map("_id") @db.ObjectId
   firmName    String?
@@ -47,6 +70,28 @@ model Firm {
   joinRequests JoinRequest[]
   settlements  Settlement[]
   comKms       CompanyKilometers[]
+}
+
+//✅beta version
+model FirmBeta {
+  id          String   @id @default(auto()) @map("_id") @db.ObjectId
+  firmName    String?
+  firmTag     String?  @default(" 'Kamień, który się toczy, mech nie zbiera' -  Przysłowie")
+  aboutFirm   String?  @default(" 'Sztuka nie polega na robieniu czegoś szybko, ale na robieniu czegoś na czas.' -  Jean Tinguely")
+  firmSocials String[]
+  balance     Float?   @default(0)
+  firmKms     Float?   @default(0)
+  createdAt   DateTime @default(now()) @db.Timestamp
+  updatedAt   DateTime @updatedAt @db.Timestamp
+
+  owner   DriverBeta? @relation(fields: [ownerId], references: [id], onDelete: NoAction, onUpdate: NoAction)
+  ownerId String?     @unique @db.ObjectId
+
+  drivers      DriverBeta[]            @relation("drivers")
+  vehicles     VehicleBeta[]
+  joinRequests JoinRequestBeta[]
+  settlements  SettlementBeta[]
+  comKms       CompanyKilometersBeta[]
 }
 
 model Driver {
@@ -81,6 +126,41 @@ model Driver {
   locationId      String?   @db.ObjectId
 }
 
+//✅beta version
+model DriverBeta {
+  id                 String   @id @default(auto()) @map("_id") @db.ObjectId
+  name               String?
+  username           String?  @unique
+  email              String?  @unique
+  password           String?
+  image              String?
+  firmsWorked        String[] //convert firm user id to string and check for duplicity before pushing to array
+  previousVehicles   String[]
+  balance            Float?
+  totFuel            Float?
+  totKms             Float?
+  deliveries         Int?
+  avgFuelConsumption Float?
+  seniority          String?
+  createdAt          DateTime @default(now()) @db.Timestamp
+  updatedAt          DateTime @updatedAt @db.Timestamp
+
+  role Role @default(KIEROWCA)
+
+  vehicle           VehicleBeta[]
+  kilometerMonths   KilometerMonthBeta[]
+  companyKilometers CompanyKilometersBeta?
+  settlements       SettlementBeta[]
+  firmOwned         FirmBeta?
+  joinRequest       JoinRequestBeta?
+
+  currentFirm FirmBeta? @relation(fields: [firmId], references: [id], name: "drivers")
+  firmId      String?   @db.ObjectId
+
+  currentLocation LocationBeta? @relation(fields: [locationId], references: [id])
+  locationId      String?       @db.ObjectId
+}
+
 model JoinRequest {
   id     String   @id @default(auto()) @map("_id") @db.ObjectId
   status Boolean?
@@ -90,6 +170,20 @@ model JoinRequest {
 
   toFirm Firm?   @relation(fields: [firmId], references: [id])
   firmId String? @db.ObjectId
+}
+
+//✅beta version
+model JoinRequestBeta {
+  id        String   @id @default(auto()) @map("_id") @db.ObjectId
+  status    Boolean?
+  createdAt DateTime @default(now()) @db.Timestamp
+  updatedAt DateTime @updatedAt @db.Timestamp
+
+  requester   DriverBeta? @relation(fields: [requesterId], references: [id])
+  requesterId String?     @unique @db.ObjectId
+
+  toFirm FirmBeta? @relation(fields: [firmId], references: [id])
+  firmId String?   @db.ObjectId
 }
 
 model Location {
@@ -102,6 +196,19 @@ model Location {
   settlements Settlement[]
 }
 
+//✅beta version
+model LocationBeta {
+  id        String   @id @default(auto()) @map("_id") @db.ObjectId
+  country   String?
+  city      String?
+  zipCode   String?
+  createdAt DateTime @default(now()) @db.Timestamp
+  updatedAt DateTime @updatedAt @db.Timestamp
+
+  drivers     DriverBeta[]
+  settlements SettlementBeta[]
+}
+
 model StartLocation {
   id      String  @id @default(auto()) @map("_id") @db.ObjectId
   country String?
@@ -109,6 +216,18 @@ model StartLocation {
   zipCode String?
 
   settlements Settlement[]
+}
+
+//✅beta version
+model StartLocationBeta {
+  id        String   @id @default(auto()) @map("_id") @db.ObjectId
+  country   String?
+  city      String?
+  zipCode   String?
+  createdAt DateTime @default(now()) @db.Timestamp
+  updatedAt DateTime @updatedAt @db.Timestamp
+
+  settlements SettlementBeta[]
 }
 
 model KilometerMonth {
@@ -120,6 +239,19 @@ model KilometerMonth {
   driverId String? @db.ObjectId
 }
 
+//✅beta version
+model KilometerMonthBeta {
+  id        String   @id @default(auto()) @map("_id") @db.ObjectId
+  month     String?
+  year      String?
+  kms       Float?
+  createdAt DateTime @default(now()) @db.Timestamp
+  updatedAt DateTime @updatedAt @db.Timestamp
+
+  driver   DriverBeta? @relation(fields: [driverId], references: [id], onDelete: Cascade)
+  driverId String?     @db.ObjectId
+}
+
 model CompanyKilometers {
   id       String  @id @default(auto()) @map("_id") @db.ObjectId
   kms      Float?
@@ -129,7 +261,51 @@ model CompanyKilometers {
   firmId   String? @db.ObjectId
 }
 
+//✅beta version
+model CompanyKilometersBeta {
+  id        String   @id @default(auto()) @map("_id") @db.ObjectId
+  kms       Float?
+  createdAt DateTime @default(now()) @db.Timestamp
+  updatedAt DateTime @updatedAt @db.Timestamp
+
+  driver   DriverBeta? @relation(fields: [driverId], references: [id], onDelete: Cascade)
+  driverId String?     @unique @db.ObjectId
+  firm     FirmBeta?   @relation(fields: [firmId], references: [id], onDelete: Cascade)
+  firmId   String?     @db.ObjectId
+}
+
 model Settlement {
+  id String @id @default(auto()) @map("_id") @db.ObjectId
+
+  beginImage                String? 
+  endImage                  String?
+  distanceCoveredSettlement Float?
+  fuelUsed                  Float?
+  avgFuelConsumption        Float?
+  litersRefueled            Float?
+  deliveryTime              Int? //mins
+  expensesSpent             Float?
+  weight                    Float?
+  ferries                   Float?
+  highways                  String[]
+  products                  String[]
+  approvalStatus            Boolean?
+  isSettled                 Boolean?
+  misc                      String[]
+
+  startLocation   StartLocation? @relation(fields: [startLocationId], references: [id], onDelete: Cascade)
+  startLocationId String?        @db.ObjectId
+  endLocation     Location?      @relation(fields: [locationId], references: [id], onDelete: Cascade)
+  locationId      String?        @db.ObjectId
+
+  driver   Driver? @relation(fields: [driverId], references: [id], onDelete: Cascade)
+  driverId String? @db.ObjectId
+  Firm     Firm?   @relation(fields: [firmId], references: [id], onDelete: Cascade)
+  firmId   String? @db.ObjectId
+}
+
+//✅beta version
+model SettlementBeta {
   id String @id @default(auto()) @map("_id") @db.ObjectId
 
   beginImage                String?
@@ -145,18 +321,20 @@ model Settlement {
   highways                  String[]
   products                  String[]
   approvalStatus            Boolean?
-  isSettled                 Boolean? 
+  isSettled                 Boolean?
   misc                      String[]
+  createdAt                 DateTime @default(now()) @db.Timestamp
+  updatedAt                 DateTime @default(now()) @updatedAt @db.Timestamp
 
-  startLocation   StartLocation? @relation(fields: [startLocationId], references: [id], onDelete: Cascade)
-  startLocationId String?        @db.ObjectId
-  endLocation     Location?      @relation(fields: [locationId], references: [id], onDelete: Cascade)
-  locationId      String?        @db.ObjectId
+  startLocation   StartLocationBeta? @relation(fields: [startLocationId], references: [id], onDelete: Cascade)
+  startLocationId String?            @db.ObjectId
+  endLocation     LocationBeta?      @relation(fields: [locationId], references: [id], onDelete: Cascade)
+  locationId      String?            @db.ObjectId
 
-  driver   Driver? @relation(fields: [driverId], references: [id], onDelete: Cascade)
-  driverId String? @db.ObjectId
-  Firm     Firm?   @relation(fields: [firmId], references: [id], onDelete: Cascade)
-  firmId   String? @db.ObjectId
+  driver   DriverBeta? @relation(fields: [driverId], references: [id], onDelete: Cascade)
+  driverId String?     @db.ObjectId
+  Firm     FirmBeta?   @relation(fields: [firmId], references: [id], onDelete: Cascade)
+  firmId   String?     @db.ObjectId
 }
 
 model FirmBalance {

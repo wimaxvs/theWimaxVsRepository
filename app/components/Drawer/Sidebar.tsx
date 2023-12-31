@@ -10,6 +10,7 @@ interface SideBarAttributes {
 const Sidebar: React.FC<SideBarAttributes> = ({ role, firmName }) => {
   let isInside = firmName?.toLowerCase() === "wimax";
   let isZarzad = role === "ZARZAD";
+  let isSpedytor = role === "SPEDYTOR";
 
   let segmentContent: {
     h2?: string;
@@ -53,13 +54,26 @@ const Sidebar: React.FC<SideBarAttributes> = ({ role, firmName }) => {
         },
       ],
     },
-    
+
     {
       h2: "Rozliczenia",
       links: [
         {
           label: "Rozlicz wykonaną trasę",
           link: "rozliczenia",
+          color: "#1fb2a6",
+        },
+      ],
+    },
+  ];
+
+  let spedytorClearanceContent: typeof segmentContent = [
+    {
+      h2: "Rozpiski",
+      links: [
+        {
+          label: "Trasy do ukończenia",
+          link: "rozpiski",
           color: "#1fb2a6",
         },
       ],
@@ -97,6 +111,9 @@ const Sidebar: React.FC<SideBarAttributes> = ({ role, firmName }) => {
   if (isInside) {
     segmentContent.shift();
     segmentContent.unshift(...insiderSegmentContent);
+    if (isSpedytor) {
+      segmentContent.splice(-2, 0, ...spedytorClearanceContent);
+    }
     if (isZarzad) {
       segmentContent.splice(-2, 0, ...zarzadClearanceContent);
     }
