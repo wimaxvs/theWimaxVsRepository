@@ -28,7 +28,7 @@ const TaskSettlementView: React.FC<TaskSettlementViewProps> = ({ allTheTasks, th
     >
       <div className="rightPartition md:max-w-[1/2] md:min-w-[1/2] md:max-h-full rounded-xl flex flex-col w-full min-h-[265.5px] max-h-[265.5px] overflow-y-scroll gap-1 pl-2 pr-3 pt-2 mr-4 bg-gray-950">
         {tbaKeys.length < 1 && <TaskTableRozlicz allTheTasks={allTheTasks} />}
-        {tbaKeys.length >= 1 && <TaskSettlementFormContainer theCurrentDriver={theCurrentDriver} />}
+        {tbaKeys.length >= 1 && <TaskSettlementFormContainer />}
       </div>
     </div>
   );
