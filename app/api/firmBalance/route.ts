@@ -1,10 +1,9 @@
 import { NextResponse } from "next/server";
 import prisma from "@/app/libs/prismadb";
-import { Driver } from "@prisma/client";
 import getCurrentDriver from "@/app/actions/getCurrentDriver";
 
 export async function POST(request: Request) {
-  const currentDriver: Driver | null = await getCurrentDriver();
+  const currentDriver = await getCurrentDriver();
 
   if (!currentDriver) {
     return NextResponse.json({ code: 500, message: "Nieznany użytkownik." });
