@@ -6,7 +6,7 @@ import { NextResponse } from "next/server";
 import { objectDateToString, objectArrayDatesToString } from "../assign/route";
 
 export async function POST(req: Request) {
-  const currentDriver: Partial<SafeDriver> | null = await getCurrentDriver();
+  const currentDriver = await getCurrentDriver();
 
   if (!currentDriver) {
     return NextResponse.json({ code: 500, message: "Nieznany użytkownik." });

@@ -10,7 +10,7 @@ export async function POST(req: Request) {
   let { taskId, approvalStatus } = body;
   console.log(taskId, approvalStatus);
   
-  const currentDriver: Partial<SafeDriver> | null = await getCurrentDriver();
+  const currentDriver = await getCurrentDriver();
   
   if (!currentDriver) {
     return NextResponse.json({ code: 500, message: "Nieznany użytkownik." });

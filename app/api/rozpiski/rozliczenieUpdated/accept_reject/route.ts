@@ -10,7 +10,7 @@ export async function POST(req: Request) {
   const body = await req.json();
   let { taskId, approvalStatus } = body;
 
-  const inspector: Partial<SafeDriver> | null = await getCurrentDriver();
+  const inspector = await getCurrentDriver();
 
   //check to see if driver exists and if he's zarzad/spedytor level
   if (!inspector) {

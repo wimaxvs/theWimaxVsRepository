@@ -5,7 +5,7 @@ import getCurrentDriver from "@/app/actions/getCurrentDriver";
 import { Driver } from "@prisma/client";
 
 export async function POST(request: Request) {
-  const currentDriver: Driver | null = await getCurrentDriver();
+  const currentDriver = await getCurrentDriver();
 
   if (!currentDriver) {
     return NextResponse.error();
