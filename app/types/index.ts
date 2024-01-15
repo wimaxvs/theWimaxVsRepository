@@ -1,51 +1,58 @@
 import {
-  CompanyKilometers,
-  Driver,
-  Firm,
-  JoinRequest,
-  KilometerMonth,
+  CompanyKilometersBeta,
+  DriverBeta,
+  FirmBeta,
+  JoinRequestBeta,
+  KilometerMonthBeta,
   Location,
-  Settlement,
+  SettlementBeta,
   StartLocation,
-  Vehicle,
+  VehicleBeta,
 } from "@prisma/client";
 
-export type SafeDriver = Driver & {
-  firmOwned?: Firm | null;
-  joinRequest?: JoinRequest | null;
+export type SafeDriver = Omit<DriverBeta, "createdAt" | "updatedAt"> & {
+  updatedAt: string
+  createdAt: string
+  firmOwned?: FirmBeta | null;
+  joinRequest?: JoinRequestBeta | null;
   currentLocation?: Location | null;
-  currentFirm?: Firm | null;
-  settlements?: Settlement[] | null;
-  companyKilometers?: CompanyKilometers | null;
-  kilometerMonths?: KilometerMonth[] | null;
-  vehicle?: Vehicle[] | null;
+  currentFirm?: FirmBeta | null;
+  settlements?: SettlementBeta[] | null;
+  companyKilometers?: CompanyKilometersBeta | null;
+  kilometerMonths?: KilometerMonthBeta[] | null;
+  vehicle?: SafeVehicle[] | null;
+  id?: string
 };
 
-export type SafeFirm = Firm & {
-  drivers: Driver[];
-  joinRequests: JoinRequest[];
+export type SafeFirm = FirmBeta & {
+  drivers: DriverBeta[];
+  joinRequests: JoinRequestBeta[];
 };
-export type SafeVehicle = Vehicle & {
-  currentDriver: Driver | null;
-  currentFirm: Firm | null;
+export type SafeVehicle = Omit<VehicleBeta, "createdAt" | "updatedAt"> & {
+  updatedAt: string;
+  createdAt: string;
+  currentDriver: DriverBeta | null;
+  currentFirm: FirmBeta | null;
 };
-export type SafeSettlement = Settlement & {
+export type SafeSettlement = Omit<SettlementBeta, "createdAt" | "updatedAt"> & {
+  updatedAt: string;
+  createdAt: string;
   startLocation: StartLocation | null;
   endLocation: Location | null;
-  driver: Driver | null;
-  Firm: Firm | null;
+  driver: DriverBeta | null;
+  Firm: FirmBeta | null;
 };
 
-export type SafeJoinRequest = JoinRequest & {
-  toFirm?: Firm;
-  requester?: Driver;
+export type SafeJoinRequest = JoinRequestBeta & {
+  toFirm?: FirmBeta;
+  requester?: DriverBeta;
 };
 
-export type allTheDrivers = (Driver & {
-  vehicle: Vehicle | null;
-  joinRequest: JoinRequest | null;
-  companyKilometers: CompanyKilometers | null;
-  kilometerMonths: KilometerMonth[];
-  currentFirm: Firm | null;
+export type allTheDrivers = (DriverBeta & {
+  vehicle: VehicleBeta | null;
+  joinRequest: JoinRequestBeta | null;
+  companyKilometers: CompanyKilometersBeta | null;
+  kilometerMonths: KilometerMonthBeta[];
+  currentFirm: FirmBeta | null;
   currentLocation: Location | null;
 })[];

@@ -1,5 +1,5 @@
 "use client";
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import useTaskBeingSent from "@/app/hooks/useTaskBeingSent";
 import useAllTasks from "@/app/hooks/useAllTasks";
 import TaskSettlementForm from "./TaskSettlementForm";
@@ -12,12 +12,12 @@ import useIA from "./ImageAddition/hooks/useIA";
 import useDriver from "@/app/hooks/useCurrentDriver";
 
 interface TaskSettlementFormContainerProps {
-  theCurrentDriver: SafeDriver | null;
+  // theCurrentDriver: SafeDriver | null;
 }
 
 const TaskSettlementFormContainer: React.FC<
   TaskSettlementFormContainerProps
-> = ({ theCurrentDriver }) => {
+> = ({  }) => {
   let { pageNumber, setPageNumber } = useTaskBeingSent();
   let { uploadFile } = useIA();
   let { taskBeingAssigned, setTheTasks, setTaskBeingAssigned } = useAllTasks();
@@ -57,7 +57,6 @@ const TaskSettlementFormContainer: React.FC<
 
   const onSubmit: SubmitHandler<FieldValues> = async (data: FieldValues) => {
     setIsLoading((isLoading) => !isLoading);
-    console.log(currentDriver);
     if (!currentDriver?.vehicle?.[0]) {
       toast.error(
         <>
@@ -93,7 +92,6 @@ const TaskSettlementFormContainer: React.FC<
       endImage: ndImg,
     };
 
-    console.log(data);
 
     let toDb = JSON.stringify(data);
     setIsLoading((isLoading) => !isLoading);
@@ -110,7 +108,6 @@ const TaskSettlementFormContainer: React.FC<
           }>
         ) => {
           if (res.data.code === 500 || res.data.code === 400) {
-            console.log(res.data);
             throw new Error(res.data.message);
           }
           if (res.data.affectedDriver) {

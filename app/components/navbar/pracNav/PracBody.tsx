@@ -9,20 +9,22 @@ interface PracBodyProps {
   allTheDrivers?: Partial<SafeDriver>[];
   firmId?: string;
   children?: React.ReactNode;
+  allTheFirms?: any[]
 }
 
 const PracBody: React.FC<PracBodyProps> = ({
   allTheDrivers,
   firmId,
   children,
+  allTheFirms
 }) => {
   let { theLocation, isFirstTab, setTheLocation } = usePracNav();
 
   let pathname = usePathname();
 
   useEffect(() => {
+    console.log(allTheFirms)
     if (pathname?.includes("pracownicy")) {
-      console.log("hit");
       setTheLocation("Zwolnij lub Awansuj");
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps

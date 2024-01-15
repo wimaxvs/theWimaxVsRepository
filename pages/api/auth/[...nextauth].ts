@@ -24,7 +24,7 @@ export const authOptions: AuthOptions = {
           throw new Error("Nieprawidłowe poświadczenia użytkownika");
         }
 
-        const driver = await prisma.driver.findUnique({
+        const driver = await prisma.driverBeta.findUnique({
           where: {
             email: credentials.email,
           },

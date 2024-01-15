@@ -38,6 +38,14 @@ const Sidebar: React.FC<SideBarAttributes> = ({ role, firmName }) => {
     },
   ];
 
+  if (isZarzad) {
+    segmentContent[1].links.push({
+      label: "Statystyki",
+      link: "staty",
+      color: "#1fb2a6",
+    });
+  }
+
   let insiderSegmentContent: typeof segmentContent = [
     {
       h2: "Pojazdy i przyczepy",

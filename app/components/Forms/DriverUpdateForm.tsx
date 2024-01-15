@@ -49,7 +49,6 @@ const DriverUpdateForm = () => {
     };
 
     let toDb = JSON.stringify(data);
-    console.log(toDb);
 
     axios
       .post("/api/drupdate", toDb)
@@ -61,7 +60,6 @@ const DriverUpdateForm = () => {
             message?: string;
           }>
         ) => {
-          console.log(res)
           if (res.data.code === 500 || res.data.code === 400) {
             throw new Error(res.data.message);
           }

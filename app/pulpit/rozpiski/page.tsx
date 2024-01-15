@@ -31,7 +31,6 @@ const page = async () => {
           <PracNav PracNavItems={PracNavItems} />
           <PracBody>
             <TaskPageContainer
-              theCurrentDriver={theCurrentDriver}
               allTheTasks={allTheTasks}
               allTheDrivers={allTheDrivers}
               firmId={theCurrentDriver?.currentFirm?.id}

@@ -5,9 +5,8 @@ import { FieldValues, SubmitHandler, useForm } from "react-hook-form";
 import toast from "react-hot-toast";
 import useDriver from "@/app/hooks/useCurrentDriver";
 
-import { MdOutlineMailOutline, MdOutlinePermIdentity } from "react-icons/md";
+import { MdOutlineMailOutline } from "react-icons/md";
 import { RiLockPasswordLine } from "react-icons/ri";
-import { nextResponseMessage } from "@/app/api/drupdate/route";
 import { Driver } from "@prisma/client";
 import InputDecipher from "./inputs/InputDecipher";
 

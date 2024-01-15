@@ -3,13 +3,14 @@ import getCurrentDriver from "@/app/actions/getCurrentDriver";
 import ClientOnly from "@/app/components/ClientOnly";
 import PracBody from "@/app/components/navbar/pracNav/PracBody";
 import PracNav from "@/app/components/navbar/pracNav/PracNav";
-import {  SafeSettlement } from "@/app/types";
+import {  SafeDriver, SafeSettlement } from "@/app/types";
 import React from "react";
 import RozliczTaskPageContainer from "@/app/components/forRozliczeniaPage/RozliczTaskPageContainer";
 
 
 const page = async () => {
-  const theCurrentDriver = await getCurrentDriver();
+  let theCurrentDriver = await getCurrentDriver();
+  let currentDriver = {...theCurrentDriver, id: theCurrentDriver?.id || "", firmId: theCurrentDriver?.firmId || null, balance: theCurrentDriver?.balance || 0}
   let PracNavItems = ["Ustal trasy"];
 
   if (
@@ -31,7 +32,7 @@ const page = async () => {
           <PracNav PracNavItems={PracNavItems} />
           <PracBody>
             <RozliczTaskPageContainer
-              theCurrentDriver={theCurrentDriver}
+              theCurrentDriver={currentDriver}
               allTheTasks={allTheTasks}
             />
           </PracBody>

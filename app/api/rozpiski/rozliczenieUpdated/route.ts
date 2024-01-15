@@ -3,6 +3,7 @@ import { SafeDriver } from "@/app/types";
 import prisma from "@/app/libs/prismadb";
 import { Prisma } from "@prisma/client";
 import { NextResponse } from "next/server";
+import { objectDateToString, objectArrayDatesToString } from "../assign/route";
 
 export async function POST(req: Request) {
   const currentDriver: Partial<SafeDriver> | null = await getCurrentDriver();
@@ -30,7 +31,7 @@ export async function POST(req: Request) {
   let settlementAvgFuelConsumption =
     (fuelUsed * 100) / distanceCoveredSettlement;
 
-  let existentSettlement = await prisma.settlement.findFirst({
+  let existentSettlement = await prisma.settlementBeta.findFirst({
     where: {
       id: taskId,
     },
@@ -46,7 +47,7 @@ export async function POST(req: Request) {
   let returnFloat = (value: number) => parseFloat(Number(value).toFixed(2));
 
   try {
-    await prisma.settlement.update({
+    await prisma.settlementBeta.update({
       where: {
         id: taskId,
       },
@@ -67,7 +68,7 @@ export async function POST(req: Request) {
       },
     });
 
-    let allTheTasks = await prisma.settlement.findMany({
+    let allTheTasksBeta = await prisma.settlementBeta.findMany({
       include: {
         startLocation: true,
         endLocation: true,
@@ -75,7 +76,9 @@ export async function POST(req: Request) {
       },
     });
 
-    let affectedDriver = currentDriver;
+    let affectedDriverBeta = currentDriver;
+    let affectedDriver = affectedDriverBeta;
+    let allTheTasks = objectArrayDatesToString(allTheTasksBeta);
 
     return NextResponse.json({
       code: 200,

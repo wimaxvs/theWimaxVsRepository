@@ -21,7 +21,7 @@ const page = async () => {
         <ClientOnly>
           <PracNav PracNavItems={["Zwolnij lub Awansuj"]} />
           {/* //"Zatrudnij", */}
-          <PracBody allTheDrivers={allTheDrivers} firmId={firmId} />
+          <PracBody allTheFirms={allTheFirms} allTheDrivers={allTheDrivers} firmId={firmId} />
         </ClientOnly>
       </section>
     </div>

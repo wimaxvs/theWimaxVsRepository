@@ -3,6 +3,7 @@ import { SafeDriver } from "@/app/types";
 import prisma from "@/app/libs/prismadb";
 import { Prisma } from "@prisma/client";
 import { NextResponse } from "next/server";
+import { objectDateToString, objectArrayDatesToString } from "../../assign/route";
 
 export async function POST(req: Request) {
   //parse request body
@@ -26,7 +27,7 @@ export async function POST(req: Request) {
   let dzienRozliczenie = new Date();
 
   //check to see if settlement exists
-  let existentSettlement = await prisma.settlement.findFirst({
+  let existentSettlement = await prisma.settlementBeta.findFirst({
     where: {
       id: taskId,
     },
@@ -48,7 +49,7 @@ export async function POST(req: Request) {
   }
 
   //get the settlements driver
-  let currentDriver = await prisma.driver.findFirst({
+  let currentDriver = await prisma.driverBeta.findFirst({
     where: {
       id: existentSettlement.driverId!,
     },
@@ -88,7 +89,7 @@ export async function POST(req: Request) {
 
   try {
     if (approvalStatus === true) {
-      let theSettlement = await prisma.settlement.update({
+      let theSettlement = await prisma.settlementBeta.update({
         where: {
           id: taskId,
         },
@@ -97,7 +98,7 @@ export async function POST(req: Request) {
         },
       });
 
-      let thisKmMonth = await prisma.kilometerMonth.findFirst({
+      let thisKmMonth = await prisma.kilometerMonthBeta.findFirst({
         where: {
           month: dzienRozliczenie.getMonth().toString(),
           year: dzienRozliczenie.getFullYear().toString(),
@@ -106,7 +107,7 @@ export async function POST(req: Request) {
       });
 
       if (!thisKmMonth) {
-        await prisma.kilometerMonth.create({
+        await prisma.kilometerMonthBeta.create({
           data: {
             month: dzienRozliczenie.getMonth().toString(),
             year: dzienRozliczenie.getFullYear().toString(),
@@ -119,7 +120,7 @@ export async function POST(req: Request) {
           },
         });
       } else {
-        await prisma.kilometerMonth.update({
+        await prisma.kilometerMonthBeta.update({
           where: {
             id: thisKmMonth?.id,
           },
@@ -129,14 +130,14 @@ export async function POST(req: Request) {
         });
       }
 
-      let currentDriverCompanyKms = await prisma.companyKilometers.findFirst({
+      let currentDriverCompanyKms = await prisma.companyKilometersBeta.findFirst({
         where: {
           id: currentDriver?.companyKilometers?.id,
         },
       });
 
       if (!currentDriver.companyKilometers) {
-        await prisma.companyKilometers.create({
+        await prisma.companyKilometersBeta.create({
           data: {
             kms: +distanceCoveredSettlement,
             driver: {
@@ -152,7 +153,7 @@ export async function POST(req: Request) {
           },
         });
       } else {
-        await prisma.companyKilometers.update({
+        await prisma.companyKilometersBeta.update({
           where: {
             id: currentDriverCompanyKms?.id,
           },
@@ -162,7 +163,7 @@ export async function POST(req: Request) {
         });
       }
 
-      await prisma.vehicle.update({
+      await prisma.vehicleBeta.update({
         where: {
           id: currentDriver?.vehicle?.[0].id,
         },
@@ -173,14 +174,14 @@ export async function POST(req: Request) {
         },
       });
 
-      let allTheTasks = await prisma.settlement.findMany({
+      let allTheTasksBeta = await prisma.settlementBeta.findMany({
         include: {
           startLocation: true,
           endLocation: true,
           driver: true,
         },
       });
-      let affectedDriver = await prisma.driver.update({
+      let affectedDriverBeta = await prisma.driverBeta.update({
         where: {
           id: currentDriver.id,
         },
@@ -204,6 +205,10 @@ export async function POST(req: Request) {
           currentFirm: true,
         },
       });
+
+          let affectedDriver = objectDateToString(affectedDriverBeta);
+          let allTheTasks = objectArrayDatesToString(allTheTasksBeta);
+
       return NextResponse.json({
         code: 200,
         message: "Rozliczenia została przyjęta pomyślnie",
@@ -213,7 +218,7 @@ export async function POST(req: Request) {
     }
 
     if (approvalStatus === false) {
-      await prisma.settlement.update({
+      await prisma.settlementBeta.update({
         where: {
           id: taskId,
         },
@@ -223,7 +228,7 @@ export async function POST(req: Request) {
         },
       });
 
-      let allTheTasks = await prisma.settlement.findMany({
+      let allTheTasks = await prisma.settlementBeta.findMany({
         include: {
           startLocation: true,
           endLocation: true,

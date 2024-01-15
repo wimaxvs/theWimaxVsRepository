@@ -157,7 +157,7 @@ model DriverBeta {
   currentFirm FirmBeta? @relation(fields: [firmId], references: [id], name: "drivers")
   firmId      String?   @db.ObjectId
 
-  currentLocation LocationBeta? @relation(fields: [locationId], references: [id])
+  currentLocation Location? @relation(fields: [locationId], references: [id], name: "driversBeta")
   locationId      String?       @db.ObjectId
 }
 
@@ -193,21 +193,11 @@ model Location {
   zipCode String?
 
   drivers     Driver[]
+  driversB     DriverBeta[] @relation("driversBeta")
   settlements Settlement[]
+  settlementsB SettlementBeta[] @relation("settlementLocation")
 }
 
-//✅beta version
-model LocationBeta {
-  id        String   @id @default(auto()) @map("_id") @db.ObjectId
-  country   String?
-  city      String?
-  zipCode   String?
-  createdAt DateTime @default(now()) @db.Timestamp
-  updatedAt DateTime @updatedAt @db.Timestamp
-
-  drivers     DriverBeta[]
-  settlements SettlementBeta[]
-}
 
 model StartLocation {
   id      String  @id @default(auto()) @map("_id") @db.ObjectId
@@ -216,19 +206,9 @@ model StartLocation {
   zipCode String?
 
   settlements Settlement[]
+  settlementsB SettlementBeta[]
 }
 
-//✅beta version
-model StartLocationBeta {
-  id        String   @id @default(auto()) @map("_id") @db.ObjectId
-  country   String?
-  city      String?
-  zipCode   String?
-  createdAt DateTime @default(now()) @db.Timestamp
-  updatedAt DateTime @updatedAt @db.Timestamp
-
-  settlements SettlementBeta[]
-}
 
 model KilometerMonth {
   id       String  @id @default(auto()) @map("_id") @db.ObjectId
@@ -326,9 +306,9 @@ model SettlementBeta {
   createdAt                 DateTime @default(now()) @db.Timestamp
   updatedAt                 DateTime @default(now()) @updatedAt @db.Timestamp
 
-  startLocation   StartLocationBeta? @relation(fields: [startLocationId], references: [id], onDelete: Cascade)
+  startLocation   StartLocation? @relation(fields: [startLocationId], references: [id], onDelete: Cascade)
   startLocationId String?            @db.ObjectId
-  endLocation     LocationBeta?      @relation(fields: [locationId], references: [id], onDelete: Cascade)
+  endLocation     Location?      @relation(fields: [locationId], references: [id], onDelete: Cascade, name: "settlementLocation")
   locationId      String?            @db.ObjectId
 
   driver   DriverBeta? @relation(fields: [driverId], references: [id], onDelete: Cascade)

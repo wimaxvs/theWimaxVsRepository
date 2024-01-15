@@ -33,7 +33,6 @@ const TaskSettlementForm: React.FC<TaskSettlementFormProps> = ({
   };
 
   let goForward = () => {
-    console.log("hit");
     setPageNumber(2);
   };
 

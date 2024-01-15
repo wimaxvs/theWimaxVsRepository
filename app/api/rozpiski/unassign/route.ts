@@ -3,6 +3,7 @@ import { NextResponse } from "next/server";
 import prisma from "@/app/libs/prismadb";
 import { Prisma, Vehicle } from "@prisma/client";
 import getCurrentDriver from "@/app/actions/getCurrentDriver";
+import { objectArrayDatesToString, objectDateToString } from "../assign/route";
 
 export type nextResponseMessage = {
   code: number;
@@ -21,7 +22,7 @@ export async function POST(request: Request) {
   const { driverId, taskId } = body;
 
   try {
-    await prisma.settlement.update({
+    await prisma.settlementBeta.update({
       where: {
         id: taskId,
       },
@@ -38,10 +39,10 @@ export async function POST(request: Request) {
       NextResponse.json({ code: 500, message: error });
     }
   }
-  let affectedDriver;
-  let allTheDrivers;
+  let affectedDriverBeta;
+  let allTheDriversBeta;
   if (driverId) {
-    affectedDriver = await prisma.driver.findFirst({
+    affectedDriverBeta = await prisma.driverBeta.findFirst({
       where: {
         id: driverId,
       },
@@ -55,7 +56,7 @@ export async function POST(request: Request) {
         settlements: true,
       },
     });
-    allTheDrivers = await prisma.driver.findMany({
+    allTheDriversBeta = await prisma.driverBeta.findMany({
       include: {
         vehicle: true,
         kilometerMonths: true,
@@ -67,10 +68,10 @@ export async function POST(request: Request) {
       },
     });
   } else {
-    affectedDriver = null;
-    allTheDrivers = null;
+    affectedDriverBeta = null;
+    allTheDriversBeta = null;
   }
-  let allTheTasks = await prisma.settlement.findMany({
+  let allTheTasksBeta = await prisma.settlementBeta.findMany({
     include: {
       driver: true,
       Firm: true,
@@ -78,6 +79,11 @@ export async function POST(request: Request) {
       endLocation: true
     },
   });
+
+      let affectedDriver = objectDateToString(affectedDriverBeta);
+      let allTheDrivers = objectArrayDatesToString(allTheDriversBeta);
+      let allTheTasks = objectArrayDatesToString(allTheTasksBeta);
+
 
   let successMessage = "Pomyślnie usunięto przypisanie trasa do kierowcy.";
 

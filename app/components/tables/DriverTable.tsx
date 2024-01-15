@@ -12,6 +12,7 @@ const DriverTable: React.FC<DriverTableProps> = ({ initialDrivers }) => {
   let { setAllDrivers, allDrivers: drivers } = useDriver();
 
   useEffect(() => {
+    console.log(initialDrivers.map(driver => driver.vehicle))
     //if the user is deleted from the db, this still won't run because drivers.length !== 0. Because the ui is rendering drivers, the only way to get it to work as expected is by making the value of drivers change even though useEffect isn't running. UseEffect in this instance is being used to instantiate the value of an empty drivers array.
     if (initialDrivers && drivers.length == 0) {
       setAllDrivers(initialDrivers);

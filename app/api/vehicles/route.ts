@@ -3,6 +3,7 @@ import { SafeDriver } from "@/app/types";
 import prisma from "@/app/libs/prismadb";
 import { Prisma } from "@prisma/client";
 import { NextResponse } from "next/server";
+import { objectArrayDatesToString } from "../rozpiski/assign/route";
 
 export async function POST(req: Request) {
   const currentDriver: Partial<SafeDriver> | null = await getCurrentDriver();
@@ -29,12 +30,12 @@ export async function POST(req: Request) {
   } = body;
 
   try {
-    let theFirm = await prisma.firm.findUnique({
+    let theFirm = await prisma.firmBeta.findUnique({
       where: {
         id: currentDriver?.currentFirm?.id,
       },
     });
-    let newCar = await prisma.vehicle.create({
+    let newCar = await prisma.vehicleBeta.create({
       data: {
         registration,
         carMark,
@@ -49,7 +50,7 @@ export async function POST(req: Request) {
       },
     });
 
-    await prisma.vehicle.update({
+    await prisma.vehicleBeta.update({
       where: {
         id: newCar?.id,
       },
@@ -61,12 +62,15 @@ export async function POST(req: Request) {
         },
       },
     });
-    let allTheVehicles = await prisma.vehicle.findMany({
+    let allTheVehiclesBeta = await prisma.vehicleBeta.findMany({
       include: {
         currentDriver: true,
         currentFirm: true,
       },
     });
+
+    let allTheVehicles = objectArrayDatesToString(allTheVehiclesBeta);
+
     return NextResponse.json({
       code: 200,
       message: "Pomyślnie dodano nowy pojazd",

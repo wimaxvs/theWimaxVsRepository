@@ -14,7 +14,7 @@ export async function POST(request: Request) {
   const body = await request.json();
   let { firmId, requesterId }: { firmId: string; requesterId: string } = body;
 
-  const firmRequested = await prisma.firm.findUnique({
+  const firmRequested = await prisma.firmBeta.findUnique({
     where: {
       id: firmId,
     },
@@ -38,7 +38,7 @@ export async function POST(request: Request) {
     return NextResponse.json({ code: 500, message: "Firma nie istnieje" });
   }
 
-  const persistentDriver = await prisma.driver.findFirst({
+  const persistentDriver = await prisma.driverBeta.findFirst({
     where: {
       id: requesterId,
     },
@@ -54,7 +54,7 @@ export async function POST(request: Request) {
     });
 
   try {
-    const theNewRequest = await prisma.joinRequest.create({
+    const theNewRequest = await prisma.joinRequestBeta.create({
       //create new request and set the requester and put requested firm in requestedFirm list
       data: {
         firmId,
@@ -73,8 +73,6 @@ export async function POST(request: Request) {
         },
       },
     });
-
-    console.log(theNewRequest);
 
     return NextResponse.json({
       theNewRequest,

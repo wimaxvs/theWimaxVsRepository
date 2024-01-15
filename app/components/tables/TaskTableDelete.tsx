@@ -82,6 +82,12 @@ const TaskTableDelete = () => {
             {theTasks &&
               theTasks
                 .filter((t) => !t.approvalStatus)
+                .sort((a, b) => {
+                  let aDate = new Date(a.createdAt as string).getTime();
+                  let bDate = new Date(b.createdAt as string).getTime();
+
+                  return bDate - aDate;
+                })
                 .map((task, index) => {
                   return (
                     <tr

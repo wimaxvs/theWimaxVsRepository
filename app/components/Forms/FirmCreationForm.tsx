@@ -39,14 +39,12 @@ const FirmCreationForm = () => {
 
   const onSubmit: SubmitHandler<FieldValues> = (data: FieldValues) => {
     setIsLoading((isLoading) => !isLoading);
-    console.log(data);
     const extractedData = { ...data.firmDetails };
     let links = extractedData.firmSocials.map(
       (link: { link: string }) => link.link
     );
 
     let toDb = { ...extractedData, firmSocials: links };
-    console.log(toDb);
 
     let deets = JSON.stringify(toDb);
 
@@ -63,7 +61,6 @@ const FirmCreationForm = () => {
         return reset();
       })
       .catch((error: any) => {
-        console.log(error);
         switch (error.code) {
           case "ERR_BAD_RESPONSE":
             toast.error(`Błąd: Masz już firmę.`);

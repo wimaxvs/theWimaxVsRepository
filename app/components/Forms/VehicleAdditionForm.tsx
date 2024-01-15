@@ -4,7 +4,6 @@ import InputDecipher from "./inputs/InputDecipher";
 import { FieldValues, SubmitHandler, useForm } from "react-hook-form";
 import useIA from "./ImageAddition/hooks/useIA";
 import ImageAddition from "./ImageAddition/ImageAddition";
-import useDriver from "@/app/hooks/useCurrentDriver";
 
 import { ImInsertTemplate } from "react-icons/im";
 import axios, { AxiosResponse } from "axios";
@@ -62,7 +61,6 @@ const VehicleAdditionForm: React.FC<VehicleAdditionFormProps> = ({
     };
 
     let toDb = JSON.stringify(data);
-    console.log(toDb);
 
     axios
       .post("/api/vehicles", toDb)
@@ -75,7 +73,6 @@ const VehicleAdditionForm: React.FC<VehicleAdditionFormProps> = ({
           }>
         ) => {
           if (res.data.code === 500 || res.data.code === 400) {
-            // console.log(res.data);
             throw new Error(res.data.message);
           }
           setTheVehicles(res.data.allTheVehicles);

@@ -8,7 +8,6 @@ import AddDeleteTasks from "./AddDeleteTasks";
 
 interface TaskPageContainerProps {
   allTheTasks: SafeSettlement[] | null;
-  theCurrentDriver: SafeDriver | null;
   allTheDrivers: SafeDriver[];
 
   firmId: string | undefined;
@@ -16,7 +15,6 @@ interface TaskPageContainerProps {
 
 const TaskPageContainer: React.FC<TaskPageContainerProps> = ({
   allTheTasks,
-  theCurrentDriver,
   allTheDrivers,
   firmId,
 }) => {

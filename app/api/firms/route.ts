@@ -18,7 +18,7 @@ export async function POST(request: Request) {
     return NextResponse.error();
   }
 
-  const theNewFirm = await prisma.firm.create({
+  const theNewFirmBeta = await prisma.firmBeta.create({
     //create new firm and set the owner and put current user in driver list
     data: {
       ownerId: currentDriver?.id,
@@ -32,7 +32,7 @@ export async function POST(request: Request) {
     }
   });
 
-  const updatedDriver = await prisma.driver.update({
+  const updatedDriverBeta = await prisma.driverBeta.update({
     //edit the current user adding the newly created firm in his firms owned list
     where: {
       id: currentDriver?.id,
@@ -40,7 +40,7 @@ export async function POST(request: Request) {
     data: {
       currentFirm: {
         connect: {
-          id: theNewFirm.id,
+          id: theNewFirmBeta.id,
         },
       },
     },
@@ -48,6 +48,9 @@ export async function POST(request: Request) {
       firmOwned: true,
     },
   });
+
+  let theNewFirm = {...theNewFirmBeta, createdAt: theNewFirmBeta.createdAt?.toISOString(), updatedAt: theNewFirmBeta.updatedAt?.toISOString()}
+  let updatedDriver = {...updatedDriverBeta, createdAt: updatedDriverBeta.createdAt?.toISOString(), updatedAt: updatedDriverBeta.updatedAt?.toISOString()}
 
   return NextResponse.json({
     message: "Sukces: Firma została pomyślnie utworzona",

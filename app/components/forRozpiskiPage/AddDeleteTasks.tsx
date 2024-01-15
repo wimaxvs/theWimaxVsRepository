@@ -1,4 +1,3 @@
-import { SafeSettlement } from "@/app/types";
 import React from "react";
 import TaskAdditionForm from "../Forms/TaskAdditionForm";
 import TaskTableDelete from "../tables/TaskTableDelete";

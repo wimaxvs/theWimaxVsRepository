@@ -9,19 +9,40 @@ export type nextResponseMessage = {
   message: string;
 };
 
+export function objectDateToString(object: any | null) {
+  if (object) {
+    return {
+      ...object,
+      createdAt: object?.createdAt?.toISOString(),
+      updatedAt: object?.updatedAt?.toISOString(),
+    };
+  } else {
+    return null;
+  }
+}
+
+export function objectArrayDatesToString(array: any[] | null) {
+  if (array) {
+    return array.map((obj) => objectDateToString(obj));
+  } else {
+    return null;
+  }
+}
+
 export async function POST(request: Request) {
   let currentDriver = await getCurrentDriver();
   if (!currentDriver) {
     return NextResponse.json({ code: 500, message: "Nieznany użytkownik." });
   }
-  if (currentDriver?.role !== "ZARZAD") {
+  if (currentDriver?.role !== "ZARZAD" && currentDriver.role !== "SPEDYTOR") {
     return NextResponse.json({ code: 400, message: "Nie jestes Zarżądem" });
   }
+
   const body = await request.json();
   const { driverId, taskId } = body;
 
   try {
-    await prisma.settlement.update({
+    await prisma.settlementBeta.update({
       where: {
         id: taskId,
       },
@@ -38,10 +59,10 @@ export async function POST(request: Request) {
       NextResponse.json({ code: 500, message: error });
     }
   }
-  let affectedDriver;
-  let allTheDrivers;
+  let affectedDriverBeta;
+  let allTheDriversBeta;
   if (driverId) {
-    affectedDriver = await prisma.driver.findFirst({
+    affectedDriverBeta = await prisma.driverBeta.findFirst({
       where: {
         id: driverId,
       },
@@ -55,7 +76,7 @@ export async function POST(request: Request) {
         settlements: true,
       },
     });
-    allTheDrivers = await prisma.driver.findMany({
+    allTheDriversBeta = await prisma.driverBeta.findMany({
       include: {
         vehicle: true,
         kilometerMonths: true,
@@ -67,17 +88,21 @@ export async function POST(request: Request) {
       },
     });
   } else {
-    affectedDriver = null;
-    allTheDrivers = null;
+    affectedDriverBeta = null;
+    allTheDriversBeta = null;
   }
-  let allTheTasks = await prisma.settlement.findMany({
+  let allTheTasksBeta = await prisma.settlementBeta.findMany({
     include: {
       driver: true,
       Firm: true,
       startLocation: true,
-      endLocation: true
+      endLocation: true,
     },
   });
+
+  let affectedDriver = objectDateToString(affectedDriverBeta);
+  let allTheDrivers = objectArrayDatesToString(allTheDriversBeta);
+  let allTheTasks = objectArrayDatesToString(allTheTasksBeta);
 
   let successMessage = "Trasa została pomyślnie przypisana do kierowcy.";
 

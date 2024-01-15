@@ -101,7 +101,7 @@ export async function POST(request: Request) {
 
   let driver;
   try {
-    driver = await prisma.driver.update({
+    driver = await prisma.driverBeta.update({
       where: { email: currentDriver?.email as string },
       data: {
         ...driverChanges,
@@ -113,6 +113,8 @@ export async function POST(request: Request) {
         currentLocation: true,
       },
     });
+
+    driver = {...driver, createdAt: driver?.createdAt?.toISOString(), updatedAt: driver?.updatedAt?.toISOString()}
   } catch (error) {
     if (error instanceof Prisma.PrismaClientKnownRequestError) {
       if (error.code === "P2002") {

@@ -1,8 +1,9 @@
 import prisma from "@/app/libs/prismadb";
+import { objectDateToString } from "../api/rozpiski/assign/route";
 
 export default async function getAllTasks() {
   try {
-    const allTheTasks = await prisma.settlement.findMany({
+    const allTheTasksBeta = await prisma.settlementBeta.findMany({
       include: {
         driver: true,
         Firm: true,
@@ -10,6 +11,14 @@ export default async function getAllTasks() {
         endLocation: true,
       },
     });
+
+    let allTheTasks = allTheTasksBeta.map((task) => ({
+      ...task,
+      createdAt: task.createdAt.toISOString(),
+      updatedAt: task.updatedAt.toISOString(),
+      Firm: objectDateToString(task.Firm),
+      driver: objectDateToString(task.driver),
+    }));
 
     if (!allTheTasks) {
       return null;

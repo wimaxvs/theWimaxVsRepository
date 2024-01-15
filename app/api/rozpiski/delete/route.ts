@@ -4,6 +4,8 @@ import prisma from "@/app/libs/prismadb";
 import { Prisma, Settlement } from "@prisma/client";
 import getCurrentDriver from "@/app/actions/getCurrentDriver";
 
+import { objectDateToString, objectArrayDatesToString } from "../assign/route";
+
 export type nextResponseMessage = {
   code: number;
   message: string;
@@ -21,7 +23,7 @@ export async function POST(request: Request) {
   const { driverId, taskId: settlementId } = body;
 
   try {
-    await prisma.settlement.delete({
+    await prisma.settlementBeta.delete({
       where: {
         id: settlementId,
       },
@@ -35,9 +37,9 @@ export async function POST(request: Request) {
     }
   }
 
-  let affectedDriver;
+  let affectedDriverBeta;
   if (driverId) {
-    affectedDriver = await prisma.driver.findFirst({
+    affectedDriverBeta = await prisma.driverBeta.findFirst({
       where: {
         id: driverId,
       },
@@ -51,10 +53,17 @@ export async function POST(request: Request) {
         currentFirm: true,
       },
     });
+
+
+
   } else {
-    affectedDriver = null;
+    affectedDriverBeta = null;
   }
-  let allTheTasks = await prisma.settlement.findMany({
+
+  let affectedDriver = objectDateToString(affectedDriverBeta)
+  
+  
+  let allTheTasksBeta = await prisma.settlementBeta.findMany({
     include: {
       endLocation: true,
       startLocation: true,
@@ -62,6 +71,8 @@ export async function POST(request: Request) {
       driver: true,
     },
   });
+
+  let allTheTasks = objectArrayDatesToString(allTheTasksBeta)
 
   let successMessage = "Tras został wykreślony z rejestru";
 

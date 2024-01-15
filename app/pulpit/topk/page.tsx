@@ -6,6 +6,8 @@ import getAllDrivers from "@/app/actions/getAllDrivers";
 const page = async () => {
   let allTheDrivers: Partial<SafeDriver>[] = await getAllDrivers();
 
+  
+
   return (
     <>
       <ClientOnly>

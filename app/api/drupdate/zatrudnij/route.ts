@@ -1,10 +1,8 @@
 import { NextResponse } from "next/server";
-import bcrypt from "bcrypt";
 
 import prisma from "@/app/libs/prismadb";
-import { Prisma, Location, JoinRequest } from "@prisma/client";
+import { Prisma, JoinRequest } from "@prisma/client";
 import getCurrentDriver from "@/app/actions/getCurrentDriver";
-import { SafeDriver } from "@/app/types";
 
 export type nextResponseMessage = {
   code: number;
@@ -25,13 +23,13 @@ export async function POST(request: Request) {
   let newRequest: JoinRequest;
   if (option === true || option === undefined) {
     try {
-      newRequest = await prisma.joinRequest.update({
+      newRequest = await prisma.joinRequestBeta.update({
         where: { id: id },
         data: {
           status: true,
         },
       });
-      await prisma.driver.update({
+      await prisma.driverBeta.update({
         where: {
           id: newRequest!.requesterId as string,
         },
@@ -48,12 +46,12 @@ export async function POST(request: Request) {
     }
   } else {
     try {
-      await prisma.joinRequest.delete({
+      await prisma.joinRequestBeta.delete({
         where: {
           id: id,
         },
       });
-      await prisma.driver.update({
+      await prisma.driverBeta.update({
         where: {
           id: newRequest!.requesterId as string,
         },
@@ -70,7 +68,7 @@ export async function POST(request: Request) {
     }
   }
 
-  let allTheDrivers = await prisma.driver.findMany({
+  let allTheDrivers = await prisma.driverBeta.findMany({
     include: {
       kilometerMonths: true,
       companyKilometers: true,

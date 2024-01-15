@@ -1,9 +1,8 @@
 import prisma from "@/app/libs/prismadb";
 import getCurrentDriver from "./getCurrentDriver";
-import { Driver } from "@prisma/client";
 
 export default async function getFirmBalance() {
-  const currentDriver: Driver | null = await getCurrentDriver();
+  const currentDriver = await getCurrentDriver();
 
   if (!currentDriver) {
     return null;

@@ -1,5 +1,5 @@
 import { getServerSession } from "next-auth/next";
-
+import { objectDateToString, objectArrayDatesToString } from "../api/rozpiski/assign/route";
 import { authOptions } from "@/pages/api/auth/[...nextauth]";
 import prisma from "@/app/libs/prismadb";
 
@@ -16,7 +16,7 @@ export default async function getCurrentDriver() {
       return null;
     }
 
-    const currentDriver = await prisma.driver.findUnique({
+    const currentDriverBeta = await prisma.driverBeta.findUnique({
       where: {
         email: session.user.email as string,
       },
@@ -30,6 +30,17 @@ export default async function getCurrentDriver() {
         vehicle: true
       },
     });
+
+    let currentDriver = {
+      ...currentDriverBeta,
+      createdAt: currentDriverBeta?.createdAt.toISOString() || null,
+      updatedAt: currentDriverBeta?.updatedAt.toISOString() || null,
+      firmOwned: objectDateToString(currentDriverBeta?.firmOwned),
+      currentFirm: objectDateToString(currentDriverBeta?.currentFirm),
+      vehicle: objectArrayDatesToString(currentDriverBeta?.vehicle as any[]),
+      companyKilometers: objectDateToString(currentDriverBeta?.companyKilometers),
+      kilometerMonths: objectArrayDatesToString(currentDriverBeta?.kilometerMonths as any[]),
+    };
 
     if (!currentDriver) {
       return null;

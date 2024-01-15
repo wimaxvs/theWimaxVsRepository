@@ -3,6 +3,7 @@ import { SafeDriver } from "@/app/types";
 import prisma from "@/app/libs/prismadb";
 import { Prisma } from "@prisma/client";
 import { NextResponse } from "next/server";
+import { objectArrayDatesToString } from "./assign/route";
 
 export async function POST(req: Request) {
   const currentDriver: Partial<SafeDriver> | null = await getCurrentDriver();
@@ -11,7 +12,7 @@ export async function POST(req: Request) {
     return NextResponse.json({ code: 500, message: "Nieznany użytkownik." });
   }
 
-  if (currentDriver?.role !== "ZARZAD") {
+  if (currentDriver?.role !== "ZARZAD" && currentDriver.role !== "SPEDYTOR") {
     return NextResponse.json({ code: 400, message: "Nie jestes Zarżądem" });
   }
 
@@ -19,7 +20,7 @@ export async function POST(req: Request) {
   let { startLocation, endLocation } = body;
 
   try {
-    let theFirm = await prisma.firm.findUnique({
+    let theFirm = await prisma.firmBeta.findUnique({
       where: {
         id: currentDriver?.currentFirm?.id,
       },
@@ -34,7 +35,7 @@ export async function POST(req: Request) {
         city: endLocation,
       },
     });
-    await prisma.settlement.create({
+    await prisma.settlementBeta.create({
       data: {
         approvalStatus: false,
         startLocation: {
@@ -55,13 +56,17 @@ export async function POST(req: Request) {
       },
     });
 
-    let allTheTasks = await prisma.settlement.findMany({
+    let allTheTasksBeta = await prisma.settlementBeta.findMany({
       include: {
             startLocation: true,
             endLocation: true,
           driver: true
       },
     });
+
+        let allTheTasks = objectArrayDatesToString(allTheTasksBeta);
+
+    
     return NextResponse.json({
       code: 200,
       message: "Pomyślnie dodano nowy tras",

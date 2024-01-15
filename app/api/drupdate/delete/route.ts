@@ -24,7 +24,7 @@ export async function POST(request: Request) {
     return NextResponse.json({ code: 400, message: "Nie możesz się usunąć." });
   }
 
-  let theDriver = await prisma.driver.findFirst({
+  let theDriver = await prisma.driverBeta.findFirst({
     where: { id: driverId },
     include: {
       vehicle: true,
@@ -39,13 +39,12 @@ export async function POST(request: Request) {
     });
   }
   try {
-
-    await prisma.joinRequest.deleteMany({
+    await prisma.joinRequestBeta.deleteMany({
       where: {
-        requesterId: driverId
-      }
-    })
-    await prisma.driver.deleteMany({
+        requesterId: driverId,
+      },
+    });
+    await prisma.driverBeta.deleteMany({
       where: {
         id: theDriver.id,
       },
@@ -58,7 +57,7 @@ export async function POST(request: Request) {
     }
   }
 
-  let affectedDriver = await prisma.driver.findFirst({
+  let affectedDriverBeta = await prisma.driverBeta.findFirst({
     where: {
       id: driverId,
     },
@@ -72,7 +71,12 @@ export async function POST(request: Request) {
       settlements: true,
     },
   });
-  let allTheDrivers = await prisma.driver.findMany({
+  let affectedDriver = {
+    ...affectedDriverBeta,
+    createdAt: affectedDriverBeta?.createdAt.toISOString(),
+    updatedAt: affectedDriverBeta?.updatedAt.toISOString(),
+  };
+  let allTheDriversBeta = await prisma.driverBeta.findMany({
     include: {
       vehicle: true,
       kilometerMonths: true,
@@ -83,6 +87,12 @@ export async function POST(request: Request) {
       settlements: true,
     },
   });
+
+  let allTheDrivers = allTheDriversBeta.map((driver) => ({
+    ...driver,
+    createdAt: driver.createdAt.toISOString(),
+    updatedAt: driver.updatedAt.toISOString(),
+  }));
 
   let successMessage = "Kierowca został wykreślony z rejestru";
 

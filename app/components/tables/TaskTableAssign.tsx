@@ -116,88 +116,95 @@ const TaskTableAssign: React.FC<TaskTableAssignProps> = ({ allTheTasks }) => {
             </thead>
             <tbody>
               {tasksToMap &&
-                tasksToMap.map((task, index) => {
-                  return (
-                    <tr
-                      key={index}
-                      className={`border-none hover even:bg-gray-800`}
-                    >
-                      <th
-                        className={`${
-                          index % 2 == 1 && "rounded-tl-md rounded-bl-md"
-                        }`}
+                tasksToMap
+                  .sort((a, b) => {
+                    let aDate = new Date(a.createdAt as string).getTime();
+                    let bDate = new Date(b.createdAt as string).getTime();
+
+                    return bDate - aDate;
+                  })
+                  .map((task, index) => {
+                    return (
+                      <tr
+                        key={index}
+                        className={`border-none hover even:bg-gray-800`}
                       >
-                        {index + 1}
-                      </th>
-                      <td>
-                        <div className="text-sm opacity-50 flex flex-col items-start">
+                        <th
+                          className={`${
+                            index % 2 == 1 && "rounded-tl-md rounded-bl-md"
+                          }`}
+                        >
+                          {index + 1}
+                        </th>
+                        <td>
+                          <div className="text-sm opacity-50 flex flex-col items-start">
+                            <p className="text-sm text-gray-300 font-semibold">
+                              {task?.startLocation?.city}
+                            </p>
+                            <p className="text-md text-gray-300 font-semibold">
+                              {task?.startLocation?.country}
+                            </p>
+                            <p className="text-sm text-gray-300 font-semibold">
+                              {task?.startLocation?.zipCode}
+                            </p>
+                          </div>
+                        </td>
+                        <td>
+                          {" "}
+                          <div className="text-sm opacity-50 flex flex-col items-start">
+                            <p className="text-sm text-gray-300 font-semibold">
+                              {task?.endLocation?.city}
+                            </p>
+                            <p className="text-md text-gray-300 font-semibold">
+                              {task?.endLocation?.country}
+                            </p>
+                            <p className="text-sm text-gray-300 font-semibold">
+                              {task?.endLocation?.zipCode}
+                            </p>
+                          </div>
+                        </td>
+                        <td>
                           <p className="text-sm text-gray-300 font-semibold">
-                            {task?.startLocation?.city}
+                            {task?.approvalStatus == true
+                              ? "Zaakceptowana"
+                              : "Nie zaakceptowany"}
                           </p>
-                          <p className="text-md text-gray-300 font-semibold">
-                            {task?.startLocation?.country}
-                          </p>
-                          <p className="text-sm text-gray-300 font-semibold">
-                            {task?.startLocation?.zipCode}
-                          </p>
-                        </div>
-                      </td>
-                      <td>
-                        {" "}
-                        <div className="text-sm opacity-50 flex flex-col items-start">
-                          <p className="text-sm text-gray-300 font-semibold">
-                            {task?.endLocation?.city}
-                          </p>
-                          <p className="text-md text-gray-300 font-semibold">
-                            {task?.endLocation?.country}
-                          </p>
-                          <p className="text-sm text-gray-300 font-semibold">
-                            {task?.endLocation?.zipCode}
-                          </p>
-                        </div>
-                      </td>
-                      <td>
-                        <p className="text-sm text-gray-300 font-semibold">
-                          {task?.approvalStatus == true
-                            ? "Zaakceptowana"
-                            : "Nie zaakceptowany"}
-                        </p>
-                      </td>
-                      {currentDriver?.role !== "KIEROWCA" &&
-                        currentDriver?.role !== "PROBNY" && (
-                          <>
-                            <td>
-                              {" "}
-                              <button
-                                onClick={() => onPrzypisz(task)}
-                                disabled={
-                                  task.isSettled ||
-                                  isLoading ||
-                                  Boolean(task.driver)
-                                }
-                                className="p-2 rounded-md bg-green-600 disabled:opacity-50 font-bold text-white"
-                              >
-                                {Boolean(task.driver)
-                                  ? task?.driver?.username
-                                  : "Przypisz trasę"}
-                              </button>
-                            </td>
-                            <td>
-                              {Boolean(task?.driver) && (
+                        </td>
+                        {currentDriver?.role !== "KIEROWCA" &&
+                          currentDriver?.role !== "PROBNY" && (
+                            <>
+                              <td>
+                                {" "}
                                 <button
-                                  onClick={() => onAnnul(task)}
-                                  disabled={task.isSettled || isLoading}
-                                  className="p-2 rounded-md bg-red-400 disabled:opacity-50 font-bold text-white"
+                                  onClick={() => onPrzypisz(task)}
+                                  disabled={
+                                    task.isSettled ||
+                                    isLoading ||
+                                    Boolean(task.driver)
+                                  }
+                                  className="p-2 rounded-md bg-green-600 disabled:opacity-50 font-bold text-white"
                                 >
-                                  Anuluj przypisanie
+                                  {Boolean(task.driver)
+                                    ? task?.driver?.username
+                                    : "Przypisz trasę"}
                                 </button>
-                              )}
-                            </td>
-                          </>
-                        )}
-                    </tr>
-                  );
-                })}
+                              </td>
+                              <td>
+                                {Boolean(task?.driver) && (
+                                  <button
+                                    onClick={() => onAnnul(task)}
+                                    disabled={task.isSettled || isLoading}
+                                    className="p-2 rounded-md bg-red-400 disabled:opacity-50 font-bold text-white"
+                                  >
+                                    Anuluj przypisanie
+                                  </button>
+                                )}
+                              </td>
+                            </>
+                          )}
+                      </tr>
+                    );
+                  })}
             </tbody>
           </table>
         </div>

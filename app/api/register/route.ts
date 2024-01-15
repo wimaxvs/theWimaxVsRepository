@@ -7,7 +7,7 @@ import getCurrentDriver from "@/app/actions/getCurrentDriver";
 
 export async function POST(request: Request) {
 
-  const currentDriver: Driver | null = await getCurrentDriver();
+  const currentDriver = await getCurrentDriver();
 
   if (!currentDriver) {
     return NextResponse.json({ code: 500, message: "Nieznany użytkownik." });
@@ -23,7 +23,7 @@ export async function POST(request: Request) {
 
   const thePassword = await bcrypt.hash(password, 12);
   try {
-    const driver = await prisma.driver.create({
+    const driverBeta = await prisma.driverBeta.create({
       data: {
         email: email,
         username: username,
@@ -31,6 +31,8 @@ export async function POST(request: Request) {
         firmId,
       },
     });
+
+    let driver = {...driverBeta, createdAt: driverBeta.createdAt.toISOString(), updatedAt: driverBeta.updatedAt.toISOString()}
 
     let successMessage = "Kierowca zarejestrowany/a pomyślnie.";
     return NextResponse.json({ driver, message: successMessage });

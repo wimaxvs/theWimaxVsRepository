@@ -1,4 +1,3 @@
-import { SafeDriver } from "@/app/types";
 import React, { ReactElement } from "react";
 import { FieldValues, UseFormRegister } from "react-hook-form";
 import { IconType } from "react-icons";

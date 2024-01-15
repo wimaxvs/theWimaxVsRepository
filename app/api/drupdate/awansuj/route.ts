@@ -18,15 +18,7 @@ export async function POST(request: Request) {
 
   if (role === "ZWOLNIJ") {
     try {
-      await prisma.joinRequest.update({
-        where: {
-          requesterId: driverId as string,
-        },
-        data: {
-          status: false,
-        },
-      });
-      await prisma.driver.update({
+      await prisma.driverBeta.update({
         where: {
           id: driverId as string,
         },
@@ -34,7 +26,7 @@ export async function POST(request: Request) {
           firmId: null,
         },
       });
-      let allTheDrivers = await prisma.driver.findMany({
+      let allTheDriversBeta = await prisma.driverBeta.findMany({
         include: {
           kilometerMonths: true,
           companyKilometers: true,
@@ -43,6 +35,13 @@ export async function POST(request: Request) {
           currentFirm: true,
         },
       });
+
+      let allTheDrivers = allTheDriversBeta.map((driver) => ({
+        ...driver,
+        createdAt: driver.createdAt.toISOString(),
+        updatedAt: driver.updatedAt.toISOString(),
+      }));
+
       let successMessage = `Kierowca został zwolniony`;
       return NextResponse.json({
         code: 201,
@@ -60,7 +59,7 @@ export async function POST(request: Request) {
     }
   } else {
     try {
-      await prisma.driver.update({
+      await prisma.driverBeta.update({
         where: {
           id: driverId as string,
         },
@@ -68,7 +67,7 @@ export async function POST(request: Request) {
           role,
         },
       });
-      let allTheDrivers = await prisma.driver.findMany({
+      let allTheDriversBeta = await prisma.driverBeta.findMany({
         include: {
           kilometerMonths: true,
           companyKilometers: true,
@@ -77,6 +76,11 @@ export async function POST(request: Request) {
           currentFirm: true,
         },
       });
+      let allTheDrivers = allTheDriversBeta.map((driver) => ({
+        ...driver,
+        createdAt: driver.createdAt.toISOString(),
+        updatedAt: driver.updatedAt.toISOString(),
+      }));
       let successMessage = `Kierowca został awansowany do stanowisko ${role}`;
       return NextResponse.json({
         code: 200,

@@ -50,7 +50,7 @@ const page = async () => {
   });
 
   const kilometersArray = Array.from({ length: 12 }, (_, index) => {
-    const matchingMonth = currentDriver?.kilometerMonths.find(
+    const matchingMonth = currentDriver?.kilometerMonths?.find(
       (obj) =>
         Number(obj.month) === index &&
         obj.year === new Date().getFullYear().toString()

@@ -1,8 +1,13 @@
 import prisma from "@/app/libs/prismadb";
+import {
+  objectDateToString,
+  objectArrayDatesToString,
+} from "../api/rozpiski/assign/route";
+import { SafeDriver } from "../types";
 
 export default async function getAllDrivers() {
   try {
-    const allTheDrivers = await prisma.driver.findMany({
+    let allTheDriversBeta = await prisma.driverBeta.findMany({
       include: {
         firmOwned: true,
         settlements: true,
@@ -14,6 +19,20 @@ export default async function getAllDrivers() {
         vehicle: true,
       },
     });
+
+    let allTheDrivers: Partial<SafeDriver>[] = allTheDriversBeta.map(
+      (driver) => ({
+        ...driver,
+        createdAt: driver.createdAt.toISOString(),
+        updatedAt: driver.updatedAt.toISOString(),
+        firmOwned: objectDateToString(driver.firmOwned),
+        currentFirm: objectDateToString(driver.currentFirm),
+        vehicle: objectArrayDatesToString(driver.vehicle),
+        companyKilometers: objectDateToString(driver.companyKilometers),
+        settlements: objectArrayDatesToString(driver.settlements),
+        kilometerMonths: objectArrayDatesToString(driver.kilometerMonths),
+      })
+    );
 
     if (!allTheDrivers) {
       return null;

@@ -3,6 +3,10 @@ import { NextResponse } from "next/server";
 import prisma from "@/app/libs/prismadb";
 import { Prisma, Vehicle } from "@prisma/client";
 import getCurrentDriver from "@/app/actions/getCurrentDriver";
+import {
+  objectArrayDatesToString,
+  objectDateToString,
+} from "../../rozpiski/assign/route";
 
 export type nextResponseMessage = {
   code: number;
@@ -21,7 +25,7 @@ export async function POST(request: Request) {
   const { driverId, vehicleId } = body;
 
   try {
-    await prisma.vehicle.delete({
+    await prisma.vehicleBeta.delete({
       where: {
         id: vehicleId,
       },
@@ -34,9 +38,9 @@ export async function POST(request: Request) {
     }
   }
 
-  let affectedDriver;
+  let affectedDriverBeta;
   if (driverId) {
-    affectedDriver = await prisma.driver.findFirst({
+    affectedDriverBeta = await prisma.driverBeta.findFirst({
       where: {
         id: driverId,
       },
@@ -47,18 +51,21 @@ export async function POST(request: Request) {
         currentLocation: true,
         joinRequest: true,
         currentFirm: true,
-        settlements: true
+        settlements: true,
       },
     });
   } else {
-    affectedDriver = null;
+    affectedDriverBeta = null;
   }
-  let allTheVehicles = await prisma.vehicle.findMany({
+  let allTheVehiclesBeta = await prisma.vehicleBeta.findMany({
     include: {
       currentDriver: true,
       currentFirm: true,
     },
   });
+
+  let affectedDriver = objectDateToString(affectedDriverBeta);
+  let allTheVehicles = objectArrayDatesToString(allTheVehiclesBeta);
 
   let successMessage = "Pojazd został wykreślony z rejestru";
 
