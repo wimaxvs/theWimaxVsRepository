@@ -5,7 +5,7 @@ import ClientOnly from "../ClientOnly";
 import { Driver } from "@prisma/client";
 
 interface NavbarProps {
-  currentDriver?: Driver;
+  currentDriver?: any;
 }
 
 const Navbar: React.FC<NavbarProps> = ({ currentDriver }) => {

@@ -32,9 +32,6 @@ const useDriver = create<State & Action>((set) => ({
             ? {
                 ...driver,
                 role: driverToSet.role,
-                joinRequest: {
-                  ...(driverToSet.joinRequest!),
-                },
               }
             : driver
         ),
