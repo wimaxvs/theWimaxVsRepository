@@ -6,6 +6,7 @@ import NaczepyPageContainer from "@/app/components/forNaczepyPage/NaczepyPageCon
 import PracBody from "@/app/components/navbar/pracNav/PracBody";
 import PracNav from "@/app/components/navbar/pracNav/PracNav";
 import { SafeDriver, SafeVehicle } from "@/app/types";
+import { DriverBeta } from "@prisma/client";
 import React from "react";
 
 const page = async () => {

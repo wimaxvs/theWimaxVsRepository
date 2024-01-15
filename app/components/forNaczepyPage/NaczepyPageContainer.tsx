@@ -8,8 +8,8 @@ import AddOrDeleteCar from "../ForVehiclePage/AddOrDeleteCar";
 import AssignCar from "../ForVehiclePage/AssignCar";
 
 interface VehiclePageContainerProps {
-  currentDriver: SafeDriver | null;
-  allTheDrivers: SafeDriver[];
+  currentDriver: any;
+  allTheDrivers: any[];
   allTheVehicles: SafeVehicle[] | null;
   firmId: string | undefined;
 }

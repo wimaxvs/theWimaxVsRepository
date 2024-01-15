@@ -11,8 +11,8 @@ import {
 } from "@prisma/client";
 
 export type SafeDriver = Omit<DriverBeta, "createdAt" | "updatedAt"> & {
-  updatedAt: string
-  createdAt: string
+  updatedAt: string | null
+  createdAt: string | null
   firmOwned?: FirmBeta | null;
   joinRequest?: JoinRequestBeta | null;
   currentLocation?: Location | null;
