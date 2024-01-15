@@ -20,26 +20,28 @@ const StatsDriverTable: React.FC<StatsDriverTableProps> = ({ settlements }) => {
       endMonth: number
     ) => {
       let settlementDate = new Date(givenDate);
+
       const defaultStartYear = Number.MIN_SAFE_INTEGER;
       const defaultEndYear = Number.MAX_SAFE_INTEGER;
 
-      const defaultStartMonth = -1;
-      const defaultEndMonth = 11;
+      const defaultStartFraction = 0;
+      const defaultEndFraction = 11 / 12;
 
-      startYear = startYear || defaultStartYear;
-      startMonth = startMonth - 1 || defaultStartMonth;
-      endYear = endYear || defaultEndYear;
-      endMonth = endMonth - 1 || defaultEndMonth;
+      const startFraction = (startMonth - 1) / 12 || 0;
+      const endFraction = (endMonth - 1) / 12 || 0;
 
-      const isAfterStartDate =
-        (settlementDate.getFullYear() > startYear ||
-          settlementDate.getFullYear() === startYear) &&
-        settlementDate.getMonth() >= startMonth;
+      let startDate = startYear
+        ? startYear + startFraction
+        : defaultStartYear + defaultStartFraction;
+      let endDate = endYear
+        ? endYear + endFraction
+        : defaultEndYear + defaultEndFraction;
 
-      const isBeforeEndDate =
-        (settlementDate.getFullYear() < endYear ||
-          settlementDate.getFullYear() === endYear) &&
-        settlementDate.getMonth() <= endMonth;
+      let settlementNumber =
+        settlementDate.getFullYear() + settlementDate.getMonth() / 12;
+
+      let isAfterStartDate = settlementNumber >= startDate;
+      let isBeforeEndDate = settlementNumber <= endDate;
 
       return isAfterStartDate && isBeforeEndDate;
     },
@@ -56,6 +58,7 @@ const StatsDriverTable: React.FC<StatsDriverTableProps> = ({ settlements }) => {
     ) => {
       const driverStats: {
         [key: string]: {
+          avgFuelConsumption: number | undefined;
           actualName: string | undefined;
           image: string | null | undefined;
           count: number;
@@ -85,6 +88,7 @@ const StatsDriverTable: React.FC<StatsDriverTableProps> = ({ settlements }) => {
         if (isWithinDateRange) {
           if (!driverStats[driver?.username as string]) {
             driverStats[driver?.username as string] = {
+              avgFuelConsumption: driver?.avgFuelConsumption ? driver?.avgFuelConsumption : 0,
               actualName: driver?.name ? driver.name : undefined,
               image: driver?.image,
               count: 1,
@@ -108,6 +112,7 @@ const StatsDriverTable: React.FC<StatsDriverTableProps> = ({ settlements }) => {
             100 || 0;
 
         return {
+          avgFuelConsumption: driverStats[driver].avgFuelConsumption,
           username: driver,
           image: driverStats[driver].image,
           actualName: driverStats[driver].actualName,
@@ -122,8 +127,12 @@ const StatsDriverTable: React.FC<StatsDriverTableProps> = ({ settlements }) => {
     [isInDateRange]
   );
 
-  useEffect(() => {
-  }, [startDate, endDate, calculateDriverStatsWithDateRange, settlements]);
+  useEffect(() => {}, [
+    startDate,
+    endDate,
+    calculateDriverStatsWithDateRange,
+    settlements,
+  ]);
 
   return (
     <div className="max-w-[11/12] overflow-y-auto overflow-x-auto pb-3">
@@ -146,57 +155,62 @@ const StatsDriverTable: React.FC<StatsDriverTableProps> = ({ settlements }) => {
               Number((startDate as string)?.split("-")[1]),
               Number((endDate as string)?.split("-")[0]),
               Number((endDate as string)?.split("-")[1])
-            ).sort((a, b) =>b.totalDistanceCovered - a.totalDistanceCovered).map((driver, index) => {
-              return (
-                <tr key={index} className={`border-none ${"even:bg-gray-800"}`}>
-                  <th
-                    className={`${
-                      index % 2 == 1 &&
-                      "rounded-tl-md rounded-bl-md text-gray-100"
-                    }`}
+            )
+              .sort((a, b) => b.totalDistanceCovered - a.totalDistanceCovered)
+              .map((driver, index) => {
+                return (
+                  <tr
+                    key={index}
+                    className={`border-none ${"even:bg-gray-800"}`}
                   >
-                    {index + 1}
-                  </th>
-                  <td>
-                    <div className="flex items-center space-x-3">
-                      <div className="avatar">
-                        <div className="mask mask-squircle w-12 h-12">
-                          <Image
-                            height={50}
-                            width={50}
-                            src={`${
-                              driver.image
-                                ? driver.image
-                                : "/images/placeholder.jpg"
-                            }`}
-                            alt="Avatar Tailwind CSS Component"
-                          />
+                    <th
+                      className={`${
+                        index % 2 == 1 &&
+                        "rounded-tl-md rounded-bl-md text-gray-100"
+                      }`}
+                    >
+                      {index + 1}
+                    </th>
+                    <td>
+                      <div className="flex items-center space-x-3">
+                        <div className="avatar">
+                          <div className="mask mask-squircle w-12 h-12">
+                            <Image
+                              height={50}
+                              width={50}
+                              src={`${
+                                driver.image
+                                  ? driver.image
+                                  : "/images/placeholder.jpg"
+                              }`}
+                              alt="Avatar Tailwind CSS Component"
+                            />
+                          </div>
+                        </div>
+                        <div>
+                          <div className="font-bold text-gray-100">
+                            {driver.username}
+                          </div>
+                          <div className="text-sm text-gray-100 opacity-50">
+                            {driver.actualName
+                              ? driver.actualName
+                              : "Imię zastrzeżone"}
+                          </div>
                         </div>
                       </div>
-                      <div>
-                        <div className="font-bold text-gray-100">
-                          {driver.username}
-                        </div>
-                        <div className="text-sm text-gray-100 opacity-50">
-                          {driver.actualName
-                            ? driver.actualName
-                            : "Imię zastrzeżone"}
-                        </div>
-                      </div>
-                    </div>
-                  </td>
-                  <td className={`text-gray-100`}>{`${
-                    driver.totalDistanceCovered || 0
-                  } `}</td>
-                  <td className={`text-gray-100`}>{`${
-                    driver.settlementsCount || 0
-                  } `}</td>
-                  <td className={`text-gray-100`}>
-                    {driver.averageFuelPer100Kms || 0}
-                  </td>
-                </tr>
-              );
-            })}
+                    </td>
+                    <td className={`text-gray-100`}>{`${
+                      driver.totalDistanceCovered || 0
+                    } `}</td>
+                    <td className={`text-gray-100`}>{`${
+                      driver.settlementsCount || 0
+                    } `}</td>
+                    <td className={`text-gray-100`}>
+                      {driver.avgFuelConsumption || 0}
+                    </td>
+                  </tr>
+                );
+              })}
         </tbody>
       </table>
     </div>
