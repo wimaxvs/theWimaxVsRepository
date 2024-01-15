@@ -1,6 +1,5 @@
 import { create } from "zustand";
 import { SafeDriver } from "../types";
-import { JoinRequest } from "@prisma/client";
 
 type State = {
   currentDriver: Partial<SafeDriver> | undefined;
@@ -34,7 +33,7 @@ const useDriver = create<State & Action>((set) => ({
                 ...driver,
                 role: driverToSet.role,
                 joinRequest: {
-                  ...(driverToSet.joinRequest as JoinRequest),
+                  ...(driverToSet.joinRequest!),
                 },
               }
             : driver
