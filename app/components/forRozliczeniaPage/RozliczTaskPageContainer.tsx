@@ -8,7 +8,7 @@ import TaskTableAcceptDeny from "../tables/TaskTableAcceptDeny";
 
 interface RozliczTaskPageContainerProps {
   allTheTasks: SafeSettlement[] | null;
-  theCurrentDriver: SafeDriver | null;
+  theCurrentDriver: any;
 }
 
 const RozliczTaskPageContainer: React.FC<RozliczTaskPageContainerProps> = ({
