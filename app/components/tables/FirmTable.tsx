@@ -53,54 +53,55 @@ const FirmTable: React.FC<FirmTableProps> = ({ allTheFirms }) => {
       <AiOutlineLink {...iconOptions} />
     );
 
-  let onJoin = (driverId: string, firmId: string) => {
-    setIsLoading(!isLoading);
-    setRequestSent(firmId);
-    let data = {
-      requesterId: driverId,
-      firmId,
-    };
-    let deets = JSON.stringify(data);
+    let onJoin = (driverId: string, firmId: string) => { return null};
+  // let onJoin = (driverId: string, firmId: string) => {
+  //   setIsLoading(!isLoading);
+  //   setRequestSent(firmId);
+  //   let data = {
+  //     requesterId: driverId,
+  //     firmId,
+  //   };
+  //   let deets = JSON.stringify(data);
 
-    axios
-      .post("/api/request", deets)
-      .then(
-        (
-          res: AxiosResponse<{
-            message: string;
-            code?: string | number;
-            theNewRequest: SafeJoinRequest;
-          }>
-        ) => {
-          if (res.data.code === 500 || res.data.code === 400)
-            throw new Error(res.data.message);
-          toast.success(
-            <>
-              <div className="p-4 text-bold text-green-800 flex flex-col items-center bg-green-100 rounded-lg my-4">
-                {`${res.data.message}`}
-              </div>
-            </>
-          );
-          if (res.data.theNewRequest.toFirm) {
-            setRequestedFirm(res.data.theNewRequest.toFirm);
-          }
-          return setCurrentDriver(res.data.theNewRequest.requester);
-        }
-      )
-      .catch((error: any) => {
-        if (error.code) {
-          switch (error.code) {
-            case "ERR_BAD_RESPONSE":
-              return toast.error(`Błąd`);
-          }
-        } else {
-          return toast.error(error.message);
-        }
-      })
-      .finally(() => {
-        setIsLoading(false);
-      });
-  };
+  //   axios
+  //     .post("/api/request", deets)
+  //     .then(
+  //       (
+  //         res: AxiosResponse<{
+  //           message: string;
+  //           code?: string | number;
+  //           theNewRequest: SafeJoinRequest;
+  //         }>
+  //       ) => {
+  //         if (res.data.code === 500 || res.data.code === 400)
+  //           throw new Error(res.data.message);
+  //         toast.success(
+  //           <>
+  //             <div className="p-4 text-bold text-green-800 flex flex-col items-center bg-green-100 rounded-lg my-4">
+  //               {`${res.data.message}`}
+  //             </div>
+  //           </>
+  //         );
+  //         if (res.data.theNewRequest.toFirm) {
+  //           setRequestedFirm(res.data.theNewRequest.toFirm);
+  //         }
+  //         return setCurrentDriver(res.data.theNewRequest.requester);
+  //       }
+  //     )
+  //     .catch((error: any) => {
+  //       if (error.code) {
+  //         switch (error.code) {
+  //           case "ERR_BAD_RESPONSE":
+  //             return toast.error(`Błąd`);
+  //         }
+  //       } else {
+  //         return toast.error(error.message);
+  //       }
+  //     })
+  //     .finally(() => {
+  //       setIsLoading(false);
+  //     });
+  // };
 
   return (
     <>
