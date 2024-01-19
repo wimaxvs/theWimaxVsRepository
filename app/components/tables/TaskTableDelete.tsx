@@ -29,7 +29,6 @@ const TaskTableDelete = () => {
             affectedDriver: Partial<SafeDriver> | null;
           }>
         ) => {
-          console.log(res.data.allTheTasks);
           setTheTasks(res.data.allTheTasks as Partial<SafeSettlement>[]);
           if (res.data.affectedDriver) {
             if (res.data.affectedDriver.id == currentDriver?.id) {

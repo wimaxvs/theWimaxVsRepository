@@ -97,7 +97,6 @@ export async function POST(req: Request) {
         kmm.year === dzienRozliczenie.getFullYear().toString()
     );
 
-    console.log(thisKmMonth);
 
     if (thisKmMonth) {
       if (!approvalStatus) {

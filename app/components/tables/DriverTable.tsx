@@ -12,7 +12,7 @@ const DriverTable: React.FC<DriverTableProps> = ({ initialDrivers }) => {
   let { setAllDrivers, allDrivers: drivers } = useDriver();
 
   useEffect(() => {
-    console.log(initialDrivers.map(driver => driver.vehicle))
+    // console.log(initialDrivers.map(driver => driver.vehicle))
     //if the user is deleted from the db, this still won't run because drivers.length !== 0. Because the ui is rendering drivers, the only way to get it to work as expected is by making the value of drivers change even though useEffect isn't running. UseEffect in this instance is being used to instantiate the value of an empty drivers array.
     if (initialDrivers && drivers.length == 0) {
       setAllDrivers(initialDrivers);
@@ -22,7 +22,7 @@ const DriverTable: React.FC<DriverTableProps> = ({ initialDrivers }) => {
   return (
     <>
       <div
-        className={`kierowcyPage w-full min-h-screen flex flex-row justify-center py-10 bg-[url('/images/bkg_7.jpg')] bg-no-repeat bg-cover bg-left-bottom`}
+        className={`kierowcyPage w-full min-h-screen flex flex-row justify-center py-10 bg-[url('/images/bkg_7.png')] bg-no-repeat bg-cover bg-left-bottom`}
       >
         {/* bg-gradient-to-br from-gray-500 to-gray-200 */}
         <section
@@ -54,78 +54,82 @@ const DriverTable: React.FC<DriverTableProps> = ({ initialDrivers }) => {
               </thead>
               <tbody>
                 {drivers &&
-                  drivers.map((driver, index) => {
-                    return (
-                      <tr
-                        key={index}
-                        className={`border-none ${"even:bg-gray-800"}`}
-                      >
-                        <th
-                          className={`${
-                            index % 2 == 1 &&
-                            "rounded-tl-md rounded-bl-md text-gray-100"
-                          }`}
+                  drivers
+                    .filter((d) => !d.isFired)
+                    .map((driver, index) => {
+                      return (
+                        <tr
+                          key={index}
+                          className={`border-none ${"even:bg-gray-800"}`}
                         >
-                          {index + 1}
-                        </th>
-                        <td>
-                          <div className="flex items-center space-x-3">
-                            <div className="avatar">
-                              <div className="mask mask-squircle w-12 h-12">
-                                <Image
-                                  height={50}
-                                  width={50}
-                                  src={`${
-                                    driver.image
-                                      ? driver.image
-                                      : "/images/placeholder.jpg"
-                                  }`}
-                                  alt="Avatar Tailwind CSS Component"
-                                />
+                          <th
+                            className={`${
+                              index % 2 == 1 &&
+                              "rounded-tl-md rounded-bl-md text-gray-100"
+                            }`}
+                          >
+                            {index + 1}
+                          </th>
+                          <td>
+                            <div className="flex items-center space-x-3">
+                              <div className="avatar">
+                                <div className="mask mask-squircle w-12 h-12">
+                                  <Image
+                                    height={50}
+                                    width={50}
+                                    src={`${
+                                      driver.image
+                                        ? driver.image
+                                        : "/images/placeholder.jpg"
+                                    }`}
+                                    alt="Avatar Tailwind CSS Component"
+                                  />
+                                </div>
+                              </div>
+                              <div>
+                                <div className="font-bold text-gray-100">
+                                  {driver.username}
+                                </div>
+                                <div className="text-sm text-gray-100 opacity-50">
+                                  {driver.name
+                                    ? driver.name
+                                    : "Imię zastrzeżone"}
+                                </div>
                               </div>
                             </div>
-                            <div>
-                              <div className="font-bold text-gray-100">
-                                {driver.username}
-                              </div>
-                              <div className="text-sm text-gray-100 opacity-50">
-                                {driver.name ? driver.name : "Imię zastrzeżone"}
-                              </div>
-                            </div>
-                          </div>
-                        </td>
-                        <td
-                          className={`font-semibold text-gray-100 flex flex-col gap-1`}
-                        >
-                          {driver.vehicle?.[0]
-                            ? driver.vehicle?.[0]?.carMark
-                            : "Brak pojazdu"}
-                          <br />
-                          {driver?.vehicle?.[0] && (
-                            <span
-                              className={`flex flex-row items-center gap-1`}
-                            >
-                              {/* <span className="rounded-xl bg-[#1fb2a6] text-white text-xs p-1">
+                          </td>
+                          <td
+                            className={`font-semibold text-gray-100 flex flex-col gap-1`}
+                          >
+                            {driver.vehicle?.[0]
+                              ? driver.vehicle?.[0]?.carMark
+                              : "Brak pojazdu"}
+                            <br />
+                            {driver?.vehicle?.[0] && (
+                              <span
+                                className={`flex flex-row items-center gap-1`}
+                              >
+                                {/* <span className="rounded-xl bg-[#1fb2a6] text-white text-xs p-1">
                               {`${driver.currentLocation?.city || "Miasto"} `}
                             </span> */}
-                              <span className="rounded-xl border border-solid border-[#1fb2a6] text-[#1fb2a6] text-xs p-0.5 px-1">
-                                {`${
-                                  driver?.vehicle?.[0]?.registration ||
-                                  "Tablicę rejestracyjną"
-                                } `}
+                                <span className="rounded-xl border border-solid border-[#1fb2a6] text-[#1fb2a6] text-xs p-0.5 px-1">
+                                  {`${
+                                    driver?.vehicle?.[0]?.registration ||
+                                    "Tablicę rejestracyjną"
+                                  } `}
+                                </span>
                               </span>
-                            </span>
-                          )}
-                        </td>
-                        <td className={`text-gray-100`}>{`${
-                          driver.totKms || 0
-                        } `}</td>
-                        <td className={`text-gray-100`}>
-                          {driver.role || "Kierowca"}
-                        </td>
-                      </tr>
-                    );
-                  })}
+                            )}
+                          </td>
+                          <td className={`text-gray-100`}>{`${
+                            driver.totKms || 0
+                          } `}</td>
+                          <td className={`text-gray-100`}>
+                            {driver.role || "Kierowca"}
+                          </td>
+                        </tr>
+                      );
+                    })}
               </tbody>
             </table>
           </div>

@@ -11,6 +11,33 @@ export type nextResponseMessage = {
   message: string;
 };
 
+export let leaveOnlyChanges: <T>(
+  keysToKeep: (keyof T)[],
+  theInspected: any,
+  changeReceiver: any,
+  password?: string
+) => void = <T>(
+  keysToKeep: (keyof T)[],
+  theInspected: any,
+  changeReceiver: any,
+  password: any
+) => {
+  for (const key of keysToKeep) {
+    if (
+      theInspected &&
+      theInspected[key] !== null &&
+      theInspected[key] !== undefined &&
+      theInspected[key].length > 0
+    ) {
+      if (key === "password") {
+        changeReceiver[key] = password as string;
+      } else {
+        changeReceiver[key] = theInspected[key];
+      }
+    }
+  }
+};
+
 export async function POST(request: Request) {
   let currentDriver = await getCurrentDriver();
   if (!currentDriver) {
@@ -46,33 +73,9 @@ export async function POST(request: Request) {
   const driverChanges: any = {};
   const locationChanges: any = {};
 
-  let leaveOnlyChanges: <T>(
-    keysToKeep: (keyof T)[],
-    theInspected: any,
-    changeReceiver: any
-  ) => void = <T>(
-    keysToKeep: (keyof T)[],
-    theInspected: any,
-    changeReceiver: any
-  ) => {
-    for (const key of keysToKeep) {
-      if (
-        theInspected &&
-        theInspected[key] !== null &&
-        theInspected[key] !== undefined &&
-        theInspected[key].length > 0
-      ) {
-        if (key === "password") {
-          changeReceiver[key] = password as string;
-        } else {
-          changeReceiver[key] = theInspected[key];
-        }
-      }
-    }
-  };
 
-  leaveOnlyChanges(driverKeysToKeep, bodyB, driverChanges);
-  leaveOnlyChanges(locationKeysToKeep, currentLocation, locationChanges);
+  leaveOnlyChanges(driverKeysToKeep, bodyB, driverChanges, password);
+  leaveOnlyChanges(locationKeysToKeep, currentLocation, locationChanges, password);
 
 
   let driverLocation: Location | null;

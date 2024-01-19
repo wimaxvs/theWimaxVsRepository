@@ -17,7 +17,7 @@ const VehicleTable: React.FC<VehicleTableProps> = ({
   isTrailer,
 }) => {
   let [isLoading, setIsLoading] = useState<boolean>(false);
-  let { theVehicles, setTheVehicles } = useAllVehicles();
+  let { theVehicles, setTheVehicles, setVehicleBeingEdited } = useAllVehicles();
   let { setDriver, currentDriver, setCurrentDriver } = useDriver();
 
   useEffect(() => {
@@ -37,6 +37,12 @@ const VehicleTable: React.FC<VehicleTableProps> = ({
       }),
     [isTrailer]
   );
+
+  let onEdit = (vehicle: Partial<SafeVehicle>) => {
+    setIsLoading(true);
+    setVehicleBeingEdited(vehicle);
+    setIsLoading(false);
+  };
 
   let onUsun = (driverId: string, vehicleId: string) => {
     setIsLoading(true);
@@ -110,6 +116,7 @@ const VehicleTable: React.FC<VehicleTableProps> = ({
                   isTrailer ? "przyczepy/naczepy" : `pojazdu`
                 }`}</th>
                 <th className={`text-gray-100`}>Kierowca</th>
+                <th className={`text-gray-100`}>Edytuj</th>
                 <th className={`text-gray-100`}>Usuń</th>
                 <th></th>
               </tr>
@@ -162,6 +169,16 @@ const VehicleTable: React.FC<VehicleTableProps> = ({
                         {" "}
                         {vehicle.currentDriver?.username || "Kierowca"}
                       </td>
+                      <td>
+                        <button
+                          onClick={() => onEdit(vehicle)}
+                          disabled={isLoading}
+                          className="p-2 rounded-md bg-green-600 disabled:opacity-50 font-bold text-white"
+                        >
+                          {"Edytuj"}
+                        </button>
+                      </td>
+
                       <td
                         className={`${
                           index % 2 == 1 && "rounded-tr-md rounded-br-md"

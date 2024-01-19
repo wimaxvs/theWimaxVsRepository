@@ -44,9 +44,25 @@ export async function POST(request: Request) {
         requesterId: driverId,
       },
     });
-    await prisma.driverBeta.deleteMany({
+    await prisma.driverBeta.update({
       where: {
         id: theDriver.id,
+      },
+      data: {
+        isFired: true,
+        password: "fired",
+        currentFirm: {
+          disconnect: true,
+        },
+        currentLocation: {
+          disconnect: true,
+        },
+        vehicle: {
+          disconnect: [...theDriver.vehicle.map((v) => ({ id: v.id }))],
+        },
+        kilometerMonths: {
+          disconnect: [...theDriver.kilometerMonths.map((v) => ({ id: v.id }))],
+        },
       },
     });
   } catch (error) {

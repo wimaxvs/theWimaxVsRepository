@@ -19,9 +19,18 @@ const VehicleView: React.FC<VehicleViewProps> = ({ allTheDrivers }) => {
 
   let gimmeRelevantDrivers = useCallback(
     (allDrivers: Partial<SafeDriver>[]) => {
-      return allDrivers.filter((d) =>
-        currentDriver?.vehicle?.[0]?.prevDrivers?.includes(d.id as string)
-      );
+      return allDrivers.filter((d) => {
+        console.log({
+          driver: d.id,
+          prevDrivers: currentDriver?.vehicle?.[0]?.prevDrivers,
+          isInside: currentDriver?.vehicle?.[0]?.prevDrivers?.includes(
+            d.id as string
+          ),
+        });
+        return currentDriver?.vehicle?.[0]?.prevDrivers?.includes(
+          d.id as string
+        );
+      });
     },
     [currentDriver?.vehicle]
   );
@@ -104,22 +113,22 @@ const VehicleView: React.FC<VehicleViewProps> = ({ allTheDrivers }) => {
         </h3>
         {!currentDriver?.vehicle?.[0]?.prevDrivers && (
           <p className="text-gray-500 font-semibold md:text-sm text-xs">
-            {"Nie można jeszcze wyświetlić poprzednich kierowców tego pojazdu."}
+            {"Nie można jeszcze wyświetlić poprzednich kierowców pojazdu."}
           </p>
         )}
-        {!currentDriver?.vehicle?.[0]?.prevDrivers ||
-          (currentDriver?.vehicle?.[0]?.prevDrivers?.length > 0 &&
-            gimmeRelevantDrivers(allDrivers).map((driver, index) => (
-              <div
-                key={index}
-                className={`w-11/12 rounded-xl flex flex-row gap-2 items-center p-2
+        {currentDriver?.vehicle?.[0] &&
+          currentDriver?.vehicle?.[0]?.prevDrivers?.length > 0 &&
+          gimmeRelevantDrivers(allDrivers).map((driver, index) => (
+            <div
+              key={index}
+              className={`w-11/12 rounded-xl flex flex-row gap-2 items-center p-2
                 ${index % 2 === 0 && "bg-gray-500 text-gray-950"}
                 `}
-              >
-                <p className="text-sm text-gray-500 font-bold">{index + 1}</p>
-                <p className="text-sm text-gray-500 font-bold">{driver.name}</p>
-              </div>
-            )))}
+            >
+              <p className="text-sm text-gray-500 font-bold">{index + 1}</p>
+              <p className="text-sm text-gray-500 font-bold">{driver.name}</p>
+            </div>
+          ))}
       </div>
     </div>
   );

@@ -24,6 +24,15 @@ export async function POST(request: Request) {
   const body = await request.json();
   const { driverId, vehicleId } = body;
 
+  let assignedVehicle = await prisma.vehicleBeta.findFirst({
+    where: {
+      id: vehicleId,
+    },
+    select: {
+      isTrailer: true,
+    },
+  });
+
   try {
     await prisma.vehicleBeta.delete({
       where: {
@@ -67,7 +76,9 @@ export async function POST(request: Request) {
   let affectedDriver = objectDateToString(affectedDriverBeta);
   let allTheVehicles = objectArrayDatesToString(allTheVehiclesBeta);
 
-  let successMessage = "Pojazd został wykreślony z rejestru";
+  let successMessage = `${
+    assignedVehicle?.isTrailer ? "Przyczepa została" : "Pojazd został"
+  } wykreślony z rejestru`;
 
   return NextResponse.json({
     affectedDriver: affectedDriver ? affectedDriver : null,

@@ -61,7 +61,7 @@ export async function POST(req: Request) {
         expensesSpent: returnFloat(expensesSpent),
         weight: returnFloat(weight),
         ferries: returnFloat(ferries),
-        highways,
+        highwaysBeta: highways,
         products,
         misc,
         isSettled: true,

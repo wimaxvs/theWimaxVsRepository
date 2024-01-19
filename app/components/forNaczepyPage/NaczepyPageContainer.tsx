@@ -6,6 +6,7 @@ import { SafeDriver, SafeVehicle } from "@/app/types";
 import NaczepyView from "./NaczepyView";
 import AddOrDeleteCar from "../ForVehiclePage/AddOrDeleteCar";
 import AssignCar from "../ForVehiclePage/AssignCar";
+import AddEditDeleteCar from "../ForVehiclePage/AddEditDeleteCar";
 
 interface VehiclePageContainerProps {
   currentDriver: any;
@@ -47,7 +48,7 @@ const VehiclePageContainer: React.FC<VehiclePageContainerProps> = ({
         <NaczepyView vehicle={trailer} />
       )}
       {theLocation == "Zarządzanie naczepy" && (
-        <AddOrDeleteCar allTheVehicles={allTheVehicles} isTrailer />
+        <AddEditDeleteCar allTheDrivers={allTheDrivers} allTheVehicles={allTheVehicles} isTrailer />
       )}
       {theLocation == "Przypisz przyczepę kierowcy" && (
         <AssignCar

@@ -20,7 +20,7 @@ const ImageAddition: React.FC<ImageAdditionProps> = ({ register, id, label }) =>
       return;
     } else {
       const imgDoc = event?.target.files[0];
-      // console.log(typeof imgDoc);
+      console.log(typeof imgDoc);
       if (imgDoc.size >= 3048576) {
         return toast.error(
           <>

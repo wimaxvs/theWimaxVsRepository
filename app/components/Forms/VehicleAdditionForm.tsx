@@ -18,11 +18,15 @@ import { CgArrowLongRightC } from "react-icons/cg";
 import { FaWeight } from "react-icons/fa";
 
 interface VehicleAdditionFormProps {
+  wereEditing?: boolean;
   isTrailer?: boolean;
+  vehicle?: Partial<SafeVehicle>;
 }
 
 const VehicleAdditionForm: React.FC<VehicleAdditionFormProps> = ({
+  wereEditing,
   isTrailer,
+  vehicle,
 }) => {
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const { uploadFile } = useIA();
@@ -35,35 +39,43 @@ const VehicleAdditionForm: React.FC<VehicleAdditionFormProps> = ({
     formState: { errors },
   } = useForm<FieldValues>({
     defaultValues: {
-      registration: "",
-      carMark: "",
-      carModel: "",
-      image: "",
-      height: 0,
-      width: 0,
-      length: 0,
-      maxWeight: 0,
+      id: vehicle ? vehicle.id : "",
+      registration: vehicle ? vehicle.registration : "",
+      carMark: vehicle ? vehicle.carMark : "",
+      carModel: vehicle ? vehicle.carModel : "",
+      image: vehicle ? vehicle.carImage : "",
+      height: vehicle ? vehicle.height : 0,
+      width: vehicle ? vehicle.width : 0,
+      length: vehicle ? vehicle.length : 0,
+      maxWeight: vehicle ? vehicle.maxWeight : 0,
     },
   });
 
   const onSubmit: SubmitHandler<FieldValues> = async (data: FieldValues) => {
     setIsLoading((isLoading) => !isLoading);
-    let imgData: string;
+    let imgData: string = "";
+
     if (typeof data.image[0] !== "object") {
       imgData = "";
     } else {
       imgData = await uploadFile(data.image[0]);
     }
+
+    console.log(imgData);
+
     data = {
       ...data,
       carImage: imgData,
       isTrailer: isTrailer,
     };
+    console.log(data);
 
     let toDb = JSON.stringify(data);
 
+    let route = wereEditing ? "/api/vehicles/edit" : "/api/vehicles";
+
     axios
-      .post("/api/vehicles", toDb)
+      .post(route, toDb)
       .then(
         (
           res: AxiosResponse<{
@@ -105,11 +117,17 @@ const VehicleAdditionForm: React.FC<VehicleAdditionFormProps> = ({
   return (
     <form
       onSubmit={handleSubmit(onSubmit)}
-      className={`md:max-w-full md:min-w-[45%] w-full flex flex-col gap-2 items-start p-4 rounded-md bg-gray-950`}
+      className={`${
+        wereEditing ? "md:w-4/5" : "md:max-w-full"
+      } md:min-w-[45%] w-full flex flex-col gap-2 items-start p-4 rounded-md bg-gray-950 md:mx-auto`}
     >
       <div className={`w-full p-2 pl-0 overflow-y-scroll md:max-h-[92%]`}>
         <h3 className="text-white font-extrabold md:text-xl text-sm mb-1">
-          {isTrailer ? "Dodaj przyczepę " : "Dodaj pojazd"}
+          {wereEditing
+            ? "Edytuj poprzez wypełnienie formularza"
+            : isTrailer
+            ? "Dodaj przyczepę "
+            : "Dodaj pojazd"}
         </h3>
         <p className="text-gray-500 font-semibold md:text-sm text-xs mb-3">
           {`Dodaj szczegóły ${
@@ -178,7 +196,9 @@ const VehicleAdditionForm: React.FC<VehicleAdditionFormProps> = ({
               IconPassed: <FaWeight size={20} color={"black"} />,
             },
           ]
-            .filter((item) => (!isTrailer ? !item.isTrailer : item.isTrailer))
+            .filter((item) =>
+              isTrailer ? item.isTrailer : wereEditing ? true : !item.isTrailer
+            )
             .map((item, index) => {
               return (
                 <React.Fragment key={index}>
@@ -196,7 +216,11 @@ const VehicleAdditionForm: React.FC<VehicleAdditionFormProps> = ({
               );
             })}
         </div>
-        <ImageAddition id={"image"} register={register} />
+        <ImageAddition
+          id={"image"}
+          register={register}
+          label={wereEditing ? "Nowe zdjęcia" : "Dodaj zdjęcie"}
+        />
       </div>
       <button
         disabled={isLoading}

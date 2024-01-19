@@ -15,15 +15,13 @@ interface PracBodyProps {
 const PracBody: React.FC<PracBodyProps> = ({
   allTheDrivers,
   firmId,
-  children,
-  allTheFirms
+  children
 }) => {
   let { theLocation, isFirstTab, setTheLocation } = usePracNav();
 
   let pathname = usePathname();
 
   useEffect(() => {
-    console.log(allTheFirms)
     if (pathname?.includes("pracownicy")) {
       setTheLocation("Zwolnij lub Awansuj");
     }

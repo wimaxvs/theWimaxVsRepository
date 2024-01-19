@@ -71,7 +71,7 @@ export async function POST(req: Request) {
         expensesSpent: returnFloat(expensesSpent),
         weight: returnFloat(weight),
         ferries: returnFloat(ferries),
-        highways,
+        highwaysBeta: returnFloat(highways),
         products,
         misc,
       },
@@ -152,6 +152,19 @@ export async function POST(req: Request) {
         },
       },
     });
+
+    if (currentDriver?.vehicle?.[1]) {
+      await prisma.vehicleBeta.update({
+        where: {
+          id: currentDriver?.vehicle?.[1].id,
+        },
+        data: {
+          mileage: {
+            increment: returnFloat(distanceCoveredSettlement),
+          },
+        },
+      });
+    }
 
     let allTheTasksBeta = await prisma.settlementBeta.findMany({
       include: {

@@ -24,6 +24,15 @@ export async function POST(request: Request) {
   const body = await request.json();
   const { driverId, vehicleId } = body;
 
+  let assignedVehicle = await prisma.vehicleBeta.findFirst({
+    where: {
+      id: vehicleId
+    },
+    select: {
+      isTrailer: true
+    }
+  })
+
   try {
     let theCar = await prisma.vehicleBeta.update({
       where: {
@@ -92,7 +101,9 @@ export async function POST(request: Request) {
   let allTheDrivers = objectArrayDatesToString(allTheDriversBeta);
   let allTheVehicles = objectArrayDatesToString(allTheVehiclesBeta);
 
-  let successMessage = "Pojazd został pomyślnie przypisany do kierowcy";
+  let successMessage = `${
+    assignedVehicle?.isTrailer ? "Przyczepa została" : "Pojazd został"
+  } pomyślnie przypisany do kierowcy`;
 
   return NextResponse.json({
     affectedDriver: affectedDriver ? affectedDriver : null,

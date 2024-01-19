@@ -50,6 +50,7 @@ const InputDecipher: React.FC<InputDecipherProps> = ({
           {IconPassed}
         </div>
         <input
+          min={inputType === "number" ? 0 : undefined}
           type={inputType}
           step={step ? step : 1}
           autoComplete={autocomplete ? `${autocomplete.toString()}` : "false"}

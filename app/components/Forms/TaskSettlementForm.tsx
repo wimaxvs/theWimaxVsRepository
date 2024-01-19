@@ -2,10 +2,7 @@
 import useAllTasks from "@/app/hooks/useAllTasks";
 import useTaskBeingSent from "@/app/hooks/useTaskBeingSent";
 import React, { useState } from "react";
-import {
-  FieldValues,
-  UseFormRegister,
-} from "react-hook-form";
+import { FieldValues, UseFormRegister } from "react-hook-form";
 import { IoArrowBackOutline } from "react-icons/io5";
 import InputDecipher from "./inputs/InputDecipher";
 import { GiFinishLine, GiTireTracks } from "react-icons/gi";
@@ -78,41 +75,42 @@ const TaskSettlementForm: React.FC<TaskSettlementFormProps> = ({
                     registerId: "distanceCoveredSettlement",
                     placeholder: "Przejechany dystans (KM)",
                     inputType: "number",
-                    step: "0,01",
+                    step: 0.01,
                     IconPassed: <RiPinDistanceLine size={20} color={"black"} />,
                   },
                   {
                     registerId: "fuelUsed",
                     placeholder: "Zużyte paliwo (L)",
                     inputType: "number",
-                    step: "0,01",
+                    step: 0.01,
                     IconPassed: <IoMdSpeedometer size={20} color={"black"} />,
                   },
                   {
                     registerId: "expensesSpent",
                     placeholder: "Wydatki (EUR)",
                     inputType: "number",
-                    step: "0,01",
+                    step: 0.01,
                     IconPassed: <GiPayMoney size={20} color={"black"} />,
                   },
                   {
                     registerId: "ferries",
                     placeholder: "Promy (EUR)",
                     inputType: "number",
-                    step: "0,01",
+                    step: 0.01,
                     IconPassed: <MdDirectionsBoat size={20} color={"black"} />,
                   },
                   {
                     registerId: "highways",
-                    placeholder: "Autostrady",
-                    inputType: "text",
+                    placeholder: "Autostrady (EUR)",
+                    inputType: "number",
+                    step: 0.01,
                     IconPassed: <FaRoad size={20} color={"black"} />,
                   },
                   {
                     registerId: "litersRefueled",
-                    placeholder: "Zatankowany litry (L)",
+                    placeholder: "Zatankowany paliwo (L)",
                     inputType: "number",
-                    step: "0,01",
+                    step: 0.01,
                     IconPassed: <BsFuelPumpDiesel size={20} color={"black"} />,
                   },
                   {

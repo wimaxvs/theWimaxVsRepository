@@ -142,6 +142,7 @@ model DriverBeta {
   deliveries         Int?
   avgFuelConsumption Float?
   seniority          String?
+  isFired            Boolean? @default(false)
   createdAt          DateTime @default(now()) @db.Timestamp
   updatedAt          DateTime @updatedAt @db.Timestamp
 
@@ -158,7 +159,7 @@ model DriverBeta {
   firmId      String?   @db.ObjectId
 
   currentLocation Location? @relation(fields: [locationId], references: [id], name: "driversBeta")
-  locationId      String?       @db.ObjectId
+  locationId      String?   @db.ObjectId
 }
 
 model JoinRequest {
@@ -192,12 +193,11 @@ model Location {
   city    String?
   zipCode String?
 
-  drivers     Driver[]
-  driversB     DriverBeta[] @relation("driversBeta")
-  settlements Settlement[]
+  drivers      Driver[]
+  driversB     DriverBeta[]     @relation("driversBeta")
+  settlements  Settlement[]
   settlementsB SettlementBeta[] @relation("settlementLocation")
 }
-
 
 model StartLocation {
   id      String  @id @default(auto()) @map("_id") @db.ObjectId
@@ -205,10 +205,9 @@ model StartLocation {
   city    String?
   zipCode String?
 
-  settlements Settlement[]
+  settlements  Settlement[]
   settlementsB SettlementBeta[]
 }
-
 
 model KilometerMonth {
   id       String  @id @default(auto()) @map("_id") @db.ObjectId
@@ -257,7 +256,7 @@ model CompanyKilometersBeta {
 model Settlement {
   id String @id @default(auto()) @map("_id") @db.ObjectId
 
-  beginImage                String? 
+  beginImage                String?
   endImage                  String?
   distanceCoveredSettlement Float?
   fuelUsed                  Float?
@@ -299,6 +298,7 @@ model SettlementBeta {
   weight                    Float?
   ferries                   Float?
   highways                  String[]
+  highwaysBeta              Float?
   products                  String[]
   approvalStatus            Boolean?
   isSettled                 Boolean?
@@ -307,9 +307,9 @@ model SettlementBeta {
   updatedAt                 DateTime @default(now()) @updatedAt @db.Timestamp
 
   startLocation   StartLocation? @relation(fields: [startLocationId], references: [id], onDelete: Cascade)
-  startLocationId String?            @db.ObjectId
+  startLocationId String?        @db.ObjectId
   endLocation     Location?      @relation(fields: [locationId], references: [id], onDelete: Cascade, name: "settlementLocation")
-  locationId      String?            @db.ObjectId
+  locationId      String?        @db.ObjectId
 
   driver   DriverBeta? @relation(fields: [driverId], references: [id], onDelete: Cascade)
   driverId String?     @db.ObjectId

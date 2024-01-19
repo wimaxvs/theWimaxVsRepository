@@ -23,7 +23,7 @@ const page = async () => {
   let allTheDrivers: SafeDriver[] = await getAllDrivers();
 
   return (
-    <div className="bg-[url('/images/bkg_3.jpg')] bg-no-repeat bg-cover bg-right-bottom h-screen w-full min-h-full flex flex-row justify-center pt-6">
+    <div className="bg-[url('/images/bkg_3.png')] bg-no-repeat bg-cover bg-right-bottom h-screen w-full min-h-full flex flex-row justify-center pt-6">
       <section
         className={`navAndBody rounded-xl w-11/12 md:w-4/5 lg:w-2/3 md:min-h-5/6 md:h-5/6 flex flex-col max-h-[600px]`}
       >

@@ -5,6 +5,7 @@ import { SafeVehicle } from "../types";
 type State = {
   theVehicles: Partial<SafeVehicle>[];
   vehicleBeingAssigned: Partial<SafeVehicle>;
+  vehicleBeingEdited: Partial<SafeVehicle>;
 };
 
 type Action = {
@@ -14,11 +15,16 @@ type Action = {
     Vehicle: Partial<SafeVehicle>,
     reset?: boolean
   ) => void;
+  setVehicleBeingEdited: (
+    Vehicle: Partial<SafeVehicle>,
+    reset?: boolean
+  ) => void;
 };
 
 const useAllVehicles = create<State & Action>((set) => ({
   theVehicles: [],
   vehicleBeingAssigned: {},
+  vehicleBeingEdited: {},
   setVehicleBeingAssigned: (VehicleToSet, reset) =>
     set((state) => {
       if (!reset) {
@@ -30,6 +36,19 @@ const useAllVehicles = create<State & Action>((set) => ({
         };
       } else {
         return { vehicleBeingAssigned: VehicleToSet };
+      }
+    }),
+  setVehicleBeingEdited: (VehicleToSet, reset) =>
+    set((state) => {
+      if (!reset) {
+        return {
+          vehicleBeingEdited: {
+            ...state.vehicleBeingEdited,
+            ...VehicleToSet,
+          },
+        };
+      } else {
+        return { vehicleBeingEdited: VehicleToSet };
       }
     }),
   setTheVehicles: (VehiclesToSet) =>

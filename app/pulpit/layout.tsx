@@ -26,7 +26,7 @@ export default async function Pulpit({ children }: DashlayoutProps) {
   let role = currentDriver?.role;
   return (
     <>
-      {currentDriver && (
+      {currentDriver && !currentDriver.isFired && (
         <>
           <Drawer
             role={role}
@@ -37,7 +37,7 @@ export default async function Pulpit({ children }: DashlayoutProps) {
           </Drawer>
         </>
       )}
-      {!currentDriver && (
+      {(!currentDriver || currentDriver.isFired) && (
         <div
           className={`${font.className} fixed mt-40 w-full h-40 flex flex-col items-center justify-center`}
         >

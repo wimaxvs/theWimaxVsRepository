@@ -30,7 +30,14 @@ const Sidebar: React.FC<SideBarAttributes> = ({ role, firmName }) => {
     },
     {
       h2: "Statystyki firmy",
-      links: [{ label: "Kierowcy w Wimax", link: "topk" }],
+      links: [
+        { label: "Kierowcy w Wimax", link: "topk" },
+        {
+          label: "Statystyki",
+          link: "staty",
+          color: "#1fb2a6",
+        },
+      ],
     },
     {
       h2: "O Mnie",
@@ -38,13 +45,9 @@ const Sidebar: React.FC<SideBarAttributes> = ({ role, firmName }) => {
     },
   ];
 
-  if (isZarzad) {
-    segmentContent[1].links.push({
-      label: "Statystyki",
-      link: "staty",
-      color: "#1fb2a6",
-    });
-  }
+  // if (isZarzad) {
+  //   segmentContent[1].links.push();
+  // }
 
   let insiderSegmentContent: typeof segmentContent = [
     {

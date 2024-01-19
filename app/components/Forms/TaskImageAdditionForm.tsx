@@ -54,7 +54,7 @@ const TaskImageAdditionForm: React.FC<TaskImageAdditionFormProps> = ({
             register={register}
             label={"Początek"}
           />
-          <ImageAddition id={"endImage"} register={register} label={"Konieć"} />
+          <ImageAddition id={"endImage"} register={register} label={"Koniec"} />
         </div>
         <button
           className={`p-3 bg-deep-blue text-white font-semibold rounded-md disabled:opacity-75`}
