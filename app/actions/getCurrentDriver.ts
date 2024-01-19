@@ -36,6 +36,7 @@ export default async function getCurrentDriver() {
 
     let currentDriver: SafeDriver = {
       ...currentDriverBeta,
+      isFired: currentDriverBeta?.isFired || null,
       id: currentDriverBeta?.id!,
       name: currentDriverBeta?.name || null,
       username: currentDriverBeta?.username || null,
