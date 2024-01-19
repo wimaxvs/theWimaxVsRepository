@@ -67,7 +67,7 @@ const TaskSettlementForm: React.FC<TaskSettlementFormProps> = ({
                   },
                   {
                     registerId: "endLocation",
-                    placeholder: "Miasto Konieć",
+                    placeholder: "Miasto Koniec",
                     inputType: "text",
                     IconPassed: <GiFinishLine size={20} color={"black"} />,
                   },

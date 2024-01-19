@@ -134,7 +134,7 @@ const DriverUpdateForm = () => {
               registerId={"currentLocation.country"}
               inputType={"text"}
               placeholder={currentDriver?.currentLocation?.country!}
-              ifPlaceholderMissing={"Obecne kraj"}
+              ifPlaceholderMissing={"Obecny kraj"}
             />
             <InputDecipher
               widthSet="max-w-[45%]"

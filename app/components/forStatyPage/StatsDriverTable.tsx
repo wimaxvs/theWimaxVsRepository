@@ -226,7 +226,7 @@ const StatsDriverTable: React.FC<StatsDriverTableProps> = ({ settlements }) => {
             <th className={`text-gray-600`}>Autostrady</th>
             <th className={`text-gray-600`}>Promy</th>
             <th className={`text-gray-600`}>Wydatki</th>
-            <th className={`text-gray-600`}>Zatankowane litry</th>
+            <th className={`text-gray-600`}>Zatankowane paliwo</th>
           </tr>
         </thead>
         <tbody>
