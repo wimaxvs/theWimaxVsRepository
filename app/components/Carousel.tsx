@@ -40,7 +40,7 @@ const Carousel: React.FC<CarouselProps> = ({ task, detailComponent }) => {
               },
               {
                 key: "Autostrady (pln)",
-                value: task?.highways!.join(", ") || "N/A",
+                value: task?.highwaysBeta || "N/A",
               },
               {
                 key: "Zatankowany litry (L)",
