@@ -2,15 +2,13 @@ import "./globals.css";
 import { Inter } from "next/font/google";
 import { Suspense } from "react";
 import { Metadata } from "next";
-import AppleIcon from "../public/images/logoCutB.png";
-import Favicon from "./favicon.ico";
 import Loading from "./loading";
 import ToasterProvider from "./providers/ToasterProvider";
 
 export const metadata: Metadata = {
   title: "Wimax",
   description: "Euro Truck Simulator 2 Company Management Portal",
-  icons: { icon: ["/favicon.ico"], apple: ["/logoCutB.png"] },
+  icons: { icon: ["/images/favicon.ico"], apple: ["/images/logoCutB.png"] },
 };
 
 const font = Inter({
