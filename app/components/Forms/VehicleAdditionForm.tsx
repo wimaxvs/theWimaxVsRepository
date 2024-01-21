@@ -16,6 +16,7 @@ import { CiLineHeight } from "react-icons/ci";
 import { AiOutlineColumnWidth } from "react-icons/ai";
 import { CgArrowLongRightC } from "react-icons/cg";
 import { FaWeight } from "react-icons/fa";
+import { SlSpeedometer } from "react-icons/sl";
 
 interface VehicleAdditionFormProps {
   wereEditing?: boolean;
@@ -48,6 +49,7 @@ const VehicleAdditionForm: React.FC<VehicleAdditionFormProps> = ({
       width: vehicle ? vehicle.width : 0,
       length: vehicle ? vehicle.length : 0,
       maxWeight: vehicle ? vehicle.maxWeight : 0,
+      mileage: vehicle ? vehicle.mileage : 0,
     },
   });
 
@@ -150,6 +152,7 @@ const VehicleAdditionForm: React.FC<VehicleAdditionFormProps> = ({
               registerId: "carMark",
               inputType: "text",
               placeholder: "Marka Pojazdu",
+              isTrailer: false,
               IconPassed: <TbBrandCodesandbox size={20} color={"black"} />,
             },
             {
@@ -157,13 +160,14 @@ const VehicleAdditionForm: React.FC<VehicleAdditionFormProps> = ({
               registerId: "carModel",
               inputType: "text",
               placeholder: "Model Pojazdu",
+              isTrailer: false,
               IconPassed: <IoLogoModelS size={20} color={"black"} />,
             },
             {
               widthSet: "max-w-[45%] min-w-[45%]",
               registerId: "height",
               inputType: "number",
-              step: "0.01",
+              step: 0.01,
               placeholder: "Wysokość (M)",
               isTrailer: true,
               IconPassed: <CiLineHeight size={20} color={"black"} />,
@@ -172,7 +176,7 @@ const VehicleAdditionForm: React.FC<VehicleAdditionFormProps> = ({
               widthSet: "max-w-[50%] min-w-[50%]",
               registerId: "width",
               inputType: "number",
-              step: "0.01",
+              step: 0.01,
               placeholder: "Szerokość (M)",
               isTrailer: true,
               IconPassed: <AiOutlineColumnWidth size={20} color={"black"} />,
@@ -181,7 +185,7 @@ const VehicleAdditionForm: React.FC<VehicleAdditionFormProps> = ({
               widthSet: "max-w-[50%] min-w-[50%]",
               registerId: "length",
               inputType: "number",
-              step: "0.01",
+              step: 0.01,
               placeholder: "Długość (M)",
               isTrailer: true,
               IconPassed: <CgArrowLongRightC size={20} color={"black"} />,
@@ -190,14 +194,26 @@ const VehicleAdditionForm: React.FC<VehicleAdditionFormProps> = ({
               widthSet: "max-w-[45%] min-w-[45%]",
               registerId: "maxWeight",
               inputType: "number",
-              step: "0.01",
+              step: 0.01,
               placeholder: "Pojemność (kg)",
               isTrailer: true,
               IconPassed: <FaWeight size={20} color={"black"} />,
             },
+            {
+              widthSet: "w-full min-w-[45%]",
+              registerId: "mileage",
+              inputType: "number",
+              step: 0.01,
+              placeholder: "Przebieg (km)",
+              IconPassed: <SlSpeedometer size={20} color={"black"} />,
+            },
           ]
             .filter((item) =>
-              isTrailer ? item.isTrailer : wereEditing ? true : !item.isTrailer
+              isTrailer
+                ? item.isTrailer
+                : wereEditing
+                ? true
+                : !item.isTrailer === false
             )
             .map((item, index) => {
               return (

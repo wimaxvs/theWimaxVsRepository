@@ -61,6 +61,7 @@ export async function POST(req: Request) {
         width: vehicleChanges?.width ? +vehicleChanges.width : 0,
         length: vehicleChanges?.length ? +vehicleChanges.length : 0,
         maxWeight: vehicleChanges?.maxWeight ? +vehicleChanges.maxWeight : 0,
+        mileage: vehicleChanges?.mileage ? +vehicleChanges.mileage : 0,
       },
     });
 
@@ -89,7 +90,7 @@ export async function POST(req: Request) {
       code: 200,
       message: `${
         assignedVehicle?.isTrailer ? "Przyczepa została" : "Pojazd został"
-      } pomyślnie edytowany`,
+      } pomyślnie edytowany. Odśwież stronę.`,
       allTheVehicles,
     });
   } catch (error) {

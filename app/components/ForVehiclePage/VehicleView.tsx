@@ -122,11 +122,11 @@ const VehicleView: React.FC<VehicleViewProps> = ({ allTheDrivers }) => {
             <div
               key={index}
               className={`w-11/12 rounded-xl flex flex-row gap-2 items-center p-2
-                ${index % 2 === 0 && "bg-gray-500 text-gray-950"}
+                ${index % 2 === 0 && "bg-gray-500 "}
                 `}
             >
-              <p className="text-sm text-gray-500 font-bold">{index + 1}</p>
-              <p className="text-sm text-gray-500 font-bold">{driver.name}</p>
+              <p className="text-sm text-gray-950 font-bold">{index + 1}</p>
+              <p className="text-sm text-gray-950 font-bold">{driver.name}</p>
             </div>
           ))}
       </div>

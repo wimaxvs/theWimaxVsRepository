@@ -16,9 +16,10 @@ export async function POST(request: Request) {
   if (!currentDriver) {
     return NextResponse.json({ code: 500, message: "Nieznany użytkownik." });
   }
-  if (currentDriver?.role !== "ZARZAD") {
+  if (currentDriver?.role !== "ZARZAD" && currentDriver.role !== "SPEDYTOR") {
     return NextResponse.json({ code: 400, message: "Nie jestes Zarżądem" });
   }
+
   const body = await request.json();
   const { driverId, taskId: settlementId } = body;
 
@@ -53,16 +54,12 @@ export async function POST(request: Request) {
         currentFirm: true,
       },
     });
-
-
-
   } else {
     affectedDriverBeta = null;
   }
 
-  let affectedDriver = objectDateToString(affectedDriverBeta)
-  
-  
+  let affectedDriver = objectDateToString(affectedDriverBeta);
+
   let allTheTasksBeta = await prisma.settlementBeta.findMany({
     include: {
       endLocation: true,
@@ -72,7 +69,7 @@ export async function POST(request: Request) {
     },
   });
 
-  let allTheTasks = objectArrayDatesToString(allTheTasksBeta)
+  let allTheTasks = objectArrayDatesToString(allTheTasksBeta);
 
   let successMessage = "Tras został wykreślony z rejestru";
 
