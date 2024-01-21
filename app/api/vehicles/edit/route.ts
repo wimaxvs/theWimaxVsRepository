@@ -6,6 +6,7 @@ import { objectArrayDatesToString } from "../../rozpiski/assign/route";
 import { leaveOnlyChanges } from "../../drupdate/route";
 import { SafeVehicle } from "@/app/types";
 
+
 export async function POST(req: Request) {
   const currentDriver = await getCurrentDriver();
 

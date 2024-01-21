@@ -15,7 +15,7 @@ export async function POST(request: Request) {
   if (!currentDriver) {
     return NextResponse.json({ code: 500, message: "Nieznany użytkownik." });
   }
-  if (currentDriver?.role !== "ZARZAD") {
+  if (currentDriver?.role !== "ZARZAD" && currentDriver.role !== "SPEDYTOR") {
     return NextResponse.json({ code: 400, message: "Nie jestes Zarżądem" });
   }
   const body = await request.json();
@@ -76,14 +76,13 @@ export async function POST(request: Request) {
       driver: true,
       Firm: true,
       startLocation: true,
-      endLocation: true
+      endLocation: true,
     },
   });
 
-      let affectedDriver = objectDateToString(affectedDriverBeta);
-      let allTheDrivers = objectArrayDatesToString(allTheDriversBeta);
-      let allTheTasks = objectArrayDatesToString(allTheTasksBeta);
-
+  let affectedDriver = objectDateToString(affectedDriverBeta);
+  let allTheDrivers = objectArrayDatesToString(allTheDriversBeta);
+  let allTheTasks = objectArrayDatesToString(allTheTasksBeta);
 
   let successMessage = "Pomyślnie usunięto przypisanie trasa do kierowcy.";
 

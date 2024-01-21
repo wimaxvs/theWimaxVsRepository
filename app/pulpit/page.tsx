@@ -115,7 +115,7 @@ const page = async () => {
 
   let deetsForBalanceStatPad: typeof deetsForKmPad = [
     {
-      title: "w złotych polskich",
+      title: "W Euro",
       value:
         firmBalanceAmount(firmBalance?.amount ? firmBalance.amount : 0) || 0,
       icon: <FaRegMoneyBillAlt size={28} color={"white"} />,

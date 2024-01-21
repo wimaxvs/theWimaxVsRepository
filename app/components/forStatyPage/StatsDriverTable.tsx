@@ -104,6 +104,10 @@ const StatsDriverTable: React.FC<StatsDriverTableProps> = ({ settlements }) => {
           updatedAt: date,
         } = settlement;
 
+        if (driver?.isFired) {
+          return;
+        }
+
         // Check if settlement is within the specified date range
 
         const isWithinDateRange = isInDateRange(
@@ -330,12 +334,16 @@ const StatsDriverTable: React.FC<StatsDriverTableProps> = ({ settlements }) => {
                 )}{" "}
                 l/km
               </td>
-              <td className={`font-light text-gray-500`}>{`Całkowite wydatki (wszyscy):`}</td>
+              <td
+                className={`font-light text-gray-500`}
+              >{`Całkowite wydatki (wszyscy):`}</td>
               <td className={`text-gray-100 font-extrabold`}>
                 -{firmBalanceAmount(Number(dataToMap.tee.toFixed(2)))} Eur
               </td>
               <td></td>
-              <td className={`font-light text-gray-500`}>{`Całkowita ilość zatankowanego paliwa (wszyscy):`}</td>
+              <td
+                className={`font-light text-gray-500`}
+              >{`Całkowita ilość zatankowanego paliwa (wszyscy):`}</td>
               <td className={`text-gray-100 font-extrabold`}>
                 {firmBalanceAmount(Number(dataToMap.tre.toFixed(2)))} L
               </td>
