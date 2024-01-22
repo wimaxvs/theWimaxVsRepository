@@ -108,7 +108,7 @@ const TaskSettlementForm: React.FC<TaskSettlementFormProps> = ({
                   },
                   {
                     registerId: "litersRefueled",
-                    placeholder: "Zatankowany paliwo (L)",
+                    placeholder: "Zatankowane paliwo (L)",
                     inputType: "number",
                     step: 0.01,
                     IconPassed: <BsFuelPumpDiesel size={20} color={"black"} />,

@@ -213,7 +213,7 @@ const VehicleAdditionForm: React.FC<VehicleAdditionFormProps> = ({
                 ? item.isTrailer
                 : wereEditing
                 ? true
-                : !item.isTrailer === false
+                : item.isTrailer === false
             )
             .map((item, index) => {
               return (
