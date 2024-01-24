@@ -82,6 +82,18 @@ const VehicleView: React.FC<VehicleViewProps> = ({ allTheDrivers }) => {
               subTitle:
                 currentDriver?.vehicle?.[0]?.carModel || "Model Pojazdu",
             },
+            {
+              image: "bentoPrzebieg",
+              title: "Prezebieg pojazdu",
+              subTitle:
+                currentDriver?.vehicle?.[0]?.mileage || "Przebieg Pojazdu",
+            },
+            {
+              image: "bentoPrzebiegB",
+              title: "Prezebieg przyczepy",
+              subTitle:
+                currentDriver?.vehicle?.[1]?.mileage || "Przebieg Przyczepy",
+            },
           ].map((deets, index) => (
             <div
               key={index}
@@ -93,6 +105,10 @@ const VehicleView: React.FC<VehicleViewProps> = ({ allTheDrivers }) => {
                       ? "bg-[url('/images/bentoModel.png')]"
                       : deets.image === "bentoMark"
                       ? "bg-[url('/images/bentoMark.png')]"
+                      : deets.image === "bentoPrzebieg"
+                      ? "bg-[url('/images/bentoPrzebieg.png')] bg-left-bottom"
+                      : deets.image === "bentoPrzebiegB"
+                      ? "bg-[url('/images/bentoPrzebieg.png')] bg-right-bottom"
                       : ""
                   }
               `}
