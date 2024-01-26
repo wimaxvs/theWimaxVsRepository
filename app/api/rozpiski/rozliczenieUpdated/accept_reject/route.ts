@@ -3,7 +3,10 @@ import { SafeDriver } from "@/app/types";
 import prisma from "@/app/libs/prismadb";
 import { Prisma } from "@prisma/client";
 import { NextResponse } from "next/server";
-import { objectDateToString, objectArrayDatesToString } from "../../assign/route";
+import {
+  objectDateToString,
+  objectArrayDatesToString,
+} from "../../assign/route";
 
 export async function POST(req: Request) {
   //parse request body
@@ -130,11 +133,12 @@ export async function POST(req: Request) {
         });
       }
 
-      let currentDriverCompanyKms = await prisma.companyKilometersBeta.findFirst({
-        where: {
-          id: currentDriver?.companyKilometers?.id,
-        },
-      });
+      let currentDriverCompanyKms =
+        await prisma.companyKilometersBeta.findFirst({
+          where: {
+            id: currentDriver?.companyKilometers?.id,
+          },
+        });
 
       if (!currentDriver.companyKilometers) {
         await prisma.companyKilometersBeta.create({
@@ -163,16 +167,18 @@ export async function POST(req: Request) {
         });
       }
 
-      await prisma.vehicleBeta.update({
-        where: {
-          id: currentDriver?.vehicle?.[0].id,
-        },
-        data: {
-          mileage: {
-            increment: returnFloat(distanceCoveredSettlement),
+      for (let car of currentDriver.vehicle) {
+        await prisma.vehicleBeta.update({
+          where: {
+            id: car.id,
           },
-        },
-      });
+          data: {
+            mileage: {
+              increment: returnFloat(distanceCoveredSettlement),
+            },
+          },
+        });
+      }
 
       let allTheTasksBeta = await prisma.settlementBeta.findMany({
         include: {
@@ -206,8 +212,8 @@ export async function POST(req: Request) {
         },
       });
 
-          let affectedDriver = objectDateToString(affectedDriverBeta);
-          let allTheTasks = objectArrayDatesToString(allTheTasksBeta);
+      let affectedDriver = objectDateToString(affectedDriverBeta);
+      let allTheTasks = objectArrayDatesToString(allTheTasksBeta);
 
       return NextResponse.json({
         code: 200,

@@ -6,7 +6,6 @@ import { objectArrayDatesToString } from "../../rozpiski/assign/route";
 import { leaveOnlyChanges } from "../../drupdate/route";
 import { SafeVehicle } from "@/app/types";
 
-
 export async function POST(req: Request) {
   const currentDriver = await getCurrentDriver();
 
@@ -52,48 +51,67 @@ export async function POST(req: Request) {
         id: currentDriver?.currentFirm?.id,
       },
     });
-    let newCar = await prisma.vehicleBeta.update({
+    let carBeingEdited = await prisma.vehicleBeta.findFirst({
       where: {
         id: vehicleId,
       },
-      data: {
-        ...vehicleChanges,
-        height: vehicleChanges?.height ? +vehicleChanges.height : 0,
-        width: vehicleChanges?.width ? +vehicleChanges.width : 0,
-        length: vehicleChanges?.length ? +vehicleChanges.length : 0,
-        maxWeight: vehicleChanges?.maxWeight ? +vehicleChanges.maxWeight : 0,
-        mileage: vehicleChanges?.mileage ? +vehicleChanges.mileage : 0,
-      },
     });
+    if (carBeingEdited) {
+      let newCar = await prisma.vehicleBeta.update({
+        where: {
+          id: carBeingEdited.id,
+        },
+        data: {
+          ...vehicleChanges,
+          height: vehicleChanges?.height
+            ? +vehicleChanges.height
+            : carBeingEdited.height,
+          width: vehicleChanges?.width
+            ? +vehicleChanges.width
+            : carBeingEdited.width,
+          length: vehicleChanges?.length
+            ? +vehicleChanges.length
+            : carBeingEdited.length,
+          maxWeight: vehicleChanges?.maxWeight
+            ? +vehicleChanges.maxWeight
+            : carBeingEdited.maxWeight,
+          mileage: vehicleChanges?.mileage
+            ? +vehicleChanges.mileage
+            : carBeingEdited.mileage,
+        },
+      });
 
-    await prisma.vehicleBeta.update({
-      where: {
-        id: newCar?.id,
-      },
-      data: {
-        currentFirm: {
-          connect: {
-            id: theFirm?.id,
+      await prisma.vehicleBeta.update({
+        where: {
+          id: newCar?.id,
+        },
+        data: {
+          currentFirm: {
+            connect: {
+              id: theFirm?.id,
+            },
           },
         },
-      },
-    });
-    let allTheVehiclesBeta = await prisma.vehicleBeta.findMany({
-      include: {
-        currentDriver: true,
-        currentFirm: true,
-      },
-    });
+      });
+      let allTheVehiclesBeta = await prisma.vehicleBeta.findMany({
+        include: {
+          currentDriver: true,
+          currentFirm: true,
+        },
+      });
 
-    let allTheVehicles = objectArrayDatesToString(allTheVehiclesBeta);
+      let allTheVehicles = objectArrayDatesToString(allTheVehiclesBeta);
 
-    return NextResponse.json({
-      code: 200,
-      message: `${
-        assignedVehicle?.isTrailer ? "Przyczepa została" : "Pojazd został"
-      } pomyślnie edytowany. Odśwież stronę.`,
-      allTheVehicles,
-    });
+      return NextResponse.json({
+        code: 200,
+        message: `${
+          assignedVehicle?.isTrailer ? "Przyczepa została" : "Pojazd został"
+        } pomyślnie edytowany. Odśwież stronę.`,
+        allTheVehicles,
+      });
+    } else {
+      throw new Error(`Vehicle not found.`);
+    }
   } catch (error) {
     if (error instanceof Prisma.PrismaClientKnownRequestError) {
       if (error.code === "P2002") {

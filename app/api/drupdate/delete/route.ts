@@ -44,7 +44,7 @@ export async function POST(request: Request) {
         requesterId: driverId,
       },
     });
-    await prisma.driverBeta.update({
+    let firedDriver = await prisma.driverBeta.update({
       where: {
         id: theDriver.id,
       },
@@ -64,7 +64,20 @@ export async function POST(request: Request) {
           disconnect: [...theDriver.kilometerMonths.map((v) => ({ id: v.id }))],
         },
       },
+      include: {
+        settlements: true,
+      },
     });
+
+    for (let sett of firedDriver.settlements) {
+      if (!sett.isSettled) {
+        await prisma.settlementBeta.delete({
+          where: {
+            id: sett.id,
+          },
+        });
+      }
+    }
   } catch (error) {
     if (error instanceof Prisma.PrismaClientKnownRequestError) {
       console.log(error);

@@ -10,7 +10,6 @@ interface CarouselProps {
 }
 
 const Carousel: React.FC<CarouselProps> = ({ task, detailComponent }) => {
-
   return (
     <>
       <div className="carousel w-full">
@@ -31,19 +30,19 @@ const Carousel: React.FC<CarouselProps> = ({ task, detailComponent }) => {
                 value: task?.fuelUsed! || 0,
               },
               {
-                key: "Wydatki (pln)",
+                key: "Wydatki (Eur)",
                 value: task?.expensesSpent! || 0,
               },
               {
-                key: "Promy (pln)",
+                key: "Promy (Eur)",
                 value: task?.ferries! || 0,
               },
               {
-                key: "Autostrady (pln)",
+                key: "Autostrady (Eur)",
                 value: task?.highwaysBeta || "N/A",
               },
               {
-                key: "Zatankowany litry (L)",
+                key: "Zatankowane paliwo (L)",
                 value: task?.litersRefueled! || 0,
               },
             ].map((item, index) => (
