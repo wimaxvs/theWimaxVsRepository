@@ -15,7 +15,7 @@ const StatsDriverTable: React.FC<StatsDriverTableProps> = ({ settlements }) => {
     // Split the number into integer and decimal parts
     const parts = amount.toString().split(".");
     let integerPart = parts[0];
-    const decimalPart = parts[1] ? "." + parts[1] : "";
+    const decimalPart = parts[1] ? "." + parts[1].slice(0,2) : "";
 
     // Add commas to the integer part
     integerPart = integerPart.replace(/\B(?=(\d{3})+(?!\d))/g, " ");
@@ -238,8 +238,8 @@ const StatsDriverTable: React.FC<StatsDriverTableProps> = ({ settlements }) => {
             dataToMap.drivers
               .sort(
                 (a, b) =>
-                  Number(a.averageFuelPer100Kms) -
-                  Number(b.averageFuelPer100Kms)
+                  Number(b.totalDistanceCovered) -
+                  Number(a.totalDistanceCovered)
               )
               .map((driver, index) => {
                 return (

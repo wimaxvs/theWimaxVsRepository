@@ -20,11 +20,30 @@ export default async function copySettlements() {
 
       await prisma.settlementBeta.create({
         data: {
-          ...settlement,
-          startLocationId: settlement.startLocationId,
-          locationId: settlement.locationId,
+          beginImage: settlement.beginImage ? settlement.beginImage : null,
+          endImage: settlement.endImage ? settlement.endImage : null,
+          distanceCoveredSettlement: settlement.distanceCoveredSettlement
+            ? settlement.distanceCoveredSettlement
+            : null,
+          fuelUsed: settlement.fuelUsed ? settlement.fuelUsed : null,
+          avgFuelConsumption: settlement.avgFuelConsumption
+            ? settlement.avgFuelConsumption
+            : null,
+          litersRefueled: settlement.litersRefueled
+            ? settlement.litersRefueled
+            : null,
+          ferries: settlement.ferries ? settlement.ferries : null,
+          highways: settlement.highways ? settlement.highways : undefined,
+          approvalStatus: settlement.approvalStatus
+            ? settlement.approvalStatus
+            : null,
+          isSettled: settlement.isSettled ? settlement.isSettled : null,
+          misc: settlement.misc ? settlement.misc : undefined,
           driverId: theNewDriver ? theNewDriver?.id : null,
           firmId: theFirm?.id,
+          createdAt: new Date("2023-12-15T11:25"),
+          updatedAt: new Date("2023-12-15T11:25"),
+          products: ["milk"],
         },
       });
     }
