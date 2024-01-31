@@ -11,11 +11,16 @@ interface StatsDriverTableProps {
 const StatsDriverTable: React.FC<StatsDriverTableProps> = ({ settlements }) => {
   let { startDate, endDate } = useFilter();
 
-  function firmBalanceAmount(amount: number) {
+  function firmBalanceAmount(amount: number, noDecimal?: boolean) {
     // Split the number into integer and decimal parts
     const parts = amount.toString().split(".");
     let integerPart = parts[0];
-    const decimalPart = parts[1] ? "." + parts[1].slice(0,2) : "";
+    const decimalPart =
+      parts[1] && noDecimal
+        ? ""
+        : parts[1] && !noDecimal
+        ? "." + parts[1].slice(0, 2)
+        : "";
 
     // Add commas to the integer part
     integerPart = integerPart.replace(/\B(?=(\d{3})+(?!\d))/g, " ");
@@ -300,16 +305,16 @@ const StatsDriverTable: React.FC<StatsDriverTableProps> = ({ settlements }) => {
                       )} l/km`}
                     </td>
                     <td className={`text-gray-100`}>
-                      {`${firmBalanceAmount(driver.highways || 0)} eur`}
+                      {`${firmBalanceAmount(driver.highways || 0, true)} eur`}
                     </td>
                     <td className={`text-gray-100`}>
-                      {`${firmBalanceAmount(driver.ferries || 0)} eur`}
+                      {`${firmBalanceAmount(driver.ferries || 0, true)} eur`}
                     </td>
                     <td className={`text-gray-100`}>
-                      {`${firmBalanceAmount(driver.expenses || 0)} eur`}
+                      {`${firmBalanceAmount(driver.expenses || 0, true)} eur`}
                     </td>
                     <td className={`text-gray-100`}>
-                      {`${firmBalanceAmount(Number(driver.refuelled) || 0)} L`}
+                      {`${firmBalanceAmount(Number(driver.refuelled) || 0, true)} L`}
                     </td>
                   </tr>
                 );
@@ -338,14 +343,14 @@ const StatsDriverTable: React.FC<StatsDriverTableProps> = ({ settlements }) => {
                 className={`font-light text-gray-500`}
               >{`Całkowite wydatki (wszyscy):`}</td>
               <td className={`text-gray-100 font-extrabold`}>
-                -{firmBalanceAmount(Number(dataToMap.tee.toFixed(2)))} Eur
+                -{firmBalanceAmount(Number(dataToMap.tee.toFixed(2)), true)} Eur
               </td>
               <td></td>
               <td
                 className={`font-light text-gray-500`}
               >{`Całkowita ilość zatankowanego paliwa (wszyscy):`}</td>
               <td className={`text-gray-100 font-extrabold`}>
-                {firmBalanceAmount(Number(dataToMap.tre.toFixed(2)))} L
+                {firmBalanceAmount(Number(dataToMap.tre.toFixed(2)), true)} L
               </td>
             </tr>
           )}
