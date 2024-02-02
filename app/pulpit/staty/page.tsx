@@ -16,9 +16,9 @@ const page = async () => {
       >
         {/* Table Title */}
 
-        <p className={`text-sm md:text-md lg:text-xl font-semibold`}>
+        <h2 className={`text-sm md:text-md lg:text-xl font-bold text-slate-400`}>
           Na pierwszy rzut oka...{" "}
-        </p>
+        </h2>
         <ClientOnly>
           <DatePicker /> <StatsDriverTable settlements={allTheSettlements} />
         </ClientOnly>

@@ -3,7 +3,21 @@ import React from "react";
 import useFilter from "@/app/hooks/useFilter";
 
 const DatePicker = () => {
+  const inputRef = React.useRef<HTMLInputElement>(null);
   let { setEndDate, setStartDate } = useFilter();
+
+  React.useEffect(() => {
+    if (inputRef.current) {
+      // Get the current date
+      const currentDate = new Date();
+
+      // Get the current year and month in the format "YYYY-MM" (required by input type="month")
+      const currentYearMonth = currentDate.toISOString().slice(0, 7);
+
+      // Set the default value for the date input
+      inputRef.current.defaultValue = currentYearMonth;
+    }
+  }, []);
 
   return (
     <div
@@ -19,9 +33,10 @@ const DatePicker = () => {
           </label>
           <input
             type="month"
-            className="block w-full align-middle text-white  border border-primary focus:border-[#3898ec] text-sm rounded-md h-9 py-4 px-4"
+            className="block w-full align-middle border border-primary focus:border-[#3898ec] text-sm rounded-md h-9 py-4 px-4"
             onChange={(e) => setStartDate(e.target.value)}
             name="start"
+            ref={inputRef}
             min={"2023-11"}
           />
         </div>
@@ -31,7 +46,7 @@ const DatePicker = () => {
           </label>
           <input
             type="month"
-            className="block w-full align-middle text-white  border border-primary focus:border-[#3898ec] text-sm rounded-md h-9 py-4 px-4"
+            className="block w-full align-middle border border-primary focus:border-[#3898ec] text-sm rounded-md h-9 py-4 px-4"
             onChange={(e) => setEndDate(e.target.value)}
             name="end"
             min={"2023-11"}

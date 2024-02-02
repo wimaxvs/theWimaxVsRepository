@@ -11,7 +11,13 @@ type Action = {
 };
 
 const useFilter = create<State & Action>((set) => ({
-  startDate: undefined,
+  startDate: (() => {
+    let today = new Date()
+    let thisMonth = today.getMonth()+1
+    let thisYear = today.getFullYear()
+    let startDate = `${thisYear}-${thisMonth}`
+    return startDate
+  })(),
   endDate: undefined,
   setStartDate: (startDateToSet) =>
     set(() => {

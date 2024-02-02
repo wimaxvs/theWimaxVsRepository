@@ -314,7 +314,10 @@ const StatsDriverTable: React.FC<StatsDriverTableProps> = ({ settlements }) => {
                       {`${firmBalanceAmount(driver.expenses || 0, true)} eur`}
                     </td>
                     <td className={`text-gray-100`}>
-                      {`${firmBalanceAmount(Number(driver.refuelled) || 0, true)} L`}
+                      {`${firmBalanceAmount(
+                        Number(driver.refuelled) || 0,
+                        true
+                      )} L`}
                     </td>
                   </tr>
                 );

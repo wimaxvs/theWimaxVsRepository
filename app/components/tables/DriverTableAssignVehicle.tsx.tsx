@@ -181,7 +181,7 @@ const DriverTableAssignVehicle: React.FC<DriverTableAssignVehicleProps> = ({
                     return (
                       <tr
                         key={index}
-                        className={`border-none hover even:bg-gray-800`}
+                        className={`border-none even:bg-gray-800`}
                       >
                         <td className={`rounded-l-md text-gray-100`}>
                           {index + 1}

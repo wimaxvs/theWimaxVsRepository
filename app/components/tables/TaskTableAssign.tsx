@@ -127,7 +127,7 @@ const TaskTableAssign: React.FC<TaskTableAssignProps> = ({ allTheTasks }) => {
                     return (
                       <tr
                         key={index}
-                        className={`border-none hover even:bg-gray-800`}
+                        className={`border-none even:bg-gray-800`}
                       >
                         <th
                           className={`${

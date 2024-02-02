@@ -141,7 +141,7 @@ const PromotionTable: React.FC<PromotionTableProps> = ({
                     return (
                       <tr
                         key={index}
-                        className={`border-none hover`}
+                        className={`border-none`}
                       >
                         <td className={`rounded-l-md`}>{index + 1}</td>
                         <td>

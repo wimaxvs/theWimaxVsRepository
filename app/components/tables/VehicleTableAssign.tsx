@@ -134,7 +134,7 @@ const VehicleTableAssign: React.FC<VehicleTableAssignProps> = ({
                   return (
                     <tr
                       key={index}
-                      className={`border-none hover even:bg-gray-800`}
+                      className={`border-none even:bg-gray-800`}
                     >
                       <th
                         className={`text-gray-100 ${
