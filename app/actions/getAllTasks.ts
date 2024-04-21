@@ -1,7 +1,7 @@
 import prisma from "@/app/libs/prismadb";
 import { objectDateToString } from "../api/rozpiski/assign/route";
 
-export default async function getAllTasks(param:{isRozpiski:boolean}) {
+export default async function getAllTasks(param?:{isRozpiski:boolean}) {
   try {
     const allTheTasksBeta = await prisma.settlementBeta.findMany({
       include: {
