@@ -24,7 +24,7 @@ export default async function getAllTasks(param?:{isRozpiski:boolean}) {
       return null;
     }
 
-    if (param.isRozpiski) {
+    if (param?.isRozpiski) {
       return allTheTasks.filter(
         (task) =>
           (task.isSettled == null || task.isSettled == undefined) &&
