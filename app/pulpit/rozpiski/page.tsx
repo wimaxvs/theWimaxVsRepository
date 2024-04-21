@@ -19,7 +19,7 @@ const page = async () => {
     PracNavItems.push(...["Dodaj lub usuń trasę"]);
   }
 
-  let allTheTasks: SafeSettlement[] | null = await getAllTasks();
+  let allTheTasks: SafeSettlement[] | null = await getAllTasks({isRozpiski: true});
   let allTheDrivers: SafeDriver[] = await getAllDrivers();
 
   return (
