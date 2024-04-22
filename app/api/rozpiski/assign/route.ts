@@ -53,6 +53,7 @@ export async function POST(request: Request) {
       },
     });
   } catch (error) {
+    console.log(error)
     if (error instanceof Prisma.PrismaClientKnownRequestError) {
       console.log(error.code);
     } else {
@@ -99,6 +100,12 @@ export async function POST(request: Request) {
       endLocation: true,
     },
   });
+
+  allTheTasksBeta = allTheTasksBeta.filter(
+    (task) =>
+      (task.isSettled == null || task.isSettled == undefined) &&
+      !task.approvalStatus
+  );
 
   let affectedDriver = objectDateToString(affectedDriverBeta);
   let allTheDrivers = objectArrayDatesToString(allTheDriversBeta);

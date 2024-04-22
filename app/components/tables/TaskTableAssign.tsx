@@ -52,6 +52,7 @@ const TaskTableAssign: React.FC<TaskTableAssignProps> = ({ allTheTasks }) => {
             allTheDrivers: Partial<SafeDriver>[] | null;
           }>
         ) => {
+          console.log(res.data.allTheTasks?.length)
           setTheTasks(res.data.allTheTasks as Partial<SafeSettlement>[]);
           if (res.data.affectedDriver) {
             if (res.data.affectedDriver.id == currentDriver?.id) {

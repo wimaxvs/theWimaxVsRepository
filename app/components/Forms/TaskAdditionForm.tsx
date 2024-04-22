@@ -56,6 +56,7 @@ const TaskAdditionForm = () => {
         }
       )
       .catch((error: any) => {
+        console.log(error)
         toast.error(
           <>
             <div className="p-4 text-bold text-red-800 flex flex-col items-center bg-rose-100 rounded-lg my-4">

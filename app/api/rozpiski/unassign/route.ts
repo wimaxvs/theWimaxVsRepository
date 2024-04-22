@@ -80,6 +80,12 @@ export async function POST(request: Request) {
     },
   });
 
+  allTheTasksBeta = allTheTasksBeta.filter(
+    (task) =>
+      (task.isSettled == null || task.isSettled == undefined) &&
+      !task.approvalStatus
+  );
+
   let affectedDriver = objectDateToString(affectedDriverBeta);
   let allTheDrivers = objectArrayDatesToString(allTheDriversBeta);
   let allTheTasks = objectArrayDatesToString(allTheTasksBeta);

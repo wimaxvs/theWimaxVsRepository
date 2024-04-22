@@ -58,15 +58,20 @@ export async function POST(req: Request) {
 
     let allTheTasksBeta = await prisma.settlementBeta.findMany({
       include: {
-            startLocation: true,
-            endLocation: true,
-          driver: true
+        startLocation: true,
+        endLocation: true,
+        driver: true,
       },
     });
 
-        let allTheTasks = objectArrayDatesToString(allTheTasksBeta);
+    allTheTasksBeta = allTheTasksBeta.filter(
+      (task) =>
+        (task.isSettled == null || task.isSettled == undefined) &&
+        !task.approvalStatus
+    );
 
-    
+    let allTheTasks = objectArrayDatesToString(allTheTasksBeta);
+
     return NextResponse.json({
       code: 200,
       message: "Pomyślnie dodano nowy tras",
