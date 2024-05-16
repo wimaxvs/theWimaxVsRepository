@@ -7,6 +7,7 @@ import PulpitGraph from "../components/graph/PulpitGraph";
 import { FaRegMoneyBillAlt } from "react-icons/fa";
 import getFirmBalance from "../actions/getFirmBalance";
 import getAllKmms from "../actions/getAllKmms";
+import getCurrentKmMonth from "../actions/getCurrentKmMonth";
 
 const page = async () => {
   let currentDriver = await getCurrentDriver();
@@ -43,11 +44,13 @@ const page = async () => {
   //   }
   // }
 
-  let currentKmMonth = currentDriver?.kilometerMonths?.find((kmm) => {
-    return (
-      kmm.month == currentMonth.toString() && kmm.year == currentYear.toString()
-    );
-  });
+  // let currentKmMonth = currentDriver?.kilometerMonths?.find((kmm) => {
+  //   return (
+  //     kmm.month == currentMonth.toString() && kmm.year == currentYear.toString()
+  //   );
+  // });
+
+  let currentKmMonth = await getCurrentKmMonth(currentDriver?.id)
 
   const kilometersArray = Array.from({ length: 12 }, (_, index) => {
     const matchingMonth = currentDriver?.kilometerMonths?.find(
