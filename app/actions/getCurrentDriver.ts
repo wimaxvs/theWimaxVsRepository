@@ -28,7 +28,7 @@ export default async function getCurrentDriver() {
         currentFirm: true,
         firmOwned: true,
         joinRequest: true,
-        kilometerMonths: true,
+        // kilometerMonths: true,
         companyKilometers: true,
         vehicle: true,
       },
@@ -62,9 +62,9 @@ export default async function getCurrentDriver() {
       companyKilometers: objectDateToString(
         currentDriverBeta?.companyKilometers
       ),
-      kilometerMonths: objectArrayDatesToString(
-        currentDriverBeta?.kilometerMonths as any[]
-      ),
+      // kilometerMonths: objectArrayDatesToString(
+      //   currentDriverBeta?.kilometerMonths as any[]
+      // ),
     };
 
     if (!currentDriver) {
