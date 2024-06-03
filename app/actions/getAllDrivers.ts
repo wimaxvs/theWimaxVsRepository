@@ -20,7 +20,7 @@ export default async function getAllDrivers() {
       },
     });
 
-    let allTheDrivers: Partial<SafeDriver>[] = allTheDriversBeta.map(
+    let allTheDrivers: Partial<SafeDriver>[] = allTheDriversBeta.filter((driver)=> !driver.isFired).map(
       (driver) => ({
         ...driver,
         createdAt: driver.createdAt.toISOString(),
