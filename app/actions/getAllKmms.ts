@@ -1,24 +1,18 @@
+// Import PrismaClient instance
 import prisma from "@/app/libs/prismadb";
 
-export default async function getAllKmms() {
+export default async function getAllKmms(): Promise<number> {
   try {
-    let kmmObjects = await prisma.companyKilometersBeta.findMany();
-
-    let totalKilometers = 0;
-    kmmObjects.forEach((kmm) => {
-      let aKmmKms = kmm.kms || 0;
-      totalKilometers += aKmmKms;
+    const totalKilometers = await prisma.companyKilometersBeta.aggregate({
+      _sum: {
+        kms: true,
+      },
     });
 
-    
-    
-    if (!totalKilometers) {
-      return null;
-    }
-
-    return totalKilometers;
+    // totalKilometers._sum.kms will be null if no records found
+    return (totalKilometers._sum.kms || 0) as number; // Type assertion to number
   } catch (error: any) {
     console.error("Error fetching data:", error);
-    return error.message; 
+    return 0; // or handle specific error conditions
   }
 }

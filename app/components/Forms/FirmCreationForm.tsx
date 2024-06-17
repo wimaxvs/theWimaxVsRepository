@@ -90,7 +90,7 @@ const FirmCreationForm = () => {
               height={20}
               width={20}
               alt="Icon of letters denoting need to input name"
-              src="/images/firmName.png"
+              src="/images/firmName.webp"
               className="absolute left-[5%] top-[26%] inline-block"
             />
             <input
@@ -108,7 +108,7 @@ const FirmCreationForm = () => {
               height={20}
               width={20}
               alt="Icon of letters denoting need to input name"
-              src="/images/firmTag.png"
+              src="/images/firmTag.webp"
               className="absolute left-[5%] top-[26%] inline-block"
             />
             <input
@@ -143,7 +143,7 @@ const FirmCreationForm = () => {
                     height={20}
                     width={20}
                     alt="Icon of letters denoting need to input name"
-                    src="/images/firmSocials.png"
+                    src="/images/firmSocials.webp"
                     className="absolute left-[5%] top-[26%] inline-block"
                   />
                   <input

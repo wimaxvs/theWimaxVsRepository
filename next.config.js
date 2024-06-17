@@ -10,6 +10,7 @@ const nextConfig = {
       "localhost:3000",
       "res.cloudinary.com",
     ],
+    unoptimized: true,
   },
 };
 

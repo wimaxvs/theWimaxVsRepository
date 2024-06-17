@@ -7,7 +7,8 @@ import { SafeDriver } from "../types";
 
 export default async function getAllDrivers() {
   try {
-    let allTheDriversBeta = await prisma.driverBeta.findMany({
+    const allTheDriversBeta = await prisma.driverBeta.findMany({
+      where: { isFired: false }, // Directly filter out fired drivers at the database level
       include: {
         firmOwned: true,
         settlements: true,
@@ -20,7 +21,7 @@ export default async function getAllDrivers() {
       },
     });
 
-    let allTheDrivers: Partial<SafeDriver>[] = allTheDriversBeta.filter((driver)=> !driver.isFired).map(
+    const allTheDrivers: Partial<SafeDriver>[] = allTheDriversBeta.map(
       (driver) => ({
         ...driver,
         createdAt: driver.createdAt.toISOString(),
@@ -34,12 +35,9 @@ export default async function getAllDrivers() {
       })
     );
 
-    if (!allTheDrivers) {
-      return null;
-    }
-
     return allTheDrivers;
   } catch (error: any) {
-    return error.message;
+    console.error("Error fetching drivers: ", error);
+    return []; // Return an empty array in case of an error
   }
 }

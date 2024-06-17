@@ -132,10 +132,7 @@ const VehicleTableAssign: React.FC<VehicleTableAssignProps> = ({
               {theVehicles &&
                 gimmeEligibleVehicles(theVehicles).map((vehicle, index) => {
                   return (
-                    <tr
-                      key={index}
-                      className={`border-none even:bg-gray-800`}
-                    >
+                    <tr key={index} className={`border-none even:bg-gray-800`}>
                       <th
                         className={`text-gray-100 ${
                           index % 2 == 1 && "rounded-tl-md rounded-bl-md"
@@ -153,7 +150,7 @@ const VehicleTableAssign: React.FC<VehicleTableAssignProps> = ({
                                 src={`${
                                   vehicle.carImage
                                     ? vehicle.carImage
-                                    : "/images/truckPlaceholder.png"
+                                    : "/images/truckPlaceholder.webp"
                                 }`}
                                 alt="Avatar Tailwind CSS Component"
                               />

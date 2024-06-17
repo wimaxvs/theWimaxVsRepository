@@ -36,7 +36,7 @@ const FirmTable: React.FC<FirmTableProps> = ({ allTheFirms }) => {
     if (theFirms?.length === 0 || theFirms === undefined) {
       return allTheFirms && setTheFirms(allTheFirms as Partial<SafeFirm>[]);
     } else {
-      return
+      return;
     }
   });
 
@@ -53,7 +53,9 @@ const FirmTable: React.FC<FirmTableProps> = ({ allTheFirms }) => {
       <AiOutlineLink {...iconOptions} />
     );
 
-    let onJoin = (driverId: string, firmId: string) => { return null};
+  let onJoin = (driverId: string, firmId: string) => {
+    return null;
+  };
   // let onJoin = (driverId: string, firmId: string) => {
   //   setIsLoading(!isLoading);
   //   setRequestSent(firmId);
@@ -106,7 +108,7 @@ const FirmTable: React.FC<FirmTableProps> = ({ allTheFirms }) => {
   return (
     <>
       <div
-        className={`firmyPage w-full min-h-screen flex flex-row justify-center py-10 bg-[url('/images/wiremeshBlue.png')] bg-no-repeat bg-cover bg-left`}
+        className={`firmyPage w-full min-h-screen flex flex-row justify-center py-10 bg-[url('/images/wiremeshBlue.webp')] bg-no-repeat bg-cover bg-left`}
         //  bg-gradient-to-br from-gray-500 to-gray-200
       >
         <section

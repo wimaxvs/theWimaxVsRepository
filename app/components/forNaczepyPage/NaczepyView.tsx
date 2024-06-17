@@ -22,7 +22,7 @@ const NaczepyView: React.FC<NaczepyViewProps> = ({ vehicle }) => {
           )}
         </div>
         <Image
-          src={(vehicle?.carImage as string) || "/images/noCarB.png"}
+          src={(vehicle?.carImage as string) || "/images/noCarB.webp"}
           alt="Image of the current driver's trailer"
           height={1024}
           width={1024}

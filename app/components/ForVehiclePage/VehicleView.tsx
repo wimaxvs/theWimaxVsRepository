@@ -54,7 +54,7 @@ const VehicleView: React.FC<VehicleViewProps> = ({ allTheDrivers }) => {
           <Image
             src={
               (currentDriver?.vehicle?.[0]?.carImage as string) ||
-              "/images/noCarB.png"
+              "/images/noCarB.webp"
             }
             alt="Image of the current driver's vehicle"
             height={1024}
@@ -100,15 +100,15 @@ const VehicleView: React.FC<VehicleViewProps> = ({ allTheDrivers }) => {
               className={`max-w-[2/3] min-w-[2/3] min-h-[95%] h-[95%] rounded-xl bg-cover bg-no-repeat inline-flex flex-col gap-1 pl-2 pr-3 pt-2 mr-4 mb-2
                   ${
                     deets.image === "bentoPlate"
-                      ? "bg-[url('/images/bentoPlate.png')]"
+                      ? "bg-[url('/images/bentoPlate.webp')]"
                       : deets.image === "bentoModel"
-                      ? "bg-[url('/images/bentoModel.png')]"
+                      ? "bg-[url('/images/bentoModel.webp')]"
                       : deets.image === "bentoMark"
-                      ? "bg-[url('/images/bentoMark.png')]"
+                      ? "bg-[url('/images/bentoMark.webp')]"
                       : deets.image === "bentoPrzebieg"
-                      ? "bg-[url('/images/bentoPrzebieg.png')] bg-left-bottom"
+                      ? "bg-[url('/images/bentoPrzebieg.webp')] bg-left-bottom"
                       : deets.image === "bentoPrzebiegB"
-                      ? "bg-[url('/images/bentoPrzebieg.png')] bg-right-bottom"
+                      ? "bg-[url('/images/bentoPrzebieg.webp')] bg-right-bottom"
                       : ""
                   }
               `}

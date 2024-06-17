@@ -30,7 +30,7 @@ const page = () => {
 
           {/* image to the right on larger displays */}
           <aside
-            className={`h-full  hidden md:flex md:flex-col md:grow md:items-center md:justify-center md:gap-3 max-w-[50%] bg-[url(/images/createFirm.png)] bg-no-repeat rounded-r-md bg-left`}
+            className={`h-full  hidden md:flex md:flex-col md:grow md:items-center md:justify-center md:gap-3 max-w-[50%] bg-[url(/images/createFirm.webp)] bg-no-repeat rounded-r-md bg-left`}
           ></aside>
         </section>
       </div>

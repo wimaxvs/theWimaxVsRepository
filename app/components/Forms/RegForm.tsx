@@ -102,7 +102,7 @@ const RegForm: React.FC<RegFormProps> = ({
               height={981}
               width={888}
               alt="unknown person icon denoting username field"
-              src="/images/username.png"
+              src="/images/username.webp"
               className="absolute left-[5%] top-[26%] inline-block max-w-[18px] max-h-[20px]"
             />
             <input

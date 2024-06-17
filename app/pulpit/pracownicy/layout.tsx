@@ -1,5 +1,7 @@
 import getCurrentDriver from "@/app/actions/getCurrentDriver";
 import { notFound } from "next/navigation";
+import Loading from "@/app/loading";
+import { Suspense } from "react";
 
 interface PracownicylayoutProps {
   children: React.ReactNode;
@@ -10,7 +12,6 @@ export const metadata = {
   description: "Zarządzaj swoimi zasobami ludzkimi",
 };
 
-
 export default async function Pracownicy({ children }: PracownicylayoutProps) {
   let currentDriver = await getCurrentDriver();
 
@@ -18,5 +19,10 @@ export default async function Pracownicy({ children }: PracownicylayoutProps) {
     return notFound();
   }
 
-  return <>{children}</>;
+  return (
+    <>
+      {children}
+      <Suspense fallback={<Loading />}>{children}</Suspense>
+    </>
+  );
 }
