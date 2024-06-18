@@ -19,7 +19,7 @@ const Pojazd = async () => {
     PracNavItems.push(...["Zarządzanie pojazdami", "Przypisz pojazd kierowcy"]);
   }
 
-  let allTheDrivers: SafeDriver[] = await getAllDrivers();
+  let allTheDrivers: Partial<SafeDriver>[] = await getAllDrivers();
   let allTheVehicles: SafeVehicle[] | null = await getAllVehicles();
   return (
     <div className="bg-[url('/images/bkg_2.webp')] bg-no-repeat bg-cover bg-right-bottom h-screen w-full min-h-full flex flex-row justify-center pt-6">

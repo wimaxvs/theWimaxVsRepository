@@ -5,7 +5,7 @@ import Image from "next/image";
 import { SafeDriver } from "@/app/types";
 
 interface VehicleViewProps {
-  allTheDrivers: SafeDriver[];
+  allTheDrivers: Partial<SafeDriver>[];
 }
 
 const VehicleView: React.FC<VehicleViewProps> = ({ allTheDrivers }) => {

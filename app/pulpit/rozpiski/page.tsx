@@ -22,7 +22,7 @@ const page = async () => {
   let allTheTasks: SafeSettlement[] | null = await getAllTasks({
     isRozpiski: true,
   });
-  let allTheDrivers: SafeDriver[] = await getAllDrivers();
+  let allTheDrivers: Partial<SafeDriver>[] = await getAllDrivers();
 
   return (
     <div className="bg-[url('/images/bkg_3.webp')] bg-no-repeat bg-cover bg-right-bottom h-screen w-full min-h-full flex flex-row justify-center pt-6">

@@ -8,7 +8,7 @@ import AddDeleteTasks from "./AddDeleteTasks";
 
 interface TaskPageContainerProps {
   allTheTasks: SafeSettlement[] | null;
-  allTheDrivers: SafeDriver[];
+  allTheDrivers: Partial<SafeDriver>[];
 
   firmId: string | undefined;
 }

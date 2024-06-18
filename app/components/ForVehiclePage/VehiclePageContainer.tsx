@@ -9,7 +9,7 @@ import { SafeDriver, SafeVehicle } from "@/app/types";
 import AddEditDeleteCar from "./AddEditDeleteCar";
 
 interface VehiclePageContainerProps {
-  allTheDrivers: SafeDriver[];
+  allTheDrivers: Partial<SafeDriver>[];
   allTheVehicles: SafeVehicle[] | null;
   firmId: string | undefined;
 }
@@ -35,10 +35,7 @@ const VehiclePageContainer: React.FC<VehiclePageContainerProps> = ({
       )}
       {theLocation == "Zarządzanie pojazdami" && (
         // <AddOrDeleteCar allTheVehicles={allTheVehicles} />
-        <AddEditDeleteCar
-          allTheVehicles={allTheVehicles}
-          allTheDrivers={[]}
-        />
+        <AddEditDeleteCar allTheVehicles={allTheVehicles} allTheDrivers={[]} />
       )}
       {theLocation == "Przypisz pojazd kierowcy" && (
         <AssignCar
