@@ -8,7 +8,6 @@ import { SafeDriver } from "../types";
 export default async function getAllDrivers() {
   try {
     const allTheDriversBeta = await prisma.driverBeta.findMany({
-      where: { isFired: false }, // Directly filter out fired drivers at the database level
       include: {
         firmOwned: true,
         settlements: true,
@@ -21,7 +20,10 @@ export default async function getAllDrivers() {
       },
     });
 
-    const allTheDrivers: Partial<SafeDriver>[] = allTheDriversBeta.map(
+    // Filter out drivers who are fired (isFired: true)
+    const activeDriversBeta = allTheDriversBeta.filter(driver => driver.isFired !== true);
+
+    const allTheDrivers: Partial<SafeDriver>[] = activeDriversBeta.map(
       (driver) => ({
         ...driver,
         createdAt: driver.createdAt.toISOString(),
