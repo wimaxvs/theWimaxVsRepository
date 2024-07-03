@@ -8,7 +8,7 @@ import ToasterProvider from "./providers/ToasterProvider";
 export const metadata: Metadata = {
   title: "Wimax",
   description: "Euro Truck Simulator 2 Company Management Portal",
-  icons: { icon: ["/images/favicon.ico"], apple: ["/images/logoCutB.png"] },
+  icons: { icon: ["/images/favicon.ico"], apple: ["/images/LogoCutB.webp"] },
 };
 
 const font = Inter({

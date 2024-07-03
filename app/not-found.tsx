@@ -19,7 +19,7 @@ const NotFound = () => {
           <Image
             height={64}
             width={275}
-            src="/Images/logo.png"
+            src="/Images/Logo.webp"
             alt="Wimax logo on 404 page"
             className="mb-8 mx-auto inline-block h-56 w-56 flex-none object-contain"
           />

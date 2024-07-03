@@ -11,7 +11,7 @@ const Logo = () => {
         className="sm:block md:block cursor-pointer max-h-6 max-w-[133px]"
         height={451}
         width={1600}
-        src="/images/logo.png"
+        src="/images/Logo.webp"
       />
     </Link>
   );
