@@ -65,7 +65,7 @@ const Carousel: React.FC<CarouselProps> = ({ task, detailComponent }) => {
             width={700}
             height={700}
             alt={`Zrżut ekran pocztkowy`}
-            src={task?.beginImage}
+            src={task?.beginImage || ""}
             className="w-full max-h-48"
           />
           <div className="absolute flex justify-between transform -translate-y-1/2 left-5 right-5 top-1/2">
@@ -85,7 +85,7 @@ const Carousel: React.FC<CarouselProps> = ({ task, detailComponent }) => {
             width={700}
             height={700}
             alt={`Zrżut ekran końcowy`}
-            src={task?.endImage}
+            src={task?.endImage || ""}
             className="w-full max-h-48"
           />
           <div className="absolute flex justify-start transform -translate-y-1/2 left-5 right-5 top-1/2">
