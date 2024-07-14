@@ -6,7 +6,7 @@ interface PracownicylayoutProps {
 }
 
 export const metadata = {
-  title: "Wimax: Pracownicy",
+  title: "TopTrans: Pracownicy",
   description: "Zarządzaj swoimi zasobami ludzkimi",
 };
 

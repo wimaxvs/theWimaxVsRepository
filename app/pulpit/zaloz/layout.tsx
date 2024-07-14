@@ -3,7 +3,7 @@ interface ZalozlayoutProps {
 }
 
 export const metadata = {
-  title: "Wimax: Załóż firmę",
+  title: "TopTrans: Załóż firmę",
   description: "Pulpit Załóżenia firmą",
 };
 

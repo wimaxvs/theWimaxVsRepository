@@ -87,7 +87,7 @@ const TaskSettlementForm: React.FC<TaskSettlementFormProps> = ({
                   },
                   {
                     registerId: "expensesSpent",
-                    placeholder: "Wydatki (EUR)",
+                    placeholder: "Pociągi (EUR)",
                     inputType: "number",
                     step: 0.01,
                     IconPassed: <GiPayMoney size={20} color={"black"} />,

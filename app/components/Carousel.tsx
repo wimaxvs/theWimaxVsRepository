@@ -30,7 +30,7 @@ const Carousel: React.FC<CarouselProps> = ({ task, detailComponent }) => {
                 value: task?.fuelUsed! || 0,
               },
               {
-                key: "Wydatki (Eur)",
+                key: "Pociągi (Eur)",
                 value: task?.expensesSpent! || 0,
               },
               {
@@ -64,7 +64,7 @@ const Carousel: React.FC<CarouselProps> = ({ task, detailComponent }) => {
           <Image
             width={700}
             height={700}
-            alt={`Zrżut ekran pocztkowy`}
+            alt={`Zrzut ekranu początkowy`}
             src={task?.beginImage || ""}
             className="w-full max-h-48"
           />

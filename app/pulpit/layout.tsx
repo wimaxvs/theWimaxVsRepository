@@ -11,7 +11,7 @@ interface DashlayoutProps {
 }
 
 export const metadata = {
-  title: "Wimax: Pulpit",
+  title: "TopTrans: Pulpit",
   description: "Pulpit systemu zarządzania firmą",
 };
 

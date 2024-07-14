@@ -3,8 +3,8 @@ interface ZalozlayoutProps {
 }
 
 export const metadata = {
-  title: "Wimax: Najlepsi kierowcy",
-  description: "To kierowcy podnoszący najwyżej flagę Wimax.",
+  title: "TopTrans: Najlepsi kierowcy",
+  description: "To kierowcy podnoszący najwyżej flagę TopTrans.",
 };
 
 export default async function Zaloz({ children }: ZalozlayoutProps) {

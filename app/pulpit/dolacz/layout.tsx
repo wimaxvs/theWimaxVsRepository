@@ -3,7 +3,7 @@ interface DolaczlayoutProps {
 }
 
 export const metadata = {
-  title: "Wimax: Dołącz",
+  title: "TopTrans: Dołącz",
   description: "Dołącz do istniejącej firmy",
 };
 

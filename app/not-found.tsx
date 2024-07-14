@@ -3,7 +3,7 @@ import { Inter } from "next/font/google";
 import Image from "next/image";
 
 export const metadata = {
-  title: "Wimax: Page not found",
+  title: "TopTrans: Page not found",
   description: "Error 404: the page you're looking for is not in the registry",
 };
 
@@ -20,7 +20,7 @@ const NotFound = () => {
             height={64}
             width={275}
             src="/Images/Logo.webp"
-            alt="Wimax logo on 404 page"
+            alt="TopTrans logo on 404 page"
             className="mb-8 mx-auto inline-block h-56 w-56 flex-none object-contain"
           />
           <div className="text-center">

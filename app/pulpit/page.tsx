@@ -91,7 +91,7 @@ const page = async () => {
       subtitle: "Przejechane",
     },
     {
-      title: "Pod firmą Wimax",
+      title: "Pod firmą TopTrans",
       value: companyKms ? `${firmBalanceAmount(companyKms)} km` : `${0} km`,
       subtitle: "Przejechane",
     },

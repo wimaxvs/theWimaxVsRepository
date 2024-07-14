@@ -3,7 +3,7 @@ interface ZalozlayoutProps {
 }
 
 export const metadata = {
-  title: "Wimax: Edytuj profil",
+  title: "TopTrans: Edytuj profil",
   description: "Tutaj dokonaj wszystkich zmian w swoim profilu osobistym",
 };
 

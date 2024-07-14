@@ -3,7 +3,7 @@ interface PojazdlayoutProps {
 }
 
 export const metadata = {
-  title: "Wimax: Rozpiski",
+  title: "TopTrans: Rozpiski",
   description: "Dodaj lub usuń rozpiskę",
 };
 

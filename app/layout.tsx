@@ -6,7 +6,7 @@ import Loading from "./loading";
 import ToasterProvider from "./providers/ToasterProvider";
 
 export const metadata: Metadata = {
-  title: "Wimax",
+  title: "TopTrans",
   description: "Euro Truck Simulator 2 Company Management Portal",
   icons: { icon: ["/images/favicon.ico"], apple: ["/images/LogoCutB.webp"] },
 };
