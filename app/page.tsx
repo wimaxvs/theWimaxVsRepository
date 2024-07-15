@@ -6,7 +6,7 @@ export default function Home() {
   return (
     <>
       <section className="grid h-auto md:h-screen grid-cols-1 md:grid-cols-2 gap-0">
-        <div className="flex-col flex items-center justify-center bg-[url(/images/bkg_home.png)] bg-cover bg-no-repeat bg-center">
+        <div className="flex-col flex items-center justify-center bg-[url(/images/bkg_4.jpg)] bg-cover bg-no-repeat bg-center">
           {/* <div className="py-16 md:py-24 lg:py-32 px-5 md:px-10">
             <div className="mx-auto text-left max-w-[480px] md:max-w-[480px] bg-white p-6 rounded-md">
               <div className="flex-col flex items-center justify-center h-14 w-14 mb-5 md:mb-6 lg:mb-8 rounded-sm p-2">
