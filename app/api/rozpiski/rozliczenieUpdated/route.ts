@@ -28,6 +28,11 @@ export async function POST(req: Request) {
     misc,
   } = body;
 
+  // for some reason misc is sometimes string 🤷
+  if (typeof misc === "string") {
+    misc = []
+  }
+
   let settlementAvgFuelConsumption =
     (fuelUsed * 100) / distanceCoveredSettlement;
 
