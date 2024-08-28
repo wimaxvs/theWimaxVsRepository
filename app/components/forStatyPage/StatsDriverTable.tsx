@@ -220,7 +220,7 @@ const StatsDriverTable: React.FC<StatsDriverTableProps> = ({ settlements }) => {
               Średnie zużycie paliwa
             </th>
             <th colSpan={4} className={`text-gray-100`}>
-              Wydatków
+              Wydatki
             </th>
             <th></th>
           </tr>
