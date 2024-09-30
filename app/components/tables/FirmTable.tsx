@@ -118,7 +118,7 @@ const FirmTable: React.FC<FirmTableProps> = ({ allTheFirms }) => {
           >{`Podróż tysiąca kilometrów...`}</h2>
           <p
             className={`text-sm md:text-md lg:text-xl font-semibold mb-3 text-white`}
-          >{`zaczyna się od dołączenia do TopTrans`}</p>
+          >{`zaczyna się od dołączenia do POLMAX`}</p>
           <div className="max-w-[11/12] overflow-x-auto pb-3">
             <table className="table table-zebra rounded-md">
               {/* head */}

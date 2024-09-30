@@ -3,7 +3,7 @@ interface PojazdlayoutProps {
 }
 
 export const metadata = {
-  title: "TopTrans: Rozliczenie",
+  title: "POLMAX: Rozliczenie",
   description: "Rozlicz wykonywany trasy",
 };
 

@@ -3,7 +3,7 @@ interface ZalozlayoutProps {
 }
 
 export const metadata = {
-  title: "TopTrans: Dogłębne statystyki",
+  title: "POLMAX: Dogłębne statystyki",
   description: "Przeglądaj statystyki kierowcy w zadanym miesiącu.",
 };
 

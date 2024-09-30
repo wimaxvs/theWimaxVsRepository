@@ -3,7 +3,7 @@ interface ZalozlayoutProps {
 }
 
 export const metadata = {
-  title: "TopTrans: Załóż firmę",
+  title: "POLMAX: Załóż firmę",
   description: "Pulpit Załóżenia firmą",
 };
 

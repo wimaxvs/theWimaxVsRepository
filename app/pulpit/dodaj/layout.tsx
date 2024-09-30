@@ -3,7 +3,7 @@ interface PojazdlayoutProps {
 }
 
 export const metadata = {
-  title: "TopTrans:Nowy",
+  title: "POLMAX:Nowy",
   description: " Utwórz nowy profil pracownika",
 };
 

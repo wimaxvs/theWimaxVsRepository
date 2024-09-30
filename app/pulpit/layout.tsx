@@ -11,7 +11,7 @@ interface DashlayoutProps {
 }
 
 export const metadata = {
-  title: "TopTrans: Pulpit",
+  title: "POLMAX: Pulpit",
   description: "Pulpit systemu zarządzania firmą",
 };
 

@@ -3,7 +3,7 @@ interface PojazdlayoutProps {
 }
 
 export const metadata = {
-  title: "TopTrans: Naczepy",
+  title: "POLMAX: Naczepy",
   description: "Zobacz naczepy, którymi dysponujesz",
 };
 

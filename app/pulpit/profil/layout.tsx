@@ -3,7 +3,7 @@ interface ZalozlayoutProps {
 }
 
 export const metadata = {
-  title: "TopTrans: Edytuj profil",
+  title: "POLMAX: Edytuj profil",
   description: "Tutaj dokonaj wszystkich zmian w swoim profilu osobistym",
 };
 

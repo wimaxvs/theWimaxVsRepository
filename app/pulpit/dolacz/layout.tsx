@@ -3,7 +3,7 @@ interface DolaczlayoutProps {
 }
 
 export const metadata = {
-  title: "TopTrans: Dołącz",
+  title: "POLMAX: Dołącz",
   description: "Dołącz do istniejącej firmy",
 };
 

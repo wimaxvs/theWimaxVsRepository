@@ -31,7 +31,7 @@ const Sidebar: React.FC<SideBarAttributes> = ({ role, firmName }) => {
     {
       h2: "Statystyki firmy",
       links: [
-        { label: "Kierowcy w TopTrans", link: "topk" },
+        { label: "Kierowcy w POLMAX", link: "topk" },
         {
           label: "Statystyki",
           link: "staty",

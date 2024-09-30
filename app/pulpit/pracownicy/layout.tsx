@@ -6,7 +6,7 @@ interface PracownicylayoutProps {
 }
 
 export const metadata = {
-  title: "TopTrans: Pracownicy",
+  title: "POLMAX: Pracownicy",
   description: "Zarządzaj swoimi zasobami ludzkimi",
 };
 

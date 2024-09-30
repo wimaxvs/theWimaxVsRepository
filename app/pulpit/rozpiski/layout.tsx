@@ -3,7 +3,7 @@ interface PojazdlayoutProps {
 }
 
 export const metadata = {
-  title: "TopTrans: Rozpiski",
+  title: "POLMAX: Rozpiski",
   description: "Dodaj lub usuń rozpiskę",
 };
 
