@@ -6,7 +6,7 @@ const page = async () => {
   return (
     <>
       <div
-        className={`profilPage w-full min-h-screen flex flex-row justify-center py-10 bg-[url('/images/bkg_1.jpg')] bg-no-repeat bg-cover bg-left-bottom overflow-y-scroll`}
+        className={`profilPage w-full min-h-screen flex flex-row justify-center py-10 bg-[url('/images/o_mnie.png')] bg-no-repeat bg-cover bg-left-bottom overflow-y-scroll`}
       >
         <section
           className={`formSection rounded-md bg-gradient-to-br from-gray-800 to-gray-950 w-11/12 md:w-4/5 lg:w-2/3 md:min-h-5/6 md:h-5/6 p-2 md:p-10 flex flex-col gap-3 border border-primary`}
