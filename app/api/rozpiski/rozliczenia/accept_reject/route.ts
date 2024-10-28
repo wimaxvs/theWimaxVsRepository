@@ -18,7 +18,8 @@ export async function POST(req: Request) {
 
   if (
     currentDriver?.role === "KIEROWCA" ||
-    currentDriver?.role === "PROBNY"
+    currentDriver?.role === "PROBNY" ||
+    currentDriver?.role === "PODWYKONAWCA"
   ) {
     return NextResponse.json({
       code: 500,

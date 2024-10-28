@@ -107,7 +107,8 @@ const TaskTableAssign: React.FC<TaskTableAssignProps> = ({ allTheTasks }) => {
                 <th>Miasto Start</th>
                 <th>Miasto Koniec</th>
                 <th>Status</th>
-                {currentDriver?.role !== "KIEROWCA" && (
+                {currentDriver?.role !== "KIEROWCA" &&
+                currentDriver?.role !== "PODWYKONAWCA" && (
                   <>
                     <th>Wyznacz trasę</th>
                     <th>Anuluj przypisanie</th>
@@ -172,7 +173,8 @@ const TaskTableAssign: React.FC<TaskTableAssignProps> = ({ allTheTasks }) => {
                           </p>
                         </td>
                         {currentDriver?.role !== "KIEROWCA" &&
-                          currentDriver?.role !== "PROBNY" && (
+                          currentDriver?.role !== "PROBNY" &&
+                          currentDriver?.role !== "PODWYKONAWCA" && (
                             <>
                               <td>
                                 {" "}

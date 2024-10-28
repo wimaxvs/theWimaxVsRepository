@@ -15,7 +15,7 @@ const TaskTableAssign: React.FC<TaskTableAssignProps> = ({ allTheTasks }) => {
   let { currentDriver } = useDriver();
 
   let tasksToMap =
-    currentDriver?.role === "KIEROWCA" || currentDriver?.role === "PROBNY"
+    currentDriver?.role === "KIEROWCA" || currentDriver?.role === "PROBNY" || currentDriver?.role !== "PODWYKONAWCA" &&
       ? theTasks.filter(
           (task) =>
             task?.driver?.id === currentDriver?.id &&

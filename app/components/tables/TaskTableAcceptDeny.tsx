@@ -51,7 +51,8 @@ const TaskTableAcceptDeny: React.FC<TaskTableAcceptDenyProps> = ({
                   Status
                 </th>
                 {currentDriver?.role !== "KIEROWCA" &&
-                  currentDriver?.role !== "PROBNY" && (
+                  currentDriver?.role !== "PROBNY" &&
+                  currentDriver?.role !== "PODWYKONAWCA" && (
                     <>
                       <th>Pogląd</th>
                     </>
@@ -115,7 +116,8 @@ const TaskTableAcceptDeny: React.FC<TaskTableAcceptDenyProps> = ({
                         </p>
                       </td>
                       {currentDriver?.role !== "KIEROWCA" &&
-                        currentDriver?.role !== "PROBNY" && (
+                        currentDriver?.role !== "PROBNY" &&
+                        currentDriver?.role !== "PODWYKONAWCA" && (
                           <>
                             <td>
                               <RozliczenieModalButton

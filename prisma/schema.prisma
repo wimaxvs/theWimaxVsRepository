@@ -324,6 +324,7 @@ model FirmBalance {
 
 enum Role {
   KIEROWCA
+  PODWYKONAWCA
   SPEDYTOR
   ZARZAD
   PROBNY

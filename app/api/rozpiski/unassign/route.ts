@@ -16,7 +16,7 @@ export async function POST(request: Request) {
     return NextResponse.json({ code: 500, message: "Nieznany użytkownik." });
   }
   if (currentDriver?.role !== "ZARZAD" && currentDriver.role !== "SPEDYTOR") {
-    return NextResponse.json({ code: 400, message: "Nie jestes Zarżądem" });
+    return NextResponse.json({ code: 400, message: "Nie jestes Zarządem" });
   }
   const body = await request.json();
   const { driverId, taskId } = body;

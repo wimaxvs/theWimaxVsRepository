@@ -195,6 +195,11 @@ const PromotionTable: React.FC<PromotionTableProps> = ({
                             textColor: "text-white",
                           },
                           {
+                            label: "Podwykonawca",
+                            color: "from-yellow-600 to-amber-900",
+                            textColor: "text-white",
+                          },
+                          {
                             label: "Próbny",
                             color: "from-blue-600 to-gray-900",
                             textColor: "text-white",

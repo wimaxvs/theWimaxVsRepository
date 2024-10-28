@@ -20,7 +20,7 @@ export async function POST(req: Request) {
     return NextResponse.json({ code: 500, message: "Nieznany użytkownik." });
   }
 
-  if (inspector?.role === "KIEROWCA" || inspector?.role === "PROBNY") {
+  if (inspector?.role === "KIEROWCA" || inspector?.role === "PROBNY" || inspector?.role === "PODWYKONAWCA") {
     return NextResponse.json({
       code: 500,
       message: "Niedozwolony. Działanie dozwolone Zarzadowi lub Spedytorowi",
