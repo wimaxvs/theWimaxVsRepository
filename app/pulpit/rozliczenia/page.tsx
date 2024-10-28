@@ -20,7 +20,7 @@ const page = async () => {
   if (
     theCurrentDriver?.role !== "KIEROWCA" &&
     theCurrentDriver?.role !== "PROBNY" &&
-    theCurrentDriver?.role !== "PODWYKONAWCA" &&
+    theCurrentDriver?.role !== "PODWYKONAWCA"
   ) {
     PracNavItems.push(...["Akceptuj lub anuluj ukończone trasy"]);
   }
