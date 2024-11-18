@@ -90,9 +90,9 @@ const VehicleView: React.FC<VehicleViewProps> = ({ allTheDrivers }) => {
             },
             {
               image: "bentoPrzebiegB",
-              title: "Przebieg przyczepy",
+              title: "Przebieg naczepy",
               subTitle:
-                currentDriver?.vehicle?.[1]?.mileage || "Przebieg Przyczepy",
+                currentDriver?.vehicle?.[1]?.mileage || "Przebieg Naczepy",
             },
           ].map((deets, index) => (
             <div
